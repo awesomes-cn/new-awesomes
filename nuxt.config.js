@@ -16,7 +16,7 @@ module.exports = {
   /*
   ** Global CSS
   */
-  css: ['~assets/css/main.css', 'normalize.css'],
+  css: ['~assets/css/main.css', 'normalize.css', 'element-ui/lib/theme-default/index.css'],
   /*
   ** Customize the progress-bar color
   */
@@ -39,6 +39,5 @@ module.exports = {
       }
     }
   },
-
-  plugins: ['~plugins/vue-icon']
+  plugins: ['~plugins/vue-icon', '~plugins/element-ui']
 }

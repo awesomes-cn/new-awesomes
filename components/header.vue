@@ -1,4 +1,4 @@
-<template lang="jade">
+<template lang="pug">
   header
     div.container
       div.left
