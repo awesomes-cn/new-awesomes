@@ -1,0 +1,27 @@
+html, body
+{
+  font-size: 12px;
+  font-family: -apple-system,PingFang SC,Hiragino Sans GB,Arial,Microsoft YaHei,Helvetica Neue,sans-serif;
+  color: #444;
+}
+
+div {
+  box-sizing: border-box
+}
+
+a {
+  -webkit-transition: all,.5s,ease,0s;
+}
+
+.container
+{
+  width: 80%;
+  margin: 0 auto;
+}
+
+
+svg {
+  width: 20px;
+  height: 30px;
+  display: inline-block;
+}
