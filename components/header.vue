@@ -13,19 +13,24 @@
           el-input(v-model="input" placeholder="查找库"  icon="search")
 
       div.right
-        a(href="")
-          icon(name="more")
+        a(href="javascript:void(0)" @click="showLogin()") 登录
+        // a(href="")
+        //   icon(name="more")
 
-        a(href="") 
-          img.tx(src="https://awesomes.oss-cn-beijing.aliyuncs.com/mem/170107150059-97-1.jpg")    
+        // a(href="") 
+        //   img.tx(src="https://awesomes.oss-cn-beijing.aliyuncs.com/mem/170107150059-97-1.jpg")    
         
         a(href="")
           icon(name="plus")  
 
-        a(href="")
-          icon(name="bell")  
+        // a(href="")
+        //   icon(name="bell")  
 
 </template>
+
+<script>
+ 
+</script>
 
 <style lang="scss" scoped>
   header {

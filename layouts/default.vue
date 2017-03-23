@@ -3,7 +3,7 @@
     my-header
     div.body
       nuxt
-    //- my-footer
+    my-footer
 </template>
 
 <script>
