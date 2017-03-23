@@ -2,6 +2,10 @@ module.exports = {
   /*
   ** Headers of the page
   */
+  cache: {
+    max: 1000,
+    maxAge: 900000
+  },
   head: {
     title: 'starter',
     meta: [
@@ -39,5 +43,5 @@ module.exports = {
       }
     }
   },
-  plugins: ['~plugins/vue-icon', '~plugins/element-ui']
+  plugins: ['~plugins/vue-icon', '~plugins/element-ui', '~plugins/common']
 }

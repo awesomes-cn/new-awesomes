@@ -1,8 +1,9 @@
 html, body
 {
-  font-size: 12px;
+  font-size: 13px;
   font-family: -apple-system,PingFang SC,Hiragino Sans GB,Arial,Microsoft YaHei,Helvetica Neue,sans-serif;
   color: #444;
+  background-color:  #f7f8fa;
 }
 
 div {
@@ -11,6 +12,15 @@ div {
 
 a {
   -webkit-transition: all,.5s,ease,0s;
+  text-decoration: none
+}
+
+a:link, a:visited {
+  color: #444;
+}
+
+a:hover, a:active {
+  color: #da552f;
 }
 
 .container
@@ -19,6 +29,10 @@ a {
   margin: 0 auto;
 }
 
+
+.body {
+  padding-top: 70px;
+}
 
 svg {
   width: 20px;

@@ -1,7 +1,8 @@
 <template lang="pug">
   div
     my-header
-    nuxt
+    div.body
+      nuxt
     //- my-footer
 </template>
 

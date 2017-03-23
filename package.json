@@ -5,11 +5,12 @@
   "author": "hxh <1246996371@qq.com>",
   "private": true,
   "dependencies": {
+    "axios": "^0.15.3",
+    "element-ui": "^1.2.5",
     "normalize.css": "^5.0.0",
     "nuxt": "latest",
     "sass-loader": "^6.0.3",
-    "vue-svg-icon": "^1.2.9",
-    "element-ui": "^1.2.5"
+    "vue-svg-icon": "^1.2.9"
   },
   "scripts": {
     "dev": "HOST=0.0.0.0 PORT=3333 nuxt",

@@ -6,11 +6,11 @@
           img.logo(src="../assets/img/logo-50.png")
           span.logo-txt wesomes
         nuxt-link(to="/about") 大牛在用
-        nuxt-link(to="/about") CSSHUB
-        nuxt-link(to="/about") 视频播放器
         nuxt-link(to="/about") 专题  
         nuxt-link(to="/about") 版本更新  
         nuxt-link(to="/about") 前端TOP100
+        a
+          el-input(v-model="input" placeholder="查找库"  icon="search")
 
       div.right
         a(href="")
@@ -36,7 +36,8 @@
     position: fixed;
     width: 100%;
     font-size: 1.1rem;
-    font-weight: bold
+    font-weight: bold;
+    background-color: #FFF
   }
 
   .container {
@@ -50,6 +51,10 @@
   .right {
     flex-grow: 1;
     flex-direction: row-reverse;
+
+    a {
+      padding: 0 10px;
+    }
   }
 
   .logo {
@@ -59,7 +64,7 @@
 
   .logo-txt {
     color: #da552f;
-    padding-left: 10px;
+    padding-left: 8px;
     font-size: 1.3rem
   }
   
