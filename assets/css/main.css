@@ -3,7 +3,7 @@ html, body
   font-size: 13px;
   font-family: -apple-system,PingFang SC,Hiragino Sans GB,Arial,Microsoft YaHei,Helvetica Neue,sans-serif;
   color: #444;
-  background-color:  #f7f8fa;
+  /*background-color:  #f7f8fa;*/
 }
 
 div {
@@ -23,12 +23,6 @@ a:hover, a:active {
   color: #da552f;
 }
 
-.container
-{
-  width: 80%;
-  margin: 0 auto;
-}
-
 
 .body {
   padding-top: 70px;
@@ -36,6 +30,6 @@ a:hover, a:active {
 
 svg {
   width: 20px;
-  height: 30px;
+  height: 20px;
   display: inline-block;
 }

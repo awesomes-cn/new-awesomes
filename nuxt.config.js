@@ -20,7 +20,7 @@ module.exports = {
   /*
   ** Global CSS
   */
-  css: ['~assets/css/main.css', 'normalize.css', 'element-ui/lib/theme-default/index.css'],
+  css: ['bootstrap/dist/css/bootstrap-grid.css', '~assets/css/main.css', 'normalize.css', 'element-ui/lib/theme-default/index.css', 'animate.css'],
   /*
   ** Customize the progress-bar color
   */
@@ -43,5 +43,5 @@ module.exports = {
       }
     }
   },
-  plugins: ['~plugins/vue-icon', '~plugins/element-ui', '~plugins/common']
+  plugins: ['~plugins/vue-icon', '~plugins/element-ui', '~plugins/common', { src: '~plugins/pagination', ssr: false }]
 }

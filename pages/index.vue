@@ -1,14 +1,15 @@
 <template lang="pug">
   div.container
-    div.left
-      repo-latest(:repos="latestRepos")
-    div.right
-      a.card(href="")
-        icon(name="chrome" class="chrome-logo")
-        h2 寻找前端插件，一步到位
+    div.row
+      div.col-md-7
+        repo-latest(:repos="latestRepos")
+      div.col-md-5
+        a.card(href="")
+          icon(name="chrome" class="chrome-logo")
+          h2 寻找前端插件，一步到位
 
-      a.card(href="")
-        img(src="../assets/img/jsonon.png")
+        a.card(href="")
+          img(src="../assets/img/jsonon.png")
                 
 </template>
 
@@ -36,19 +37,6 @@
 
 
 <style lang="scss" scoped>
- .container {
-   display: flex
- }
-
- .left {
-   width: 60%;
- }
-
- .right {
-   flex-grow: 1;
-   margin-left: 20px
- }
-
  .card {
    display: block;
    background-color: #FFF;

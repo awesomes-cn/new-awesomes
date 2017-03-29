@@ -3,9 +3,10 @@
     div.item(v-for="repo in repos")
       div.info
         div.cover-wrap
-          img.cover(:src="cdn(repo.cover, 'repo', 'repo')")
+          nuxt-link(:to="'/repo/' + repo.owner + '/' + repo.alia")
+            img.cover(:src="cdn(repo.cover, 'repo', 'repo')")
         div
-          nuxt-link(to="/about" class="repo-name")
+          nuxt-link(:to="'/repo/' + repo.owner + '/' + repo.alia" class="repo-name")
             h3 {{repo.name}}
           div.categorys
             nuxt-link(to="/about" class="repo-name") Dom
