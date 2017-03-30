@@ -20,7 +20,14 @@ module.exports = {
   /*
   ** Global CSS
   */
-  css: ['bootstrap/dist/css/bootstrap-grid.css', '~assets/css/main.css', 'normalize.css', 'element-ui/lib/theme-default/index.css', 'animate.css'],
+  css: [
+    'bootstrap/dist/css/bootstrap-grid.css',
+    'normalize.css',
+    'prismjs/themes/prism.css',
+    'element-ui/lib/theme-default/index.css',
+    'animate.css',
+    '~assets/css/main.css'
+  ],
   /*
   ** Customize the progress-bar color
   */

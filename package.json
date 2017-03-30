@@ -10,8 +10,10 @@
     "bootstrap": "^4.0.0-alpha.6",
     "element-ui": "^1.2.5",
     "jquery": "^3.2.1",
+    "marked": "^0.3.6",
     "normalize.css": "^5.0.0",
     "nuxt": "^0.10.5",
+    "prismjs": "^1.6.0",
     "sass-loader": "^6.0.3",
     "simple-pagination.js": "^1.6.0",
     "vue-svg-icon": "^1.2.9"

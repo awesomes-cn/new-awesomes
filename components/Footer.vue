@@ -21,6 +21,9 @@
 
 
 <style lang="scss" scoped>
+  footer {
+    margin-top: 50px;
+  }
   .box-card {
     position: fixed;
     top: 60px;

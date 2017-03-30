@@ -19,9 +19,7 @@
 
 <script>
   export default {
-    props: ['repos'],
-    data () {
-    }
+    props: ['repos']
   }
 </script>
 
