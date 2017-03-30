@@ -1,6 +1,9 @@
 <template lang="pug">
   div.meditor
     div.toolbar
+      a(href="javascript:void(0)" title="上传图片" @click="preview")
+        icon(name="images")
+
       a(href="javascript:void(0)" title="预览" @click="preview" v-bind:class="'active-' + (view === 'preview')")
         icon(name="eye")
 
