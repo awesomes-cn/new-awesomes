@@ -8,6 +8,7 @@
     "animate.css": "^3.5.2",
     "axios": "^0.15.3",
     "bootstrap": "^4.0.0-alpha.6",
+    "codemirror": "^5.25.0",
     "element-ui": "^1.2.5",
     "jquery": "^3.2.1",
     "marked": "^0.3.6",
@@ -20,10 +21,11 @@
   },
   "scripts": {
     "dev": "HOST=0.0.0.0 PORT=3333 nuxt",
+    "windev": "nuxt",
     "build": "nuxt build",
     "start": "HOST=0.0.0.0 PORT=3333 nuxt start",
     "generate": "nuxt generate",
-    "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
+    "lint": "eslint --ext .js,.vue --ignore-path .eslintignore .",
     "precommit": "npm run lint"
   },
   "devDependencies": {
