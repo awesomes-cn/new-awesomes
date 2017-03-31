@@ -8,9 +8,9 @@
           nuxt-link(to="/mem" v-if="session") 代码
           nuxt-link(to="/mem" v-if="session") 评论
 
-      nuxt-link(to="/mem" v-if="session" class="tx-link") 
-        img.tx(:src="cdn(session.avatar, 'mem')")
-      h2 {{session.nc}}
+      nuxt-link(to="/mem" class="tx-link") 
+        img.tx(:src="cdn(mem.avatar, 'mem')")
+      h2 {{mem.nc}}
 
       div.info
         span
@@ -32,7 +32,15 @@
 </template>
 
 <script>
+  import axios from '~plugins/axios'
   export default {
+    asyncData ({ req, params, query }) {
+      return axios.get(`mem/${params.id}`).then(res => {
+        return {
+          mem: res.data
+        }
+      })
+    },
     computed: {
       session () {
         return this.$store.state.session || {}
