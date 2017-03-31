@@ -1,0 +1,17 @@
+{
+  "name": "awesomes-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bookshelf": "^0.10.3",
+    "express": "^4.15.2",
+    "knex": "^0.12.8",
+    "mysql": "^2.13.0"
+  }
+}
