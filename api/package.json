@@ -9,8 +9,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "body-parser": "^1.17.1",
     "bookshelf": "^0.10.3",
     "express": "^4.15.2",
+    "jsonwebtoken": "^7.3.0",
     "knex": "^0.12.8",
     "mysql": "^2.13.0"
   }

@@ -19,7 +19,7 @@ var router = express.Router()
       }
 
       if (!controller) {
-        let cont = '/repo/:owner/:alia/:action'.split('/')[1]
+        let cont = route.split('/')[1]
         controller = (cont[0] === ':' ? 'home' : cont)
       }
 

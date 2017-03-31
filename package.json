@@ -17,6 +17,7 @@
     "prismjs": "^1.6.0",
     "sass-loader": "^6.0.3",
     "simple-pagination.js": "^1.6.0",
+    "store": "^2.0.4",
     "vue-svg-icon": "^1.2.9"
   },
   "scripts": {

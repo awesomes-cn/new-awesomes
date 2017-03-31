@@ -12,7 +12,11 @@ renderer.code = (code, language) => {
 Vue.use({
   install: function (Vue, options) {
     Vue.prototype.cdn = function (name, folder, process) {
-      return `https://awesomes.oss-cn-beijing.aliyuncs.com/${folder}/${name}?x-oss-process=style/${process}`
+      let url = `https://awesomes.oss-cn-beijing.aliyuncs.com/${folder}/${name}`
+      if (process) {
+        url += `?x-oss-process=style/${process}`
+      }
+      return url
     }
 
     Vue.prototype.showLogin = function () {

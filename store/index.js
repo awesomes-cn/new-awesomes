@@ -2,7 +2,8 @@ import Vuex from 'vuex'
 
 const store = new Vuex.Store({
   state: {
-    isShowLogin: false
+    isShowLogin: false,
+    session: null
   },
   mutations: {
     showLogin (state) {
@@ -10,7 +11,12 @@ const store = new Vuex.Store({
     },
     hideLogin (state) {
       state.isShowLogin = false
+    },
+    setUser (state, session) {
+      state.session = session
     }
+  },
+  actions: {
   }
 })
 
