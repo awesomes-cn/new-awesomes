@@ -6,7 +6,7 @@
           nuxt-link(to="/")
             img.logo(src="../assets/img/logo-50.png")
             span.logo-txt wesomes
-          nuxt-link(to="/about") 大牛在用
+          nuxt-link(to="/weuse") 大牛在用
           nuxt-link(to="/about") 专题  
           nuxt-link(to="/about") 版本更新  
           nuxt-link(to="/about") 前端TOP100
@@ -23,7 +23,7 @@
               nuxt-link(to="/about"  @click="logout()") 注 销
 
           a(href="javascript:void(0)" @click="showLogin()" v-if="!session") 登录
-          nuxt-link(to="/mem" v-if="session") 
+          nuxt-link(:to="'/mem/' + session.id" v-if="session") 
             img.tx(:src="cdn(session.avatar, 'mem')")
             
 
@@ -125,7 +125,7 @@
     width: 100%;
     font-size: 1.1rem;
     font-weight: bold;
-    background-color: #FFF
+    background-color: rgba(254, 254, 254, 0.97)
   }
 
   .container {
