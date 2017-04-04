@@ -1,5 +1,6 @@
 const Repo = require('../models/repo')
 const Mem = require('../models/mem')
+const Subject = require('../models/subject')
 const jwt = require('jsonwebtoken')
 const crypto = require('crypto')
 
@@ -106,5 +107,12 @@ module.exports = {
       res.send(data)
     })
     // Mem.where('(role = ? or reputation >= 20) and `using` >= 5', 'vip').order("reputation desc").includes(:mem_info)
+  },
+
+  // 专题列表页面
+  get_subjects: (req, res) => {
+    Subject.fetchAll().then((items) => {
+      res.send(items)
+    })
   }
 }

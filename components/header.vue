@@ -7,8 +7,8 @@
             img.logo(src="../assets/img/logo-50.png")
             span.logo-txt wesomes
           nuxt-link(to="/weuse") 大牛在用
-          nuxt-link(to="/about") 专题  
-          nuxt-link(to="/about") 版本更新  
+          nuxt-link(to="/subjects") 专题  
+          nuxt-link(to="/about") 优选+  
           nuxt-link(to="/about") 前端TOP100
           a
             el-input(placeholder="查找库"  icon="search")
@@ -30,7 +30,7 @@
           a(href="" v-show="session")
             icon(name="bell")
 
-          a(href="")
+          nuxt-link(to="/repo/new")
             icon(name="plus")    
     
     // 登录框

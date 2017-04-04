@@ -3,7 +3,10 @@
     div.container
       div.row
         div.col-md-7
-          repo-latest(:repos="latestRepos")
+          div.repo-list(v-for="repo in latestRepos")
+            nuxt-link(:to="'/repo/' + repo.owner + '/' + repo.alia")
+              div.repo-item
+                div.cover(v-bind:style="'background-image:url(' + cdn(repo.cover, 'repo') + ')'")
         div.col-md-5
           a.card(href="")
             icon(name="chrome" class="chrome-logo")
@@ -65,6 +68,26 @@
     width: 50px;
     height: 50px;
     margin-right: 20px;
+ }
+
+ .repo-list {
+   background-color: #FFF;
+ }
+
+ .repo-item {
+   padding: 50px 8%;
+   border-bottom: #EEE 1px solid;
+   .cover {
+      height: 250px;
+      margin: 20px 0;
+      position: relative;
+      background-repeat: no-repeat;
+      background-size: cover;
+      overflow: hidden;
+      background-position: center center;
+      position: relative;
+      color: #FFF;
+   }
  }
 
 

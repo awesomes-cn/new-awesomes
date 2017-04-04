@@ -13,5 +13,13 @@ module.exports = {
     Category.where({group: 'REPO', typcd: 'B', parent: req.params.id}).query({select: ['key', 'sdesc', 'icon']}).fetchAll().then((cates) => {
       res.send(cates)
     })
+  },
+
+  // 完整分类
+  get_all: (req, res) => {
+    Category.where({group: 'REPO'}).query({select: ['key', 'sdesc', 'icon', 'parent', 'typcd']})
+    .fetchAll().then((cates) => {
+      res.send(cates)
+    })
   }
 }

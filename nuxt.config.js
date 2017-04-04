@@ -50,5 +50,5 @@ module.exports = {
       }
     }
   },
-  plugins: ['~plugins/vue-icon', '~plugins/element-ui', '~plugins/common', { src: '~plugins/pagination', ssr: false }, { src: '~plugins/editor', ssr: false }]
+  plugins: ['~plugins/vue-icon', '~plugins/element-ui', '~plugins/common', '~plugins/validator', { src: '~plugins/pagination', ssr: false }, { src: '~plugins/editor', ssr: false }]
 }
