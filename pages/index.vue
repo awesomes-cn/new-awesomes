@@ -3,10 +3,12 @@
     div.container
       div.row
         div.col-md-7
-          div.repo-list(v-for="repo in latestRepos")
-            nuxt-link(:to="'/repo/' + repo.owner + '/' + repo.alia")
+          div.repo-list(v-for="topic in latestTopics")
+            nuxt-link(to="")
               div.repo-item
-                div.cover(v-bind:style="'background-image:url(' + cdn(repo.cover, 'repo') + ')'")
+                div.cover(style="background-image:url('https://awesomes.oss-cn-beijing.aliyuncs.com/repo/170316214755-49-1.png')")
+                // div.cover(v-bind:style="'background-image:url(' + cdn(repo.cover, 'repo') + ')'")
+                h2 {{topic.title}}
         div.col-md-5
           a.card(href="")
             icon(name="chrome" class="chrome-logo")
@@ -27,9 +29,9 @@
       return Math.floor(Date.now() / 10000)
     },
     asyncData () {
-      return axios.get('repo/latest').then(res => {
+      return axios.get('topics?limit=6&typcd=TOPIC').then(res => {
         return {
-          latestRepos: res.data
+          latestTopics: res.data
         }
       })
     },
@@ -78,7 +80,7 @@
    padding: 50px 8%;
    border-bottom: #EEE 1px solid;
    .cover {
-      height: 250px;
+      height: 200px;
       margin: 20px 0;
       position: relative;
       background-repeat: no-repeat;

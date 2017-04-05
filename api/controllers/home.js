@@ -1,5 +1,6 @@
 const Repo = require('../models/repo')
 const Mem = require('../models/mem')
+const Topic = require('../models/topic')
 const Subject = require('../models/subject')
 const jwt = require('jsonwebtoken')
 const crypto = require('crypto')
@@ -113,6 +114,24 @@ module.exports = {
   get_subjects: (req, res) => {
     Subject.fetchAll().then((items) => {
       res.send(items)
+    })
+  },
+
+  // 获取文章
+  get_topics: (req, res) => {
+    let limit = Math.min((req.query.limit || 10), 20)
+    let skip = parseInt(req.query.skip || 0)
+    let query = {
+      limit: limit,
+      offset: skip,
+      orderByRaw: 'id desc',
+      select: ['id', 'title'],
+      where: {
+        typcd: req.query.typcd
+      }
+    }
+    Topic.query(query).fetchAll().then(data => {
+      res.send(data)
     })
   }
 }

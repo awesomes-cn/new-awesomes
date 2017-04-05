@@ -1,5 +1,5 @@
 <template lang="pug">
-  div
+  div(:class="'page-' + mypage")
     my-header
     div.body
       nuxt
@@ -11,9 +11,19 @@ import MyFooter from '~components/Footer.vue'
 import MyHeader from '~components/header.vue'
 
 export default {
+  data () {
+    return {
+      mypage: this.$route.name
+    }
+  },
   components: {
     MyFooter,
     MyHeader
+  },
+  watch: {
+    '$route': function () {
+      this.mypage = this.$route.name
+    }
   }
 }
 </script>
