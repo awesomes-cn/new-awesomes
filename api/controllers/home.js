@@ -4,6 +4,7 @@ const Topic = require('../models/topic')
 const Subject = require('../models/subject')
 const jwt = require('jsonwebtoken')
 const crypto = require('crypto')
+const qiniu = require('../lib/qiniu')
 
 
 
@@ -132,6 +133,15 @@ module.exports = {
     }
     Topic.query(query).fetchAll().then(data => {
       res.send(data)
+    })
+  },
+
+  // 上传Token
+  get_uptoken: (req, res) => {
+    let filename = `${req.query.prefix}/${Date.now()}.png`
+    res.send({
+      token: qiniu.uptoken(filename),
+      filename: filename
     })
   }
 }

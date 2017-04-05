@@ -20,11 +20,7 @@
 </template>
 
 <script>
-  import Upload from '~components/upload.vue'
   export default {
-    components: {
-      Upload
-    }
   }
 </script>
 
