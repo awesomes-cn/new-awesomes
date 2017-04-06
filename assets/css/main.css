@@ -49,3 +49,17 @@ svg {
 :not(pre) > code[class*="language-"], pre[class*="language-"] {
   background: #f8f8f8;
 }
+
+.CodeMirror {
+  font-size: 13px;
+  font-family: -apple-system,PingFang SC,Hiragino Sans GB,Arial,Microsoft YaHei,Helvetica Neue,sans-serif!important
+}
+
+button > span {
+  display: inline-flex;
+  align-items: center;
+}
+
+button svg {
+  margin-right: 3px;
+}

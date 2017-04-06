@@ -12,3 +12,4 @@ dist
 
 components/editor.vue
 components/upload.vue
+assets/js/aliyun-oss-sdk.min.js

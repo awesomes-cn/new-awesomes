@@ -6,7 +6,7 @@ module.exports = {
       rootyp: req.body.rootyp,
       typcd: req.body.typcd,
       status: 'UNREAD'
-    }).save().then(model=> {
+    }).save().then(model => {
       res.send({status: true})
     })
   }

@@ -4,44 +4,8 @@ const Topic = require('../models/topic')
 const Subject = require('../models/subject')
 const jwt = require('jsonwebtoken')
 const crypto = require('crypto')
-const qiniu = require('../lib/qiniu')
-
-
 
 module.exports = {
-
-  // repo 列表
-  get_repos: (req, res) => {
-    let limit = Math.min((req.query.limit || 10), 20)
-    let skip = parseInt(req.query.skip || 0)
-    let where = {}
-    let query = {
-      limit: limit,
-      offset: skip,
-      orderByRaw: 'id desc',
-      select: ['id', 'name', 'cover', 'description_cn', 'owner', 'alia', 'using', 'mark']
-    }
-
-    ;['rootyp', 'typcd'].forEach(key => {
-      let val = req.query[key]
-      if (val) {
-        where[key] = val
-      }
-    })
-
-    query.where = where
-
-    Promise.all([Repo.where(where).count('id'), Repo.query(query).fetchAll()])
-    .then(([count, repos]) => {
-      res.send({
-        items: repos,
-        count: count
-      })
-    }).catch((err) => {
-      console.error(err)
-    })
-  },
-
   // 登录
   post_login: (req, res) => {
     let uid = req.body.uid
@@ -109,39 +73,5 @@ module.exports = {
       res.send(data)
     })
     // Mem.where('(role = ? or reputation >= 20) and `using` >= 5', 'vip').order("reputation desc").includes(:mem_info)
-  },
-
-  // 专题列表页面
-  get_subjects: (req, res) => {
-    Subject.fetchAll().then((items) => {
-      res.send(items)
-    })
-  },
-
-  // 获取文章
-  get_topics: (req, res) => {
-    let limit = Math.min((req.query.limit || 10), 20)
-    let skip = parseInt(req.query.skip || 0)
-    let query = {
-      limit: limit,
-      offset: skip,
-      orderByRaw: 'id desc',
-      select: ['id', 'title'],
-      where: {
-        typcd: req.query.typcd
-      }
-    }
-    Topic.query(query).fetchAll().then(data => {
-      res.send(data)
-    })
-  },
-
-  // 上传Token
-  get_uptoken: (req, res) => {
-    let filename = `${req.query.prefix}/${Date.now()}.png`
-    res.send({
-      token: qiniu.uptoken(filename),
-      filename: filename
-    })
   }
 }

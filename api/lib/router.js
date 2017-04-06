@@ -10,7 +10,7 @@ var router = express.Router()
     '/repo/:owner/:alia',
     `/:controller/:id/:action`,
     `/:controller/:action`,
-    `/:action`
+    `/:controller`
   ].forEach(route => {
     router[method](route, function (req, res, next) {
       let action = req.params.action
@@ -20,8 +20,11 @@ var router = express.Router()
       }
 
       if (!controller) {
-        let cont = route.split('/')[1]
-        controller = (cont[0] === ':' ? 'home' : cont)
+        controller = route.split('/')[1]
+      }
+
+      if (action === 'index' && route.split('/')[1][0] !== ':') {
+        action = 'index_id'
       }
 
       try {

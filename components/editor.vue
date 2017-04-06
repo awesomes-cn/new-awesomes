@@ -19,7 +19,7 @@
   require('codemirror/mode/markdown/markdown.js')
   let markdown_editor
   export default {
-    props: ['flag'],
+    props: ['flag', 'value'],
     data () {
       return {
         htmlstr: '',
@@ -48,6 +48,7 @@
 
       markdown_editor.on("change",function(){
         // self.htmlval = markdown_editor.getValue()
+        self.$emit('input', markdown_editor.getValue())
       })
     }
   }

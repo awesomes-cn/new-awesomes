@@ -1,6 +1,6 @@
 const Mem = require('../models/mem')
 module.exports = {
-  get_index: function (req, res) {
+  get_index_id: function (req, res) {
     Mem.query({
       where: {id: req.params.action},
       select: ['id', 'nc', 'avatar']

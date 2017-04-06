@@ -5,5 +5,11 @@
       "password" : "1234",
       "database" : "dev_awesomes",
       "charset"  : "utf8"
+  },
+  "alioss": {
+    "AccessKeyId" : "LTAIGtUHv7B3aMSj",
+    "AccessKeySecret" : "5ZmLWKtZquIrTPi59nQ5F5lReo3C7U",
+    "RoleArn" : "acs:ram::1643139911524487:role/ossgo",
+    "TokenExpireTime" : "900"
   }
 }

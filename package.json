@@ -5,6 +5,7 @@
   "author": "hxh <1246996371@qq.com>",
   "private": true,
   "dependencies": {
+    "ali-oss": "^4.8.0",
     "animate.css": "^3.5.2",
     "axios": "^0.15.3",
     "bootstrap": "^4.0.0-alpha.6",
