@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import timeago from 'timeago.js'
 var marked = require('marked')
 var Prism = require('prismjs')
 var renderer = new marked.Renderer()
@@ -32,6 +33,10 @@ Vue.use({
 
     Vue.prototype.marked = function (con) {
       return marked(con, {renderer: renderer})
+    }
+
+    Vue.prototype.timeago = function (datetime) {
+      return timeago().format(datetime, 'zh_CN')
     }
   }
 })

@@ -26,6 +26,9 @@ a {
   -webkit-transition: all,.5s,ease,0s;
   text-decoration: none
 }
+a:focus, a:hover {
+  text-decoration: none
+}
 
 a:link, a:visited {
   color: #444;
@@ -62,4 +65,8 @@ button > span {
 
 button svg {
   margin-right: 3px;
+}
+
+.card {
+  border: 0;
 }

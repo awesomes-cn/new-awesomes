@@ -5,16 +5,20 @@
         div.left
           nuxt-link(to="/")
             img.logo(src="../assets/img/logo-50.png")
-            span.logo-txt wesomes
-          nuxt-link(to="/weuse") 大牛在用
-          nuxt-link(to="/subjects") 专题  
-          nuxt-link(to="/about") 优选+  
-          nuxt-link(to="/about") 前端TOP100
-          a
-            el-input(placeholder="查找库"  icon="search")
+            span.logo-txt.hide-small wesomes  
+        div.middle
+          div.inner
+            div.swiper-container
+              div.swiper-wrapper
+                nuxt-link(to="/repos/Applications/frameworks" class="swiper-slide") 前端库
+                nuxt-link(to="/weuse"  class="swiper-slide") 大牛在用
+                nuxt-link(to="/subjects"  class="swiper-slide") 专题  
+                nuxt-link(to="/topics"  class="swiper-slide") 优选+  
+                nuxt-link(to="/rank"  class="swiper-slide") 前端TOP100
+            
 
         div.right
-          a(href="" v-if="session")
+          a.hide-small(href="" v-if="session")
             icon(name="more")
 
             div.memeus
@@ -23,11 +27,12 @@
               nuxt-link(to="/about"  @click="logout()") 注 销
 
           a(href="javascript:void(0)" @click="showLogin()" v-if="!session") 登录
+
           nuxt-link(:to="'/mem/' + session.id" v-if="session") 
             img.tx(:src="cdn(session.avatar, 'mem')")
             
 
-          a(href="" v-show="session")
+          a.hide-small(href="" v-show="session")
             icon(name="bell")
 
           nuxt-link(to="/repo/new")
@@ -56,6 +61,7 @@
 
 <script>
   import axios from '~plugins/axios'
+  require('swiper/dist/css/swiper.css')
   let store = require('store')
   let expirePlugin = require('store/plugins/expire')
   store.addPlugin(expirePlugin)
@@ -74,7 +80,7 @@
     methods: {
       login: function () {
         let self = this
-        axios.post(`login`, { uid: this.uid, pwd: this.pwd }).then(res => {
+        axios.post(`session/login`, { uid: this.uid, pwd: this.pwd }).then(res => {
           console.log(res.data)
           if (!res.data.status) {
             self.$message({
@@ -98,6 +104,15 @@
         store.set('awlogin', null)
         this.$store.commit('setUser', null)
       }
+    },
+    mounted () {
+      var Swiper = require('swiper')
+      let mysq = new Swiper('.swiper-container', {
+        spaceBetween: 30,
+        paginationClickable: true,
+        freeMode: true
+      })
+      console.log(mysq)
     },
     created () {
       let session = (store.get('awlogin') || {}).mem
@@ -125,15 +140,33 @@
     width: 100%;
     font-size: 1.1rem;
     font-weight: bold;
-    background-color: rgba(254, 254, 254, 0.97)
+    background-color: rgba(254, 254, 254, 0.97);
+
+    a.nuxt-link-active {
+      color: #da552f;
+    }
   }
 
   .container {
     display: flex
   }
 
-  .left, .right {
-    display: flex
+  .left, .middle .inner, .right {
+    display: flex;
+  }
+
+  .middle {
+    overflow: hidden;
+  }
+
+  .middle .inner{
+    flex-wrap: wrap;
+    width: 2000px;
+  }
+
+  .swiper-container {
+      width: 100%;
+      height: 50px;
   }
 
   .right {
@@ -186,6 +219,9 @@
     &:hover {
       color: #da552f
     }
+    @media (max-width: 576px) {
+      padding: 0 10px;
+    }
   }
 
   .tx {
@@ -234,5 +270,9 @@
     }
   }
 
-
+  @media (max-width: 1000px) {
+    .hide-small {
+      display: none
+    }
+  }
 </style>

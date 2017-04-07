@@ -8,19 +8,37 @@ module.exports = {
       limit: limit,
       offset: skip,
       orderByRaw: 'id desc',
-      select: ['id', 'title'],
+      select: ['id', 'title', 'cover', 'mem_id', 'favor', 'comment', 'visit', 'created_at'],
       where: {
         typcd: req.query.typcd
       }
     }
-    Topic.query(query).fetchAll().then(data => {
+    Topic.query(query).fetchAll({
+      withRelated: [{
+        'mem': function (mqu) {
+          return mqu.select('id', 'nc', 'avatar')
+        }
+      }]
+    }).then(data => {
+      res.send(data)
+    })
+  },
+
+  get_index_id: (req, res) => {
+    Topic.query({where: {id: req.params.action}}).fetch({
+      withRelated: [{
+        'mem': function (mqu) {
+          return mqu.select('id', 'nc', 'avatar')
+        }
+      }]
+    }).then(data => {
       res.send(data)
     })
   },
 
   post_index: function (req, res) {
     let params = {}
-    ;['var1', 'title', 'con', 'typcd'].forEach(key => {
+    ;['cover', 'title', 'con', 'typcd'].forEach(key => {
       params[key] = req.body[key]
     })
 

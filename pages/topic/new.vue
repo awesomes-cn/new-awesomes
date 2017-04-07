@@ -15,9 +15,9 @@
       div.tip 
         strong 发布需知：
         span 文章主要内容必须围绕前端框架的用法、经验等方面去展开。本着对用户负责的态度，对于未达到质量要求的文章将不会审核通过！
-      div.upload-cover(v-bind:style="newTopic.var1 ? 'background-image:url(' + cdn(newTopic.var1, 'topic') + ')' : ''")
+      div.upload-cover(v-bind:style="newTopic.cover ? 'background-image:url(' + cdn(newTopic.cover, 'topic') + ')' : ''")
         icon(name="camera")
-        upload(v-model="newTopic.var1" folder="topic")
+        upload(v-model="newTopic.cover" folder="topic")
       input.title-txt(type="text" placeholder="请输入标题" v-model="newTopic.title")
       editor(flag="demo" v-model="newTopic.con")
 </template>
@@ -28,7 +28,7 @@
     data () {
       return {
         newTopic: {
-          var1: null,
+          cover: null,
           title: '',
           con: '',
           typcd: 'TOPIC'

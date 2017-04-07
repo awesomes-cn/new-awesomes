@@ -48,7 +48,7 @@
       .then(res => {
         initData.typcds = res.data
         let page = query.page || 1
-        return axios.get(`repos`, {
+        return axios.get(`repo`, {
           params: {
             rootyp: params.rootyp,
             typcd: params.typcd,

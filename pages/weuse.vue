@@ -21,7 +21,7 @@
   import axios from '~plugins/axios'
   export default {
     asyncData () {
-      return axios.get('weuses').then(res => {
+      return axios.get('weuse').then(res => {
         return {
           mems: res.data
         }

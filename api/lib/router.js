@@ -23,9 +23,10 @@ var router = express.Router()
         controller = route.split('/')[1]
       }
 
-      if (action === 'index' && route.split('/')[1][0] !== ':') {
+      if (action === 'index' && route.lastIndexOf('/') > 0) {
         action = 'index_id'
       }
+
 
       try {
         require(`../controllers/${controller}`)[`${method}_${action}`](req, res, next)
