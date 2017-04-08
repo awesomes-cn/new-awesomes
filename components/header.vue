@@ -8,13 +8,11 @@
             span.logo-txt.hide-small wesomes  
         div.middle
           div.inner
-            div.swiper-container
-              div.swiper-wrapper
-                nuxt-link(to="/repos/Applications/frameworks" class="swiper-slide") 前端库
-                nuxt-link(to="/weuse"  class="swiper-slide") 大牛在用
-                nuxt-link(to="/subjects"  class="swiper-slide") 专题  
-                nuxt-link(to="/topics"  class="swiper-slide") 优选+  
-                nuxt-link(to="/rank"  class="swiper-slide") 前端TOP100
+            nuxt-link(to="/repos/Applications/frameworks") 前端库
+            nuxt-link(to="/weuse" ) 大牛在用
+            nuxt-link(to="/subjects" ) 专题  
+            nuxt-link(to="/topics" ) 优选+  
+            nuxt-link(to="/rank" ) 前端TOP100
             
 
         div.right
@@ -61,7 +59,6 @@
 
 <script>
   import axios from '~plugins/axios'
-  require('swiper/dist/css/swiper.css')
   let store = require('store')
   let expirePlugin = require('store/plugins/expire')
   store.addPlugin(expirePlugin)
@@ -104,15 +101,6 @@
         store.set('awlogin', null)
         this.$store.commit('setUser', null)
       }
-    },
-    mounted () {
-      var Swiper = require('swiper')
-      let mysq = new Swiper('.swiper-container', {
-        spaceBetween: 30,
-        paginationClickable: true,
-        freeMode: true
-      })
-      console.log(mysq)
     },
     created () {
       let session = (store.get('awlogin') || {}).mem
