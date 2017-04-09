@@ -1,7 +1,9 @@
 const DB = require('../lib/db')
 
 module.exports = DB.Model.extend({
-  tableName: 'subjects',
+  tableName: 'comments',
   hasTimestamps: true,
-  repos: []
+  mem: function () {
+    return this.belongsTo(Mem)
+  }
 })
