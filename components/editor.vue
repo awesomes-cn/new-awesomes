@@ -9,7 +9,7 @@
 
        
     div.con(v-show="view == 'editor'")
-      textarea(:id="'meditor-' + flag")
+      textarea(:id="'meditor-' + flag" )
     div.preview(v-show="view == 'preview'" v-html="marked(htmlstr)")  
 </template>
 <script>
@@ -43,6 +43,7 @@
         mode: 'markdown',
         theme: "default",
         lineWrapping: true,
+        viewportMargin: Infinity,
         extraKeys: {"Enter": "newlineAndIndentContinueMarkdownList"}
       })
 

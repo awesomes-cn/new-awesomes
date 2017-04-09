@@ -8,12 +8,14 @@
       div.bar  
       article(v-html="marked(repo.about)")
 
-
+      div.com-wrap
+        comment(flag="repo-comment")
 </template>
 
 <script>
   import axios from '~plugins/axios'
   import Banner from '~components/repo/banner'
+  import Comment from '~components/comment.vue'
   export default {
     asyncData ({ req, params, query }) {
       return axios.get(`repo/${params.owner}/${params.name}`)
@@ -24,7 +26,8 @@
       })
     },
     components: {
-      Banner
+      Banner,
+      Comment
     }
   }
 </script>
@@ -57,5 +60,9 @@
     background-color: #EEE;
     float: left;
     width: 100%;
+  }
+
+  .com-wrap {
+    padding: 50px 10px;
   }
 </style>

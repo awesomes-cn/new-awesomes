@@ -6,8 +6,10 @@
           nuxt-link(to="/")
             img.logo(src="../assets/img/logo-50.png")
             span.logo-txt.hide-small wesomes  
+          a(href="javascript:void(0)" @click="isHideMenu = !isHideMenu")
+            icon(name="list" class="show-small")
         div.middle
-          div.inner
+          div.inner(:style="isHideMenu ? 'height: 60px' : ''")
             nuxt-link(to="/repos/Applications/frameworks") 前端库
             nuxt-link(to="/weuse" ) 大牛在用
             nuxt-link(to="/subjects" ) 专题  
@@ -66,7 +68,8 @@
     data () {
       return {
         uid: '',
-        pwd: ''
+        pwd: '',
+        isHideMenu: true
       }
     },
     computed: {
@@ -144,12 +147,16 @@
   }
 
   .middle {
-    overflow: hidden;
   }
 
   .middle .inner{
     flex-wrap: wrap;
-    width: 2000px;
+    overflow: hidden;
+
+    @media (max-width: 576px) {
+      display: block;
+    }
+
   }
 
   .swiper-container {
@@ -207,6 +214,10 @@
     &:hover {
       color: #da552f
     }
+    
+  }
+
+  .left a, .right a {
     @media (max-width: 576px) {
       padding: 0 10px;
     }
@@ -258,9 +269,16 @@
     }
   }
 
+  .show-small {
+    display: none;
+  }
+
   @media (max-width: 1000px) {
     .hide-small {
       display: none
+    }
+    .show-small {
+      display: block;
     }
   }
 </style>

@@ -55,7 +55,8 @@ svg {
 
 .CodeMirror {
   font-size: 13px;
-  font-family: -apple-system,PingFang SC,Hiragino Sans GB,Arial,Microsoft YaHei,Helvetica Neue,sans-serif!important
+  font-family: -apple-system,PingFang SC,Hiragino Sans GB,Arial,Microsoft YaHei,Helvetica Neue,sans-serif!important;
+  height: auto!important;
 }
 
 button > span {

@@ -3,21 +3,18 @@
     div.container
       div.row
         div.col-md-7
-          div.topic-list(v-for="topic in latestTopics")
-            nuxt-link(to="")
-              div.topic-item
-                div.cover(v-bind:style="'background-image:url(' + cdn(topic.cover, 'topic') + ')'")
-                h2 {{topic.title}} 
+          topics(:topics="topicList")
             
         div.col-md-5
-          a.card(href="")
-            img(src="../assets/img/jsonon.png")
+          nuxt-link(to="topic/new" class="card") 
+            h4 我要发布
                   
 </template>
 
 
 <script>
   import axios from '~plugins/axios'
+  import Topics from '~components/topic/list.vue'
   export default {
     name: 'home',
     serverCacheKey () {
@@ -26,9 +23,12 @@
     asyncData () {
       return axios.get('topic?limit=6&typcd=TOPIC').then(res => {
         return {
-          latestTopics: res.data
+          topicList: res.data
         }
       })
+    },
+    components: {
+      Topics
     }
   }
 </script>
