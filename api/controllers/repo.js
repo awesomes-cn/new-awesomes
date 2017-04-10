@@ -3,7 +3,7 @@ module.exports = {
 
   // repo 列表
   get_index: (req, res) => {
-    let limit = Math.min((req.query.limit || 10), 20)
+    let limit = Math.min((req.query.limit || 10), 100)
     let skip = parseInt(req.query.skip || 0)
     let where = {}
     let query = {
@@ -11,6 +11,10 @@ module.exports = {
       offset: skip,
       orderByRaw: 'id desc',
       select: ['id', 'name', 'cover', 'description_cn', 'owner', 'alia', 'using', 'mark']
+    }
+
+    if (req.query['sort'] === 'hot') {
+      query.orderByRaw = '(stargazers_count + forks_count + subscribers_count) desc'
     }
 
     ;['rootyp', 'typcd'].forEach(key => {

@@ -6,6 +6,10 @@ module.exports = {
     max: 1000,
     maxAge: 900000
   },
+  router: {
+    // 在每页渲染前运行 middleware/user-agent.js 中间件的逻辑
+    middleware: 'auth'
+  },
   head: {
     title: 'starter',
     meta: [

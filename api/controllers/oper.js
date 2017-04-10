@@ -1,4 +1,5 @@
 const Mem = require('../models/mem')
+const Oper = require('../models/oper')
 module.exports = {
   get_index: (req, res) => {
     let limit = Math.min((req.query.limit || 5), 20)
@@ -28,5 +29,13 @@ module.exports = {
   },
 
   post_index: (req, res) => {
+    let params = {mem_id: 1}
+    ;['opertyp', 'idcd', 'typ'].forEach(key => {
+      params[key] = req.body[key]
+    })
+
+    new Oper(params).save().then(item => {
+      res.send({status: true})
+    })
   }
 }

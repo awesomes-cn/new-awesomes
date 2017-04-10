@@ -60,7 +60,6 @@
       .then(res => {
         initData.repos = res.data.items
         initData.pagetotal = res.data.count
-        console.log(res.data)
         return initData
       })
     }

@@ -24,7 +24,11 @@ Vue.use({
     }
 
     Vue.prototype.showLogin = function () {
-      this.$store.commit('showLogin')
+      if (!this.$store.state.session) {
+        this.$store.commit('showLogin')
+        return true
+      }
+      return false
     }
 
     Vue.prototype.hideLogin = function () {
