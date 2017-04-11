@@ -1,7 +1,10 @@
 import axios from 'axios'
-let store = require('store')
+import Cookie from 'js-cookie'
 
-export default axios.create({
-  baseURL: 'http://192.168.26.128:5010/',
-  headers: { atoken: ((store.get('awlogin') || {}).token) || '' }
-})
+export default (token) => {
+  return axios.create({
+    baseURL: 'http://192.168.26.128:5010/',
+    headers: { atoken: (token || Cookie.get('awlogin') || '') }
+  })
+}
+

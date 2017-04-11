@@ -18,17 +18,17 @@
             
 
         div.right
-          a.hide-small(href="" v-if="session")
+          a.hide-small(href="" v-show="session")
             icon(name="more")
 
-            div.memeus
-              nuxt-link(to="/about") 我的收藏
-              nuxt-link(to="/about") 个人资料
-              nuxt-link(to="/about"  @click="logout()") 注 销
+            // div.memeus
+            //   nuxt-link(to="/about") 我的收藏
+            //   nuxt-link(to="/about") 个人资料
+            //   nuxt-link(to="/about"  @click="logout()") 注 销
 
-          a(href="javascript:void(0)" @click="showLogin()" v-if="!session") 登录
+          a(href="javascript:void(0)" @click="showLogin()" v-show="!session") 登录
 
-          nuxt-link(:to="'/mem/' + session.id" v-if="session") 
+          nuxt-link(:to="'/mem/' + session.id" v-show="session") 
             img.tx(:src="cdn(session.avatar, 'mem')")
             
 
@@ -61,9 +61,7 @@
 
 <script>
   import axios from '~plugins/axios'
-  let store = require('store')
-  let expirePlugin = require('store/plugins/expire')
-  store.addPlugin(expirePlugin)
+  import Cookie from 'js-cookie'
   export default {
     data () {
       return {
@@ -80,42 +78,30 @@
     methods: {
       login: function () {
         let self = this
-        axios.post(`session/login`, { uid: this.uid, pwd: this.pwd }).then(res => {
+        axios().post(`session/login`, { uid: this.uid, pwd: this.pwd }).then(res => {
           console.log(res.data)
           if (!res.data.status) {
             self.$message({
               message: '登录失败，用户名或密码错误',
               type: 'error'
             })
-            store.set('awlogin', null)
+            Cookie.set('awlogin', null)
           } else {
             self.$message({
               message: '登录成功！',
               type: 'success'
             })
 
-            store.set('awlogin', { token: res.data.token, mem: res.data.mem }, 1000 * 60 * 60 * 3)
+            // Cookie.set('awlogin', { token: res.data.token, mem: res.data.mem })
+            Cookie.set('awlogin', res.data.token)
             self.hideLogin()
             this.$store.commit('setUser', res.data.mem)
           }
         })
       },
       logout: function () {
-        store.set('awlogin', null)
+        Cookie.set('awlogin', null)
         this.$store.commit('setUser', null)
-      }
-    },
-    created () {
-      let session = (store.get('awlogin') || {}).mem
-      if (!session) {
-        axios.get('session').then(res => {
-          if (res.data.status) {
-            store.set('awlogin', { token: res.data.token, mem: res.data.mem }, 1000 * 60 * 60 * 3)
-          } else {
-            store.set('awlogin', null)
-          }
-          this.$store.commit('setUser', res.data.mem)
-        })
       }
     }
   }

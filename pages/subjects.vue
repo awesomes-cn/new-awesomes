@@ -18,7 +18,7 @@
   import _ from 'underscore'
   export default {
     asyncData ({ req, params, query }) {
-      return axios.get('subject').then(res => {
+      return axios().get('subject').then(res => {
         return {
           subjects: _.sortBy(res.data, item => {
             return -item.order

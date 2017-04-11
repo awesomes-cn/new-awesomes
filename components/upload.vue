@@ -5,7 +5,6 @@
 
 <script>
   import $ from '~assets/js/jquery-vendor'
-  import axios from '~plugins/axios'
   import aliyun from '~assets/js/aliyun'
   export default {
     props: ['value', 'folder'],

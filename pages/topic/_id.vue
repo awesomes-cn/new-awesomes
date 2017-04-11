@@ -27,7 +27,7 @@
   import axios from '~plugins/axios'
   export default {
     asyncData ({req, params, query}) {
-      return axios.get(`topic/${params.id}`).then(res => {
+      return axios().get(`topic/${params.id}`).then(res => {
         return {
           topic: res.data
         }

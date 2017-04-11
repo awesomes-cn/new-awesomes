@@ -42,7 +42,7 @@
           cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
-          axios.post('topic', this.newTopic).then(res => {
+          axios().post('topic', this.newTopic).then(res => {
             if (res.data.status) {
 
             }

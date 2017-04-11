@@ -18,7 +18,7 @@
   import Comment from '~components/comment.vue'
   export default {
     asyncData ({ req, params, query }) {
-      return axios.get(`repo/${params.owner}/${params.name}`)
+      return axios().get(`repo/${params.owner}/${params.name}`)
       .then(res => {
         return {
           repo: res.data

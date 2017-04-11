@@ -39,16 +39,16 @@
       }
     },
     asyncData ({ req, params, query }) {
-      return axios.get('category/first')
+      return axios().get('category/first')
       .then(res => {
         initData.rootyps = res.data
         initData.rootyp = params.rootyp
-        return axios.get(`category/${params.rootyp}/second`)
+        return axios().get(`category/${params.rootyp}/second`)
       })
       .then(res => {
         initData.typcds = res.data
         let page = query.page || 1
-        return axios.get(`repo`, {
+        return axios().get(`repo`, {
           params: {
             rootyp: params.rootyp,
             typcd: params.typcd,

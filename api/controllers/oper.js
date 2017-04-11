@@ -1,5 +1,6 @@
 const Mem = require('../models/mem')
 const Oper = require('../models/oper')
+const jwt = require('jsonwebtoken')
 module.exports = {
   get_index: (req, res) => {
     let limit = Math.min((req.query.limit || 5), 20)
@@ -29,13 +30,26 @@ module.exports = {
   },
 
   post_index: (req, res) => {
-    let params = {mem_id: 1}
+    let memId = (jwt.verify(req.headers.atoken, 'hxh') || {}).id
+    if (!memId) {
+      res.send({status: false})
+      return
+    }
+    let params = {mem_id: memId}
     ;['opertyp', 'idcd', 'typ'].forEach(key => {
       params[key] = req.body[key]
     })
 
-    new Oper(params).save().then(item => {
-      res.send({status: true})
+    Oper.query({where: params}).fetch().then(data => {
+      if (data) {
+        data.destroy().then(() => {
+          res.send({has: false})
+        })
+      } else {
+        new Oper(params).save().then(item => {
+          res.send({has: true})
+        })
+      }
     })
   }
 }

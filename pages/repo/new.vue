@@ -35,7 +35,7 @@
     },
     created () {
       let self = this
-      axios.get('category/all').then(res => {
+      axios().get('category/all').then(res => {
         let cates = res.data
         let result = []
         cates.forEach(item => {

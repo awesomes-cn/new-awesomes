@@ -38,7 +38,7 @@
   export default {
     asyncData ({ req, params, query }) {
       let page = query.page || 1
-      return axios.get('weuse', {
+      return axios().get('weuse', {
         params: {
           limit: pagesize,
           skip: pagesize * (page - 1)

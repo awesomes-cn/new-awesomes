@@ -12,31 +12,47 @@
             nuxt-link(:to="'/repo/' + repo.owner + '/' + repo.alia")
               img.cover(:src="cdn(repo.cover, 'repo', 'repo')")
               h6 {{repo.name}}
-            span.using(@click="switchUsing(repo)")  我在用
+            span.using(@click="switchUsing(repo)" v-bind:class="'using-' + repo.isUsing")  我在用
             
 </template>
 <script>
   import axios from '~plugins/axios'
   export default {
     asyncData ({ req, params, query }) {
-      return axios.get('repo?limit=100&sort=hot').then(res => {
+      return axios().get('repo?limit=100&sort=hot').then(res => {
+        let repos = res.data.items
+        repos.forEach(item => {
+          item.isUsing = false
+        })
         return {
-          repos: res.data.items
+          repos: repos
         }
       })
     },
     methods: {
       switchUsing: function (repo) {
         if (this.showLogin()) { return }
-        axios.post('oper', {
+        axios().post('oper', {
           opertyp: 'USING',
           typ: 'REPO',
           idcd: repo.id
+        }).then(res => {
+          repo.isUsing = res.data.has
         })
       }
     },
     created () {
-      console.log('===', this.$store.state.session)
+      let _self = this
+      if (this.$store.state.session) {
+        axios().get(`mem/${this.$store.state.session.id}/opers?opertyp=USING&typ=REPO`).then(res => {
+          let repoIds = res.data.map(item => {
+            return item.repo.id
+          })
+          _self.repos.forEach(item => {
+            item.isUsing = repoIds.indexOf(item.id) > -1
+          })
+        })
+      }
       // axios.get(`mem/${}/opers?opertyp=USING&typ=REPO`)
     }
   }
@@ -79,6 +95,12 @@
       display: inline-block;
       border: #9C9C9C 1px solid;
       padding: 5px 10px;
+
+      &.using-true {
+        background-color: #ff9500;
+        border-color: #ff9500;
+        color: #FFF;
+      }
     }
   }
 

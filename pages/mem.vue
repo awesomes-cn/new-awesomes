@@ -35,7 +35,7 @@
   import axios from '~plugins/axios'
   export default {
     asyncData ({ req, params, query }) {
-      return axios.get(`mem/${params.id}`).then(res => {
+      return axios().get(`mem/${params.id}`).then(res => {
         return {
           mem: res.data
         }

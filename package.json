@@ -12,6 +12,7 @@
     "codemirror": "^5.25.0",
     "element-ui": "^1.2.5",
     "jquery": "^3.2.1",
+    "js-cookie": "^2.1.4",
     "marked": "^0.3.6",
     "normalize.css": "^5.0.0",
     "nuxt": "^0.10.5",

@@ -21,7 +21,7 @@
       return Math.floor(Date.now() / 10000)
     },
     asyncData () {
-      return axios.get('topic?limit=6&typcd=TOPIC').then(res => {
+      return axios().get('topic?limit=6&typcd=TOPIC').then(res => {
         return {
           topicList: res.data
         }

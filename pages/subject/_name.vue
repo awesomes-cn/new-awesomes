@@ -13,7 +13,7 @@
   import axios from '~plugins/axios'
   export default {
     asyncData ({ req, params, query }) {
-      return axios.get(`subject/${params.name}`).then(res => {
+      return axios().get(`subject/${params.name}`).then(res => {
         return {
           sub: res.data
         }
