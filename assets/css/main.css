@@ -38,6 +38,10 @@ a:hover, a:active {
   color: #da552f;
 }
 
+a.ata:link, a.ata:visited {
+  color: #08c;
+}
+
 
 .body {
   padding-top: 60px;

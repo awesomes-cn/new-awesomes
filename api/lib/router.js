@@ -3,7 +3,7 @@ var router = express.Router()
 
 
 
-;['post', 'get'].forEach(method => {
+;['post', 'get', 'put', 'delete'].forEach(method => {
   ;[
     `/repo/:owner/:alia/:action`,
     `/subject/:name`,

@@ -7,6 +7,8 @@
       a(href="javascript:void(0)" title="预览" @click="preview" v-bind:class="'active-' + (view === 'preview')")
         icon(name="eye")
 
+      button.sub-btn(v-if="subtxt" @click="submitAction" v-bind:disabled="isSubmiting") {{isSubmiting ? '提交中...' : subtxt}}
+
        
     div.con(v-show="view == 'editor'")
       textarea(:id="'meditor-' + flag" )
@@ -19,11 +21,17 @@
   require('codemirror/mode/markdown/markdown.js')
   let markdown_editor
   export default {
-    props: ['flag', 'value'],
+    props: ['flag', 'value', 'subtxt', 'submit', 'setval'],
     data () {
       return {
         htmlstr: '',
-        view: 'editor'
+        view: 'editor',
+        isSubmiting: false
+      }
+    },
+    watch: {
+      'setval': function (val) {
+        markdown_editor.setValue(val)
       }
     },
     methods: {
@@ -35,6 +43,18 @@
           this.view = 'editor'
         }
         
+      },
+
+      // 提交
+      submitAction: function () {
+        if (this.showLogin()) {
+          return
+        }
+        this.isSubmiting = true
+        this.submit(markdown_editor.getValue()).then(() => {
+          markdown_editor.setValue('')
+          this.isSubmiting = false
+        })
       }
     },
     mounted () {
@@ -48,9 +68,10 @@
       })
 
       markdown_editor.on("change",function(){
-        // self.htmlval = markdown_editor.getValue()
         self.$emit('input', markdown_editor.getValue())
       })
+
+      markdown_editor.setValue(this.setval)
     }
   }
 </script>
@@ -78,6 +99,15 @@
         color: #da552f
       }
     }
+  }
+
+  .sub-btn {
+    float: right;
+    border: none;
+    color: #FFF;
+    background-color: #da552f;
+    padding: 6px 15px;
+    cursor: pointer;
   }
 
   .right {

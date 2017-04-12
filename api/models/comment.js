@@ -1,4 +1,5 @@
 const DB = require('../lib/db')
+const Mem = require('./mem')
 
 module.exports = DB.Model.extend({
   tableName: 'comments',

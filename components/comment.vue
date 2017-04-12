@@ -1,26 +1,111 @@
 <template lang="pug">
   div.comment-wraper
     div.editor-go
-      editor(:flag="flag")
-    div.citem(v-for="item in [1,2,3,4,5,6,7]")
-      nuxt-link(to="")
-        img.mem-tx(src="https://awesomes.oss-cn-beijing.aliyuncs.com/mem/170107150059-97-1.jpg")
-        strong 笔墨伺候
-        span.time 3月前
-      article 掘金有数据开放接口吗？
+      editor(:flag="flag" subtxt="提交" v-bind:submit="submit" v-bind:setval="comcon")
+
+    div.citem(v-for="(item, index) in coms")
+      nuxt-link(:to="'/mem/' + item.mem.id")
+        img.mem-tx(:src="cdn(item.mem.avatar, 'mem')")
+        strong {{item.mem.nc}}
+      span.time {{timeago(item.created_at)}}
+      article(v-html="processAt(marked(item.con))")
       div.opers
         a.up(href="javascript:void(0)")
           icon(name="arrow-up")
-          span 0
+          span {{item.favor}}
 
-        a(href="javascript:void(0)")
-          icon(name="reply")
+        a(href="javascript:void(0)" @click="reply(item)")
+          icon(name="reply" )
           span 回复
+
+        a.extra(href="javascript:void(0)" @click="edit(item)" v-if="session && item.mem.id == session.id")
+          span 编辑
+
+        a.extra(href="javascript:void(0)" @click="destroy(item, index)"  v-if="session && item.mem.id == session.id")
+          span 删除  
+
+
 
 </template>
 <script>
+  import axios from '~plugins/axios'
   export default {
-    props: ['flag']
+    props: ['flag', 'typ', 'idcd'],
+    data () {
+      return {
+        coms: [],
+        comcon: ''
+      }
+    },
+    computed: {
+      session () {
+        return this.$store.state.session
+      }
+    },
+    methods: {
+
+      // 获取评论列表
+      list: function () {
+        if (this.idcd && this.idcd > 0) {
+          axios().get(`comment?typ=${this.typ}&idcd=${this.idcd}`).then(res => {
+            this.coms = res.data
+          })
+        }
+      },
+
+      // 发布评论
+      submit: function (val) {
+        return new Promise((resolve) => {
+          axios().post(`comment`, {
+            typ: this.typ,
+            idcd: this.idcd,
+            con: val
+          }).then(res => {
+            this.coms.push(res.data.item)
+            resolve()
+          })
+        })
+      },
+
+      // 删除评论
+      destroy: function (item, index) {
+        let self = this
+        this.$confirm('确认删除该评论？不是手抖吧！', '确认删除', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          axios().delete(`comment/${item.id}`).then(res => {
+            if (res.data.status) {
+              self.coms.splice(index, 1)
+            }
+          })
+        }).catch(() => {
+        })
+      },
+
+      // 编辑
+      edit: function (item) {
+      },
+
+      // 回复
+      reply: function (item) {
+        this.comcon = this.comcon + `@${item.mem.nc} `
+      },
+
+      // 处理 @
+      processAt: function (con) {
+        return con.replace(/@([^:：?\s@]+)/g, '<a href="#" class="ata">@$1</a>')
+      }
+    },
+    watch: {
+      'idcd': function () {
+        this.list()
+      }
+    },
+    created () {
+      this.list()
+    }
   }
 </script>
 
@@ -29,6 +114,12 @@
     position: relative;
     padding-left: 35px;
     margin-bottom: 30px;
+
+    &:hover {
+      .opers .extra {
+        display: inline-block;
+      }
+    }
 
     .time {
       color: #ababab;
@@ -55,6 +146,10 @@
         float: left;
         margin-right: 3px;
       }
+
+      .extra {
+        display: none
+      }
     }
   }
 
@@ -65,6 +160,8 @@
   article {
     margin: 10px 0;
   }
+
+  
   .mem-tx {
     width: 25px;
     height: 25px;
