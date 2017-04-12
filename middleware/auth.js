@@ -4,6 +4,10 @@ import Cookie from 'js-cookie'
 export default function ({ store, redirect, isServer, req }) {
   if (isServer && !store.state.session) {
     let loginCookie = req.headers.cookie.split(';').find(c => c.trim().startsWith('awlogin='))
+    if (!loginCookie) {
+      store.commit('setUser', null)
+      return
+    }
     let token = loginCookie.split('=')[1]
     axios(token).get('session').then(res => {
       if (res.data.status) {

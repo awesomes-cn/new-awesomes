@@ -28,8 +28,8 @@
 
           a(href="javascript:void(0)" @click="showLogin()" v-show="!session") 登录
 
-          nuxt-link(:to="'/mem/' + session.id" v-show="session") 
-            img.tx(:src="cdn(session.avatar, 'mem')")
+          nuxt-link(:to="'/mem/' + (session || {}).id" v-show="session") 
+            img.tx(:src="cdn((session || {}).avatar, 'mem')")
             
 
           a.hide-small(href="" v-show="session")
