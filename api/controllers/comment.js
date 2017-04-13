@@ -1,5 +1,29 @@
 const Comment = require('../models/comment')
 const jwt = require('jsonwebtoken')
+const Oper = require('../models/oper')
+
+
+// 获取当前登录会员喜欢的评论
+let getMyFavors = (atoken) => {
+  if (!atoken) {
+    return Promise.resolve([])
+  }
+  let memId = (jwt.verify(atoken, 'hxh') || {}).id
+  if (!memId) {
+    return Promise.resolve([])
+  }
+  return new Promise(resolve => {
+    Oper.query({
+      where: {opertyp: 'FAVOR', typ: 'COMMENT', mem_id: memId},
+      select: ['idcd']
+    }).fetchAll().then(opers => {
+      resolve(opers.map(item => {
+        return item.get('idcd')
+      }))
+    })
+  })
+}
+
 
 module.exports = {
   get_index: (req, res) => {
@@ -16,10 +40,15 @@ module.exports = {
         }
       }]
     }).then(data => {
-      res.send(data)
+      getMyFavors(req.headers.atoken).then(opers => {
+        let result = data.toJSON()
+        result.forEach(item => {
+          item.isFavor = opers.indexOf(item.id) > -1
+        })
+        res.send(result)
+      })
     })
   },
-
   post_index: (req, res) => {
     let memId = (jwt.verify(req.headers.atoken, 'hxh') || {}).id
     if (!memId) {
@@ -53,6 +82,20 @@ module.exports = {
       }
 
       item.destroy().then(() => {
+        res.send({status: true})
+      })
+    })
+  },
+
+  put_index_id: (req, res) => {
+    let memId = (jwt.verify(req.headers.atoken, 'hxh') || {}).id
+    Comment.query({where: {id: req.params.action}}).fetch().then(item => {
+      if (item.get('mem_id') !== memId) {
+        res.send({status: false})
+        return
+      }
+      item.set('con', req.body.con)
+      item.save().then(() => {
         res.send({status: true})
       })
     })

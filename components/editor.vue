@@ -6,13 +6,13 @@
 
       a(href="javascript:void(0)" title="预览" @click="preview" v-bind:class="'active-' + (view === 'preview')")
         icon(name="eye")
-
-      button.sub-btn(v-if="subtxt" @click="submitAction" v-bind:disabled="isSubmiting") {{isSubmiting ? '提交中...' : subtxt}}
-
        
     div.con(v-show="view == 'editor'")
       textarea(:id="'meditor-' + flag" )
-    div.preview(v-show="view == 'preview'" v-html="marked(htmlstr)")  
+    div.preview(v-show="view == 'preview'" v-html="marked(htmlstr)")
+    div.footbar
+      slot
+        span.info Markdown 编辑器
 </template>
 <script>
   import $ from '~assets/js/jquery-vendor'
@@ -21,17 +21,16 @@
   require('codemirror/mode/markdown/markdown.js')
   let markdown_editor
   export default {
-    props: ['flag', 'value', 'subtxt', 'submit', 'setval'],
+    props: ['flag', 'value', 'setval'],
     data () {
       return {
         htmlstr: '',
-        view: 'editor',
-        isSubmiting: false
+        view: 'editor'
       }
     },
     watch: {
       'setval': function (val) {
-        markdown_editor.setValue(val)
+        markdown_editor.setValue(val.val)
       }
     },
     methods: {
@@ -42,20 +41,8 @@
         } else {
           this.view = 'editor'
         }
-        
       },
-
-      // 提交
-      submitAction: function () {
-        if (this.showLogin()) {
-          return
-        }
-        this.isSubmiting = true
-        this.submit(markdown_editor.getValue()).then(() => {
-          markdown_editor.setValue('')
-          this.isSubmiting = false
-        })
-      }
+      
     },
     mounted () {
       let self = this
@@ -71,7 +58,7 @@
         self.$emit('input', markdown_editor.getValue())
       })
 
-      markdown_editor.setValue(this.setval)
+      markdown_editor.setValue(this.setval.val)
     }
   }
 </script>
@@ -101,15 +88,6 @@
     }
   }
 
-  .sub-btn {
-    float: right;
-    border: none;
-    color: #FFF;
-    background-color: #da552f;
-    padding: 6px 15px;
-    cursor: pointer;
-  }
-
   .right {
     float: right
   }
@@ -122,6 +100,17 @@
     padding: 20px 30px;
     font-size: 15px;
     line-height: 27px;
+  }
+
+  .footbar {
+    padding: 10px;
+    border-top: #EEE 1px solid;
+    overflow: hidden;
+    position: relative;
+
+    .info {
+      color: #DDD
+    }
   }
   
 </style>

@@ -26,7 +26,6 @@ module.exports = {
   },
 
   get_index: (req, res) => {
-    console.log('token 是', req.headers.atoken)
     if (!req.headers.atoken) {
       res.send({status: false})
       return

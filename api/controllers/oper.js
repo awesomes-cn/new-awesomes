@@ -42,12 +42,16 @@ module.exports = {
 
     Oper.query({where: params}).fetch().then(data => {
       if (data) {
-        data.destroy().then(() => {
-          res.send({has: false})
+        data.destroy().then((model) => {
+          Oper.sameAmount(params).then(amount => {
+            res.send({has: false, amount: amount})
+          })
         })
       } else {
-        new Oper(params).save().then(item => {
-          res.send({has: true})
+        new Oper(params).save().then(model => {
+          Oper.sameAmount(params).then(amount => {
+            res.send({has: true, amount: amount})
+          })
         })
       }
     })
