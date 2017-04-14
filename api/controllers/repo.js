@@ -1,4 +1,6 @@
 const Repo = require('../models/repo')
+const Oper = require('../models/oper')
+
 module.exports = {
 
   // repo 列表
@@ -39,7 +41,21 @@ module.exports = {
 
   get_index_id: (req, res) => {
     Repo.query({where: { owner: req.params.owner, alia: req.params.alia }}).fetch().then(data => {
-      res.send(data)
+      let _repo = data.toJSON()
+      Oper.query({
+        where: {opertyp: 'USING', typ: 'REPO', idcd: data.id},
+        limit: 5,
+        orderByRaw: 'id desc'
+      }).fetchAll({
+        withRelated: [{
+          'mem': function (mqu) {
+            return mqu.select('id', 'nc', 'avatar')
+          }
+        }]
+      }).then(using => {
+        _repo.usings = using
+        res.send(_repo)
+      })
     })
   },
 

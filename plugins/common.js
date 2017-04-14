@@ -13,6 +13,9 @@ renderer.code = (code, language) => {
 Vue.use({
   install: function (Vue, options) {
     Vue.prototype.cdn = function (name, folder, process) {
+      if (!name || name === '') {
+        name = 'default.png'
+      }
       if (/^http(s)?:\/\//.test(name)) {
         return name
       }

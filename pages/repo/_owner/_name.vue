@@ -5,9 +5,10 @@
     div.container
       div.con-headers
         span 暂无中文翻译，我来翻译
-      div.bar  
+      div.bar
+      div.clearfix
+      dianp
       article(v-html="marked(repo.about)")
-
       div.com-wrap
         comment(flag="repo-comment" typ="REPO" v-bind:idcd="repo.id")
 </template>
@@ -16,6 +17,7 @@
   import axios from '~plugins/axios'
   import Banner from '~components/repo/banner'
   import Comment from '~components/comment.vue'
+  import Dianp from '~components/repo/dianp.vue'
   export default {
     asyncData ({ req, params, query }) {
       return axios().get(`repo/${params.owner}/${params.name}`)
@@ -27,7 +29,8 @@
     },
     components: {
       Banner,
-      Comment
+      Comment,
+      Dianp
     }
   }
 </script>
@@ -61,6 +64,8 @@
     float: left;
     width: 100%;
   }
+
+  
 
   .com-wrap {
     padding: 50px 10px;

@@ -1,11 +1,15 @@
 const DB = require('../lib/db')
 const Repo = require('./repo')
+const Mem = require('./mem')
 
 let Oper = DB.Model.extend({
   tableName: 'opers',
   hasTimestamps: true,
   repo: function () {
     return this.belongsTo(Repo, 'idcd')
+  },
+  mem: function () {
+    return this.belongsTo(Mem)
   },
   initialize: function () {
     this.on('destroyed', this.updateTarget)

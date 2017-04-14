@@ -8,6 +8,7 @@ module.exports = DB.Model.extend({
   mem_info: function () {
     return this.hasOne(MemInfo)
   },
+  nc: '鸟巢',
   opers: function () {
     return this.hasMany(Oper)
   }

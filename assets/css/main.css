@@ -75,3 +75,10 @@ button svg {
 .card {
   border: 0;
 }
+
+/*.btn {
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1), 0 1px 1px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  border-radius: 0.15rem;
+  outline: none;
+}*/

@@ -29,27 +29,45 @@ module.exports = {
     // Mem.where('(role = ? or reputation >= 20) and `using` >= 5', 'vip').order("reputation desc").includes(:mem_info)
   },
 
+  get_is: (req, res) => {
+    let memId = (jwt.verify(req.headers.atoken, 'hxh') || {}).id
+    if (!memId) {
+      res.send({has: false})
+      return
+    }
+    let params = {mem_id: memId}
+    ;['opertyp', 'idcd', 'typ'].forEach(key => {
+      params[key] = req.query[key]
+    })
+    Oper.query({where: params}).fetch().then(data => {
+      res.send(data ? true : false)
+    })
+  },
+
   post_index: (req, res) => {
     let memId = (jwt.verify(req.headers.atoken, 'hxh') || {}).id
     if (!memId) {
       res.send({status: false})
       return
     }
+
     let params = {mem_id: memId}
+    let pwoutsesion = {}
     ;['opertyp', 'idcd', 'typ'].forEach(key => {
       params[key] = req.body[key]
+      pwoutsesion[key] = req.body[key]
     })
 
     Oper.query({where: params}).fetch().then(data => {
       if (data) {
         data.destroy().then((model) => {
-          Oper.sameAmount(params).then(amount => {
+          Oper.sameAmount(pwoutsesion).then(amount => {
             res.send({has: false, amount: amount})
           })
         })
       } else {
         new Oper(params).save().then(model => {
-          Oper.sameAmount(params).then(amount => {
+          Oper.sameAmount(pwoutsesion).then(amount => {
             res.send({has: true, amount: amount})
           })
         })

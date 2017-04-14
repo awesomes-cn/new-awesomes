@@ -58,7 +58,7 @@
         self.$emit('input', markdown_editor.getValue())
       })
 
-      markdown_editor.setValue(this.setval.val)
+      // markdown_editor.setValue(this.setval.val)
     }
   }
 </script>

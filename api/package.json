@@ -16,7 +16,8 @@
     "express": "^4.15.2",
     "jsonwebtoken": "^7.3.0",
     "knex": "^0.12.8",
-    "mysql": "^2.13.0"
+    "mysql": "^2.13.0",
+    "redis": "^2.7.1"
   },
   "devDependencies": {
     "request": "^2.81.0"
