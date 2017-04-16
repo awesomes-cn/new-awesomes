@@ -1,6 +1,6 @@
 <template lang="pug">
   div.meditor
-    div.toolbar
+    div.toolbar(v-if="!hideTool")
       a(href="javascript:void(0)" title="上传图片" @click="preview")
         icon(name="images")
 
@@ -21,11 +21,12 @@
   require('codemirror/mode/markdown/markdown.js')
   let markdown_editor
   export default {
-    props: ['flag', 'value', 'setval'],
+    props: ['flag', 'value', 'setval', 'hideTool'],
     data () {
       return {
         htmlstr: '',
-        view: 'editor'
+        view: 'editor',
+        
       }
     },
     watch: {
@@ -54,8 +55,8 @@
         extraKeys: {"Enter": "newlineAndIndentContinueMarkdownList"}
       })
 
-      markdown_editor.on("change",function(){
-        self.$emit('input', markdown_editor.getValue())
+      markdown_editor.on("change",function(editor){
+        self.$emit('input', editor.getValue())
       })
 
       // markdown_editor.setValue(this.setval.val)

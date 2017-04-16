@@ -8,6 +8,8 @@
             nuxt-link(to="topics") 更多优选
             
         div.col-md-5
+          div.card.search
+            input.search-txt(type="text" placeholder="搜索前端库")
           a.card(href="")
             icon(name="chrome" class="chrome-logo")
             h2 寻找前端插件，一步到位
@@ -60,6 +62,17 @@
 
     h2 {
       padding: 10px 0;
+    }
+  }
+
+  .search {
+    padding: 20px;
+    .search-txt {
+      padding: 20px 10px;
+      border: 0;
+      outline: none;
+      width: 100%;
+      font-size: 1.1rem
     }
   }
 

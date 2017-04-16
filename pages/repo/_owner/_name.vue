@@ -7,7 +7,7 @@
         span 暂无中文翻译，我来翻译
       div.bar
       div.clearfix
-      dianp
+      dianp(:repo="repo")
       article(v-html="marked(repo.about)")
       div.com-wrap
         comment(flag="repo-comment" typ="REPO" v-bind:idcd="repo.id")
@@ -46,6 +46,7 @@
     padding: 20px;
     margin-top: 20px;
     line-height: 27px;
+    word-break: break-all;
   }
 
   .con-headers {

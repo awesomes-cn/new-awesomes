@@ -1,5 +1,6 @@
 const Repo = require('../models/repo')
 const Oper = require('../models/oper')
+const Dianp = require('../models/dianp')
 
 module.exports = {
 
@@ -68,5 +69,35 @@ module.exports = {
     }).catch((err) => {
       console.error(err)
     })
+  },
+
+  // 点评
+  get_dianp: (req, res) => {
+    let limit = Math.min((req.query.limit || 10), 100)
+    let skip = parseInt(req.query.skip || 0)
+    Repo.query({where: { owner: req.params.owner, alia: req.params.alia }}).fetch().then(data => {
+      let query = {
+        limit: limit,
+        offset: skip,
+        where: {
+          repo_id: data.id,
+        },
+        orderByRaw: 'id desc'
+      }
+
+      Promise.all([Dianp.where({repo_id: data.id}).count('id'), Dianp.query(query).fetchAll({
+        withRelated: [{
+          'mem': function (mqu) {
+            return mqu.select('id', 'nc', 'avatar')
+          }
+        }]
+      })]).then(([count, items]) => {
+          res.send({
+          items: items,
+          count: count
+        })
+      })
+    })
+    
   }
 }

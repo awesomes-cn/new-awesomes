@@ -28,22 +28,23 @@
             a.github(:href="repo.html_url" target="_blank")
               icon(name="github")
               span GitHub
-          div.params
-            div
+          div.params.row
+            div.col-md-6.col-sm-12
               icon(name="star")
               span {{repo.stargazers_count}} 
-            div
+
               icon(name="fork")
-              span {{repo.forks_count}}  
-            div
+              span {{repo.forks_count}} 
+
               icon(name="clock")
               span {{repo.forks_count}} 
-            div.iuse
-              nuxt-link(:to="'/mem/' + using.mem.id" v-for="using in repo.usings" v-bind:title="using.mem.nc")
-                img.mem-tx(:src="cdn(using.mem.avatar, 'mem')")
-              span 等
-              span {{repo.using}} 人在用
-              span.use-btn(:class="'has-' + isUsing" @click="switchUsing") 我在用       
+            div.col-md-6.col-sm-12
+              div.iuse
+                nuxt-link(:to="'/mem/' + using.mem.id" v-for="using in repo.usings" v-bind:title="using.mem.nc")
+                  img.mem-tx(:src="cdn(using.mem.avatar, 'mem')")
+                span 等
+                span {{repo.using}} 人在用
+                span.use-btn(:class="'has-' + isUsing" @click="switchUsing") 我在用       
           div.favor(:class="'has-' + isMark" @click="switchMark")
             icon(name="heart")
             div {{repo.mark}}
@@ -200,18 +201,16 @@
     .params {
       color: rgba(81, 162, 81, 0.91);
       padding: 10px 0;
-      & > div {
-        display: inline-block;
-      }
       svg {
-        width: 13px;
-        height: 13px;
-        float: left;
+        width: 15px;
+        height: 15px;
         margin-right: 3px;
         color: rgba(81, 162, 81, 0.91);
+        display: inline-block;
       }
       span {
         margin-right: 30px;
+        display: inline-block
       }
     }
 
@@ -236,7 +235,6 @@
     }
 
     .iuse {
-      float: right;
       color: #bbb;
       .use-btn {
         color: #BBB;

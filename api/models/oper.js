@@ -30,6 +30,12 @@ let Oper = DB.Model.extend({
           FAVOR: 'favor'
         }
       },
+      DIANP: {
+        table: require('./dianp'),
+        opers: {
+          FAVOR: 'favor'
+        }
+      },
       TOPIC: require('./topic')
     }[model.get('typ')]
 
@@ -38,7 +44,8 @@ let Oper = DB.Model.extend({
     if (!opername) { return Promise.resolve() }
     let table = Model.table
     return new Promise(resolve => {
-      Oper.query({where: {opertyp: model.get('opertyp'), typ: model.get('typ'), idcd: model.get('idcd')}}).count('id').then(count => {
+      Oper.query({where: {opertyp: model.get('opertyp'), typ: model.get('typ'), idcd: model.get('idcd')}}).count().then(count => {
+        console.log('渠道的是，', count)
         table.query({where: {id: model.get('idcd')}}).fetch().then(data => {
           data.set(opername, count)
           data.save().then(() => {

@@ -1,5 +1,5 @@
 <template lang="pug">
-  div(:id="flag")
+  div(:id="'pagid-' + flag")
 </template>
 
 
@@ -7,19 +7,22 @@
   import $ from '~assets/js/jquery-vendor'
   require('simple-pagination')
   export default {
-    props: ['flag', 'size', 'total'],
+    props: ['flag', 'size', 'total', 'callback'],
     data () {
       return {
       }
     },
     watch: {
-      '$route': 'initPage'
+      '$route': 'initPage',
+      'total': 'initPage'
     },
     methods: {
       initPage: function () {
+        let $wraper = $(`#pagid-${this.flag}`)
+        $wraper.empty()
         let self = this
         let pages = Math.ceil(this.total / this.size)
-        $(`#${this.flag}`).pagination({
+        $wraper.pagination({
           items: self.size,
           pages: pages,
           cssStyle: '',
@@ -28,8 +31,11 @@
           hrefTextPrefix: '',
           currentPage: self.$route.query.page || 1,
           onPageClick: (pageNumber, event) => {
-            console.log(self.$route)
-            self.$router.push({path: self.$route.path, query: {page: pageNumber}})
+            if (this.callback) {
+              this.callback(pageNumber)
+            } else {
+              self.$router.push({path: self.$route.path, query: {page: pageNumber}})
+            }
             return false
           }
         })
