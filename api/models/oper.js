@@ -45,7 +45,6 @@ let Oper = DB.Model.extend({
     let table = Model.table
     return new Promise(resolve => {
       Oper.query({where: {opertyp: model.get('opertyp'), typ: model.get('typ'), idcd: model.get('idcd')}}).count().then(count => {
-        console.log('渠道的是，', count)
         table.query({where: {id: model.get('idcd')}}).fetch().then(data => {
           data.set(opername, count)
           data.save().then(() => {

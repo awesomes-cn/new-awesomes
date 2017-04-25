@@ -52,7 +52,7 @@
             el-form-item
               el-input(placeholder="密码"  v-model="pwd" type="password") 
             el-form-item
-              el-button(type="primary"  class="login-btn" @click="login" native-type="submit") 登录
+              el-button(type="primary"  class="login-btn" @click="login") 登录
           div.github-login
             a(href="")
               icon(name="github")   
@@ -62,6 +62,7 @@
 <script>
   import axios from '~plugins/axios'
   import Cookie from 'js-cookie'
+  import { Message } from 'element-ui'
   export default {
     data () {
       return {
@@ -79,20 +80,18 @@
       login: function () {
         let self = this
         axios().post(`session/login`, { uid: this.uid, pwd: this.pwd }).then(res => {
-          console.log(res.data)
           if (!res.data.status) {
-            self.$message({
+            Message({
               message: '登录失败，用户名或密码错误',
               type: 'error'
             })
             Cookie.set('awlogin', null)
           } else {
-            self.$message({
+            Message({
               message: '登录成功！',
               type: 'success'
             })
 
-            // Cookie.set('awlogin', { token: res.data.token, mem: res.data.mem })
             Cookie.set('awlogin', res.data.token)
             self.hideLogin()
             this.$store.commit('setUser', res.data.mem)

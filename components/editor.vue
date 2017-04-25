@@ -1,5 +1,5 @@
 <template lang="pug">
-  div.meditor
+  div.meditor(:style="hideBorder ? 'border: 0' : ''")
     div.toolbar(v-if="!hideTool")
       a(href="javascript:void(0)" title="上传图片" @click="preview")
         icon(name="images")
@@ -10,7 +10,7 @@
     div.con(v-show="view == 'editor'")
       textarea(:id="'meditor-' + flag" )
     div.preview(v-show="view == 'preview'" v-html="marked(htmlstr)")
-    div.footbar
+    div.footbar(v-if="!hideFooter")
       slot
         span.info Markdown 编辑器
 </template>
@@ -21,7 +21,7 @@
   require('codemirror/mode/markdown/markdown.js')
   let markdown_editor
   export default {
-    props: ['flag', 'value', 'setval', 'hideTool'],
+    props: ['flag', 'value', 'setval', 'hideTool', 'hideFooter', 'hideBorder'],
     data () {
       return {
         htmlstr: '',

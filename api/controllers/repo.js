@@ -43,6 +43,7 @@ module.exports = {
   get_index_id: (req, res) => {
     Repo.query({where: { owner: req.params.owner, alia: req.params.alia }}).fetch().then(data => {
       let _repo = data.toJSON()
+      console.log('===', data.id, req.params)
       Oper.query({
         where: {opertyp: 'USING', typ: 'REPO', idcd: data.id},
         limit: 5,

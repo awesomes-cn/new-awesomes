@@ -14,12 +14,12 @@
     div.container
       div.tip 
         strong 发布需知：
-        span 文章主要内容必须围绕前端框架的用法、经验等方面去展开。本着对用户负责的态度，对于未达到质量要求的文章将不会审核通过！
+        span 文章主要内容必须围绕前端框架的用法、经验、新闻等方面去展开。本着对用户负责的态度，对于未达到质量要求的文章将不会审核通过！
       div.upload-cover(v-bind:style="newTopic.cover ? 'background-image:url(' + cdn(newTopic.cover, 'topic') + ')' : ''")
         icon(name="camera")
         upload(v-model="newTopic.cover" folder="topic")
       input.title-txt(type="text" placeholder="请输入标题" v-model="newTopic.title")
-      editor(flag="demo" v-model="newTopic.con")
+      editor(flag="demo" v-model="newTopic.con" hideFooter="true" hideBorder="true")
 </template>
 
 <script>
@@ -54,7 +54,7 @@
   }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
   .page-topic-new {
     header {
       display: none;

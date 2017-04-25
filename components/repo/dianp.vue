@@ -12,16 +12,14 @@
             span(v-if="!firstDianp") 说说你的用后短评？好用？有坑？经验教训？
           a.right(href="javascript:void(0)" @click="showList" v-show="diancount > 0")
             span 查看全部 {{diancount}} 条短评
-          // a.write(href="#")
-          //   icon(name="edit")
-          //   span 我来写
     ul.list-group.list-group-flush(v-if="isShowEditor")
       li.list-group-item    
         p.alert.alert-warning 注意：为了保证质量，目前我们只针对 GitHub 粉丝数大于 50 的开发者开放点评功能！
-        editor(flag="repo-dianp" hideTool="true" v-model="diancon")
+        editor(flag="repo-dianp" hideTool="true" v-model="diancon" v-bind:setval="setval")
           div.row.align-items-center
             div.col
-              span 发布点评
+              span 发布点评 
+              a(href="javascript:void(0)" @click="isShowEditor = false") 【关闭】
             div.col(style="text-align: right")
               button.sub-btn(@click="submit") 发布 
     ul.list-group.list-group-flush(v-if="isShowList")
@@ -29,7 +27,7 @@
         article(v-html="marked(item.con)")
         ul.extra
           li
-            a.up(href="javascript:void(0)" @click="switchFavor(item)")
+            a.up(href="javascript:void(0)" @click="switchFavor(item)"  v-bind:class="'has-' + item.isFavor")
               icon(name="arrow-up")
               span {{item.favor}}
           li
@@ -55,6 +53,7 @@
 
 <script>
   import axios from '~plugins/axios'
+  import { Message } from 'element-ui'
   import $ from 'jquery'
   import Comment from '~components/comment.vue'
   export default {
@@ -135,7 +134,13 @@
           })
           this.dianps = res.data.items
           this.pagetotal = res.data.count
+          this.initIsFavor()
         })
+      },
+
+      // 当前登陆会员喜欢的点评
+      initIsFavor: function () {
+        if (!this.session || this.dianps.length < 1) { return }
       },
 
       pageCallback: function (page) {
@@ -144,7 +149,6 @@
 
       // 发布
       submit: function () {
-        console.log(this.diancon)
         if (this.showLogin()) {
           return
         }
@@ -163,9 +167,14 @@
           rid: this.repo.id,
           con: this.diancon
         }).then(res => {
+          console.log('成都了')
           this.dians.push(res.data.item)
           this.setEditVal('')
           this.isSubmiting = false
+          Message({
+            message: '新增点评成功',
+            type: 'success'
+          })
         })
       },
 

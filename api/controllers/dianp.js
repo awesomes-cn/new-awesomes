@@ -1,6 +1,8 @@
 const Dianp = require('../models/dianp')
 const jwt = require('jsonwebtoken')
 
+
+
 module.exports = {
   post_index: (req, res) => {
     let memId = (jwt.verify(req.headers.atoken, 'hxh') || {}).id
