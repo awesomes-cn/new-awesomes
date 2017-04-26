@@ -2,11 +2,10 @@
   div.container
     div.list-typs
       nuxt-link(v-for="first in rootyps" v-bind:to="'/repos/' + first.key")
-        icon(:name="first.icon")
-        span {{first.sdesc}}
+        icon(:name="first.icon") {{first.sdesc}}
     div.list-typs
       nuxt-link(v-for="second in typcds" v-bind:to="'/repos/' + rootyp + '/' + second.key" class="submenu")
-        icon(:name="second.icon")
+        // icon(:name="second.icon")
         span {{second.sdesc}}
 
     div.list-con
@@ -17,12 +16,10 @@
         p {{repo.description_cn}}
         div.opers
           a(href="#"  v-bind:title="repo.using + '人在用'")
-            icon(name="hand" class="transform")
-            span {{repo.using}}
+            icon(name="hand" class="transform" width="15px") {{repo.using}}
 
           a(href="#" v-bind:title="repo.mark + '人喜欢'")
-            icon(name="heart-o" )
-            span {{repo.mark}}
+            icon(name="heart-o"  width="15px") {{repo.mark}}
       pagination(flag="repos-list" v-bind:total="pagetotal" v-bind:size="pagesize")
 </template>
 
@@ -154,11 +151,6 @@
     }
 
     svg {
-      float: left;
-      width: 15px;
-      height: 15px;
-      margin-right: 5px;
-
       &.transform {
         -webkit-transform: scale(-1, 1);
         -ms-transform: scale(-1, 1);

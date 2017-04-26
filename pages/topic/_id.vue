@@ -10,15 +10,11 @@
       h3 {{topic.title}}
       div.extras
         span 
-          icon(name="eye-o")
-          span {{topic.visit}} 次阅读
+          icon(name="eye-o") {{topic.visit}} 次阅读
         span 
-          icon(name="heart-o")
-          span {{topic.favor}} 人喜欢
+          icon(name="heart-o") {{topic.favor}} 人喜欢
         span 
-          icon(name="comment")
-          span(v-if="topic.comment > 0") {{topic.comment}} 条评论
-          span(v-if="topic.comment <= 0") 暂无评论
+          icon(name="comment") {{topic.comment > 0 ? topic.comment + ' 条评论' : '暂无评论'}}
     article(v-html="marked(topic.con)")
 
       

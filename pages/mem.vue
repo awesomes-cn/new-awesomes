@@ -13,18 +13,23 @@
       h4 {{mem.nc}}
 
       div.info
-        span
-          icon(name="location")
-          span 北京
+        span(title="坐标")
+          icon(name="location") {{mem.mem_info.location || '坐标'}}
+
         span(title="公司")
-          icon(name="company")
-          span Awesomes
-        a(href="")
-          icon(name="home")
-          span 个人主页
-        a(href="")
-          icon(name="github")
-          span GitHub  
+          icon(name="company") {{mem.mem_info.company || '公司'}}
+
+        a(:href="mem.mem_info.blog" target="_blank" v-if="isExsit(mem.mem_info.blog)" )
+          icon(name="home") 主页
+
+        a(:href="'http://weibo.com/' + mem.mem_info.weibo_url" target="_blank" v-if="isExsit(mem.mem_info.weibo_url)")
+          icon(name="weibo") {{mem.mem_info.weibo_nc || mem.mem_info.weibo_url}}
+
+        a(:href="'https://twitter.com/' + mem.mem_info.twitter" target="_blank"  v-if="isExsit(mem.mem_info.twitter)")
+          icon(name="twitter") {{mem.mem_info.twitter}}
+
+        a(:href="'https://github.com/' + mem.mem_info.github" target="_blank"  v-if="isExsit(mem.mem_info.github)")
+          icon(name="github") {{mem.mem_info.github || 'GitHub'}}  
         
 
     div.container.conarea
@@ -41,9 +46,21 @@
         }
       })
     },
+    watch: {
+      '$router.params.id': function (val) {
+        axios().get(`mem/${val}`).then(res => {
+          this.mem = res.data
+        })
+      }
+    },
     computed: {
       session () {
         return this.$store.state.session || {}
+      }
+    },
+    methods: {
+      isExsit: (str) => {
+        return str && str.trim() !== ''
       }
     }
   }
@@ -55,6 +72,7 @@
     text-align: center;
     padding: 50px;
     background: #f7f8fa;
+    margin-bottom: 20px;
 
     .tx-link {
       display: inline-block;

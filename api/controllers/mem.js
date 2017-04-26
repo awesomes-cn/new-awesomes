@@ -13,6 +13,8 @@ module.exports = {
     })
   },
   get_opers: function (req, res) {
+    let limit = Math.min((req.query.limit || 10), 100)
+    let skip = parseInt(req.query.skip || 0)
     let where = {
       mem_id: req.params.id
     }
@@ -21,16 +23,27 @@ module.exports = {
         where[key] = req.query[key]
       }
     })
-    Oper.query({
-      where: where
-    }).fetchAll({
-      withRelated: [{
-        'repo': function (query) {
-          query.select('alia', 'cover', 'owner', 'id', 'using')
-        }
-      }]
-    }).then(data => {
-      res.send(data)
+    Promise.all([Oper.where(where).count('id'),
+      Oper.query({
+        where: where,
+        limit: limit,
+        offset: skip
+      }).fetchAll({
+        withRelated: [{
+          'repo': function (query) {
+            query.select('alia', 'cover', 'owner', 'id', 'using', 'description_cn')
+          }
+        }]
+      })
+    ]).then(([count, items]) => {
+      res.send({
+        items: items,
+        count: count
+      })
     })
+  },
+
+  // 我在用
+  get_using: (req, res) => {
   }
 }

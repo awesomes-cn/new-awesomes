@@ -80,7 +80,7 @@ module.exports = {
         limit: limit,
         offset: skip,
         where: {
-          repo_id: data.id,
+          repo_id: data.id
         },
         orderByRaw: 'id desc'
       }
@@ -92,12 +92,11 @@ module.exports = {
           }
         }]
       })]).then(([count, items]) => {
-          res.send({
+        res.send({
           items: items,
           count: count
         })
       })
     })
-    
   }
 }
