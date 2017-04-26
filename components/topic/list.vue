@@ -12,15 +12,11 @@
           h2 {{topic.title}}
         div.extras
           span 
-            icon(name="eye-o")
-            span {{topic.visit}} 次阅读
+            icon(name="eye-o" width="18px") {{topic.visit}} 次阅读
           span 
-            icon(name="heart-o")
-            span {{topic.favor}} 人喜欢
+            icon(name="heart-o"  width="18px") {{topic.favor}} 人喜欢
           span 
-            icon(name="comment")
-            span(v-if="topic.comment > 0") {{topic.comment}} 条评论
-            span(v-if="topic.comment <= 0") 暂无评论
+            icon(name="comment"  width="18px") {{topic.comment > 0 ? topic.comment + ' 条评论' : '暂无评论'}}
 </template>
 
 
@@ -73,13 +69,6 @@
         margin: 0 8px;
         display: inline-block;
         position: relative
-      }
-
-      svg {
-        width: 18px;
-        height: 18px;
-        float: left;
-        margin-right: 3px;
       }
     }
   }

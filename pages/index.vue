@@ -11,7 +11,7 @@
           div.card.search
             input.search-txt(type="text" placeholder="搜索前端库")
           a.card(href="")
-            icon(name="chrome" class="chrome-logo")
+            icon(name="chrome" class="chrome-logo" width="50px")
             h2 寻找前端插件，一步到位
 
           a.card(href="")
@@ -84,8 +84,6 @@
   .chrome-logo {
       float: left;
       animation: spin 2s infinite linear;
-      width: 50px;
-      height: 50px;
       margin-right: 20px;
   }
 

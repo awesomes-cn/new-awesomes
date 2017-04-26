@@ -17,12 +17,10 @@
       article(v-html="processAt(marked(item.con))")
       div.opers
         a.up(href="javascript:void(0)" @click="switchFavor(item)" v-bind:class="'has-' + item.isFavor")
-          icon(name="arrow-up")
-          span {{item.favor}}
+          icon(name="arrow-up") {{item.favor}}
 
         a(href="javascript:void(0)" @click="reply(item, $event)")
-          icon(name="reply" )
-          span 回复
+          icon(name="reply" ) 回复
 
         a.extra(href="javascript:void(0)" @click="edit(item, $event)" v-if="session && item.mem.id == session.id")
           span 编辑

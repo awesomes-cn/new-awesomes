@@ -5,8 +5,7 @@
         div.top-show
           div.left
             a.write(href="javascript:void(0)" @click="isShowEditor = true")
-              icon(name="edit") 
-              span 写短评
+              icon(name="edit") 写短评
           div.middle
             article(v-html="marked(firstDianp.con)" v-if="firstDianp")
             span(v-if="!firstDianp") 说说你的用后短评？好用？有坑？经验教训？

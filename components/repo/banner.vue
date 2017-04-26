@@ -8,8 +8,10 @@
             a.typcd(href="") {{repo.typcd_zh}}
 
         div.col.right
-          a(href="" style="color: #EF015B" title="聊天室"): icon(name="gitter")
-          a(href="" style="color: #F48024" title="上 Stackoverflow 提问"): icon(name="stackoverflow")
+          a(:href="'https://gitter.im/' + repo.full_name" style="color: #EF015B" title="聊天室" target="_blank")
+            icon(name="gitter"  width="15px")
+          a(:href="'http://stackoverflow.com/questions/tagged/' + repo.name" style="color: #F48024" title="上 Stackoverflow 提问"  target="_blank")
+            icon(name="stackoverflow"  width="15px")
       div.row
         div.col-md-4.col-sm-0
           nuxt-link(:to="'/repo/' + repo.owner + '/' + repo.alia")
@@ -19,34 +21,29 @@
           p {{repo.description_cn}}
           div.links
             a.home(:href="repo.homepage"  target="_blank")
-              icon(name="home")
-              span 官 网
+              icon(name="home") 官 网
 
             a.download(href="")
-              icon(name="download")
+              icon(name="download" width="35px")
 
             a.github(:href="repo.html_url" target="_blank")
-              icon(name="github")
-              span GitHub
+              icon(name="github") GitHub
+          div
+            
           div.params.row
-            div.col-md-6.col-sm-12
-              icon(name="star")
-              span {{repo.stargazers_count}} 
-
-              icon(name="fork")
-              span {{repo.forks_count}} 
-
-              icon(name="clock")
-              span {{repo.forks_count}} 
+            div.col-md-6.col-sm-12.left
+              icon(name="star" width="15px") {{repo.stargazers_count}} 
+              icon(name="fork"  width="15px") {{repo.forks_count}} 
+              icon(name="clock"  width="15px") {{repo.forks_count}} 
             div.col-md-6.col-sm-12
               div.iuse
                 nuxt-link(:to="'/mem/' + using.mem.id" v-for="using in repo.usings" v-bind:title="using.mem.nc")
                   img.mem-tx(:src="cdn(using.mem.avatar, 'mem')")
-                span 等
+                span(v-show="repo.using > 5") 等
                 span {{repo.using}} 人在用
                 span.use-btn(:class="'has-' + isUsing" @click="switchUsing") 我在用       
           div.favor(:class="'has-' + isMark" @click="switchMark")
-            icon(name="heart")
+            icon(name="heart" width="35px" height="35px")
             div {{repo.mark}}
 
 </template>
@@ -144,9 +141,7 @@
 
     .right {
       text-align: right;
-      svg {
-        width: 15px;
-        height: 15px;
+      a {
         margin-left: 15px;
       }
     }
@@ -162,7 +157,7 @@
       padding: 20px 0;
       .home, .github {
         display: inline-block;
-        padding: 10px 20px;
+        padding: 5px 20px;
         color: #FFF;
         text-decoration: none;
         background-color: #EEE;
@@ -201,16 +196,11 @@
     .params {
       color: rgba(81, 162, 81, 0.91);
       padding: 10px 0;
-      svg {
-        width: 15px;
-        height: 15px;
-        margin-right: 3px;
-        color: rgba(81, 162, 81, 0.91);
-        display: inline-block;
-      }
-      span {
+      .v-icon {
         margin-right: 30px;
-        display: inline-block
+      }
+      .left {
+        font-weight: bold;
       }
     }
 
@@ -227,15 +217,11 @@
       &.has-true {
         color: #f14a1e;
       }
-
-      svg {
-        width: 35px;
-        height: 35px;
-      }
     }
 
     .iuse {
       color: #bbb;
+      text-align: right;
       .use-btn {
         color: #BBB;
         padding: 5px 10px;

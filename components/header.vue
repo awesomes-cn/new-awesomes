@@ -19,7 +19,7 @@
 
         div.right
           a.hide-small(href="" v-show="session" @mouseover="showmemeus = true" @mouseleave="showmemeus = false")
-            icon(name="more")
+            icon(name="more" width="20px")
 
           div.memeus(v-show="showmemeus" @mouseover="showmemeus = true" @mouseleave="showmemeus = false")
             nuxt-link(to="/about") 我的收藏
@@ -33,10 +33,10 @@
             
 
           a.hide-small(href="" v-show="session")
-            icon(name="bell")
+            icon(name="bell"  width="22px")
 
           nuxt-link(to="/repo/new")
-            icon(name="plus")    
+            icon(name="plus"  width="20px")    
     
     // 登录框
     transition(name="custom-classes-transition" enter-active-class="animated fadeInDown" leave-active-class="animated fadeOutUpBig")  
