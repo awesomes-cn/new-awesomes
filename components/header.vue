@@ -18,13 +18,13 @@
             
 
         div.right
-          a.hide-small(href="" v-show="session")
+          a.hide-small(href="" v-show="session" @mouseover="showmemeus = true" @mouseleave="showmemeus = false")
             icon(name="more")
 
-            // div.memeus
-            //   nuxt-link(to="/about") 我的收藏
-            //   nuxt-link(to="/about") 个人资料
-            //   nuxt-link(to="/about"  @click="logout()") 注 销
+          div.memeus(v-show="showmemeus" @mouseover="showmemeus = true" @mouseleave="showmemeus = false")
+            nuxt-link(to="/about") 我的收藏
+            nuxt-link(to="/about") 个人资料
+            a(href="javascript:void(0)" @click="logout()") 注 销
 
           a(href="javascript:void(0)" @click="showLogin()" v-show="!session") 登录
 
@@ -68,7 +68,8 @@
       return {
         uid: '',
         pwd: '',
-        isHideMenu: true
+        isHideMenu: true,
+        showmemeus: false
       }
     },
     computed: {
@@ -101,6 +102,10 @@
       logout: function () {
         Cookie.set('awlogin', null)
         this.$store.commit('setUser', null)
+        Message({
+          message: '注销成功！',
+          type: 'success'
+        })
       }
     }
   }
@@ -178,13 +183,13 @@
     border: #DDD 1px solid;
     border-top: 0;
     text-align: center;
-    display: none;
+    // display: none;
 
     a {
       display: block;
       border-top: #EEE 1px solid;
       height: auto;
-      padding: 20px 0;
+      padding: 15px 0;
     }
   }
   

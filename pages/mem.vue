@@ -10,7 +10,7 @@
 
       nuxt-link(to="/mem" class="tx-link") 
         img.tx(:src="cdn(mem.avatar, 'mem')")
-      h2 {{mem.nc}}
+      h4 {{mem.nc}}
 
       div.info
         span
@@ -74,6 +74,7 @@
 
     .info {
       line-height: 20px;
+      margin-top: 20px;
       & > a, & > span {
         display: inline-block;
         padding: 0 10px;
