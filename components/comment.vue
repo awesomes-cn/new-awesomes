@@ -1,13 +1,14 @@
 <template lang="pug">
   div.comment-wraper
     div.editor-go
+      button.sub-btn(@click="submit" v-bind:disabled="isSubmiting") {{subMap[editing ? 'edit' : 'new'][isSubmiting ? 'ing' : 'ready']}}
       editor(:flag="flag"  v-model="comcon" v-bind:setval="setval")
-        div.row.align-items-center
-          div.col
-            span {{editing ? '编辑评论中' : '发布评论'}}
-            a.cancel-edit(href="javascript:void(0)" @click="cancelEditing" v-show="editing") 取消编辑
-          div.col(style="text-align: right")
-            button.sub-btn(@click="submit" v-bind:disabled="isSubmiting") {{subMap[editing ? 'edit' : 'new'][isSubmiting ? 'ing' : 'ready']}}
+      // div.row.align-items-center
+      //   div.col
+      //     span {{editing ? '编辑评论中' : '发布评论'}}
+      //     a.cancel-edit(href="javascript:void(0)" @click="cancelEditing" v-show="editing") 取消编辑
+      //   div.col(style="text-align: right")
+      //     button.sub-btn(@click="submit" v-bind:disabled="isSubmiting") {{subMap[editing ? 'edit' : 'new'][isSubmiting ? 'ing' : 'ready']}}
 
     div.citem(v-for="(item, index) in coms")
       nuxt-link(:to="'/mem/' + item.mem.id")
@@ -44,7 +45,7 @@
         editing: null,
         setval: {
           time: Date.now(),
-          val: ''
+          val: '写下你的评论'
         },
         subMap: {
           new: {
@@ -240,6 +241,8 @@
 
   .editor-go {
     margin-bottom: 40px;
+    position: relative;
+    padding-right: 80px;
   }
 
   article {
@@ -250,8 +253,11 @@
     border: none;
     color: #FFF;
     background-color: #da552f;
-    padding: 6px 15px;
+    padding: 10px 20px;
     cursor: pointer;
+    position: absolute;
+    right: 0;
+    top: 4px;
   }
 
   .cancel-edit {

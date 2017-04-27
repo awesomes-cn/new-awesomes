@@ -1,18 +1,18 @@
 <template lang="pug">
   div.meditor(:style="hideBorder ? 'border: 0' : ''")
-    div.toolbar(v-if="!hideTool")
-      a(href="javascript:void(0)" title="上传图片" @click="preview")
-        icon(name="images")
+    // div.toolbar(v-if="!hideTool")
+    //   a(href="javascript:void(0)" title="上传图片" @click="preview")
+    //     icon(name="images")
 
-      a(href="javascript:void(0)" title="预览" @click="preview" v-bind:class="'active-' + (view === 'preview')")
-        icon(name="eye")
+    //   a(href="javascript:void(0)" title="预览" @click="preview" v-bind:class="'active-' + (view === 'preview')")
+    //     icon(name="eye")
        
     div.con(v-show="view == 'editor'")
       textarea(:id="'meditor-' + flag" )
     div.preview(v-show="view == 'preview'" v-html="marked(htmlstr)")
-    div.footbar(v-if="!hideFooter")
-      slot
-        span.info Markdown 编辑器
+    // div.footbar(v-if="!hideFooter")
+    //   slot
+    //     span.info Markdown 编辑器
 </template>
 <script>
   import $ from '~assets/js/jquery-vendor'
@@ -59,14 +59,17 @@
         self.$emit('input', editor.getValue())
       })
 
-      // markdown_editor.setValue(this.setval.val)
+      if (this.setval) {
+        markdown_editor.setValue(this.setval.val)
+      }
     }
   }
 </script>
 
 <style lang="scss" scoped>
   .meditor {
-    border: #DDD 1px solid
+    border: #DDD 1px solid;
+    border-radius: 2px;
   }
   .toolbar {
     padding: 10px;
@@ -94,7 +97,7 @@
   }
 
   .con {
-    padding: 10px;
+    padding: 8px;
   }
 
   .preview {

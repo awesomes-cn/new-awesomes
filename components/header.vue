@@ -13,7 +13,8 @@
             nuxt-link(to="/repos/Applications/frameworks") 前端库
             nuxt-link(to="/weuse" ) 大牛在用
             nuxt-link(to="/subjects" ) 专题  
-            nuxt-link(to="/topics" ) 优选+  
+            // nuxt-link(to="/topics" ) 优选+  
+            nuxt-link(to="/news" ) 即时报
             nuxt-link(to="/rank" ) 前端TOP100
             
 
@@ -55,7 +56,7 @@
               el-button(type="primary"  class="login-btn" @click="login") 登录
           div.github-login
             a(href="")
-              icon(name="github")   
+              icon(name="github" width="60px")   
 
 </template>
 
@@ -252,10 +253,6 @@
     text-align: center;
     * {
       display: inline-block;
-    }
-    svg {
-      width: 60px;
-      height: 60px;
     }
   }
 

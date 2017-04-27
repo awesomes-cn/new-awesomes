@@ -3,13 +3,16 @@
     div.container
       div.row
         div.col-md-7
-          topics(:topics="latestTopics")
-          div.more-topics
-            nuxt-link(to="topics") 更多优选
+          news(:newss="newss")
+          // topics(:topics="latestTopics")
+          // div.more-topics
+          //   nuxt-link(to="topics") 更多优选
             
         div.col-md-5
           div.card.search
             input.search-txt(type="text" placeholder="搜索前端库")
+            div
+              icon(name="search")
           a.card(href="")
             icon(name="chrome" class="chrome-logo" width="50px")
             h2 寻找前端插件，一步到位
@@ -23,20 +26,26 @@
 <script>
   import axios from '~plugins/axios'
   import Topics from '~components/topic/list.vue'
+  import News from '~components/repo/news.vue'
   export default {
     name: 'home',
     serverCacheKey () {
       return Math.floor(Date.now() / 10000)
     },
     asyncData () {
-      return axios().get('topic?limit=6&typcd=TOPIC').then(res => {
+      return Promise.all([
+        axios().get('news?limit=10'),
+        axios().get('topic?limit=6&typcd=TOPIC')
+      ]).then(([res1, res2]) => {
         return {
-          latestTopics: res.data
+          newss: res1.data.items
+          // latestTopics: res2.data
         }
       })
     },
     components: {
-      Topics
+      Topics,
+      News
     }
   }
 </script>
@@ -67,12 +76,15 @@
 
   .search {
     padding: 20px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
     .search-txt {
-      padding: 20px 10px;
+      padding: 10px;
+      flex-grow: 1;
       border: 0;
       outline: none;
-      width: 100%;
-      font-size: 1.1rem
+      font-size: 1.8rem
     }
   }
 
