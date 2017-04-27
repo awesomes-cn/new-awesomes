@@ -14,11 +14,11 @@
         a.up(href="")
           icon(name="arrow-up"  width="18px") {{item.favor}}
         
-        a(href="javascript:void(0)")
+        a(href="javascript:void(0)" @click="item.isShowCom = !item.isShowCom")
           icon(name="comment"  width="18px") {{item.comment}} 条评论
         span  {{timeago(item.created_at)}}
       
-      div.com-wrap
+      div.com-wrap(v-if="item.isShowCom")
         comment(:flag="'news-comment-' + item.id" typ="NEWS" v-bind:idcd="item.id")
         
 </template>
@@ -85,6 +85,7 @@
     display: flex;
     flex-direction: row;
     align-items: center;
+    padding-left: 10px;
 
     & > span, & > a {
       margin-right: 15px;
@@ -108,5 +109,6 @@
 
   .com-wrap {
     padding-top: 20px;
+    padding-left: 20px;
   }
 </style>

@@ -37,8 +37,12 @@
         axios().get('news?limit=10'),
         axios().get('topic?limit=6&typcd=TOPIC')
       ]).then(([res1, res2]) => {
+        let newss = res1.data.items
+        newss.forEach(item => {
+          item.isShowCom = false
+        })
         return {
-          newss: res1.data.items
+          newss: newss
           // latestTopics: res2.data
         }
       })

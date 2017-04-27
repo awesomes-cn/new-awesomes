@@ -21,6 +21,10 @@ let Comment = DB.Model.extend({
         table: require('./dianp'),
         field: 'comment'
       },
+      NEWS: {
+        table: require('./microblog'),
+        field: 'comment'
+      },
       TOPIC: require('./topic')
     }[model.get('typ')]
 
