@@ -4,6 +4,8 @@
       div.row
         div.col-md-7
           news(:newss="newss")
+          div.more-news
+            nuxt-link(to="/news") 查看更多
           // topics(:topics="latestTopics")
           // div.more-topics
           //   nuxt-link(to="topics") 更多优选
@@ -107,6 +109,12 @@
   .more-topics {
     padding: 20px 0;
     text-align: center
+  }
+
+  .more-news {
+    background-color: #FFF;
+    text-align: center;
+    padding: 20px;
   }
  }
  

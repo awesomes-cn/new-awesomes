@@ -72,9 +72,9 @@
     padding: 30px;
     border-bottom: #DDD 1px dashed;
 
-    &:last-child {
-      border: none;
-    }
+    // &:last-child {
+    //   border: none;
+    // }
     article {
       font-size: 1.2rem;
       line-height: 28px;

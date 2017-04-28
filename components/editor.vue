@@ -43,8 +43,7 @@
         } else {
           this.view = 'editor'
         }
-      },
-      
+      }
     },
     mounted () {
       let self = this
@@ -55,6 +54,9 @@
         lineWrapping: true,
         viewportMargin: Infinity,
         extraKeys: {"Enter": "newlineAndIndentContinueMarkdownList"}
+      })
+      markdown_editor.on('focus', function () {
+        console.log('要写了')
       })
 
       markdown_editor.on("change",function(editor){
