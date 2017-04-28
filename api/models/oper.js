@@ -30,6 +30,12 @@ let Oper = DB.Model.extend({
           FAVOR: 'favor'
         }
       },
+      NEWS: {
+        table: require('./microblog'),
+        opers: {
+          FAVOR: 'favor'
+        }
+      },
       DIANP: {
         table: require('./dianp'),
         opers: {

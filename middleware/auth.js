@@ -12,8 +12,7 @@ export default function ({ store, redirect, isServer, req }) {
       store.commit('setUser', null)
       return
     }
-    let token = loginCookie.split('=')[1]
-    axios(token).get('session').then(res => {
+    axios(req).get('session').then(res => {
       if (res.data.status) {
         Cookie.set('awlogin', { token: res.data.token, mem: res.data.mem })
       } else {

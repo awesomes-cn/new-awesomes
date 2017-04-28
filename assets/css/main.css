@@ -63,6 +63,10 @@ svg {
   height: auto!important;
 }
 
+ .CodeMirror pre.CodeMirror-placeholder {
+    color: #a2a1a1!important
+  }
+
 button > span {
   display: inline-flex;
   align-items: center;

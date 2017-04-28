@@ -2,7 +2,7 @@
   div.comment-wraper
     div.editor-go
       button.sub-btn(@click="submit" v-bind:disabled="isSubmiting") {{subMap[editing ? 'edit' : 'new'][isSubmiting ? 'ing' : 'ready']}}
-      editor(:flag="flag"  v-model="comcon" v-bind:setval="setval")
+      editor(:flag="flag"  v-model="comcon" v-bind:setval="setval" placeholder="我有话说")
       // div.row.align-items-center
       //   div.col
       //     span {{editing ? '编辑评论中' : '发布评论'}}
@@ -45,7 +45,7 @@
         editing: null,
         setval: {
           time: Date.now(),
-          val: '写下你的评论'
+          val: ''
         },
         subMap: {
           new: {

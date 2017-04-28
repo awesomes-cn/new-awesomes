@@ -2,7 +2,7 @@
   div.repo-news
     div.banner
       h4 前端即时报
-      nuxt-link(to="") 我有料报
+      nuxt-link(to="/news") 我有料报
     div.news-item(v-for="item in newss")
       nuxt-link(:to="/mem/ + item.mem.id")
         img.tx(:src="cdn(item.mem.avatar, 'mem')")
@@ -11,7 +11,7 @@
       div.article-w
         article(v-html="marked(item.con)")
       div.infos
-        a.up(href="")
+        a.up(href="javascript:void(0)" @click="switchFavor(item)"  v-bind:class="'has-' + item.isFavor")
           icon(name="arrow-up"  width="18px") {{item.favor}}
         
         a(href="javascript:void(0)" @click="item.isShowCom = !item.isShowCom")
@@ -26,10 +26,25 @@
 
 <script>
   import Comment from '~components/comment.vue'
+  import axios from '~plugins/axios'
   export default {
     props: ['newss'],
     components: {
       Comment
+    },
+    methods: {
+      // 切换喜欢
+      switchFavor: function (item) {
+        if (this.showLogin()) { return }
+        axios().post('oper', {
+          opertyp: 'FAVOR',
+          typ: 'NEWS',
+          idcd: item.id
+        }).then(res => {
+          item.favor = res.data.amount
+          item.isFavor = res.data.has
+        })
+      }
     }
   }
 </script>

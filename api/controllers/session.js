@@ -26,6 +26,7 @@ module.exports = {
   },
 
   get_index: (req, res) => {
+    console.log('*********', req.headers)
     if (!req.headers.atoken) {
       res.send({status: false})
       return

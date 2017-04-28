@@ -8,7 +8,7 @@
     //     icon(name="eye")
        
     div.con(v-show="view == 'editor'")
-      textarea(:id="'meditor-' + flag" )
+      textarea(:id="'meditor-' + flag" v-bind:placeholder="placeholder")
     div.preview(v-show="view == 'preview'" v-html="marked(htmlstr)")
     // div.footbar(v-if="!hideFooter")
     //   slot
@@ -19,9 +19,10 @@
   import CodeMirror from 'codemirror'
   require('codemirror/lib/codemirror.css')
   require('codemirror/mode/markdown/markdown.js')
+  import placeholder from '~assets/js/placeholder.js'
   let markdown_editor
   export default {
-    props: ['flag', 'value', 'setval', 'hideTool', 'hideFooter', 'hideBorder'],
+    props: ['flag', 'value', 'setval', 'hideTool', 'hideFooter', 'hideBorder', 'placeholder'],
     data () {
       return {
         htmlstr: '',
@@ -47,6 +48,7 @@
     },
     mounted () {
       let self = this
+      placeholder(CodeMirror)
       markdown_editor = CodeMirror.fromTextArea(document.getElementById('meditor-' + this.flag), {
         mode: 'markdown',
         theme: "default",
@@ -59,9 +61,9 @@
         self.$emit('input', editor.getValue())
       })
 
-      if (this.setval) {
-        markdown_editor.setValue(this.setval.val)
-      }
+      // if (this.setval) {
+      //   markdown_editor.setValue(this.setval.val)
+      // }
     }
   }
 </script>

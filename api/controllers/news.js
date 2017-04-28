@@ -1,7 +1,11 @@
 const MBlog = require('../models/microblog')
+const Logic = require('../lib/logic')
+
+
 
 module.exports = {
   get_index: (req, res) => {
+    console.log('----', req.headers)
     let limit = Math.min((req.query.limit || 10), 100)
     let skip = parseInt(req.query.skip || 0)
     let query = {
@@ -23,12 +27,49 @@ module.exports = {
         }]
     })])
     .then(([count, newss]) => {
-      res.send({
-        items: newss,
-        count: count
+      Logic.fetchMyOpers(req.headers.atoken, 'FAVOR', 'NEWS').then(opers => {
+        console.log(opers)
+        let result = newss.toJSON()
+        result.forEach(item => {
+          item.isFavor = opers.indexOf(item.id) > -1
+        })
+
+        res.send({
+          items: result,
+          count: count
+        })
       })
     }).catch((err) => {
       console.error(err)
+    })
+  },
+
+  post_index: (req, res) => {
+    let memId = (jwt.verify(req.headers.atoken, 'hxh') || {}).id
+    if (!memId) {
+      res.send({status: false})
+      return
+    }
+    let params = {mem_id: memId}
+    ;['con'].forEach(key => {
+      params[key] = req.body[key]
+    })
+
+    new MBlog(params).save().then(item => {
+      MBlog.where({id: item.get('id')}).fetch({
+        withRelated: [
+          {
+            'mem': function (mqu) {
+              return mqu.select('id', 'nc', 'avatar')
+            }
+          }, {
+            'mem.mem_info': function (query) {
+              query.select('company', 'mem_id')
+            }
+          }]
+      }).then(data => {
+        res.send({status: true, item: data})
+      })
     })
   }
 }

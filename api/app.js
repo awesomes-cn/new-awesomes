@@ -6,7 +6,6 @@ var bodyParser = require('body-parser')
 app.use(bodyParser.json())
 
 app.all('*', (req, res, next) => {
-  console.log('====', req.path)
   res.header('Access-Control-Allow-Origin', '*')
   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, atoken')
   res.header('Access-Control-Allow-Methods', 'PUT,POST,GET,DELETE,OPTIONS')

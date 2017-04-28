@@ -4,13 +4,22 @@
       div.row
         div.col-md-7
           news(:newss="newss")
-            
+          div.pagiwraper
+            pagination(flag="news-list" v-bind:total="pagetotal" v-bind:size="pagesize")  
         div.col-md-5
           div.card
-            // h5 我要爆料
-            editor(flag="news"  v-bind:setval="setval")
-            button.sub-btn(@click="submit")
-              icon(name="send" width="18px") 报个料
+            div
+              editor(flag="news"  v-bind:setval="setval" v-model="newcon" placeholder="有关前端库的新闻、感想、观点短评")
+            
+            div.new-footer
+              div.alert.alert-warning 
+                span 目前只针对
+                a(href="") 前端客
+                span 开放报料功能
+              div.btn-wraper
+                button.sub-btn(@click="submit")
+                  icon(name="send" width="18px") 发布
+            
                   
 </template>
 
@@ -18,6 +27,8 @@
 <script>
   import axios from '~plugins/axios'
   import News from '~components/repo/news.vue'
+  import { Message } from 'element-ui'
+  let pagesize = 5
   export default {
     name: 'home',
     serverCacheKey () {
@@ -25,25 +36,65 @@
     },
     data () {
       return {
+        newcon: '',
+        pagesize: pagesize,
         setval: {
           time: Date.now(),
           val: ''
         }
       }
     },
-    asyncData () {
-      return axios().get('news?limit=10').then(res => {
+    asyncData ({ req, params, query }) {
+      let page = query.page || 1
+      return axios(req).get('news', {
+        params: {
+          limit: pagesize,
+          skip: pagesize * (page - 1)
+        }
+      }).then(res => {
         let newss = res.data.items
         newss.forEach(item => {
           item.isShowCom = false
         })
         return {
-          newss: newss
+          newss: newss,
+          pagetotal: res.data.count
         }
       })
     },
     components: {
       News
+    },
+    methods: {
+      setEditVal: function (val) {
+        this.setval = {
+          time: Date.now(),
+          val: val
+        }
+      },
+      submit: function () {
+        if (this.showLogin()) {
+          return
+        }
+        if (this.newcon.trim().length < 10) {
+          Message({
+            message: '内容字数不能小于10',
+            type: 'error'
+          })
+          return
+        }
+        let self = this
+        axios().post('/news', {con: this.newcon}).then(res => {
+          if (res.data.status) {
+            Message({
+              message: '发布成功',
+              type: 'success'
+            })
+            self.newss.unshift(res.data.item)
+            self.setEditVal('')
+          }
+        })
+      }
     }
   }
 </script>
@@ -67,6 +118,8 @@
       img {
         width: 100%
       }
+
+      
    }
 
     .topic-list {
@@ -98,14 +151,34 @@
       }
     }
 
+    .new-bar {
+      margin-bottom: 10px;
+    }
+
+    .new-footer {
+      display: flex;
+      margin-top: 10px;
+
+      .btn-wraper {
+        padding-left: 10px;
+      }
+      .alert {
+        flex-grow: 1
+      }
+    }
+
     .sub-btn {
       border: none;
       color: #FFF;
       background-color: #da552f;
-      padding: 8px 10px;
+      padding: 10px 12px;
       cursor: pointer;
-      margin-top: 10px;
       float: right
+    }
+
+    .pagiwraper {
+      background-color: #FFF;
+      padding: 20px 0;
     }
  }
  
