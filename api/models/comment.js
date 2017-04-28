@@ -8,9 +8,9 @@ let Comment = DB.Model.extend({
     return this.belongsTo(Mem)
   },
   initialize: function () {
-    this.on('destroyed', this.updateTarget)
-    this.on('created', this.updateTarget)
-  },
+    this.on('created', Comment.updateTarget)
+  }
+}, {
   updateTarget: function (model) {
     let Model = {
       REPO: {

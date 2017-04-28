@@ -5,7 +5,6 @@ const Logic = require('../lib/logic')
 
 module.exports = {
   get_index: (req, res) => {
-    console.log('----', req.headers)
     let limit = Math.min((req.query.limit || 10), 100)
     let skip = parseInt(req.query.skip || 0)
     let query = {

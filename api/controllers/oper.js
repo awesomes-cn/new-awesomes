@@ -61,7 +61,7 @@ module.exports = {
     Oper.query({where: params}).fetch().then(data => {
       if (data) {
         data.destroy().then((model) => {
-          Oper.sameAmount(pwoutsesion).then(amount => {
+          Oper.updateTarget(new Oper(pwoutsesion)).then(amount => {
             res.send({has: false, amount: amount})
           })
         })

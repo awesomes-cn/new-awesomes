@@ -81,8 +81,15 @@ module.exports = {
         return
       }
 
+      let pwoutsesion = {}
+      ;['idcd', 'typ'].forEach(key => {
+        pwoutsesion[key] = item.get(key)
+      })
+
       item.destroy().then(() => {
-        res.send({status: true})
+        Comment.updateTarget(new Comment(pwoutsesion)).then(() => {
+          res.send({status: true})
+        })
       })
     })
   },

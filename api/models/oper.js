@@ -12,8 +12,11 @@ let Oper = DB.Model.extend({
     return this.belongsTo(Mem)
   },
   initialize: function () {
-    this.on('destroyed', this.updateTarget)
-    this.on('created', this.updateTarget)
+    this.on('created', Oper.updateTarget)
+  }
+}, {
+  sameAmount: function (params) {
+    return Oper.query({where: params}).count('id')
   },
   updateTarget: function (model) {
     let Model = {
@@ -59,10 +62,6 @@ let Oper = DB.Model.extend({
         })
       })
     })
-  }
-}, {
-  sameAmount: function (params) {
-    return Oper.query({where: params}).count('id')
   }
 })
 
