@@ -31,6 +31,10 @@ module.exports = {
       return
     }
     jwt.verify(req.headers.atoken, 'hxh', (err, decoded) => {
+      if (err) {
+        console.log('剑来了')
+        res.send({status: false})
+      }
       Mem.where({id: (decoded || {}).id}).fetch().then(data => {
         if (data) {
           let token = jwt.sign({ id: data.id }, 'hxh', { expiresIn: '5h' })

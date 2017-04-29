@@ -1,6 +1,7 @@
 const Mem = require('../models/mem')
 const Oper = require('../models/oper')
-const jwt = require('jsonwebtoken')
+const Logic = require('../lib/logic')
+
 module.exports = {
   get_index: (req, res) => {
     let limit = Math.min((req.query.limit || 5), 20)
@@ -30,7 +31,7 @@ module.exports = {
   },
 
   get_is: (req, res) => {
-    let memId = (jwt.verify(req.headers.atoken, 'hxh') || {}).id
+    let memId = Logic.myid(req)
     if (!memId) {
       res.send({has: false})
       return
@@ -45,7 +46,7 @@ module.exports = {
   },
 
   post_index: (req, res) => {
-    let memId = (jwt.verify(req.headers.atoken, 'hxh') || {}).id
+    let memId = Logic.myid(req)
     if (!memId) {
       res.send({status: false})
       return

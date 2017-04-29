@@ -1,12 +1,14 @@
 const jwt = require('jsonwebtoken')
 const Oper = require('../models/oper')
-module.exports = {
+
+
+let Logic = {
   // 获取当前登录会员喜欢(XX)的小报(XX)ID数组
-  fetchMyOpers: (atoken, opertyp, typ) => {
-    if (!atoken) {
+  fetchMyOpers: (req, opertyp, typ) => {
+    if (!req.headers.atoken) {
       return Promise.resolve([])
     }
-    let memId = (jwt.verify(atoken, 'hxh') || {}).id
+    let memId = Logic.myid(req)
     if (!memId) {
       return Promise.resolve([])
     }
@@ -21,5 +23,15 @@ module.exports = {
         }))
       })
     })
+  },
+  myid: (req) => {
+    try {
+      return (jwt.verify(req.headers.atoken, 'hxh') || {}).id
+    } catch(ex) {
+      return null
+    }
   }
+
 }
+
+module.exports = Logic

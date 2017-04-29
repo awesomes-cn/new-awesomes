@@ -1,5 +1,5 @@
 const Comment = require('../models/comment')
-const jwt = require('jsonwebtoken')
+const Logic = require('../lib/logic')
 const Oper = require('../models/oper')
 
 
@@ -8,7 +8,7 @@ let getMyFavors = (atoken) => {
   if (!atoken) {
     return Promise.resolve([])
   }
-  let memId = (jwt.verify(atoken, 'hxh') || {}).id
+  let memId = Logic.myid
   if (!memId) {
     return Promise.resolve([])
   }
@@ -50,7 +50,7 @@ module.exports = {
     })
   },
   post_index: (req, res) => {
-    let memId = (jwt.verify(req.headers.atoken, 'hxh') || {}).id
+    let memId = Logic.myid(req)
     if (!memId) {
       res.send({status: false})
       return
@@ -74,7 +74,7 @@ module.exports = {
   },
 
   delete_index_id: (req, res) => {
-    let memId = (jwt.verify(req.headers.atoken, 'hxh') || {}).id
+    let memId = Logic.myid(req)
     Comment.query({where: {id: req.params.action}}).fetch().then(item => {
       if (item.get('mem_id') !== memId) {
         res.send({status: false})
@@ -95,7 +95,7 @@ module.exports = {
   },
 
   put_index_id: (req, res) => {
-    let memId = (jwt.verify(req.headers.atoken, 'hxh') || {}).id
+    let memId = Logic.myid(req)
     Comment.query({where: {id: req.params.action}}).fetch().then(item => {
       if (item.get('mem_id') !== memId) {
         res.send({status: false})

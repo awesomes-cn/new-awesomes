@@ -22,41 +22,47 @@
   }
 </script>
 
-<style lang="scss" scoped>
-  .sub-banner {
-    height: 300px;
-    text-align: center;
-    padding: 50px 1%;
-    position: relative;
-    color: #FFF;
-
-    .bglayer {
-      background-repeat: no-repeat;
-      background-size: cover;
-      background-attachment: fixed;
-      z-index: -2;
-      overflow: hidden;
-      background-position: center center;
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      left: 0;
-      right: 0;
+<style lang="scss">
+  .page-subject-name {
+    header {
+      box-shadow: none!important
     }
+  
+    .sub-banner {
+      height: 300px;
+      text-align: center;
+      padding: 50px 1%;
+      position: relative;
+      color: #FFF;
 
-    .bgcover {
-      z-index: -1;
-      background-color: #000;
-      opacity: 0.5;
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      left: 0;
-      right: 0;
-    }
+      .bglayer {
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-attachment: fixed;
+        z-index: -2;
+        overflow: hidden;
+        background-position: center center;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+      }
 
-    article {
-      line-height: 30px;
+      .bgcover {
+        z-index: -1;
+        background-color: #000;
+        opacity: 0.5;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+      }
+
+      article {
+        line-height: 30px;
+      }
     }
   }
 </style>

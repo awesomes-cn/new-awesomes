@@ -1,11 +1,11 @@
 const Dianp = require('../models/dianp')
-const jwt = require('jsonwebtoken')
+const Logic = require('../lib/logic')
 
 
 
 module.exports = {
   post_index: (req, res) => {
-    let memId = (jwt.verify(req.headers.atoken, 'hxh') || {}).id
+    let memId = Logic.myid(req)
     if (!memId) {
       res.send({status: false})
       return

@@ -1,8 +1,6 @@
 const MBlog = require('../models/microblog')
 const Logic = require('../lib/logic')
 
-
-
 module.exports = {
   get_index: (req, res) => {
     let limit = Math.min((req.query.limit || 10), 100)
@@ -26,8 +24,7 @@ module.exports = {
         }]
     })])
     .then(([count, newss]) => {
-      Logic.fetchMyOpers(req.headers.atoken, 'FAVOR', 'NEWS').then(opers => {
-        console.log(opers)
+      Logic.fetchMyOpers(req, 'FAVOR', 'NEWS').then(opers => {
         let result = newss.toJSON()
         result.forEach(item => {
           item.isFavor = opers.indexOf(item.id) > -1
@@ -44,7 +41,7 @@ module.exports = {
   },
 
   post_index: (req, res) => {
-    let memId = (jwt.verify(req.headers.atoken, 'hxh') || {}).id
+    let memId = Logic.myid(req)
     if (!memId) {
       res.send({status: false})
       return
