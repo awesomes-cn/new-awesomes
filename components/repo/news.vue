@@ -1,7 +1,7 @@
 <template lang="pug">
   div.repo-news
     div.banner
-      h4 前端即时报
+      h4 前端情报局
       nuxt-link(to="/news") 我有料报
     div.news-item(v-for="item in newss")
       nuxt-link(:to="/mem/ + item.mem.id")

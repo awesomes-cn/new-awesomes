@@ -14,7 +14,7 @@
             nuxt-link(to="/weuse" ) 大牛在用
             nuxt-link(to="/subjects" ) 专题  
             // nuxt-link(to="/topics" ) 优选+  
-            nuxt-link(to="/news" ) 即时报
+            nuxt-link(to="/news" ) 情报局
             nuxt-link(to="/rank" ) 前端TOP100
             
 

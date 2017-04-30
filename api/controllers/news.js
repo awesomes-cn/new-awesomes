@@ -1,6 +1,6 @@
 const MBlog = require('../models/microblog')
 const Logic = require('../lib/logic')
-
+const moment = require('moment')
 module.exports = {
   get_index: (req, res) => {
     let limit = Math.min((req.query.limit || 10), 100)
@@ -66,6 +66,39 @@ module.exports = {
       }).then(data => {
         res.send({status: true, item: data})
       })
+    })
+  },
+
+  // 最佳
+  get_best: (req, res) => {
+    let period = req.query.period
+    let query = MBlog
+
+    let firstDay = {
+      week: moment().days(-7).format(),
+      month: moment().days(-30).format()
+    }[period]
+
+    if (firstDay) {
+      query = query.where('created_at', '>', firstDay)
+    }
+
+
+    query.query({
+      orderByRaw: 'favor desc'
+    }).fetch({
+      withRelated: [
+        {
+          'mem': function (mqu) {
+            return mqu.select('id', 'nc', 'avatar')
+          }
+        }, {
+          'mem.mem_info': function (query) {
+            query.select('company', 'mem_id')
+          }
+        }]
+    }).then(item => {
+      res.send(item)
     })
   }
 }

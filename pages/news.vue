@@ -19,7 +19,25 @@
               div.btn-wraper
                 button.sub-btn(@click="submit")
                   icon(name="send" width="18px") 发布
+          div.card.hot
+            div.head
+              h5 最佳情报
+              a(href="javascript:void(0)" @click="fetchBest('week')" v-bind:class="'active-' + (period == 'week')") 本周
+              a(href="javascript:void(0)" @click="fetchBest('month')"  v-bind:class="'active-' + (period == 'month')") 本月
+              a(href="javascript:void(0)" @click="fetchBest()"  v-bind:class="'active-' + !period") 历史
             
+            div(v-if="best")
+              article(v-html="marked(best.con)")
+
+              div.foot
+                nuxt-link(to="/mem" class="tx-link") 
+                  img.tx(:src="cdn(best.mem.avatar, 'mem')")
+                  span {{best.mem.nc}} @{{best.mem.mem_info.company}}
+                span {{timeago(best.created_at)}}
+                icon(name="comment") {{best.comment}}
+              
+
+
                   
 </template>
 
@@ -38,10 +56,12 @@
       return {
         newcon: '',
         pagesize: pagesize,
+        period: 'week',
         setval: {
           time: Date.now(),
           val: ''
-        }
+        },
+        best: null
       }
     },
     asyncData ({ req, params, query }) {
@@ -94,7 +114,22 @@
             self.setEditVal('')
           }
         })
+      },
+
+      // 获取最佳
+      fetchBest: function (period) {
+        this.period = period
+        axios().get('news/best', {
+          params: {
+            period: period
+          }
+        }).then(res => {
+          this.best = res.data
+        })
       }
+    },
+    created () {
+      this.fetchBest('week')
     }
   }
 </script>
@@ -179,6 +214,38 @@
     .pagiwraper {
       background-color: #FFF;
       padding: 20px 0;
+    }
+
+    .hot {
+      .head {
+        display: flex;
+        align-items: center;
+        border-bottom: #DDD 1px dashed;
+        padding-bottom: 5px;
+        margin-bottom: 20px;
+
+        a {
+          margin-left: 5px;
+
+          &.active-true {
+            color: red
+          }
+        }
+      }
+      article {
+        font-size: 1.1rem
+      }
+      h5 {
+        flex-grow: 1
+      }
+      .foot {
+        .tx {
+          width: 20px;
+          height: 20px;
+          border-radius: 100%;
+          margin-right: 3px;
+        }
+      }
     }
  }
  
