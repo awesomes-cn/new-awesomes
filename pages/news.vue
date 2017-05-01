@@ -225,7 +225,7 @@
         margin-bottom: 20px;
 
         a {
-          margin-left: 5px;
+          margin-left: 8px;
 
           &.active-true {
             color: red
@@ -239,11 +239,20 @@
         flex-grow: 1
       }
       .foot {
+        display: flex;
+        align-items: center;
         .tx {
           width: 20px;
           height: 20px;
           border-radius: 100%;
           margin-right: 3px;
+        }
+        
+        * {
+          color: #8590a6;
+        }
+        & > a, & > span {
+          margin-right: 10px;
         }
       }
     }

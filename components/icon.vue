@@ -14,7 +14,7 @@
 
 <style lang="scss">
   .v-icon {
-    display: flex;
+    display: inline-flex;
     align-items: center;
 
     span {
