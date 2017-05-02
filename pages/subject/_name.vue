@@ -11,9 +11,33 @@
 
 <script>
   import axios from '~plugins/axios'
+  import _ from 'underscore'
   export default {
     asyncData ({ req, params, query }) {
       return axios().get(`subject/${params.name}`).then(res => {
+        let tmp = _.groupBy(res.data.repos, item => {
+          return item.rootyp_zh
+        })
+
+        let result = []
+        for (let rootyp in tmp) {
+          let subs = _.groupBy(tmp[rootyp], item => {
+            return item.typcd_zh
+          })
+
+          let subResult = []
+          for (let typcd in subs) {
+            subResult.push({
+              typcd: typcd,
+              repos: subs[typcd]
+            })
+          }
+          result.push({
+            rootyp: rootyp,
+            typcds: subResult
+          })
+        }
+        console.log(JSON.stringify(result))
         return {
           sub: res.data
         }
