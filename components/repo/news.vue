@@ -1,8 +1,5 @@
 <template lang="pug">
   div.repo-news
-    div.banner
-      h4 前端情报局
-      nuxt-link(to="/news") 我有料报
     div.news-item(v-for="item in newss")
       nuxt-link(:to="/mem/ + item.mem.id")
         img.tx(:src="cdn(item.mem.avatar, 'mem')")
@@ -19,7 +16,7 @@
         span  {{timeago(item.created_at)}}
       
       div.com-wrap(v-if="item.isShowCom")
-        comment(:flag="'news-comment-' + item.id" typ="NEWS" v-bind:idcd="item.id")
+        comment(:flag="'news-comment-' + flag + '-' + item.id" typ="NEWS" v-bind:idcd="item.id")
         
 </template>
 
@@ -28,7 +25,7 @@
   import Comment from '~components/comment.vue'
   import axios from '~plugins/axios'
   export default {
-    props: ['newss'],
+    props: ['newss', 'flag'],
     components: {
       Comment
     },
@@ -54,27 +51,15 @@
   .repo-news {
     background-color: #FFF;
   }
-  .banner {
-    padding: 20px;
-    border-bottom: #EEE 1px solid;
-
-    * {
-      display: inline-block
-    }
-
-    a {
-      color: #8590a6;
-      float: right
-    }
-  }
+  
   .news-item {
     background-color: #FFF;
-    padding: 30px;
+    padding: 30px 0;
     border-bottom: #DDD 1px dashed;
 
-    // &:last-child {
-    //   border: none;
-    // }
+    &:last-child {
+      border: none;
+    }
     article {
       font-size: 1.2rem;
       line-height: 28px;

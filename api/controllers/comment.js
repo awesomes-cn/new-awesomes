@@ -4,11 +4,11 @@ const Oper = require('../models/oper')
 
 
 // 获取当前登录会员喜欢的评论
-let getMyFavors = (atoken) => {
-  if (!atoken) {
+let getMyFavors = (req) => {
+  if (!req.headers.atoken) {
     return Promise.resolve([])
   }
-  let memId = Logic.myid
+  let memId = Logic.myid(req)
   if (!memId) {
     return Promise.resolve([])
   }
@@ -40,7 +40,8 @@ module.exports = {
         }
       }]
     }).then(data => {
-      getMyFavors(req.headers.atoken).then(opers => {
+      console.log('====', data)
+      getMyFavors(req).then(opers => {
         let result = data.toJSON()
         result.forEach(item => {
           item.isFavor = opers.indexOf(item.id) > -1

@@ -1,7 +1,7 @@
 <template lang="pug">
   div.comment-wraper
     div.editor-go
-      // button.sub-btn(@click="submit" v-bind:disabled="isSubmiting") {{subMap[editing ? 'edit' : 'new'][isSubmiting ? 'ing' : 'ready']}}
+      button.sub-btn(@click="submit" v-bind:disabled="isSubmiting") {{subMap[editing ? 'edit' : 'new'][isSubmiting ? 'ing' : 'ready']}}
       editor(:flag="flag"  v-model="comcon" v-bind:setval="setval" placeholder="我有话说")
       // div.row.align-items-center
       //   div.col
@@ -242,7 +242,7 @@
   .editor-go {
     margin-bottom: 40px;
     position: relative;
-    // padding-right: 80px;
+    padding-right: 80px;
   }
 
   article {
