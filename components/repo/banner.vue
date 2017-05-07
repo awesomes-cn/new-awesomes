@@ -245,10 +245,12 @@
       }
 
       .mem-tx {
-        width: 20px;
-        height: 20px;
+        width: 24px;
+        height: 24px;
         border-radius: 100%;
-        margin: 0 5px;
+        margin: 0 -3px;
+        padding: 1px;
+        background-color: #FFF
       }
     }
   }  

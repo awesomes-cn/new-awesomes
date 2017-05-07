@@ -83,7 +83,6 @@ module.exports = {
       query = query.where('created_at', '>', firstDay)
     }
 
-
     query.query({
       orderByRaw: 'favor desc'
     }).fetch({
@@ -98,7 +97,11 @@ module.exports = {
           }
         }]
     }).then(item => {
-      res.send(item)
+      if (item) {
+        res.send(item)
+      } else {
+        res.send('nobest')
+      }
     })
   }
 }

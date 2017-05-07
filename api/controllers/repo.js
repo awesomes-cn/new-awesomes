@@ -12,13 +12,13 @@ module.exports = {
     let query = {
       limit: limit,
       offset: skip,
-      orderByRaw: 'id desc',
+      orderByRaw: '(stargazers_count + forks_count + subscribers_count) desc',
       select: ['id', 'name', 'cover', 'description_cn', 'owner', 'alia', 'using', 'mark']
     }
 
-    if (req.query['sort'] === 'hot') {
-      query.orderByRaw = '(stargazers_count + forks_count + subscribers_count) desc'
-    }
+    // if (req.query['sort'] === 'hot') {
+    //   query.orderByRaw = '(stargazers_count + forks_count + subscribers_count) desc'
+    // }
 
     ;['rootyp', 'typcd'].forEach(key => {
       let val = req.query[key]

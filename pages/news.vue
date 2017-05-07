@@ -29,10 +29,9 @@
               a(href="javascript:void(0)" @click="fetchBest('week')" v-bind:class="'active-' + (period == 'week')") 本周
               a(href="javascript:void(0)" @click="fetchBest('month')"  v-bind:class="'active-' + (period == 'month')") 本月
               a(href="javascript:void(0)" @click="fetchBest()"  v-bind:class="'active-' + !period") 历史
-            news(:newss="best" flag="news-hot")
+            news(:newss="best" flag="news-hot" v-if="best[0] !== 'nobest'")
+            h4.no-best(v-if="best[0] === 'nobest'") 近来没啥消息
 
-
-                  
 </template>
 
 
@@ -118,7 +117,9 @@
             period: period
           }
         }).then(res => {
-          res.data.isShowCom = false
+          if (res.data !== 'nobest') {
+            res.data.isShowCom = false
+          }
           this.best = [res.data]
         })
       }
@@ -263,6 +264,12 @@
           float: right
         }
       }
+    }
+
+    .no-best {
+      color: #DDD;
+      text-align: center;
+      padding-top: 40px;
     }
  }
  

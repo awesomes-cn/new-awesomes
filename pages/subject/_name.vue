@@ -8,19 +8,38 @@
         h1 {{sub.title}} 专题
         article {{sub.sdesc}}
     div.container
-      div.sub-bav#subnav
+      div.sub-nav#subnav
         div.split(style="height: 50px;")
         div.first(v-for="root in sub.repos")
           span {{root.rootyp}}
-          div.second(v-for="child in root.typcds")
-            a(href="") {{child.typcd}} 
-            i.count ({{child.repos.length}})
-      div.sub-repos(style="height: 2000px")
+          div.second(v-for="child in root.typcds" v-bind:data-link="root.rootyp + '-' + child.typcd")
+            a(:href="'#' + root.rootyp + '-' + child.typcd") {{child.typcd}} 
+            span.count ({{child.repos.length}})
+      div.sub-repos
+        template(v-for="root in sub.repos")
+          template(v-for="child in root.typcds")
+            div.split(:id="root.rootyp + '-' + child.typcd")
+            h3
+              span {{root.rootyp}} 
+              span » 
+              span {{child.typcd}}
+            template(v-for="repo in child.repos")  
+              div.repo-card
+                fresh(:time="repo.pushed_at")
+                nuxt-link(:to="'/repo/' + repo.owner + '/' + repo.alia")
+                  img.cover(:src="cdn(repo.cover, 'repo', 'subject_repo')") 
+                div.middle
+                  nuxt-link(:to="'/repo/' + repo.owner + '/' + repo.alia")
+                    h4 {{repo.name}}
+                  div.sdesc {{repo.description_cn}}
+                div.stars
+                  icon(name="star" width="15px") {{repo.stargazers_count}}  
 
 </template>
 
 <script>
   import axios from '~plugins/axios'
+  import Fresh from '~components/repo/fresh.vue'
   import _ from 'underscore'
   require('perfect-scrollbar/dist/css/perfect-scrollbar.css')
   import $ from 'jquery'
@@ -56,14 +75,17 @@
         }
       })
     },
+    components: {
+      Fresh
+    },
     mounted () {
       var Ps = require('perfect-scrollbar')
-      // var positions = $('.split').map(function () {
-      //   return {
-      //     id: $(this).attr('id'),
-      //     top: $(this).offset().top
-      //   }
-      // })
+      var positions = $('.split').map(function () {
+        return {
+          id: $(this).attr('id'),
+          top: $(this).offset().top
+        }
+      })
 
       $(document).scroll(function () {
         var doctop = $(document).scrollTop()
@@ -72,11 +94,11 @@
         } else {
           $('#subnav').removeClass('fixed')
         }
-        // var activeEl = _.filter(positions, function (item) { return doctop >= item.top }).pop() || positions[0]
-        // $('.sub-nav .second').removeClass('active')
-        // $('.sub-nav .second[data-link=' + activeEl.id + ']').addClass('active')
-        // $('.card').removeClass('active')
-        // $('.card[data-link=' + activeEl.id + ']').addClass('active')
+        var activeEl = _.filter(positions, function (item) { return doctop >= item.top - 20 }).pop() || positions[0]
+        $('.sub-nav .second').removeClass('active')
+        $('.sub-nav .second[data-link=' + activeEl.id + ']').addClass('active')
+        $('.card').removeClass('active')
+        $('.card[data-link=' + activeEl.id + ']').addClass('active')
       }).scroll()
 
       Ps.initialize(document.getElementById('subnav'), {
@@ -88,6 +110,11 @@
 <style lang="scss">
   .page-subject-name {
     background-color: #f7f8fa;
+    height: 100%;
+
+    .split {
+      height: 70px;
+    }
     
     header {
       box-shadow: none!important
@@ -134,26 +161,101 @@
       }
     }
 
-    .sub-bav {
+    .sub-nav {
       font-weight: bold;
       color: #DDD;
       line-height: 26px;
       height: 100%;
       position: absolute;
       width: 150px;
+      padding-bottom: 20px;
 
       &.fixed {
         position: fixed;
-        top: 50px;
+        top: 10px;
       }
 
       .second {
-        color: #333
+        color: #333;
+
+        &.active  a{
+          color: #da552f
+        }
       }
 
       .count {
         color: #8391a5;
         font-size: 0.5rem;
+      }
+    }
+
+    .sub-repos {
+      max-width: 800px;
+      margin: 0 auto;
+      margin-bottom: 50px;
+
+      h3 {
+        border-left: 0;
+        border-right: 0;
+        padding: 30px 0;
+        padding-top: 0;
+        padding-bottom: 20px;
+        color: #8b8b8b;
+        font-size: 20px;
+        text-align: center;
+
+        span:nth-child(1) {
+          color: #CCC
+        }
+
+        span:nth-child(2) {
+          color: #cacaca
+        }
+      }
+    }
+
+    .repo-card {
+      margin: 0 10px;
+      display: flex;
+      background-color: #FFF;
+      padding: 20px;
+      border-radius: 2px;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      margin-bottom: 10px;
+      border: #FFF 1px solid;
+      flex-direction: row;
+      align-items: center;
+
+      .cover {
+        height: 60px;
+        border-radius: 4px;
+        margin: 0 10px;
+      }
+
+      h4 {
+        font-size: 20px;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        margin: 0;
+      }
+
+      .sdesc {
+        padding: 10px 0;
+        overflow: hidden;
+        color: rgba(0, 0, 0, 0.54118);
+        height: 30px;
+      }
+
+      .middle {
+        flex-grow: 1
+      }
+
+      .stars {
+        width: 140px;
+        text-align: right;
+        color: #DDD
       }
     }
   }

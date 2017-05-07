@@ -140,7 +140,7 @@
       margin-top: 10px;
       font-size: 1.1rem;
       overflow: hidden;
-      height: 30px;
+      height: 25px;
     }
   }
 
