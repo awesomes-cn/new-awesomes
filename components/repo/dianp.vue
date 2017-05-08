@@ -27,8 +27,7 @@
         ul.extra
           li
             a.up(href="javascript:void(0)" @click="switchFavor(item)"  v-bind:class="'has-' + item.isFavor")
-              icon(name="arrow-up")
-              span {{item.favor}}
+              icon(name="arrow-up") {{item.favor}}
           li
             a(href="")
               img.mem-tx(:src="cdn(item.mem.avatar, 'mem')")
@@ -38,8 +37,7 @@
           
           li
             a(href="javascript:void(0)" @click="item.showComment = !item.showComment")
-              icon(name="comment")
-              span {{item.comment}} 评论
+              icon(name="comment") {{item.comment}} 评论
         
         
         div.clearfix

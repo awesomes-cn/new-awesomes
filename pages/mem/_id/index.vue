@@ -1,21 +1,26 @@
 <template lang="pug">
   div
-    h4 我的收藏（{{pagetotal}}）
-    div.row.repos
-      div.col-md-3.col-6(v-for="mark in marks")
-        div.repo-item
-          h5 {{mark.repo.alia}}
-          
+    div.repos
+      div.repo-item(v-for="mark in marks")
+        div.left
           nuxt-link(:to="'/repo/' + mark.repo.owner + '/' + mark.repo.alia")
             img.cover(:src="cdn(mark.repo.cover, 'repo', 'repo')")
-          
+        div.center
+          h5 {{mark.repo.alia}}
           div.caption {{mark.repo.description_cn}}
-    pagination(flag="weuse-list" v-bind:total="pagetotal" v-bind:size="pagesize")
+          div.more
+            span {{mark.repo.rootyp_zh}} > {{mark.repo.typcd_zh}} 
+            icon(name="star" width="15px") {{mark.repo.stargazers_count}}
+            icon(name="heart-o" width="15px") {{mark.repo.mark}}
+            icon(name="hand" width="15px") {{mark.repo.using}}
+        div.right
+          a(href="") 取消收藏
+    pagination(flag="weuse-list" v-bind:total="pagetotal" v-bind:size="pagesize" v-bind:callback="markRepos")
 </template>
 
 <script>
   import axios from '~plugins/axios'
-  let pagesize = 16
+  let pagesize = 12
   export default {
     data () {
       return {
@@ -56,20 +61,46 @@
 
 
 <style lang="scss" scoped>
+  .mem-menus {
+    padding: 10px 0;
+    font-size: 14px;
+    font-weight: bold;
+
+    & > a {
+      margin-right: 20px
+    }
+  }
   .repos {
     .repo-item {
-      border: 1px solid #dddddd;
       border-radius: 4px;
-      margin-bottom: 20px;
+      margin-bottom: 30px;
+      display: flex;
+      width: 100%;
+      border-bottom: #DDD 1px dashed;
+      padding-bottom: 30px;
+      
+      .left {
+        width: 80px;
+      }
 
-      h5 {
-        text-align: center;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-        overflow: hidden;
-        padding: 10px 0;
-        border-bottom: #EEE 1px solid;
-        margin: 0;
+      .center {
+        flex-grow: 1;
+        padding-left: 10px;
+      }
+
+      .right {
+        width: 100px;
+        text-align: right;
+
+        * {
+          display: none;
+        }
+      }
+
+      &:hover {
+        .right * {
+          display: inline-block
+        }
       }
     }
     .cover {
@@ -77,12 +108,21 @@
       padding: 1px;
     }
     .caption {
-      padding: 10px;
-      border-top: 1px solid #EEE;
-      height: 65px;
+      padding: 10px 0;
       overflow: hidden;
-      line-height: 25px;
+    }
+    .more {
       font-size: 12px;
+      display: flex;
+      align-items: center;
+
+      * {
+        color: #AAA
+      }
+
+      span {
+        margin-right: 10px;
+      }
     }
   }
 </style>

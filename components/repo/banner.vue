@@ -248,7 +248,10 @@
         width: 20px;
         height: 20px;
         border-radius: 100%;
-        margin: 0 5px;
+        margin: 0 -3px;
+        padding: 1px;
+        display: inline-block;
+        background-color: #FFF
       }
     }
   }  

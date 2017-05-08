@@ -31,7 +31,7 @@ module.exports = {
       }).fetchAll({
         withRelated: [{
           'repo': function (query) {
-            query.select('alia', 'cover', 'owner', 'id', 'using', 'description_cn')
+            query.select('alia', 'cover', 'owner', 'id', 'using', 'stargazers_count', 'description_cn', 'rootyp', 'rootyp_zh', 'typcd', 'typcd_zh', 'mark')
           }
         }]
       })

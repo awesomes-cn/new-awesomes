@@ -33,6 +33,19 @@
         
 
     div.container.conarea
+      div.mem-menus
+        div.left
+          nuxt-link(:to="'/mem/' + mem.id + '/marks'")
+            icon(name="heart-o") 我收藏的
+          
+          nuxt-link(:to="'/mem/' + mem.id + '/pubs'")
+            icon(name="send") 我的发布
+          nuxt-link(:to="'/mem/' + mem.id + '/ups'")
+            icon(name="arrow-up") 我的点赞
+        div.right
+          nuxt-link(:to="'/mem/' + mem.id + '/marksss'") 前端库
+          nuxt-link(:to="'/mem/' + mem.id + '/pubs/news'") 情报
+
       nuxt-child  
 </template>
 
@@ -62,12 +75,42 @@
       isExsit: (str) => {
         return str && str.trim() !== ''
       }
+    },
+    created () {
+      console.log(this.$route)
     }
   }
 </script>
 
 
 <style lang="scss" scoped>
+  .mem-menus {
+    padding: 10px 0;
+    font-size: 14px;
+    font-weight: bold;
+    display: flex;
+    margin-bottom: 10px;
+
+    .left {
+      flex-grow: 1
+    }
+
+    .right {
+      font-size: 13px;
+      a {
+        margin-right: 0;
+        margin-left: 20px;
+      }
+    }
+
+    a {
+      margin-right: 20px;
+
+      &.nuxt-link-active {
+        color: #da552f
+      }
+    }
+  }
   .mem-banner {
     text-align: center;
     padding: 50px;
@@ -106,7 +149,7 @@
   }
 
   .conarea {
-    max-width: 900px;
+    max-width: 800px;
   }
 
   .mem-navs {
