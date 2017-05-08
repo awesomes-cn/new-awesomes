@@ -11,20 +11,25 @@
     div.list-con
       div.list-item(v-for = "repo in repos")
         nuxt-link(:to="'/repo/' + repo.owner + '/' + repo.alia")
-          img.cover(:src="cdn(repo.cover, 'repo', 'repo')")
-          h3 {{repo.name}}
-        p {{repo.description_cn}}
-        div.opers
-          a(href="#"  v-bind:title="repo.using + '人在用'")
-            icon(name="hand" class="transform" width="15px") {{repo.using}}
+          img.cover(:src="cdn(repo.cover, 'repo', 'subject_repo')")
+        div.middle
+          nuxt-link(:to="'/repo/' + repo.owner + '/' + repo.alia")
+            h3 {{repo.name}}
+          p {{repo.description_cn}}
+          div.opers
+            a(href="#"  v-bind:title="repo.using + '人在用'")
+              icon(name="hand" class="transform" width="15px") {{repo.using}}
 
-          a(href="#" v-bind:title="repo.mark + '人喜欢'")
-            icon(name="heart-o"  width="15px") {{repo.mark}}
+            a(href="#" v-bind:title="repo.mark + '人喜欢'")
+              icon(name="heart-o"  width="15px") {{repo.mark}}
+        div
+          fresh(:time="repo.pushed_at")    
       pagination(flag="repos-list" v-bind:total="pagetotal" v-bind:size="pagesize")
 </template>
 
 <script>
   import axios from '~plugins/axios'
+  import Fresh from '~components/repo/fresh.vue'
   let initData = {}
   let pagesize = 15
   
@@ -59,13 +64,16 @@
         initData.pagetotal = res.data.count
         return initData
       })
+    },
+    components: {
+      Fresh
     }
   }
 </script>
 
 <style lang="scss" scoped>
   .container {
-    padding: 0 100px;
+    max-width: 1000px;
   }
   .list-typs {
     text-align: center;
@@ -108,10 +116,10 @@
   .list-item{
     padding: 20px 0;
     position: relative;
-    padding-left: 170px;
-    padding-right: 30px;
     min-height: 130px;
     overflow: hidden;
+    display: flex;
+    align-items: center;
 
     h3 {
       font-weight: 600;
@@ -126,12 +134,14 @@
     }
 
     .cover {
-      width: 130px;
       height: 90px;
       border-radius: 3px;
-      position: absolute;
       margin-right: 10px;
       left: 20px;
+    }
+
+    .middle {
+      flex-grow: 1
     }
   }
 

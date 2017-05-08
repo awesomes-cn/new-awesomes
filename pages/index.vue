@@ -3,7 +3,12 @@
     div.container
       div.row
         div.col-md-7
-          news(:newss="newss")
+          div.news-wraper
+            div.banner
+              h4 前端情报局
+              nuxt-link(to="/news") 我有料报
+            div.inner
+              news(:newss="newss" flag="index-list")  
           div.more-news
             nuxt-link(to="/news") 查看更多
           // topics(:topics="latestTopics")
@@ -116,6 +121,26 @@
     text-align: center;
     padding: 20px;
   }
+
+  .news-wraper {
+    background-color: #FFF;
+    .inner {
+      padding:0 30px;
+    }
+    .banner {
+      padding: 20px;
+      border-bottom: #EEE 1px solid;
+
+      * {
+        display: inline-block
+      }
+
+      a {
+        color: #8590a6;
+        float: right
+      }
+    }
+    }
  }
  
 </style>

@@ -3,7 +3,11 @@
     div.container
       div.row
         div.col-md-7
-          news(:newss="newss")
+          div.news-wraper
+            div.banner
+              h4 前端情报局
+            div.inner
+              news(:newss="newss" flag="news-list")
           div.pagiwraper
             pagination(flag="news-list" v-bind:total="pagetotal" v-bind:size="pagesize")  
         div.col-md-5
@@ -25,20 +29,9 @@
               a(href="javascript:void(0)" @click="fetchBest('week')" v-bind:class="'active-' + (period == 'week')") 本周
               a(href="javascript:void(0)" @click="fetchBest('month')"  v-bind:class="'active-' + (period == 'month')") 本月
               a(href="javascript:void(0)" @click="fetchBest()"  v-bind:class="'active-' + !period") 历史
-            
-            div(v-if="best")
-              article(v-html="marked(best.con)")
+            news(:newss="best" flag="news-hot" v-if="best[0] !== 'nobest'")
+            h4.no-best(v-if="best[0] === 'nobest'") 近来没啥消息
 
-              div.foot
-                nuxt-link(to="/mem" class="tx-link") 
-                  img.tx(:src="cdn(best.mem.avatar, 'mem')")
-                  span {{best.mem.nc}} @{{best.mem.mem_info.company}}
-                span {{timeago(best.created_at)}}
-                icon(name="comment") {{best.comment}}
-              
-
-
-                  
 </template>
 
 
@@ -61,7 +54,7 @@
           time: Date.now(),
           val: ''
         },
-        best: null
+        best: []
       }
     },
     asyncData ({ req, params, query }) {
@@ -124,7 +117,10 @@
             period: period
           }
         }).then(res => {
-          this.best = res.data
+          if (res.data !== 'nobest') {
+            res.data.isShowCom = false
+          }
+          this.best = [res.data]
         })
       }
     },
@@ -149,12 +145,6 @@
       padding: 30px;
       overflow: hidden;
       margin-bottom: 20px;
-
-      img {
-        width: 100%
-      }
-
-      
    }
 
     .topic-list {
@@ -221,8 +211,7 @@
         display: flex;
         align-items: center;
         border-bottom: #DDD 1px dashed;
-        padding-bottom: 5px;
-        margin-bottom: 20px;
+        padding-bottom: 10px;
 
         a {
           margin-left: 8px;
@@ -255,6 +244,32 @@
           margin-right: 10px;
         }
       }
+    }
+
+    .news-wraper {
+      background-color: #FFF;
+      .inner {
+        padding:0 30px;
+      }
+      .banner {
+        padding: 20px;
+        border-bottom: #EEE 1px solid;
+
+        * {
+          display: inline-block
+        }
+
+        a {
+          color: #8590a6;
+          float: right
+        }
+      }
+    }
+
+    .no-best {
+      color: #DDD;
+      text-align: center;
+      padding-top: 40px;
     }
  }
  
