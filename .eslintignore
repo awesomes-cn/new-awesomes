@@ -14,3 +14,4 @@ components/editor.vue
 components/upload.vue
 assets/js/aliyun-oss-sdk.min.js
 assets/js/placeholder.js
+assets/js/particles.min.js

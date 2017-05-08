@@ -13,7 +13,7 @@ module.exports = {
       limit: limit,
       offset: skip,
       orderByRaw: '(stargazers_count + forks_count + subscribers_count) desc',
-      select: ['id', 'name', 'cover', 'description_cn', 'owner', 'alia', 'using', 'mark']
+      select: ['id', 'name', 'cover', 'description_cn', 'owner', 'alia', 'using', 'mark', 'pushed_at']
     }
 
     // if (req.query['sort'] === 'hot') {
@@ -97,6 +97,23 @@ module.exports = {
           count: count
         })
       })
+    })
+  },
+
+  // top 100
+  get_top100: (req, res) => {
+    let orderby = '(stargazers_count + forks_count + subscribers_count) desc'
+    if (req.query.sort === 'trend') {
+      orderby = 'trend desc'
+    }
+    Repo.query({
+      limit: 100,
+      orderByRaw: orderby,
+      select: ['id', 'name', 'cover', 'description_cn', 'owner', 'alia', 'pushed_at']
+    }).fetchAll().then((repos) => {
+      res.send(repos)
+    }).catch((err) => {
+      console.error(err)
     })
   }
 }

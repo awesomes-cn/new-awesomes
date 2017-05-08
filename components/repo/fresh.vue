@@ -34,6 +34,7 @@
     width: 15px;
     height: 15px;
     background-color: #EEE;
+    flex-shrink: 0;
 
     &.often {
       background-color: #A4EDA4

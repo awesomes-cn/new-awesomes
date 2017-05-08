@@ -31,7 +31,7 @@
                 div.middle
                   nuxt-link(:to="'/repo/' + repo.owner + '/' + repo.alia")
                     h4 {{repo.name}}
-                  div.sdesc {{repo.description_cn}}
+                  span.sdesc {{repo.description_cn}}
                 div.stars
                   icon(name="star" width="15px") {{repo.stargazers_count}}  
 
@@ -243,13 +243,15 @@
 
       .sdesc {
         padding: 10px 0;
-        overflow: hidden;
         color: rgba(0, 0, 0, 0.54118);
-        height: 30px;
       }
 
       .middle {
-        flex-grow: 1
+        flex-grow: 1;
+        word-break: keep-all;   
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
       }
 
       .stars {

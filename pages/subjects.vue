@@ -9,7 +9,8 @@
               article {{sub.sdesc}}
 
               div.total
-                span 共 {{sub.amount}} 个库
+                // span 共 {{sub.amount}} 个库
+                span 共 43 个库
 
 </template>
 

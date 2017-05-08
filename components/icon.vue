@@ -16,6 +16,7 @@
   .v-icon {
     display: inline-flex;
     align-items: center;
+    vertical-align: middle;
 
     span {
       display: inline-block;
