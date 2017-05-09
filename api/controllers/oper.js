@@ -27,7 +27,6 @@ module.exports = {
         count: count
       })
     })
-    // Mem.where('(role = ? or reputation >= 20) and `using` >= 5', 'vip').order("reputation desc").includes(:mem_info)
   },
 
   get_is: (req, res) => {
@@ -67,9 +66,13 @@ module.exports = {
           })
         })
       } else {
-        new Oper(params).save().then(model => {
-          Oper.sameAmount(pwoutsesion).then(amount => {
-            res.send({has: true, amount: amount})
+        Oper.maxOrder({opertyp: 'USING', mem_id: memId}).then(maxOrder => {
+          params.order = maxOrder + 10000
+
+          new Oper(params).save().then(model => {
+            Oper.sameAmount(pwoutsesion).then(amount => {
+              res.send({has: true, amount: amount})
+            })
           })
         })
       }

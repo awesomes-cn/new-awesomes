@@ -1,12 +1,12 @@
 <template lang="pug">
-  div
+  div.mem-area
     div.mem-banner
       div.container
-        div.mem-navs
-          nuxt-link(to="/mem" v-if="session") 收藏
-          nuxt-link(to="/mem" v-if="session") 文档
-          nuxt-link(to="/mem" v-if="session") 代码
-          nuxt-link(to="/mem" v-if="session") 评论
+        // div.mem-navs
+        //   nuxt-link(to="/mem" v-if="session") 收藏
+        //   nuxt-link(to="/mem" v-if="session") 文档
+        //   nuxt-link(to="/mem" v-if="session") 代码
+        //   nuxt-link(to="/mem" v-if="session") 评论
 
       nuxt-link(to="/mem" class="tx-link") 
         img.tx(:src="cdn(mem.avatar, 'mem')")
@@ -35,16 +35,19 @@
     div.container.conarea
       div.mem-menus
         div.left
-          nuxt-link(:to="'/mem/' + mem.id + '/marks'")
-            icon(name="heart-o") 我收藏的
-          
-          nuxt-link(:to="'/mem/' + mem.id + '/pubs'")
-            icon(name="send") 我的发布
-          nuxt-link(:to="'/mem/' + mem.id + '/ups'")
-            icon(name="arrow-up") 我的点赞
+          div.dropdown-outer
+            nuxt-link(:to="'/mem/' + mem.id + '/marks'") 我收藏的
+            icon(name="arrow-up" rotate="90")
+            div.dropdown
+              nuxt-link(:to="'/mem/' + mem.id") 我在用
+              nuxt-link(:to="'/mem/' + mem.id + '/marks/repos'") 我收藏的
+              nuxt-link(:to="'/mem/' + mem.id + '/pubs'") 我发布的
+              nuxt-link(:to="'/mem/' + mem.id + '/ups'") 我点赞的
+          div.seconds
+            nuxt-link(:to="'/mem/' + mem.id + '/marks/repos'") 前端库
         div.right
-          nuxt-link(:to="'/mem/' + mem.id + '/marksss'") 前端库
-          nuxt-link(:to="'/mem/' + mem.id + '/pubs/news'") 情报
+          // nuxt-link(:to="'/mem/' + mem.id + '/marksss'") 前端库
+          // nuxt-link(:to="'/mem/' + mem.id + '/pubs/news'") 情报
 
       nuxt-child  
 </template>
@@ -85,11 +88,11 @@
 
 <style lang="scss" scoped>
   .mem-menus {
-    padding: 10px 0;
     font-size: 14px;
     font-weight: bold;
     display: flex;
     margin-bottom: 10px;
+    border-bottom: #f7f8fa  1px solid;
 
     .left {
       flex-grow: 1
@@ -104,10 +107,45 @@
     }
 
     a {
-      margin-right: 20px;
+      padding: 15px;
+      display: inline-block;
+    }
+    .seconds {
+      display: inline-block;
+      a {
+        &.nuxt-link-active {
+          color: #da552f
+        }
+      }
+    }
 
-      &.nuxt-link-active {
-        color: #da552f
+
+
+    .dropdown {
+      position: absolute;
+      z-index: 10;
+      background-color: #FFF;
+      border: #EEE 1px solid;
+      border-top: #f7f8fa  1px solid;
+      text-align: center;
+      border-bottom: 0;
+      top: 51px;
+      left: 10px;
+      display: none;
+      a {
+        display: block;
+        border-bottom: #EEE 1px solid;
+        padding: 13px 30px;
+        width: 100%
+      }
+    }
+
+    .dropdown-outer {
+      display: inline-block;
+      &:hover {
+        .dropdown {
+          display: block;
+        }
       }
     }
   }
@@ -116,6 +154,7 @@
     padding: 50px;
     background: #f7f8fa;
     margin-bottom: 20px;
+    padding-bottom: 150px;
 
     .tx-link {
       display: inline-block;
@@ -148,8 +187,15 @@
     }
   }
 
+  .mem-area {
+    background-color: rgba(247, 248, 250, 0.4);
+  }
+
   .conarea {
     max-width: 800px;
+    background-color: #FFF;
+    margin-top: -72px;
+    padding: 0;
   }
 
   .mem-navs {
