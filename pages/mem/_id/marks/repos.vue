@@ -24,37 +24,29 @@
   export default {
     data () {
       return {
-        marks: [],
-        pagetotal: 0,
         pagesize: pagesize
       }
+    },
+    asyncData ({ req, params, query, route }) {
+      let page = query.page || 1
+      return axios().get(`mem/${route.params.id}/opers`, {
+        params: {
+          opertyp: 'MARK',
+          typ: 'REPO',
+          limit: pagesize,
+          skip: pagesize * (page - 1)
+        }
+      }).then(res => {
+        return {
+          marks: res.data.items,
+          pagetotal: res.data.count
+        }
+      })
     },
     computed: {
       session () {
         return this.$store.state.session || {}
       }
-    },
-
-    methods: {
-
-      // 搜藏的前端库
-      markRepos: function (page) {
-        axios().get(`mem/${this.$route.params.id}/opers`, {
-          params: {
-            opertyp: 'MARK',
-            typ: 'REPO',
-            limit: pagesize,
-            skip: pagesize * (page - 1)
-          }
-        }).then(res => {
-          this.marks = res.data.items
-          this.pagetotal = res.data.count
-        })
-      }
-    },
-
-    created () {
-      this.markRepos(1)
     }
   }
 </script>

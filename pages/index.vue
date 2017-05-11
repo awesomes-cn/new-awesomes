@@ -16,9 +16,9 @@
           //   nuxt-link(to="topics") 更多优选
             
         div.col-md-5
-          div.card.search
-            input.search-txt(type="text" placeholder="搜索前端库")
-            div
+          form.card.search(action="search" method="get")
+            input.search-txt(type="text" placeholder="搜索前端库" name="q")
+            button(type="submit")
               icon(name="search")
           a.card(href="")
             icon(name="chrome" class="chrome-logo" width="50px")
@@ -96,6 +96,12 @@
       border: 0;
       outline: none;
       font-size: 1.8rem
+    }
+    button {
+      border: 0;
+      background: none;
+      outline: none;
+      cursor: pointer;
     }
   }
 

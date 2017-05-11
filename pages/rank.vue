@@ -25,6 +25,7 @@
   import axios from '~plugins/axios'
   import Fresh from '~components/repo/fresh.vue'
   export default {
+    layout: 'blank',
     asyncData ({query}) {
       return axios().get(`repo/top100?sort=${query.sort}`).then(res => {
         return {
@@ -138,9 +139,6 @@
 <style lang="scss">
   .page-rank {
     background-color: #f7f8fa;
-    header {
-      display: none;
-    }
 
     .body {
       padding: 0;

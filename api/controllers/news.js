@@ -5,13 +5,20 @@ module.exports = {
   get_index: (req, res) => {
     let limit = Math.min((req.query.limit || 10), 100)
     let skip = parseInt(req.query.skip || 0)
+    let where = {}
+    if (req.query.mem > 0) {
+      where = {
+        mem_id: req.query.mem
+      }
+    }
     let query = {
       limit: limit,
       offset: skip,
-      orderByRaw: 'id desc'
+      orderByRaw: 'id desc',
+      where: where
     }
 
-    Promise.all([MBlog.count('id'), MBlog.query(query).fetchAll({
+    Promise.all([MBlog.where(where).count('id'), MBlog.query(query).fetchAll({
       withRelated: [
         {
           'mem': function (mqu) {

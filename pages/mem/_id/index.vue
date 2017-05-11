@@ -10,30 +10,18 @@
 <script>
   import axios from '~plugins/axios'
   export default {
-    data () {
-      return {
-        usings: []
-      }
+    asyncData ({ req, params, query, route }) {
+      return axios().get(`mem/${route.params.id}/opers?opertyp=USING&limit=1000`).then(res => {
+        res.data.items.sort((a, b) => { return a.order - b.order })
+        return {
+          usings: res.data.items
+        }
+      })
     },
     computed: {
       session () {
         return this.$store.state.session || {}
       }
-    },
-
-    methods: {
-
-      // 获取我在用的
-      fecthUsing () {
-        axios().get(`mem/${this.$route.params.id}/opers?opertyp=USING&limit=1000`).then(res => {
-          res.data.items.sort((a, b) => { return a.order - b.order })
-          this.usings = res.data.items
-        })
-      }
-    },
-
-    created () {
-      this.fecthUsing()
     }
   }
 </script>

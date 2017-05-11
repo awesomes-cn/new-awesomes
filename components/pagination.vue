@@ -22,6 +22,7 @@
         $wraper.empty()
         let self = this
         let pages = Math.ceil(this.total / this.size)
+        if (pages < 1) { pages = 1 }
         $wraper.pagination({
           items: self.size,
           pages: pages,
@@ -34,7 +35,12 @@
             if (this.callback) {
               this.callback(pageNumber)
             } else {
-              self.$router.push({path: self.$route.path, query: {page: pageNumber}})
+              let _query = {}
+              for (let key in self.$route.query) {
+                _query[key] = self.$route.query[key]
+              }
+              _query.page = pageNumber
+              self.$router.push({path: self.$route.path, query: _query})
             }
             return false
           }

@@ -64,16 +64,15 @@ let Oper = DB.Model.extend({
     })
   },
   maxOrder: function (params) {
-    if (params.opertyp === 'USING') {
+    if (params.opertyp !== 'USING') {
       return Promise.resolve(0)
     }
     return new Promise(resolve => {
       Oper.query({
         where: params,
         limit: 1,
-        orderByRaw: 'order',
-        select: 'order'
-      }).then(item => {
+        orderByRaw: '`order` desc'
+      }).fetch().then(item => {
         resolve(item.get('order'))
       })
     })

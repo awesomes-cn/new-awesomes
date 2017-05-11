@@ -16,7 +16,7 @@
     "js-cookie": "^2.1.4",
     "marked": "^0.3.6",
     "normalize.css": "^5.0.0",
-    "nuxt": "^0.10.5",
+    "nuxt": "^0.10.7",
     "particles.js": "^2.0.0",
     "perfect-scrollbar": "^0.7.0",
     "prismjs": "^1.6.0",

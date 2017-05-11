@@ -3,17 +3,13 @@
     div.list-typs
       nuxt-link(v-for="first in rootyps" v-bind:to="'/repos/' + first.key")
         icon(:name="first.icon") {{first.sdesc}}
-    div.list-typs.bottom
-      nuxt-link(v-for="second in typcds" v-bind:to="'/repos/' + rootyp + '/' + second.key" class="submenu")
-        // icon(:name="second.icon")
-        span {{second.sdesc}}
-
-    div.sorts
-      div.inner
-        nuxt-link(to="?sort=hot" v-bind:class="sortby == 'hot' ? 'active' : ''") 热门
-        nuxt-link(to="?sort=new" v-bind:class="sortby == 'new' ? 'active' : ''") 最新
-        nuxt-link(to="?sort=trend" v-bind:class="sortby == 'trend' ? 'active' : ''") 趋势 
-
+    div.result
+      span 共找到 
+      strong {{pagetotal}}
+      span 条关于 
+      strong 幻灯片 
+      span 的搜索结果 by 
+      a(href="https://www.algolia.com/" target="_blank") Algolia
     div.list-con
       div.list-item(v-for = "repo in repos")
         nuxt-link(:to="'/repo/' + repo.owner + '/' + repo.alia")
@@ -43,35 +39,26 @@
     name: 'repo-list',
     data () {
       return {
-        pagesize: pagesize,
-        sortby: 'hot'
+        pagesize: pagesize
       }
     },
     asyncData ({ req, params, query }) {
       return axios().get('category/first')
       .then(res => {
         initData.rootyps = res.data
-        initData.rootyp = params.rootyp
-        return axios().get(`category/${params.rootyp}/second`)
       })
       .then(res => {
-        initData.typcds = res.data
         let page = query.page || 1
-        return axios().get(`repo`, {
+        return axios().get(`repo?search=${query.q}`, {
           params: {
-            rootyp: params.rootyp,
-            typcd: params.typcd,
-            limit: pagesize,
-            skip: pagesize * (page - 1),
-            sort: query.sort,
             page: page
           }
         })
       })
       .then(res => {
+        console.log('===', res.data.items)
         initData.repos = res.data.items
         initData.pagetotal = res.data.count
-        initData.sortby = query.sort || 'hot'
         return initData
       })
     },
@@ -189,21 +176,10 @@
     }
   }
 
-  .sorts {
-    margin-top: -20px;
+  .result {
     text-align: center;
-    .inner {
-      display: inline-block;
-      background-color: #FFF;
-      padding: 0 15px;
-    }
-    a {
-      display: inline-block;
-      margin: 10px;
-
-      &.active {
-        color: #da552f
-      }
-    }
+    border-top: #EEE 1px solid;
+    padding: 15px;
   }
+
 </style>

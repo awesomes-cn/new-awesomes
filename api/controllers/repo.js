@@ -1,6 +1,40 @@
 const Repo = require('../models/repo')
 const Oper = require('../models/oper')
 const Dianp = require('../models/dianp')
+const algoliasearch = require('algoliasearch')
+const localEnv = require('../config.json')
+
+let searchGo = (key, hitsPerPage, page) => {
+  if (!key || key.trim() === '') {
+    return Promise.resolve({
+      haseach: false,
+      ids: []
+    })
+  }
+  let client = algoliasearch(localEnv.algolia.appId, localEnv.algolia.appKey)
+  let index = client.initIndex('Repo')
+  return new Promise(resolve => {
+    index.search(key, {
+      hitsPerPage: hitsPerPage,
+      page: page
+    }, function searchDone (err, content) {
+      if (err) {
+        resolve({
+          haseach: true,
+          ids: []
+        })
+        return
+      }
+      resolve({
+        haseach: true,
+        total: content.nbHits,
+        ids: content.hits.map(item => {
+          return item.objectID
+        })
+      })
+    })
+  })
+}
 
 module.exports = {
 
@@ -8,17 +42,19 @@ module.exports = {
   get_index: (req, res) => {
     let limit = Math.min((req.query.limit || 10), 100)
     let skip = parseInt(req.query.skip || 0)
+    let page = parseInt(req.query.page || 1)
     let where = {}
     let query = {
       limit: limit,
       offset: skip,
-      orderByRaw: '(stargazers_count + forks_count + subscribers_count) desc',
       select: ['id', 'name', 'cover', 'description_cn', 'owner', 'alia', 'using', 'mark', 'pushed_at']
     }
 
-    // if (req.query['sort'] === 'hot') {
-    //   query.orderByRaw = '(stargazers_count + forks_count + subscribers_count) desc'
-    // }
+    query.orderByRaw = {
+      'hot': '(stargazers_count + forks_count + subscribers_count) desc',
+      'new': 'github_created_at desc',
+      'trend': 'trend desc'
+    }[req.query.sort || 'hot'] || '(stargazers_count + forks_count + subscribers_count) desc'
 
     ;['rootyp', 'typcd'].forEach(key => {
       let val = req.query[key]
@@ -29,16 +65,24 @@ module.exports = {
 
     query.where = where
 
-    Promise.all([Repo.where(where).count('id'), Repo.query(query).fetchAll()])
-    .then(([count, repos]) => {
-      res.send({
-        items: repos,
-        count: count
+    let search = req.query.search
+    searchGo(search, limit, page - 1).then(result => {
+      let myQuery = Repo
+      if (result.haseach) {
+        myQuery = Repo.where('id', 'in', result.ids)
+      }
+      Promise.all([Repo.where(where).count('id'), myQuery.query(query).fetchAll()])
+      .then(([count, repos]) => {
+        res.send({
+          items: repos,
+          count: result.haseach ? result.total : count
+        })
+      }).catch((err) => {
+        console.error(err)
       })
-    }).catch((err) => {
-      console.error(err)
     })
   },
+
 
   get_index_id: (req, res) => {
     Repo.query({where: { owner: req.params.owner, alia: req.params.alia }}).fetch().then(data => {

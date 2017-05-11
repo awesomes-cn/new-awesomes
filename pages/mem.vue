@@ -23,28 +23,34 @@
           icon(name="home") 主页
 
         a(:href="'http://weibo.com/' + mem.mem_info.weibo_url" target="_blank" v-if="isExsit(mem.mem_info.weibo_url)")
-          icon(name="weibo") {{mem.mem_info.weibo_nc || mem.mem_info.weibo_url}}
+          icon(name="weibo")
 
         a(:href="'https://twitter.com/' + mem.mem_info.twitter" target="_blank"  v-if="isExsit(mem.mem_info.twitter)")
-          icon(name="twitter") {{mem.mem_info.twitter}}
+          icon(name="twitter")
 
         a(:href="'https://github.com/' + mem.mem_info.github" target="_blank"  v-if="isExsit(mem.mem_info.github)")
-          icon(name="github") {{mem.mem_info.github || 'GitHub'}}  
+          icon(name="github")
         
 
     div.container.conarea
       div.mem-menus
         div.left
           div.dropdown-outer
-            nuxt-link(:to="'/mem/' + mem.id + '/marks'") 我收藏的
+            span.title {{getPageName()}}
             icon(name="arrow-up" rotate="90")
             div.dropdown
-              nuxt-link(:to="'/mem/' + mem.id") 我在用
-              nuxt-link(:to="'/mem/' + mem.id + '/marks/repos'") 我收藏的
-              nuxt-link(:to="'/mem/' + mem.id + '/pubs'") 我发布的
-              nuxt-link(:to="'/mem/' + mem.id + '/ups'") 我点赞的
+              nuxt-link(:to="'/mem/' + mem.id") {{who}}在用
+              nuxt-link(:to="'/mem/' + mem.id + '/marks/repos'") {{who}}收藏的
+              nuxt-link(:to="'/mem/' + mem.id + '/pubs/news'") {{who}}发布的
+              nuxt-link(:to="'/mem/' + mem.id + '/ups'") {{who}}点赞的
           div.seconds
-            nuxt-link(:to="'/mem/' + mem.id + '/marks/repos'") 前端库
+            nuxt-link(:to="'/mem/' + mem.id" v-if="$route.name == 'mem-id'") 前端库
+            nuxt-link(:to="'/mem/' + mem.id + '/marks/repos'" v-if="$route.name == 'mem-id-marks-repos'") 前端库
+            
+            template(v-if="$route.name == 'mem-id-pubs-news'")
+              nuxt-link(:to="'/mem/' + mem.id + '/pubs/news'") 情报
+              nuxt-link(:to="'/mem/' + mem.id + '/pubs/comments'") 评论
+              nuxt-link(:to="'/mem/' + mem.id + '/pubs/comments'") 经验
         div.right
           // nuxt-link(:to="'/mem/' + mem.id + '/marksss'") 前端库
           // nuxt-link(:to="'/mem/' + mem.id + '/pubs/news'") 情报
@@ -72,15 +78,24 @@
     computed: {
       session () {
         return this.$store.state.session || {}
+      },
+      who () {
+        return this.session.id === parseInt(this.$route.params.id) ? '我' : 'TA'
       }
     },
     methods: {
       isExsit: (str) => {
         return str && str.trim() !== ''
+      },
+      getPageName: function () {
+        return {
+          'mem-id': `${this.who}在用`,
+          'mem-id-marks-repos': `${this.who}收藏的`,
+          'mem-id-pubs-news': `${this.who}发布的`
+        }[this.$route.name]
       }
     },
     created () {
-      console.log(this.$route)
     }
   }
 </script>
@@ -107,7 +122,7 @@
     }
 
     a {
-      padding: 15px;
+      padding: 15px 10px;
       display: inline-block;
     }
     .seconds {
@@ -136,7 +151,10 @@
         display: block;
         border-bottom: #EEE 1px solid;
         padding: 13px 30px;
-        width: 100%
+        width: 100%;
+        &.router-link-exact-active {
+          color: #da552f
+        }
       }
     }
 
@@ -146,6 +164,10 @@
         .dropdown {
           display: block;
         }
+      }
+      .title {
+        padding:  15px;
+        display: inline-block;
       }
     }
   }
