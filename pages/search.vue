@@ -4,12 +4,13 @@
       nuxt-link(v-for="first in rootyps" v-bind:to="'/repos/' + first.key")
         icon(:name="first.icon") {{first.sdesc}}
     div.result
-      span 共找到 
+      span 共找到
       strong {{pagetotal}}
-      span 条关于 
-      strong 幻灯片 
-      span 的搜索结果 by 
-      a(href="https://www.algolia.com/" target="_blank") Algolia
+      span 条关于
+      strong {{$route.query.q}}
+      span 的搜索结果 by
+      a(href="https://www.algolia.com/" target="_blank")
+        strong Algolia
     div.list-con
       div.list-item(v-for = "repo in repos")
         nuxt-link(:to="'/repo/' + repo.owner + '/' + repo.alia")
@@ -49,14 +50,14 @@
       })
       .then(res => {
         let page = query.page || 1
-        return axios().get(`repo?search=${query.q}`, {
+        return axios().get(`repo`, {
           params: {
-            page: page
+            page: page,
+            search: query.q
           }
         })
       })
       .then(res => {
-        console.log('===', res.data.items)
         initData.repos = res.data.items
         initData.pagetotal = res.data.count
         return initData
@@ -180,6 +181,11 @@
     text-align: center;
     border-top: #EEE 1px solid;
     padding: 15px;
+
+    strong {
+      color: #20a0ff;;
+      margin: 0 5px;
+    }
   }
 
 </style>

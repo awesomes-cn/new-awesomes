@@ -3,6 +3,7 @@ const Oper = require('../models/oper')
 const Dianp = require('../models/dianp')
 const algoliasearch = require('algoliasearch')
 const localEnv = require('../config.json')
+const Cache = require('../lib/cache')
 
 let searchGo = (key, hitsPerPage, page) => {
   if (!key || key.trim() === '') {
@@ -11,25 +12,28 @@ let searchGo = (key, hitsPerPage, page) => {
       ids: []
     })
   }
-  let client = algoliasearch(localEnv.algolia.appId, localEnv.algolia.appKey)
-  let index = client.initIndex('Repo')
-  return new Promise(resolve => {
-    index.search(key, {
-      hitsPerPage: hitsPerPage,
-      page: page
-    }, function searchDone (err, content) {
-      if (err) {
+  let cacheKey = `search-${key.trim()}-${page}`
+  return Cache.ensure(cacheKey, 60 * 60 * 24 * 5, () => {
+    let client = algoliasearch(localEnv.algolia.appId, localEnv.algolia.appKey)
+    let index = client.initIndex('Repo')
+    return new Promise(resolve => {
+      index.search(key, {
+        hitsPerPage: hitsPerPage,
+        page: page
+      }, function searchDone (err, content) {
+        if (err) {
+          resolve({
+            haseach: true,
+            ids: []
+          })
+          return
+        }
         resolve({
           haseach: true,
-          ids: []
-        })
-        return
-      }
-      resolve({
-        haseach: true,
-        total: content.nbHits,
-        ids: content.hits.map(item => {
-          return item.objectID
+          total: content.nbHits,
+          ids: content.hits.map(item => {
+            return item.objectID
+          })
         })
       })
     })
