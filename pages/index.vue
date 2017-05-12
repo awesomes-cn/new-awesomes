@@ -16,9 +16,9 @@
           //   nuxt-link(to="topics") 更多优选
             
         div.col-md-5
-          form.card.search(action="search" method="get")
-            input.search-txt(type="text" placeholder="搜索前端库" name="q")
-            button(type="submit")
+          div.card.search
+            input.search-txt(type="text" placeholder="搜索前端库" v-model="searchKey" @keyup.enter="searchGo")
+            span(@click="searchGo")
               icon(name="search")
           a.card(href="")
             icon(name="chrome" class="chrome-logo" width="50px")
@@ -57,6 +57,15 @@
     components: {
       Topics,
       News
+    },
+    methods: {
+      // 搜索
+      searchGo: function () {
+        if (this.searchKey.trim() === '') {
+          return
+        }
+        this.$router.push({path: '/search', query: {q: this.searchKey}})
+      }
     }
   }
 </script>
@@ -97,10 +106,7 @@
       outline: none;
       font-size: 1.8rem
     }
-    button {
-      border: 0;
-      background: none;
-      outline: none;
+    & > span {
       cursor: pointer;
     }
   }

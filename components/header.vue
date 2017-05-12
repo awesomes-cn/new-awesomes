@@ -38,6 +38,11 @@
 
           nuxt-link(to="/repo/new")
             icon(name="plus"  width="20px")    
+
+          div.hide-small.search-top
+            input.search-txt(type="text" placeholder="搜索前端库" v-model="searchKey" @keyup.enter="searchGo")
+            span(@click="searchGo")
+              icon(name="search" width="15px")
     
     // 登录框
     transition(name="custom-classes-transition" enter-active-class="animated fadeInDown" leave-active-class="animated fadeOutUpBig")  
@@ -70,7 +75,13 @@
         uid: '',
         pwd: '',
         isHideMenu: true,
-        showmemeus: false
+        showmemeus: false,
+        searchKey: ''
+      }
+    },
+    watch: {
+      '$route': function () {
+        this.searchKey = this.$route.query.q
       }
     },
     computed: {
@@ -79,6 +90,7 @@
       }
     },
     methods: {
+      // 登录
       login: function () {
         let self = this
         axios().post(`session/login`, { uid: this.uid, pwd: this.pwd }).then(res => {
@@ -100,6 +112,7 @@
           }
         })
       },
+      // 注销
       logout: function () {
         Cookie.set('awlogin', null)
         this.$store.commit('setUser', null)
@@ -107,6 +120,13 @@
           message: '注销成功！',
           type: 'success'
         })
+      },
+      // 搜索
+      searchGo: function () {
+        if (this.searchKey.trim() === '') {
+          return
+        }
+        this.$router.push({path: '/search', query: {q: this.searchKey}})
       }
     }
   }
@@ -127,14 +147,32 @@
     a.nuxt-link-active {
       color: #da552f;
     }
+
+    .container {
+      display: flex;
+      align-items: center
+    }
   }
 
-  .container {
-    display: flex
+  .search-top {
+    border: #EEE 1px solid;
+    .search-txt {
+      padding: 8px 10px;
+      border: none;
+      outline: none;
+      color: #ababab;
+    }
+
+    & > span {
+      margin:0 5px;
+      color: #AAA;
+      cursor: pointer;
+    }
   }
 
   .left, .middle .inner, .right {
     display: flex;
+    align-items: center
   }
 
   .middle {

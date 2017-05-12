@@ -12,15 +12,17 @@
           a.right(href="javascript:void(0)" @click="showList" v-show="diancount > 0")
             span 查看全部 {{diancount}} 条短评
     ul.list-group.list-group-flush(v-if="isShowEditor")
-      li.list-group-item    
+      li.list-group-item
         p.alert.alert-warning 注意：为了保证质量，目前我们只针对 GitHub 粉丝数大于 50 的开发者开放点评功能！
-        editor(flag="repo-dianp" hideTool="true" v-model="diancon" v-bind:setval="setval")
-          div.row.align-items-center
-            div.col
-              span 发布点评 
-              a(href="javascript:void(0)" @click="isShowEditor = false") 【关闭】
-            div.col(style="text-align: right")
-              button.sub-btn(@click="submit") 发布 
+        div.editor-outer
+          editor(flag="repo-dianp" hideTool="true" v-model="diancon" v-bind:setval="setval")
+          button.sub-btn(@click="submit") 发布 
+        // div.row.align-items-center
+        //   div.col
+        //     span 发布点评 
+        //     a(href="javascript:void(0)" @click="isShowEditor = false") 【关闭】
+        //   div.col(style="text-align: right")
+        //     button.sub-btn(@click="submit") 发布 
     ul.list-group.list-group-flush(v-if="isShowList")
       li.list-group-item(v-for="(item, index) in dianps")
         article(v-html="marked(item.con)")
@@ -320,12 +322,23 @@
     }
   }
 
+  .editor-outer {
+    display: flex;
+
+    .meditor {
+      flex-grow: 1
+    }
+  }
+
   .sub-btn {
     border: none;
     color: #FFF;
     background-color: #da552f;
     padding: 6px 15px;
+    display: block;
+    height: 35px;
     cursor: pointer;
+    margin-left: 10px;
   }
 
   .top-show {
