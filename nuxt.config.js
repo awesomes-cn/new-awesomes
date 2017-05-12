@@ -8,7 +8,7 @@ module.exports = {
   },
   router: {
     // 在每页渲染前运行 middleware/user-agent.js 中间件的逻辑
-    middleware: 'auth'
+    middleware: ['auth', 'i18n']
   },
   head: {
     title: 'starter',
@@ -40,6 +40,7 @@ module.exports = {
   ** Build configuration
   */
   build: {
+    vendor: ['vue-i18n'],
     /*
     ** Run ESLINT on save
     */
@@ -54,5 +55,5 @@ module.exports = {
       }
     }
   },
-  plugins: ['~plugins/vue-icon', '~plugins/icon', '~plugins/element-ui', '~plugins/common', { src: '~plugins/pagination', ssr: false }, { src: '~plugins/editor', ssr: false }, { src: '~plugins/upload', ssr: false }]
+  plugins: ['~plugins/vue-icon', '~plugins/icon', '~plugins/element-ui', '~plugins/common', { src: '~plugins/pagination.js', ssr: false }, { src: '~plugins/editor.js', ssr: false }, { src: '~plugins/upload', ssr: false }, { src: '~plugins/i18n.js', injectAs: 'i18n' }]
 }

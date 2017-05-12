@@ -5,19 +5,19 @@
 
 <script>
   import $ from '~assets/js/jquery-vendor'
-  import aliyun from '~assets/js/aliyun'
-  export default {
-    props: ['value', 'folder'],
-    methods: {
-      // 选择上传图片
-      uploadChange: function (event) {
-        let self = this
-        aliyun.upload($(event.target)[0].files[0], this.folder).then(res => {
-          self.$emit('input', res.name.split('/').pop())
-        })
-      }
-    }
-  }
+  // import aliyun from '~assets/js/aliyun'
+  // export default {
+  //   props: ['value', 'folder'],
+  //   methods: {
+  //     // 选择上传图片
+  //     uploadChange: function (event) {
+  //       let self = this
+  //       aliyun.upload($(event.target)[0].files[0], this.folder).then(res => {
+  //         self.$emit('input', res.name.split('/').pop())
+  //       })
+  //     }
+  //   }
+  // }
 </script>
 
 

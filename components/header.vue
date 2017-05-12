@@ -10,7 +10,7 @@
             icon(name="list" class="show-small")
         div.middle
           div.inner(:style="isHideMenu ? 'height: 60px' : ''")
-            nuxt-link(to="/repos/Applications/frameworks") 前端库
+            nuxt-link(to="/repos/Applications/frameworks") {{$t('home.repos')}}
             nuxt-link(to="/weuse" ) 大牛在用
             nuxt-link(to="/subjects" ) 专题  
             // nuxt-link(to="/topics" ) 优选+  

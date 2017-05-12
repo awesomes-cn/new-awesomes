@@ -26,6 +26,7 @@
     "swiper": "^3.4.2",
     "timeago.js": "^3.0.1",
     "underscore": "^1.8.3",
+    "vue-i18n": "^6.1.1",
     "vue-svg-icon": "^1.2.9"
   },
   "scripts": {
