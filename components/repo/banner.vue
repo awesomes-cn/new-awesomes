@@ -231,7 +231,7 @@
         color: #aab1b7;
 
         &.has-true {
-          background-color: #f0ad4e;
+          background-color: #37c700;
           color: #FFF;
         }
       }

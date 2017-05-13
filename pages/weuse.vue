@@ -22,12 +22,13 @@
             a.a-twitter(:href="'https://twitter.com/' + mem.mem_info.twitter"  v-if="isExsit(mem.mem_info.twitter)" target="_blank")
               icon(name="twitter")      
         div.repos.row
-          div.col-md-2.col-sm-3.col-4.repo-item(v-for="oper in mem.usings")
-            nuxt-link(:to="'/repo/' + oper.repo.owner + '/' + oper.repo.alia")
-              img.cover(:src="cdn(oper.repo.cover, 'repo', 'repo')")
-              div.alia
-                strong {{oper.repo.alia}}
-              small.usingmems {{oper.repo.using}} 人在用
+          div.col-md-3.col-sm-3.col-6(v-for="oper in mem.usings")
+            div.repo-item
+              nuxt-link(:to="'/repo/' + oper.repo.owner + '/' + oper.repo.alia")
+                img.cover(:src="cdn(oper.repo.cover, 'repo', 'subject_repo')")
+                div.alia
+                  strong {{oper.repo.alia}}
+                span.usingmems {{oper.repo.using}} 人在用
       div(style="margin-top: 30px;")        
         pagination(flag="weuse-list" v-bind:total="pagetotal" v-bind:size="pagesize")      
 
@@ -80,7 +81,6 @@
 
   .share-item {
     padding: 50px 0;
-    border-bottom: #DDD 1px dashed;
     .cover {
       width: 100%;
       max-width: 80px;
@@ -122,9 +122,19 @@
   }
 
   .repo-item {
-    margin-bottom: 20px;
     text-align: center;
+    border: 1px solid #f1f1f1;
+    margin-bottom: 20px;
+    padding: 30px 0;
 
+    .cover {
+      border-radius: 100%;
+      width: 50px;
+    }
+
+    &:hover {
+      border-color: #bfe4f3
+    }
   }
 
   .container {
@@ -134,11 +144,12 @@
   .repos {
     .usingmems {
       color: #a7a7a7;
+      padding-top: 5px;
     }
 
     .alia {
       margin-top: 10px;
-      font-size: 1.1rem;
+      font-size: 1.3rem;
       overflow: hidden;
       height: 25px;
     }

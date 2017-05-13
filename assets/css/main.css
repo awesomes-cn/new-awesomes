@@ -5,6 +5,24 @@ html, body
   color: #444;
 }
 
+html, body, body > div:first-child {
+  height: 100%;
+}
+.main-in {
+  display: flex;
+  min-height: 100%;
+  flex-direction: column;
+}
+
+.body {
+  flex-grow: 1
+}
+
+
+.content {
+    flex: 1;
+}
+
 h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
   font-weight: bold;
 }

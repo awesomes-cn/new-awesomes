@@ -6,8 +6,8 @@
           nuxt-link(to="/")
             img.logo(src="../assets/img/logo-50.png")
             span.logo-txt.hide-small wesomes  
-          a(href="javascript:void(0)" @click="isHideMenu = !isHideMenu")
-            icon(name="list" class="show-small")
+          a(href="javascript:void(0)" @click="isHideMenu = !isHideMenu" class="show-small")
+            icon(name="list")
         div.middle
           div.inner(:style="isHideMenu ? 'height: 60px' : ''")
             nuxt-link(to="/repos/Applications/frameworks") {{$t('home.repos')}}
@@ -156,11 +156,13 @@
 
   .search-top {
     border: #EEE 1px solid;
+    margin-right: 20px;
     .search-txt {
       padding: 8px 10px;
       border: none;
       outline: none;
       color: #ababab;
+      width: 150px;
     }
 
     & > span {
@@ -197,9 +199,6 @@
     flex-grow: 1;
     flex-direction: row-reverse;
     position: relative;
-
-    a {
-    }
   }
 
   .logo {
@@ -244,6 +243,10 @@
       color: #da552f
     }
     
+  }
+
+  .right > a {
+    padding: 0 15px;
   }
 
   .left a, .right a {
@@ -300,7 +303,7 @@
 
   @media (max-width: 1000px) {
     .hide-small {
-      display: none
+      display: none;
     }
     .show-small {
       display: block;

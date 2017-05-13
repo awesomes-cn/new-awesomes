@@ -134,7 +134,6 @@
 <style lang="scss">
  .page-news {
    background: #f7f8fa;
-   padding-bottom: 50px;
 
    .topics-wraper {
      padding-top: 20px;

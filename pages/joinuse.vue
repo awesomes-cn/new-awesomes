@@ -45,7 +45,7 @@
       let _self = this
       if (this.$store.state.session) {
         axios().get(`mem/${this.$store.state.session.id}/opers?opertyp=USING&typ=REPO`).then(res => {
-          let repoIds = res.data.map(item => {
+          let repoIds = res.data.items.map(item => {
             return item.repo.id
           })
           _self.repos.forEach(item => {
@@ -85,6 +85,8 @@
   .repo-inner {
     text-align: center;
     margin-top: 40px;
+    border: rgba(238, 238, 238, 0.62) 1px solid;
+    padding: 40px;
 
     h6 {
       margin: 10px 0;
@@ -93,12 +95,13 @@
     .using {
       cursor: pointer;
       display: inline-block;
-      border: #9C9C9C 1px solid;
+      border: #37c700 1px solid;
       padding: 5px 10px;
+      color: #37c700;
 
       &.using-true {
-        background-color: #ff9500;
-        border-color: #ff9500;
+        background-color: #37c700;
+        border-color: #37c700;
         color: #FFF;
       }
     }

@@ -1,5 +1,5 @@
 <template lang="pug">
-  div(:class="'page-' + mypage")
+  div(:class="'main-in page-' + mypage")
     my-header
     div.body
       nuxt
