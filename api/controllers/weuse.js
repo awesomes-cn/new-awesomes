@@ -26,17 +26,7 @@ module.exports = {
       limit: limit,
       offset: skip
     }).fetchAll({
-      withRelated: ['mem_info'
-      // , {
-      //   'opers': function (query) {
-      //     query.where({typ: 'REPO', opertyp: 'USING'}).select('idcd', 'mem_id')
-      //   }
-      // }, {
-      //   'opers.repo': function (query) {
-      //     query.select('alia', 'cover', 'owner', 'id', 'using')
-      //   }
-      // }
-      ]
+      withRelated: ['mem_info']
     })]).then(([count, data]) => {
       let mems = data.toJSON()
       let mids = mems.map(mem => {

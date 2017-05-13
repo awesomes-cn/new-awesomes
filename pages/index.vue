@@ -23,9 +23,24 @@
           a.card(href="")
             icon(name="chrome" class="chrome-logo" width="50px")
             h2 寻找前端插件，一步到位
-
+          
+          div.card
+            p 看看大牛都在用什么前端库
+            div.usingms
+              div.mem-item(v-for="mem in usingmems")
+                nuxt-link(:to="/mem/ + mem.id" )
+                  img.tx(:src="cdn(mem.avatar, 'mem')")
+                div
+                  p {{mem.nc}}
+                  p 
+                    span 在用 
+                    nuxt-link(to="" v-for="i in [0, 1]") {{mem.usings[i].repo.alia}}
+                    span 等{{mem.usings.length}}个前端库
+                
           a.card(href="")
             img(src="../assets/img/jsonon.png")
+          
+          
                   
 </template>
 
@@ -39,6 +54,11 @@
     serverCacheKey () {
       return Math.floor(Date.now() / 10000)
     },
+    data () {
+      return {
+        usingmems: []
+      }
+    },
     asyncData () {
       return Promise.all([
         axios().get('news?limit=10'),
@@ -50,7 +70,6 @@
         })
         return {
           newss: newss
-          // latestTopics: res2.data
         }
       })
     },
@@ -65,7 +84,17 @@
           return
         }
         this.$router.push({path: '/search', query: {q: this.searchKey}})
+      },
+
+      // 获取最知名的几个前端开发者的在用
+      hotUsing: function () {
+        axios().get('/weuse?limit=4').then(res => {
+          this.usingmems = res.data.items
+        })
       }
+    },
+    created () {
+      this.hotUsing()
     }
   }
 </script>
@@ -108,6 +137,17 @@
     }
     & > span {
       cursor: pointer;
+    }
+  }
+
+  .usingms {
+    .mem-item {
+      display: flex;
+
+    }
+    .tx {
+      width: 40px;
+      border-radius: 100%
     }
   }
 
