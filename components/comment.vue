@@ -76,7 +76,7 @@
       list: function () {
         if (this.idcd && this.idcd > 0) {
           axios().get(`comment?typ=${this.typ}&idcd=${this.idcd}`).then(res => {
-            let data = res.data
+            let data = res.data.items
             this.coms = data
           })
         }

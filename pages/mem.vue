@@ -44,16 +44,14 @@
               nuxt-link(:to="'/mem/' + mem.id + '/pubs/news'") {{who}}发布的
               nuxt-link(:to="'/mem/' + mem.id + '/ups'") {{who}}点赞的
           div.seconds
-            nuxt-link(:to="'/mem/' + mem.id" v-if="$route.name == 'mem-id'") 前端库
-            nuxt-link(:to="'/mem/' + mem.id + '/marks/repos'" v-if="$route.name == 'mem-id-marks-repos'") 前端库
+            nuxt-link(:to="'/mem/' + mem.id" v-if="routeKey === ''") 前端库
+            nuxt-link(:to="'/mem/' + mem.id + '/marks/repos'" v-if="routeKey === 'marks'") 前端库
             
-            template(v-if="$route.name == 'mem-id-pubs-news'")
+            template(v-if="routeKey === 'pubs'")
               nuxt-link(:to="'/mem/' + mem.id + '/pubs/news'") 情报
               nuxt-link(:to="'/mem/' + mem.id + '/pubs/comments'") 评论
-              nuxt-link(:to="'/mem/' + mem.id + '/pubs/comments'") 经验
+              nuxt-link(:to="'/mem/' + mem.id + '/pubs/dianps'") 经验
         div.right
-          // nuxt-link(:to="'/mem/' + mem.id + '/marksss'") 前端库
-          // nuxt-link(:to="'/mem/' + mem.id + '/pubs/news'") 情报
 
       nuxt-child  
 </template>
@@ -61,12 +59,11 @@
 <script>
   import axios from '~plugins/axios'
   export default {
-    asyncData ({ req, params, query }) {
-      return axios().get(`mem/${params.id}`).then(res => {
-        return {
-          mem: res.data
-        }
-      })
+    async asyncData ({ req, params, query }) {
+      let res = await axios().get(`mem/${params.id}`)
+      return {
+        mem: res.data
+      }
     },
     watch: {
       '$router.params.id': function (val) {
@@ -81,6 +78,9 @@
       },
       who () {
         return this.session.id === parseInt(this.$route.params.id) ? '我' : 'TA'
+      },
+      routeKey () {
+        return this.$route.name.split('-')[2] || ''
       }
     },
     methods: {
@@ -89,10 +89,10 @@
       },
       getPageName: function () {
         return {
-          'mem-id': `${this.who}在用`,
-          'mem-id-marks-repos': `${this.who}收藏的`,
-          'mem-id-pubs-news': `${this.who}发布的`
-        }[this.$route.name]
+          '': `${this.who}在用`,
+          'marks': `${this.who}收藏的`,
+          'pubs': `${this.who}发布的`
+        }[this.routeKey]
       }
     },
     created () {

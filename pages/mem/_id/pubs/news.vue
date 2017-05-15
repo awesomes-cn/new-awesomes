@@ -1,7 +1,6 @@
 <template lang="pug">
   div
     div.newss
-      h1 {{pagetotal}}
       news(:newss="newss" flag="my-news-list")
     pagination(flag="news-list" v-bind:total="pagetotal" v-bind:size="pagesize")
 </template>
@@ -13,7 +12,6 @@
   export default {
     data () {
       return {
-        marks: [],
         pagetotal: 0,
         pagesize: pagesize
       }

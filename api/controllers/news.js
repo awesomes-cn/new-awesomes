@@ -2,7 +2,7 @@ const MBlog = require('../models/microblog')
 const Logic = require('../lib/logic')
 const moment = require('moment')
 module.exports = {
-  get_index: (req, res) => {
+  get_index: async (req, res) => {
     let limit = Math.min((req.query.limit || 10), 100)
     let skip = parseInt(req.query.skip || 0)
     let where = {}
@@ -18,32 +18,31 @@ module.exports = {
       where: where
     }
 
-    Promise.all([MBlog.where(where).count('id'), MBlog.query(query).fetchAll({
-      withRelated: [
-        {
-          'mem': function (mqu) {
-            return mqu.select('id', 'nc', 'avatar')
-          }
-        }, {
-          'mem.mem_info': function (query) {
-            query.select('company', 'mem_id')
-          }
-        }]
-    })])
-    .then(([count, newss]) => {
-      Logic.fetchMyOpers(req, 'FAVOR', 'NEWS').then(opers => {
-        let result = newss.toJSON()
-        result.forEach(item => {
-          item.isFavor = opers.indexOf(item.id) > -1
-        })
+    let [count, newss, favors] = await Promise.all([
+      MBlog.where(where).count('id'),
+      MBlog.query(query).fetchAll({
+        withRelated: [
+          {
+            'mem': function (mqu) {
+              return mqu.select('id', 'nc', 'avatar')
+            }
+          }, {
+            'mem.mem_info': function (query) {
+              query.select('company', 'mem_id')
+            }
+          }]
+      }),
+      Logic.fetchMyOpers(req, 'FAVOR', 'NEWS')
+    ])
 
-        res.send({
-          items: result,
-          count: count
-        })
-      })
-    }).catch((err) => {
-      console.error(err)
+    let result = newss.toJSON()
+    result.forEach(item => {
+      item.isFavor = favors.indexOf(item.id) > -1
+    })
+
+    res.send({
+      items: result,
+      count: count
     })
   },
 

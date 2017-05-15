@@ -26,28 +26,40 @@ let getMyFavors = (req) => {
 
 
 module.exports = {
-  get_index: (req, res) => {
-    let query = {
-      where: {
-        typ: req.query.typ,
-        idcd: req.query.idcd
+  get_index: async (req, res) => {
+    let limit = Math.min((req.query.limit || 30), 100)
+    let skip = parseInt(req.query.skip || 0)
+    let where = {}
+    ;['typ', 'idcd', 'mem_id'].forEach(key => {
+      let val = req.query[key]
+      if (val) {
+        where[key] = val
       }
+    })
+    let query = {
+      where: where,
+      limit: limit,
+      offset: skip
     }
-    Comment.query(query).fetchAll({
-      withRelated: [{
-        'mem': function (mqu) {
-          return mqu.select('id', 'nc', 'avatar')
-        }
-      }]
-    }).then(data => {
-      console.log('====', data)
-      getMyFavors(req).then(opers => {
-        let result = data.toJSON()
-        result.forEach(item => {
-          item.isFavor = opers.indexOf(item.id) > -1
-        })
-        res.send(result)
-      })
+
+    let [comments, count, myfavors] = await Promise.all([
+      Comment.query(query).fetchAll({
+        withRelated: [{
+          'mem': function (mqu) {
+            return mqu.select('id', 'nc', 'avatar')
+          }
+        }]
+      }),
+      Comment.where(where).count('id'),
+      getMyFavors(req)
+    ])
+    let result = comments.toJSON()
+    result.forEach(item => {
+      item.isFavor = myfavors.indexOf(item.id) > -1
+    })
+    res.send({
+      items: result,
+      count: count
     })
   },
   post_index: (req, res) => {
