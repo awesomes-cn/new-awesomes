@@ -25,21 +25,46 @@
             h2 寻找前端插件，一步到位
           
           div.card
-            p 看看大牛都在用什么前端库
+            h5.title
+              nuxt-link(to="/weuse")
+                icon(name="niu" width="25px") 大牛在用
             div.usingms
               div.mem-item(v-for="mem in usingmems")
                 nuxt-link(:to="/mem/ + mem.id" )
                   img.tx(:src="cdn(mem.avatar, 'mem')")
-                div
-                  p {{mem.nc}}
+                div.right-detail
+                  nuxt-link(:to="/mem/ + mem.id" class="mem-nc") {{mem.nc}}
                   p 
                     span 在用 
-                    nuxt-link(to="" v-for="i in [0, 1]") {{mem.usings[i].repo.alia}}
-                    span 等{{mem.usings.length}}个前端库
+                    nuxt-link(to="" v-for="i in [0, 1]" class="repo") {{mem.usings[i].repo.alia}}
+                    span 等
+                    span.num {{mem.usings.length}}
+                    span 个前端库
+            nuxt-link(to="/weuse" class="more") 查看更多大牛在用    
                 
           a.card(href="")
             img(src="../assets/img/jsonon.png")
+
+          div.card
+             h5.title
+              nuxt-link(to="/subjects")
+                icon(name="iphone" width="25px") 专题推荐  
           
+          div.card.trends
+            h5.title
+              nuxt-link(to="/rank")
+                icon(name="trend" width="25px") 前端趋势
+            div.trend-item(v-for="(repo, index) in trends")
+              span.rank-num {{index + 1}}
+              nuxt-link(:to="'/repo/' + repo.owner + '/' + repo.alia")
+                img.cover(:src="cdn(repo.cover, 'repo', 'subject_repo')")
+              div.middle
+                nuxt-link(:to="'/repo/' + repo.owner + '/' + repo.alia")
+                  h5 {{repo.name}}
+                p {{repo.description_cn}}  
+
+            nuxt-link(to="/rank" class="more") 查看完整趋势
+
           
                   
 </template>
@@ -56,22 +81,19 @@
     },
     data () {
       return {
-        usingmems: []
+        usingmems: [],
+        trends: []
       }
     },
-    asyncData () {
-      return Promise.all([
-        axios().get('news?limit=10'),
-        axios().get('topic?limit=6&typcd=TOPIC')
-      ]).then(([res1, res2]) => {
-        let newss = res1.data.items
-        newss.forEach(item => {
-          item.isShowCom = false
-        })
-        return {
-          newss: newss
-        }
+    async asyncData () {
+      let [res1] = await Promise.all([axios().get('news?limit=10')])
+      let newss = res1.data.items
+      newss.forEach(item => {
+        item.isShowCom = false
       })
+      return {
+        newss: newss
+      }
     },
     components: {
       Topics,
@@ -91,10 +113,17 @@
         axios().get('/weuse?limit=4').then(res => {
           this.usingmems = res.data.items
         })
+      },
+
+      // 获取前端趋势
+      fetchTrend: async function () {
+        let res = await axios().get(`repo/top100?sort=trend&limit=5`)
+        this.trends = res.data
       }
     },
     created () {
       this.hotUsing()
+      this.fetchTrend()
     }
   }
 </script>
@@ -107,12 +136,21 @@
   .home-index {
     padding-top: 20px;
   }
+
   .card {
     display: block;
     background-color: #FFF;
     padding: 30px;
     overflow: hidden;
     margin-bottom: 20px;
+
+    .title {
+      text-align: center;
+      padding: 10px;
+      padding-bottom: 20px;
+      margin-bottom: 20px;
+      border-bottom: #EEE 1px solid;
+    }
 
     img {
       width: 100%
@@ -121,6 +159,42 @@
     h2 {
       padding: 10px 0;
     }
+  }
+
+  .more {
+    text-align: center;
+    display: block;
+    padding-top: 20px;
+    color: #97a8be;
+  }
+
+  .trends {
+    .trend-item {
+      display: flex;
+      margin: 20px 0;
+      align-items: center;
+    }
+
+    .rank-num {
+      font-size: 1.4rem;
+    }
+
+    .cover {
+      width: 40px;
+      height: 40px;
+      border-radius: 100%;
+      margin: 0 10px;
+    }
+
+    .middle {
+      flex-grow: 1;
+      flex-shrink: 1;
+      word-break: keep-all;   
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    
   }
 
   .search {
@@ -143,6 +217,32 @@
   .usingms {
     .mem-item {
       display: flex;
+      margin-top: 10px;
+      border-bottom: #EEE 1px dashed;
+
+      .right-detail {
+        padding-left: 5px;
+      }
+
+      .repo {
+        display: inline-block;
+        background-color: #FAFAFA;
+        padding: 5px 10px;
+        margin-right: 5px;
+        font-size: 12px;
+        border-radius: 2px;
+      }
+
+      .num {
+        color: red;
+        color: #8391a5;
+        margin: 0 2px;
+      }
+
+      .mem-nc {
+        font-weight: bold;
+        font-size: 1.1rem
+      }
 
     }
     .tx {

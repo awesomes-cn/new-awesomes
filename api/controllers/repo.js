@@ -154,8 +154,9 @@ module.exports = {
     if (req.query.sort === 'trend') {
       orderby = 'trend desc'
     }
+    let limit = Math.min((req.query.limit || 10), 100)
     Repo.query({
-      limit: 100,
+      limit: limit,
       orderByRaw: orderby,
       select: ['id', 'name', 'cover', 'description_cn', 'owner', 'alia', 'pushed_at']
     }).fetchAll().then((repos) => {
