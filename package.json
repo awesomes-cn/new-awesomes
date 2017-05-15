@@ -26,8 +26,11 @@
     "swiper": "^3.4.2",
     "timeago.js": "^3.0.1",
     "underscore": "^1.8.3",
+    "vue": "2.2.6",
     "vue-i18n": "^6.1.1",
-    "vue-svg-icon": "^1.2.9"
+    "vue-server-renderer": "2.2.6",
+    "vue-svg-icon": "^1.2.9",
+    "vue-template-compiler": "2.2.6"
   },
   "scripts": {
     "dev": "HOST=0.0.0.0 PORT=3333 nuxt",
