@@ -45,10 +45,16 @@
           a.card(href="")
             img(src="../assets/img/jsonon.png")
 
-          div.card
+          div.card.subs-card
              h5.title
               nuxt-link(to="/subjects")
-                icon(name="iphone" width="25px") 专题推荐  
+                icon(name="iphone" width="25px") 专题推荐
+             div.row
+               div.col-md-6.col-12(v-for="sub in subjects")
+                div.inner
+                  nuxt-link(:to="'/subject/' + sub.key" v-bind:style="'background-image:url(' + cdn(sub.cover, 'subject', 'subject') + ')'"  class="sub-item")
+                   div.detail 
+                     h4 {{sub.title}}
           
           div.card.trends
             h5.title
@@ -82,7 +88,8 @@
     data () {
       return {
         usingmems: [],
-        trends: []
+        trends: [],
+        subjects: []
       }
     },
     async asyncData () {
@@ -119,11 +126,18 @@
       fetchTrend: async function () {
         let res = await axios().get(`repo/top100?sort=trend&limit=5`)
         this.trends = res.data
+      },
+
+      // 专题推荐
+      recoSubjects: async function () {
+        let res = await axios().get('subject?limit=4')
+        this.subjects = res.data
       }
     },
     created () {
       this.hotUsing()
       this.fetchTrend()
+      this.recoSubjects()
     }
   }
 </script>
@@ -158,6 +172,62 @@
 
     h2 {
       padding: 10px 0;
+    }
+  }
+
+  .subs-card {
+    .title {
+      border: 0;
+    }
+    .sub-item {
+      display: block;
+      height: 100px;
+      width: 100%;
+      display: block;
+      border-radius: 2px;
+      position: relative;
+      background-repeat: no-repeat;
+      background-size: cover;
+      overflow: hidden;
+      background-position: center center;
+      position: relative;
+      color: #FFF;
+      text-align: center;
+
+      &:after {
+        display: block;
+        content: '';
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.44);
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 1;
+      }
+
+      &:hover {
+        &:after {
+          background-color: rgba(0, 0, 0, 0.6);
+        }
+      }
+
+      .detail {
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 10;
+        padding: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    }
+
+    .inner {
+      padding: 10px
     }
   }
 

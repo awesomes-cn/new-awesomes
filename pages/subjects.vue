@@ -16,16 +16,12 @@
 
 <script>
   import axios from '~plugins/axios'
-  import _ from 'underscore'
   export default {
-    asyncData ({ req, params, query }) {
-      return axios().get('subject').then(res => {
-        return {
-          subjects: _.sortBy(res.data, item => {
-            return -item.order
-          })
-        }
-      })
+    async asyncData ({ req, params, query }) {
+      let res = await axios().get('subject')
+      return {
+        subjects: res.data
+      }
     }
   }
 </script>

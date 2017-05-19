@@ -32,7 +32,6 @@ module.exports = {
     }
     jwt.verify(req.headers.atoken, 'hxh', (err, decoded) => {
       if (err) {
-        console.log('剑来了')
         res.send({status: false})
       }
       Mem.where({id: (decoded || {}).id}).fetch().then(data => {
