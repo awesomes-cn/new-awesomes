@@ -34,9 +34,10 @@
                   img.tx(:src="cdn(mem.avatar, 'mem')")
                 div.right-detail
                   nuxt-link(:to="/mem/ + mem.id" class="mem-nc") {{mem.nc}}
-                  p 
+                  div.info
                     span 在用 
-                    nuxt-link(to="" v-for="i in [0, 1]" class="repo") {{mem.usings[i].repo.alia}}
+                    nuxt-link(:to="'/repo/' + mem.usings[i].repo.owner + '/' + mem.usings[i].repo.alia" v-for="i in 4" v-bind:title="mem.usings[i].repo.alia")
+                      img.cover(:src="cdn(mem.usings[i].repo.cover, 'repo', 'repo_small')")
                     span 等
                     span.num {{mem.usings.length}}
                     span 个前端库
@@ -298,17 +299,20 @@
 
       .right-detail {
         padding-left: 10px;
-      }
+        padding-bottom: 15px;
+        .cover {
+          width: auto;
+          height: 20px;
+          background-color: #f0f5fb;
+          padding: 3px;
+          margin: 0 4px;
+        }
 
-      .repo {
-        display: inline-block;
-        background-color: #f0f5fb;
-        padding: 5px 10px;
-        margin-right: 5px;
-        font-size: 12px;
-        border-radius: 2px;
-        color: #97a8be;
-        text-transform: uppercase;
+        .info {
+          display: flex;
+          align-items: center;
+          padding-top: 5px;
+        }
       }
 
       .num {
