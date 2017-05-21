@@ -3,7 +3,7 @@
     div.repo-item(v-for="mark in marks")
       div.left
         nuxt-link(:to="'/repo/' + mark.repo.owner + '/' + mark.repo.alia")
-          img.cover(:src="cdn(mark.repo.cover, 'repo', 'repo')")
+          img.cover(:src="cdn(mark.repo.cover, 'repo', 'subject_repo')")
       div.center
         nuxt-link(:to="'/repo/' + mark.repo.owner + '/' + mark.repo.alia")
           h5 {{mark.repo.alia}}
@@ -15,7 +15,7 @@
           icon(name="hand" width="15px") {{mark.repo.using}}
       div.right
         a(href="") 取消收藏
-    pagination(flag="weuse-list" v-bind:total="pagetotal" v-bind:size="pagesize" v-bind:callback="markRepos")
+    pagination(flag="weuse-list" v-bind:total="pagetotal" v-bind:size="pagesize")
 </template>
 
 <script>
@@ -73,8 +73,7 @@
       }
 
       .right {
-        width: 100px;
-        text-align: right;
+        width: 90px;
 
         * {
           display: none;

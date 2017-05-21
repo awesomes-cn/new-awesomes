@@ -1,5 +1,5 @@
 <template lang="pug">
-  span.v-icon
+  span.v-icon(:class="alone")
     v-icon(:name="name"  v-bind:style="{width: width || '20px', height: width || '20px', transform: 'rotate( ' + (rotate || 0) + 'deg)'}")
     span
       slot
@@ -8,7 +8,7 @@
 
 <script>
   export default {
-    props: ['name', 'width', 'height', 'rotate']
+    props: ['name', 'width', 'height', 'rotate', 'alone']
   }
 </script>
 
@@ -20,9 +20,17 @@
     span {
       display: inline-block;
     }
+
+    svg {
+      margin-right: 3px;
+    }
+
+    &.true {
+      svg {
+        margin-right: 0;
+      }
+    }
   }
 
-  svg {
-    margin-right: 3px;
-  }
+  
 </style>

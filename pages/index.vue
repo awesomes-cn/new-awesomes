@@ -20,7 +20,7 @@
             input.search-txt(type="text" placeholder="搜索前端库" v-model="searchKey" @keyup.enter="searchGo")
             span(@click="searchGo")
               icon(name="search")
-          a.card(href="")
+          nuxt-link(to="extension" class="card")
             icon(name="chrome" class="chrome-logo" width="50px")
             h2 寻找前端插件，一步到位
           
@@ -253,7 +253,13 @@
       width: 40px;
       height: 40px;
       border-radius: 100%;
-      margin: 0 10px;
+      margin: 0 15px;
+      border: #c2e4fd 1px dashed;
+      padding: 2px;
+
+      &:hover {
+        border: #c2e4fd 1px solid;
+      }
     }
 
     .middle {
@@ -291,16 +297,18 @@
       border-bottom: #EEE 1px dashed;
 
       .right-detail {
-        padding-left: 5px;
+        padding-left: 10px;
       }
 
       .repo {
         display: inline-block;
-        background-color: #FAFAFA;
+        background-color: #f0f5fb;
         padding: 5px 10px;
         margin-right: 5px;
         font-size: 12px;
         border-radius: 2px;
+        color: #97a8be;
+        text-transform: uppercase;
       }
 
       .num {
