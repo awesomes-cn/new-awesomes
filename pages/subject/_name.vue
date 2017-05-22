@@ -68,12 +68,20 @@
             typcds: subResult
           })
         }
-        console.log(JSON.stringify(result))
         res.data.repos = result
         return {
           sub: res.data
         }
       })
+    },
+    head () {
+      return {
+        title: `${this.sub.title}专题`,
+        meta: [
+          { hid: 'description', name: 'description', content: this.sub.sdesc },
+          { hid: 'keywords', name: 'keywords', content: `${this.sub.title},${this.sub.title}专题,${this.sub.title}资源,${this.sub.title}组件,${this.sub.title}插件` }
+        ]
+      }
     },
     components: {
       Fresh

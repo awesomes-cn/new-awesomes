@@ -27,6 +27,15 @@
         }
       })
     },
+    head () {
+      return {
+        title: `${this.repo.alia} - Awesomes`,
+        meta: [
+          { hid: 'description', name: 'description', content: this.repo.description_cn },
+          { hid: 'keywords', name: 'keywords', content: `${this.repo.alia},${this.repo.alia}源码,${this.repo.alia}下载,${this.repo.alia}文档,${this.repo.alia}资源库` }
+        ]
+      }
+    },
     components: {
       Banner,
       Comment,

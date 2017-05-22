@@ -11,11 +11,12 @@ module.exports = {
     middleware: ['auth', 'i18n']
   },
   head: {
-    title: 'starter',
+    title: 'Awesomes-Web前端开发资源库',
     meta: [
       { charset: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: 'Nuxt.js project' }
+      { name: 'viewport', content: 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' },
+      { hid: 'description', name: 'description', content: 'Web前端开发工程师需要的免费开源的高质量前端库、框架和插件' },
+      {hid: 'keywords', name: 'keywords', content: 'html5,h5,css3,jquery,web框架,js框架,jquery插件,免费开源,中文文档'}
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }

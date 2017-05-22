@@ -52,6 +52,14 @@
         }
       })
     },
+    head () {
+      return {
+        title: '大牛在用',
+        meta: [
+          { hid: 'description', name: 'description', content: '如何选择前端框架，借鉴大神的选择，我们都在用的前端框架' }
+        ]
+      }
+    },
     methods: {
       isExsit: (str) => {
         return str && str.trim() !== ''

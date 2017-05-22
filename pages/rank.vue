@@ -34,6 +34,15 @@
         }
       })
     },
+    head () {
+      return {
+        title: `前端TOP100`,
+        meta: [
+          { hid: 'description', name: 'description', content: 'TOP100的前端框架排名' },
+          { hid: 'keywords', name: 'keywords', content: '前端TOP,前端趋势,热门框架' }
+        ]
+      }
+    },
     components: {
       Fresh
     },

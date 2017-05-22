@@ -75,6 +75,14 @@
         return initData
       })
     },
+    head () {
+      return {
+        title: '前端库',
+        meta: [
+          { hid: 'description', name: 'description', content: 'Web前端开发工程师需要的免费开源的高质量前端库、框架和插件' }
+        ]
+      }
+    },
     components: {
       Fresh
     }

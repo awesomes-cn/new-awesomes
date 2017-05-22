@@ -22,6 +22,11 @@
       return {
         subjects: res.data
       }
+    },
+    head () {
+      return {
+        title: '前端专题'
+      }
     }
   }
 </script>

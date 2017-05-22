@@ -75,6 +75,14 @@
         }
       })
     },
+    head () {
+      return {
+        title: `前端情报局`,
+        meta: [
+          { hid: 'description', name: 'description', content: '最新前端资讯和情报' }
+        ]
+      }
+    },
     components: {
       News
     },
