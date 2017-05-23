@@ -40,6 +40,11 @@ div {
   box-sizing: border-box
 }
 
+button, .btn {
+  cursor: pointer;
+  border-radius: 0;
+}
+
 a {
   -webkit-transition: all,.5s,ease,0s;
   text-decoration: none

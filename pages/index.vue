@@ -90,7 +90,8 @@
       return {
         usingmems: [],
         trends: [],
-        subjects: []
+        subjects: [],
+        searchKey: ''
       }
     },
     async asyncData () {

@@ -16,7 +16,8 @@ module.exports = {
           mem: {
             id: data.id,
             nc: data.get('nc'),
-            avatar: data.get('avatar')
+            avatar: data.get('avatar'),
+            iswebker: data.get('iswebker')
           }
         })
       } else {
@@ -43,7 +44,8 @@ module.exports = {
             mem: {
               id: data.id,
               nc: data.get('nc'),
-              avatar: data.get('avatar')
+              avatar: data.get('avatar'),
+              iswebker: data.get('iswebker')
             }
           })
         } else {
