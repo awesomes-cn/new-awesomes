@@ -62,7 +62,7 @@ module.exports = {
       count: count
     })
   },
-  post_index: (req, res) => {
+  post_index: async (req, res) => {
     let memId = Logic.myid(req)
     if (!memId) {
       res.send({status: false})
@@ -73,17 +73,16 @@ module.exports = {
       params[key] = req.body[key]
     })
 
-    new Comment(params).save().then(item => {
-      Comment.where({id: item.get('id')}).fetch({
-        withRelated: [{
-          'mem': function (mqu) {
-            return mqu.select('id', 'nc', 'avatar')
-          }
-        }]
-      }).then(data => {
-        res.send({status: true, item: data})
-      })
+    let newItem = await new Comment(params).save()
+    let backitem = await Comment.where({id: newItem.get('id')}).fetch({
+      withRelated: [{
+        'mem': function (mqu) {
+          return mqu.select('id', 'nc', 'avatar')
+        }
+      }]
     })
+
+    res.send({status: true, item: backitem})
   },
 
   delete_index_id: (req, res) => {

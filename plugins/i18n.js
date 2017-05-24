@@ -5,7 +5,7 @@ import store from '~store'
 Vue.use(VueI18n)
 
 const i18n = new VueI18n({
-  locale: store().state.locale,
+  locale: store.state.locale,
   fallbackLocale: 'en',
   messages: {
     'en': require('~/locales/en.json'),

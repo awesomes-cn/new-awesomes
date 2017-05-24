@@ -18,6 +18,7 @@ let Oper = DB.Model.extend({
   sameAmount: function (params) {
     return Oper.query({where: params}).count('id')
   },
+  // 更新目标对象的操作次数
   updateTarget: function (model) {
     let Model = {
       REPO: {
