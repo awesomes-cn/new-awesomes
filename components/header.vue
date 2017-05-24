@@ -33,8 +33,9 @@
             img.tx(:src="cdn((session || {}).avatar, 'mem')")
             
 
-          a.hide-small(href="" v-show="session")
+          nuxt-link.hide-small.notifiys(to="/notifications" v-show="session" v-bind:class="$store.state.unreadNotifiy > 0 ? 'active' : ''")
             icon(name="bell"  width="22px")
+            span.num(v-show="$store.state.unreadNotifiy > 0") {{$store.state.unreadNotifiy}}
 
           nuxt-link(to="/repo/new")
             icon(name="plus"  width="20px")    
@@ -150,7 +151,13 @@
 
     .container {
       display: flex;
-      align-items: center
+      align-items: flex-start;
+    }
+  }
+
+  .notifiys {
+    &.active {
+      color: #da552f
     }
   }
 
@@ -174,6 +181,9 @@
 
   .left, .middle .inner, .right {
     display: flex;
+  }
+  
+  .right {
     align-items: center
   }
 

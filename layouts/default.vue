@@ -16,6 +16,11 @@ export default {
       mypage: this.$route.name
     }
   },
+  head () {
+    return {
+      titleTemplate: `(${this.$store.state.unreadNotifiy} 条未读信息) %s`
+    }
+  },
   components: {
     MyFooter,
     MyHeader
