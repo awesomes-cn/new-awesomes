@@ -1,30 +1,16 @@
 import Vuex from 'vuex'
+import mutations from './mutations'
 
-const store = new Vuex.Store({
-  state: {
-    isShowLogin: false,
-    session: null,
-    locale: 'en',
-    locales: ['en', 'zh-cn']
-  },
-  mutations: {
-    showLogin (state) {
-      state.isShowLogin = true
+const store = () => {
+  return new Vuex.Store({
+    state: {
+      isShowLogin: false,
+      session: null,
+      locale: 'en',
+      locales: ['en', 'zh-cn']
     },
-    hideLogin (state) {
-      state.isShowLogin = false
-    },
-    setUser (state, session) {
-      state.session = session
-    },
-    SET_LANG (state, locale) {
-      if (state.locales.indexOf(locale) !== -1) {
-        state.locale = locale
-      }
-    }
-  },
-  actions: {
-  }
-})
+    mutations
+  })
+}
 
 export default store

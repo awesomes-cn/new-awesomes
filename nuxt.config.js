@@ -27,7 +27,6 @@ module.exports = {
   */
   css: [
     'bootstrap/dist/css/bootstrap.css',
-    'normalize.css',
     'prismjs/themes/prism.css',
     'element-ui/lib/theme-default/index.css',
     'animate.css',

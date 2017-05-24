@@ -17,9 +17,11 @@
             
             div.new-footer
               div.alert.alert-warning 
-                span 目前只针对
-                a(href="") 前端客
-                span 开放报料功能
+                template(v-if="!session || !session.iswebker")
+                  span 目前只针对
+                  nuxt-link(to="/webker") 前端客
+                  span 开放报料功能
+                template(v-if="session && session.iswebker")
               div.btn-wraper
                 button.sub-btn(@click="submit")
                   icon(name="send" width="18px") 发布
@@ -74,6 +76,11 @@
           pagetotal: res.data.count
         }
       })
+    },
+    computed: {
+      session () {
+        return this.$store.state.session
+      }
     },
     head () {
       return {

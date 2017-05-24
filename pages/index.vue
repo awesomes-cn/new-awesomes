@@ -5,9 +5,14 @@
         div.col-md-7
           div.news-wraper
             div.banner
-              h4 前端情报局
-              nuxt-link(to="/news") 我有料报
+              h4 最新情报
+              nuxt-link(to="/news" title="发布")
+                icon(name="plus")
+              a(href="javascript:void(0)" title="刷新" @click="refresh")
+                icon(name="refresh")
             div.inner
+              transition(name="custom-classes-transition" enter-active-class="animated fadeIn")
+                div.tip(v-show="freshok") 刷新成功
               news(:newss="newss" flag="index-list")  
           div.more-news
             nuxt-link(to="/news") 查看更多
@@ -81,6 +86,16 @@
   import axios from '~plugins/axios'
   import Topics from '~components/topic/list.vue'
   import News from '~components/repo/news.vue'
+
+  let fetchNews = async () => {
+    let res = await axios().get('news?limit=10')
+    let newss = res.data.items
+    newss.forEach(item => {
+      item.isShowCom = false
+    })
+    return newss
+  }
+
   export default {
     name: 'home',
     serverCacheKey () {
@@ -91,17 +106,13 @@
         usingmems: [],
         trends: [],
         subjects: [],
-        searchKey: ''
+        searchKey: '',
+        freshok: false
       }
     },
     async asyncData () {
-      let [res1] = await Promise.all([axios().get('news?limit=10')])
-      let newss = res1.data.items
-      newss.forEach(item => {
-        item.isShowCom = false
-      })
       return {
-        newss: newss
+        newss: await fetchNews()
       }
     },
     components: {
@@ -109,6 +120,15 @@
       News
     },
     methods: {
+      // 刷新趋势
+      refresh: async function () {
+        this.newss = await fetchNews()
+        this.freshok = true
+        let _self = this
+        setTimeout(function () {
+          _self.freshok = false
+        }, 2000)
+      },
       // 搜索
       searchGo: function () {
         if (this.searchKey.trim() === '') {
@@ -361,21 +381,33 @@
     background-color: #FFF;
     .inner {
       padding:0 30px;
+
+      .tip {
+        display: inline-block;
+        background-color: #FAFAFA;
+        padding: 10px;
+        position: absolute;
+        left: 50%;
+        margin-left: -50px;
+      }
     }
     .banner {
-      padding: 20px;
       border-bottom: #EEE 1px solid;
-
-      * {
-        display: inline-block
-      }
-
+      display: flex;
+      padding: 20px;
+      align-items: center;
+      
       a {
-        color: #8590a6;
-        float: right
+        color: #DDD;
+        padding: 0 5px;
+      }
+
+      h4 {
+        flex-grow: 1;
+        color: #333
       }
     }
-    }
+  }
  }
  
 </style>
