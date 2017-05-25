@@ -36,7 +36,7 @@
     "dev": "HOST=0.0.0.0 PORT=3333 nuxt",
     "windev": "nuxt",
     "build": "nuxt build",
-    "start": "HOST=0.0.0.0 PORT=3333 nuxt start",
+    "start": "nuxt start",
     "generate": "nuxt generate",
     "lint": "eslint --ext .js,.vue --ignore-path .eslintignore .",
     "precommit": "npm run lint"
