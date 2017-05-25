@@ -65,7 +65,20 @@ let Comment = DB.Model.extend({
 
     let toid = distobj.get('mem_id')
 
-    // 分析 @
+    // 目标用户发送通知，如果是给自己的对象评论则不用通知
+    let distids = fromem.id === toid ? [] : [toid]
+    let toActions = distids.map(async (mem) => {
+      await new Msg({
+        title: '评论',
+        con: `[${fromem.get('nc')}](/mem/${fromem.get('id')}) 评论了你的 [${Model.name}](/${Model.link}/${model.get('idcd')})`,
+        status: 'UNREAD',
+        to: toid,
+        typ: 'comment'
+      }).save()
+    })
+
+
+    // 分析 @ 到的用户发送通知
     let ncs = (model.get('con').match(/@\S+/g) || []).map(nc => {
       return nc.slice(1)
     })
@@ -78,7 +91,7 @@ let Comment = DB.Model.extend({
     })
     // 去掉重复通知
     atids.splice(atids.indexOf(toid), atids.indexOf(toid) < 0 ? 0 : 1)
-    let actions = atids.map(async (mem) => {
+    let atActions = atids.map(async (mem) => {
       await new Msg({
         title: '@',
         con: `[${fromem.get('nc')}](/mem/${fromem.get('id')}) 在 [${Model.name}](/${Model.link}/${model.get('idcd')}) 中提到了你`,
@@ -89,14 +102,8 @@ let Comment = DB.Model.extend({
     })
 
     await Promise.all([
-      actions,
-      new Msg({
-        title: '评论',
-        con: `[${fromem.get('nc')}](/mem/${fromem.get('id')}) 评论了你的 [${Model.name}](/${Model.link}/${model.get('idcd')})`,
-        status: 'UNREAD',
-        to: toid,
-        typ: 'comment'
-      }).save()
+      atActions,
+      toActions
     ])
   }
 })

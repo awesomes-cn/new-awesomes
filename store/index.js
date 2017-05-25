@@ -5,7 +5,8 @@ const store = new Vuex.Store({
     isShowLogin: false,
     session: null,
     locale: 'en',
-    locales: ['en', 'zh-cn']
+    locales: ['en', 'zh-cn'],
+    unreadNotifiy: 0
   },
   mutations: {
     showLogin (state) {
@@ -21,6 +22,9 @@ const store = new Vuex.Store({
       if (state.locales.indexOf(locale) !== -1) {
         state.locale = locale
       }
+    },
+    notifiy (state, unreadNotifiy) {
+      state.unreadNotifiy = unreadNotifiy
     }
   },
   actions: {

@@ -22,6 +22,7 @@
                   nuxt-link(to="/webker") 前端客
                   span 开放报料功能
                 template(v-if="session && session.iswebker")
+                  span 请勿发布垃圾信息
               div.btn-wraper
                 button.sub-btn(@click="submit")
                   icon(name="send" width="18px") 发布

@@ -8,7 +8,7 @@ module.exports = {
   },
   router: {
     // 在每页渲染前运行 middleware/user-agent.js 中间件的逻辑
-    middleware: ['auth', 'i18n']
+    middleware: ['auth', 'i18n', 'notification']
   },
   head: {
     title: 'Awesomes-Web前端开发资源库',

@@ -27,7 +27,7 @@ let Logic = {
   myid: (req) => {
     try {
       return (jwt.verify(req.headers.atoken, 'hxh') || {}).id
-    } catch(ex) {
+    } catch (ex) {
       return null
     }
   }
