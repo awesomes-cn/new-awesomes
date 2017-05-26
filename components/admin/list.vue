@@ -22,7 +22,6 @@
 </template>
 <script>
   import axios from '~plugins/axios'
-  import { Message } from 'element-ui'
   let pagesize = 15
   export default {
     props: ['table', 'keys'],
@@ -76,10 +75,7 @@
         })
         if (res.data.status) {
           this.items.splice(index, 1)
-          Message({
-            message: '删除数据成功！',
-            type: 'success'
-          })
+          this.$alert('success', '删除数据成功！')
         }
       }
     },

@@ -69,7 +69,6 @@
 <script>
   import axios from '~plugins/axios'
   import Cookie from 'js-cookie'
-  import { Message } from 'element-ui'
   export default {
     data () {
       return {
@@ -96,17 +95,10 @@
         let self = this
         axios().post(`session/login`, { uid: this.uid, pwd: this.pwd }).then(res => {
           if (!res.data.status) {
-            Message({
-              message: '登录失败，用户名或密码错误',
-              type: 'error'
-            })
+            this.$alert('danger', '登录失败，用户名或密码错误')
             Cookie.set('awlogin', null)
           } else {
-            Message({
-              message: '登录成功！',
-              type: 'success'
-            })
-
+            this.$alert('success', '登录成功！')
             Cookie.set('awlogin', res.data.token)
             self.hideLogin()
             this.$store.commit('setUser', res.data.mem)
@@ -117,10 +109,7 @@
       logout: function () {
         Cookie.set('awlogin', null)
         this.$store.commit('setUser', null)
-        Message({
-          message: '注销成功！',
-          type: 'success'
-        })
+        this.$alert('success', '注销成功！')
       },
       // 搜索
       searchGo: function () {

@@ -21,7 +21,7 @@
           span 注意：为了保证质量，目前我们只针对
           nuxt-link(to="/webker") 前端客
           span 开放点评功能！
-        div.editor-outer
+        div.editor-outer(v-if="!session || session.iswebker === 'YES'")
           editor(flag="repo-dianp" hideTool="true" v-model="diancon" v-bind:setval="setval")
           button.sub-btn(@click="submit") 发布
 
@@ -50,7 +50,6 @@
 
 <script>
   import axios from '~plugins/axios'
-  import { Message } from 'element-ui'
   import $ from 'jquery'
   import Comment from '~components/comment.vue'
   export default {
@@ -164,18 +163,12 @@
         this.isSubmiting = false
 
         if (!res.data.status) {
-          Message({
-            message: '新增点评失败，没有权限',
-            type: 'error'
-          })
+          this.$alert('danger', '新增点评失败，没有权限')
           return
         }
 
         this.dians.push(res.data.item)
-        Message({
-          message: '新增点评成功',
-          type: 'success'
-        })
+        this.$alert('success', '新增点评成功')
         this.list()
       },
 

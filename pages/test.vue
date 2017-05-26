@@ -1,12 +1,14 @@
 <template lang="pug">
-  div(style="padding: 50px 200px")
-    comment(flag="hellop")
+  div
+    button.btn(@click="sub") 显示消息
 </template>
 <script>
-  import Comment from '~components/comment.vue'
   export default {
-    components: {
-      Comment
+    methods: {
+      sub: function () {
+        this.$alert('danger', 'hellhxho')
+        console.log('==', this.$store.state.alert)
+      }
     }
   }
 </script>

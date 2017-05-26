@@ -12,6 +12,7 @@ renderer.code = (code, language) => {
 
 Vue.use({
   install: function (Vue, options) {
+    // cdn地址
     Vue.prototype.cdn = function (name, folder, process) {
       if (!name || name === '') {
         name = 'default.png'
@@ -26,6 +27,7 @@ Vue.use({
       return url
     }
 
+    // 弹出登录框
     Vue.prototype.showLogin = function () {
       if (!this.$store.state.session) {
         this.$store.commit('showLogin')
@@ -34,16 +36,31 @@ Vue.use({
       return false
     }
 
+    // 隐藏登陆框
     Vue.prototype.hideLogin = function () {
       this.$store.commit('hideLogin')
     }
 
+    // markdown 解析
     Vue.prototype.marked = function (con) {
       return marked(con, {renderer: renderer})
     }
 
+    // 时间本地化
     Vue.prototype.timeago = function (datetime) {
       return timeago().format(datetime, 'zh_CN')
+    }
+
+    // 消息提示
+    Vue.prototype.$alert = function (type, msg) {
+      this.$store.commit('showAlert', {
+        type: type,
+        msg: msg
+      })
+      let _self = this
+      setTimeout(() => {
+        _self.$store.commit('hideAlert')
+      }, 3000)
     }
   }
 })

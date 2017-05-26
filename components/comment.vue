@@ -97,28 +97,28 @@
       },
 
       // 新增评论
-      save: function () {
-        axios().post(`comment`, {
+      save: async function () {
+        let res = await axios().post(`comment`, {
           typ: this.typ,
           idcd: this.idcd,
           con: this.comcon
-        }).then(res => {
-          this.coms.push(res.data.item)
-          this.setEditVal('')
-          this.isSubmiting = false
         })
+        this.$alert('success', '发布评论成功！')
+        this.coms.push(res.data.item)
+        this.setEditVal('')
+        this.isSubmiting = false
       },
 
       // 更新评论
-      update: function () {
-        axios().put(`comment/${this.editing.id}`, {
+      update: async function () {
+        await axios().put(`comment/${this.editing.id}`, {
           con: this.comcon
-        }).then(res => {
-          this.editing.con = this.comcon
-          this.setEditVal('')
-          this.isSubmiting = false
-          this.editing = null
         })
+        this.$alert('success', '更新评论成功！')
+        this.editing.con = this.comcon
+        this.setEditVal('')
+        this.isSubmiting = false
+        this.editing = null
       },
 
       // 删除评论
@@ -131,6 +131,7 @@
         }).then(() => {
           axios().delete(`comment/${item.id}`).then(res => {
             if (res.data.status) {
+              this.$alert('success', '删除评论成功！')
               self.coms.splice(index, 1)
             }
           })

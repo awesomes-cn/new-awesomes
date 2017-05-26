@@ -41,7 +41,6 @@
 <script>
   import axios from '~plugins/axios'
   import News from '~components/repo/news.vue'
-  import { Message } from 'element-ui'
   let pagesize = 5
   export default {
     name: 'home',
@@ -107,10 +106,7 @@
           return
         }
         if (this.newcon.trim().length < 10) {
-          Message({
-            message: '内容字数不能小于10',
-            type: 'error'
-          })
+          this.$alert('danger', '内容字数不能小于10')
           return
         }
         let self = this
@@ -118,16 +114,10 @@
         let res = await axios().post('/news', {con: this.newcon})
         self.setEditVal('')
         if (!res.data.status) {
-          Message({
-            message: '发布失败，没有权限',
-            type: 'error'
-          })
+          this.$alert('danger', '发布失败，没有权限')
           return
         }
-        Message({
-          message: '发布成功',
-          type: 'success'
-        })
+        this.$alert('success', '发布成功')
         self.newss.unshift(res.data.item)
       },
 

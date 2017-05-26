@@ -6,7 +6,12 @@ const store = new Vuex.Store({
     session: null,
     locale: 'en',
     locales: ['en', 'zh-cn'],
-    unreadNotifiy: 0
+    unreadNotifiy: 0,
+    alert: {
+      show: false,
+      type: 'info',
+      msg: ''
+    }
   },
   mutations: {
     showLogin (state) {
@@ -25,6 +30,14 @@ const store = new Vuex.Store({
     },
     notifiy (state, unreadNotifiy) {
       state.unreadNotifiy = unreadNotifiy
+    },
+    showAlert (state, {type, msg}) {
+      state.alert.type = type
+      state.alert.msg = msg
+      state.alert.show = true
+    },
+    hideAlert (state) {
+      state.alert.show = false
     }
   },
   actions: {
