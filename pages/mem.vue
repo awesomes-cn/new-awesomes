@@ -107,7 +107,7 @@
     font-weight: bold;
     display: flex;
     margin-bottom: 10px;
-    border-bottom: #f7f8fa  1px solid;
+    background-color: rgb(232, 236, 230);
 
     .left {
       flex-grow: 1

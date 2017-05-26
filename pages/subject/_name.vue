@@ -14,7 +14,7 @@
           span {{root.rootyp}}
           div.second(v-for="child in root.typcds" v-bind:data-link="root.rootyp + '-' + child.typcd")
             a(:href="'#' + root.rootyp + '-' + child.typcd") {{child.typcd}} 
-            span.count ({{child.repos.length}})
+            span.count {{child.repos.length}}
       div.sub-repos
         template(v-for="root in sub.repos")
           template(v-for="child in root.typcds")
@@ -34,7 +34,6 @@
                   span.sdesc {{repo.description_cn}}
                 div.stars
                   icon(name="star" width="15px") {{repo.stargazers_count}}  
-
 </template>
 
 <script>
@@ -118,7 +117,6 @@
 <style lang="scss">
   .page-subject-name {
     background-color: #f7f8fa;
-    height: 100%;
 
     .split {
       height: 70px;
@@ -246,7 +244,6 @@
         white-space: nowrap;
         text-overflow: ellipsis;
         overflow: hidden;
-        margin: 0;
       }
 
       .sdesc {

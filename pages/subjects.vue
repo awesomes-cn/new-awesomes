@@ -80,6 +80,7 @@
         width: 100%;
         z-index: 10;
         padding: 20px;
+        padding-top: 40px;
 
         h2 {
           text-align: center;
@@ -95,7 +96,7 @@
 
         .total {
           text-align: center;
-          padding-top: 50px;
+          padding-top: 40px;
           span {
             display: inline-block;
             border: #FFF 1px dashed;
