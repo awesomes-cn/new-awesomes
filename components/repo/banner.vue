@@ -23,7 +23,7 @@
             a.home(:href="repo.homepage"  target="_blank")
               icon(name="home") 官 网
 
-            a.download(href="")
+            a.download(:href="`https://api.github.com/repos/${repo.full_name}/zipball`" target="_blank")
               icon(name="download" width="35px")
 
             a.github(:href="repo.html_url" target="_blank")
@@ -155,6 +155,8 @@
 
     .links {
       padding: 20px 0;
+      display: flex;
+      align-items: center;
       .home, .github {
         display: inline-block;
         padding: 5px 20px;

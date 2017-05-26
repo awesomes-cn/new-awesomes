@@ -1,17 +1,15 @@
 const Dianp = require('../models/dianp')
 const Logic = require('../lib/logic')
 
-
-
 module.exports = {
-  post_index: (req, res) => {
-    let memId = Logic.myid(req)
-    if (!memId) {
+  post_index: async (req, res) => {
+    let me = await Logic.me(req)
+    if (!me || me.get('iswebker') === 'NO') {
       res.send({status: false})
       return
     }
     let params = {
-      mem_id: memId,
+      mem_id: me.id,
       repo_id: req.body.rid,
       con: req.body.con
     }

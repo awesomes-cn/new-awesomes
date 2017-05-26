@@ -17,13 +17,13 @@
             
             div.new-footer
               div.alert.alert-warning 
-                template(v-if="!session || !session.iswebker")
+                template(v-if="!session || session.iswebker === 'NO'")
                   span 目前只针对
                   nuxt-link(to="/webker") 前端客
                   span 开放报料功能
-                template(v-if="session && session.iswebker")
+                template(v-if="session && session.iswebker === 'YES'")
                   span 请勿发布垃圾信息
-              div.btn-wraper
+              div.btn-wraper(v-if="!session || session.iswebker === 'YES'")
                 button.sub-btn(@click="submit")
                   icon(name="send" width="18px") 发布
           div.card.hot
@@ -101,7 +101,8 @@
           val: val
         }
       },
-      submit: function () {
+      // 发布情报
+      submit: async function () {
         if (this.showLogin()) {
           return
         }
@@ -113,16 +114,21 @@
           return
         }
         let self = this
-        axios().post('/news', {con: this.newcon}).then(res => {
-          if (res.data.status) {
-            Message({
-              message: '发布成功',
-              type: 'success'
-            })
-            self.newss.unshift(res.data.item)
-            self.setEditVal('')
-          }
+
+        let res = await axios().post('/news', {con: this.newcon})
+        self.setEditVal('')
+        if (!res.data.status) {
+          Message({
+            message: '发布失败，没有权限',
+            type: 'error'
+          })
+          return
+        }
+        Message({
+          message: '发布成功',
+          type: 'success'
         })
+        self.newss.unshift(res.data.item)
       },
 
       // 获取最佳

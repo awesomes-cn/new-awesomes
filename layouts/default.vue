@@ -18,7 +18,7 @@ export default {
   },
   head () {
     return {
-      titleTemplate: `(${this.$store.state.unreadNotifiy} 条未读信息) %s`
+      titleTemplate: (this.$store.state.unreadNotifiy > 0 ? `(${this.$store.state.unreadNotifiy} 条消息) %s` : '%s')
     }
   },
   components: {

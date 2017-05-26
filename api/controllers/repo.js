@@ -4,6 +4,7 @@ const Dianp = require('../models/dianp')
 const algoliasearch = require('algoliasearch')
 const localEnv = require('../config.json')
 const Cache = require('../lib/cache')
+const Logic = require('../lib/logic')
 
 let searchGo = (key, hitsPerPage, page) => {
   if (!key || key.trim() === '') {
@@ -120,31 +121,40 @@ module.exports = {
   },
 
   // 点评
-  get_dianp: (req, res) => {
+  get_dianp: async (req, res) => {
     let limit = Math.min((req.query.limit || 10), 100)
     let skip = parseInt(req.query.skip || 0)
-    Repo.query({where: { owner: req.params.owner, alia: req.params.alia }}).fetch().then(data => {
-      let query = {
-        limit: limit,
-        offset: skip,
-        where: {
-          repo_id: data.id
-        },
-        orderByRaw: 'id desc'
-      }
+    let _repo = await Repo.query({where: { owner: req.params.owner, alia: req.params.alia }}).fetch()
 
-      Promise.all([Dianp.where({repo_id: data.id}).count('id'), Dianp.query(query).fetchAll({
+    let query = {
+      limit: limit,
+      offset: skip,
+      where: {
+        repo_id: _repo.id
+      },
+      orderByRaw: 'id desc'
+    }
+
+    let [count, items, favors] = await Promise.all([
+      Dianp.where({repo_id: _repo.id}).count('id'),
+      Dianp.query(query).fetchAll({
         withRelated: [{
           'mem': function (mqu) {
             return mqu.select('id', 'nc', 'avatar')
           }
         }]
-      })]).then(([count, items]) => {
-        res.send({
-          items: items,
-          count: count
-        })
-      })
+      }),
+      Logic.fetchMyOpers(req, 'FAVOR', 'DIANP')
+    ])
+
+    let result = items.toJSON()
+    result.forEach(item => {
+      item.isFavor = favors.indexOf(item.id) > -1
+    })
+
+    res.send({
+      items: result,
+      count: count
     })
   },
 

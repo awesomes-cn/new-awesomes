@@ -46,33 +46,32 @@ module.exports = {
     })
   },
 
-  post_index: (req, res) => {
-    let memId = Logic.myid(req)
-    if (!memId) {
+  post_index: async (req, res) => {
+    let me = await Logic.me(req)
+    if (!me || me.get('iswebker') === 'NO') {
       res.send({status: false})
       return
     }
-    let params = {mem_id: memId}
+    let params = {mem_id: me.id}
     ;['con'].forEach(key => {
       params[key] = req.body[key]
     })
 
-    new MBlog(params).save().then(item => {
-      MBlog.where({id: item.get('id')}).fetch({
-        withRelated: [
-          {
-            'mem': function (mqu) {
-              return mqu.select('id', 'nc', 'avatar')
-            }
-          }, {
-            'mem.mem_info': function (query) {
-              query.select('company', 'mem_id')
-            }
-          }]
-      }).then(data => {
-        res.send({status: true, item: data})
-      })
+    let item = await new MBlog(params).save()
+    let newItem = await MBlog.where({id: item.get('id')}).fetch({
+      withRelated: [
+        {
+          'mem': function (mqu) {
+            return mqu.select('id', 'nc', 'avatar')
+          }
+        }, {
+          'mem.mem_info': function (query) {
+            query.select('company', 'mem_id')
+          }
+        }]
     })
+
+    res.send({status: true, item: newItem})
   },
 
   // 最佳

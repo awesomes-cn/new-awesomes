@@ -24,7 +24,7 @@
           p {{repo.description_cn}}
           div.opers
             a(href="#"  v-bind:title="repo.using + '人在用'")
-              icon(name="hand" class="transform" width="15px") {{repo.using}}
+              icon(name="hand"  width="15px" v-bind:scale="[-1,1]") {{repo.using}}
 
             a(href="#" v-bind:title="repo.mark + '人喜欢'")
               icon(name="heart-o"  width="15px") {{repo.mark}}
@@ -187,13 +187,6 @@
       text-decoration: none;
       line-height: 15px;
       margin-right: 10px;
-    }
-
-    svg {
-      &.transform {
-        -webkit-transform: scale(-1, 1);
-        -ms-transform: scale(-1, 1);
-      }
     }
   }
 

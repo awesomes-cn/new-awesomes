@@ -2,6 +2,7 @@
   div.main-area
     div.toitem(v-for="item in notifiys")
       article(v-html="processAt(marked(item.con))")
+      span.time {{timeago(item.created_at)}}
       span.flag(:class="item.status")
       
     pagination(flag="notifiy-list" v-bind:total="pagetotal" v-bind:size="pagesize")
@@ -63,6 +64,7 @@
       .toitem {
         display: flex;
         margin: 10px 0;
+        align-items: center;
 
         article {
           flex-grow: 1

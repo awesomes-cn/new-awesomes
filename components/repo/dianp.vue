@@ -4,42 +4,40 @@
       li.list-group-item
         div.top-show
           div.left
-            a.write(href="javascript:void(0)" @click="isShowEditor = true")
-              icon(name="edit") 写短评
+            a.write(href="javascript:void(0)" @click="isShowEditor = !isShowEditor")
+              icon(name="pen" width="18px") 写短评
           div.middle
-            article(v-html="marked(firstDianp.con)" v-if="firstDianp")
+            template(v-if="firstDianp")
+              nuxt-link(:to="'/mem/' + firstDianp.mem.id")
+                img.mem-tx(:src="cdn(firstDianp.mem.avatar, 'mem')")
+              article(v-html="marked(firstDianp.con)" )
             span(v-if="!firstDianp") 说说你的用后短评？好用？有坑？经验教训？
           a.right(href="javascript:void(0)" @click="showList" v-show="diancount > 0")
-            span 查看全部 {{diancount}} 条短评
+            span 共 {{diancount}} 条经验短评
+
     ul.list-group.list-group-flush(v-if="isShowEditor")
       li.list-group-item
-        p.alert.alert-warning 注意：为了保证质量，目前我们只针对 GitHub 粉丝数大于 50 的开发者开放点评功能！
+        p.alert.alert-warning(v-if="!session || session.iswebker === 'NO'")
+          span 注意：为了保证质量，目前我们只针对
+          nuxt-link(to="/webker") 前端客
+          span 开放点评功能！
         div.editor-outer
           editor(flag="repo-dianp" hideTool="true" v-model="diancon" v-bind:setval="setval")
-          button.sub-btn(@click="submit") 发布 
-        // div.row.align-items-center
-        //   div.col
-        //     span 发布点评 
-        //     a(href="javascript:void(0)" @click="isShowEditor = false") 【关闭】
-        //   div.col(style="text-align: right")
-        //     button.sub-btn(@click="submit") 发布 
+          button.sub-btn(@click="submit") 发布
+
     ul.list-group.list-group-flush(v-if="isShowList")
       li.list-group-item(v-for="(item, index) in dianps")
         article(v-html="marked(item.con)")
-        ul.extra
-          li
-            a.up(href="javascript:void(0)" @click="switchFavor(item)"  v-bind:class="'has-' + item.isFavor")
-              icon(name="arrow-up") {{item.favor}}
-          li
-            a(href="")
-              img.mem-tx(:src="cdn(item.mem.avatar, 'mem')")
-              strong {{item.mem.nc}} @Awesoms
-          li
-            span {{timeago(item.created_at)}}
+        div.extra
+          a.up(href="javascript:void(0)" @click="switchFavor(item)"  v-bind:class="'has-' + item.isFavor")
+            icon(name="arrow-up") {{item.favor}}
+          nuxt-link(:to="'/mem/' + item.mem.id")
+            img.mem-tx(:src="cdn(item.mem.avatar, 'mem')")
+            span {{item.mem.nc}}
+          span {{timeago(item.created_at)}}
           
-          li
-            a(href="javascript:void(0)" @click="item.showComment = !item.showComment")
-              icon(name="comment") {{item.comment}} 评论
+          a(href="javascript:void(0)" @click="item.showComment = !item.showComment")
+            icon(name="comment") {{item.comment}} 评论
         
         
         div.clearfix
@@ -115,31 +113,26 @@
       },
 
       showList: function () {
-        this.isShowList = true
-        this.list()
+        this.isShowList = !this.isShowList
+        if (this.isShowList && this.dianps.length < 1) {
+          this.list()
+        }
       },
 
       // 获取列表
-      list: function (page) {
+      list: async function (page) {
         page = page || 1
-        axios().get(`repo/${this.repo.owner}/${this.repo.name}/dianp`, {
+        let res = await axios().get(`repo/${this.repo.owner}/${this.repo.name}/dianp`, {
           params: {
             limit: this.pagesize,
             skip: this.pagesize * (page - 1)
           }
-        }).then(res => {
-          res.data.items.forEach(item => {
-            item.showComment = false
-          })
-          this.dianps = res.data.items
-          this.pagetotal = res.data.count
-          this.initIsFavor()
         })
-      },
-
-      // 当前登陆会员喜欢的点评
-      initIsFavor: function () {
-        if (!this.session || this.dianps.length < 1) { return }
+        res.data.items.forEach(item => {
+          item.showComment = false
+        })
+        this.dianps = res.data.items
+        this.pagetotal = res.data.count
       },
 
       pageCallback: function (page) {
@@ -161,20 +154,29 @@
       },
 
       // 新增
-      save: function () {
-        axios().post(`dianp`, {
+      save: async function () {
+        let res = await axios().post(`dianp`, {
           rid: this.repo.id,
           con: this.diancon
-        }).then(res => {
-          console.log('成都了')
-          this.dians.push(res.data.item)
-          this.setEditVal('')
-          this.isSubmiting = false
-          Message({
-            message: '新增点评成功',
-            type: 'success'
-          })
         })
+
+        this.setEditVal('')
+        this.isSubmiting = false
+
+        if (!res.data.status) {
+          Message({
+            message: '新增点评失败，没有权限',
+            type: 'error'
+          })
+          return
+        }
+
+        this.dians.push(res.data.item)
+        Message({
+          message: '新增点评成功',
+          type: 'success'
+        })
+        this.list()
       },
 
       // 更新
@@ -253,6 +255,10 @@
     padding-bottom: 10px;
     display: block;
 
+    &:first-child {
+      border-top: 0;
+    }
+
     article {
       font-size: 1.1rem
     }
@@ -273,46 +279,35 @@
     margin: 0;
     padding: 0;
     margin-top: 10px;
-    color: #bfbfbf;
-    display: block;
+    color: #AAA;
+    display: flex;
+    align-items: center;
 
     a:link, a:visited {
-      color: #bfbfbf
+      color: #AAA
     }
 
     a:hover, a:active {
       color: #333
     }
-    
-    li {
+
+    .up {
+      background-color: hsla(0,0%,95%,.8);
+      color: #909090;
+      padding: .2rem .2rem;
+      padding-right: .5rem;
+      border-radius: 2px;
+      overflow: hidden;
       display: inline-block;
-      list-style: none;
+
+      &.has-true {
+        background-color: rgba(240, 173, 78, 0.24);
+        color: #ff9b00;
+      }
+    }
+
+    & > a, & > span {
       margin-right: 15px;
-      float: left;
-      padding: 10px 0;
-        
-
-      svg {
-        float: left;
-        margin-right: 3px;
-        width: 18px;
-        height: 18px;
-      }
-
-      .up {
-        background-color: hsla(0,0%,95%,.8);
-        color: #909090;
-        padding: .2rem .2rem;
-        padding-right: .5rem;
-        border-radius: 2px;
-        overflow: hidden;
-        display: inline-block;
-
-        &.has-true {
-          background-color: rgba(240, 173, 78, 0.24);
-          color: #ff9b00;
-        }
-      }
     }
     .mem-tx {
       width: 20px;
@@ -348,15 +343,27 @@
     .right {
       width: 200px;
       text-align: right;
+      flex-shrink: 0
     }
 
     .left {
       width: 70px;
+      flex-shrink: 0
     }
     .middle {
       height: 20px;
+      display: flex;
+      flex-grow: 1;
+      word-break: break-all;   
       overflow: hidden;
-      flex-grow: 1
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      .mem-tx {
+        width: 18px;
+        height: 18px;
+        border-radius: 100%;
+        margin-right: 5px;
+      }
     }
   }
 
