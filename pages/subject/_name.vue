@@ -10,15 +10,15 @@
     div.container
       div.sub-nav#subnav
         div.split(style="height: 50px;")
-        div.first(v-for="root in sub.repos")
-          span {{root.rootyp}}
+        div.first(v-for="root in sub.repos" v-bind:data-link="root.rootyp")
+          a(:href="'#' + root.rootyp + '-' + root.typcds[0].typcd") {{root.rootyp}}
           div.second(v-for="child in root.typcds" v-bind:data-link="root.rootyp + '-' + child.typcd")
             a(:href="'#' + root.rootyp + '-' + child.typcd") {{child.typcd}} 
             span.count {{child.repos.length}}
       div.sub-repos
         template(v-for="root in sub.repos")
           template(v-for="child in root.typcds")
-            div.split(:id="root.rootyp + '-' + child.typcd")
+            div.split(:id="root.rootyp + '-' + child.typcd" v-bind:data-first="root.rootyp")
             h3
               span {{root.rootyp}} 
               span » 
@@ -86,10 +86,11 @@
       Fresh
     },
     mounted () {
-      var Ps = require('perfect-scrollbar')
+      // var Ps = require('perfect-scrollbar')
       var positions = $('.split').map(function () {
         return {
-          id: $(this).attr('id'),
+          first: $(this).attr('data-first'),
+          second: $(this).attr('id'),
           top: $(this).offset().top
         }
       })
@@ -103,13 +104,15 @@
         }
         var activeEl = _.filter(positions, function (item) { return doctop >= item.top - 20 }).pop() || positions[0]
         $('.sub-nav .second').removeClass('active')
-        $('.sub-nav .second[data-link=' + activeEl.id + ']').addClass('active')
-        $('.card').removeClass('active')
-        $('.card[data-link=' + activeEl.id + ']').addClass('active')
+        $('.sub-nav .second[data-link=' + activeEl.second + ']').addClass('active')
+        $('.sub-nav .first').removeClass('active')
+        $('.sub-nav .first[data-link=' + activeEl.first + ']').addClass('active')
+        // $('.card').removeClass('active')
+        // $('.card[data-link=' + activeEl.id + ']').addClass('active')
       }).scroll()
 
-      Ps.initialize(document.getElementById('subnav'), {
-      })
+      // Ps.initialize(document.getElementById('subnav'), {
+      // })
     }
   }
 </script>
@@ -183,15 +186,26 @@
 
       .second {
         color: #333;
-
-        &.active  a{
+        display: none;
+        & > a {
+          color: #395274
+        }
+        &.active  a {
           color: #da552f
+        }
+      }
+
+      .first {
+        
+        &.active {
+          .second {
+            display: block;
+          }
         }
       }
 
       .count {
         color: #8391a5;
-        font-size: 0.5rem;
       }
     }
 

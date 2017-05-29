@@ -22,7 +22,7 @@
             a.a-twitter(:href="'https://twitter.com/' + mem.mem_info.twitter"  v-if="isExsit(mem.mem_info.twitter)" target="_blank")
               icon(name="twitter")      
         div.repos.row
-          div.col-md-3.col-sm-3.col-6(v-for="oper in mem.usings")
+          div.col-md-2.col-sm-3.col-6(v-for="oper in mem.usings")
             div.repo-item
               nuxt-link(:to="'/repo/' + oper.repo.owner + '/' + oper.repo.alia")
                 img.cover(:src="cdn(oper.repo.cover, 'repo', 'subject_repo')")
