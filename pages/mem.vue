@@ -41,14 +41,12 @@
             div.dropdown
               nuxt-link(:to="'/mem/' + mem.id") {{who}}在用
               nuxt-link(:to="'/mem/' + mem.id + '/marks/repos'") {{who}}收藏的
-              nuxt-link(:to="'/mem/' + mem.id + '/pubs/news'") {{who}}发布的
               nuxt-link(:to="'/mem/' + mem.id + '/ups'") {{who}}点赞的
           div.seconds
             nuxt-link(:to="'/mem/' + mem.id" v-if="routeKey === ''") 前端库
             nuxt-link(:to="'/mem/' + mem.id + '/marks/repos'" v-if="routeKey === 'marks'") 前端库
             
             template(v-if="routeKey === 'pubs'")
-              nuxt-link(:to="'/mem/' + mem.id + '/pubs/news'") 情报
               nuxt-link(:to="'/mem/' + mem.id + '/pubs/comments'") 评论
               nuxt-link(:to="'/mem/' + mem.id + '/pubs/dianps'") 经验
         div.right

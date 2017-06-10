@@ -1,100 +1,53 @@
 <template lang="pug">
-  div.home-index
-    div.container
-      div.row
-        div.col-md-7
-          div.news-wraper
-            div.banner
-              h4 最新情报
-              nuxt-link(to="/news" title="发布")
-                icon(name="plus")
-              a(href="javascript:void(0)" title="刷新" @click="refresh")
-                icon(name="refresh")
+  div.home-wraper
+    div.search-box
+      div.search
+        input(type="text" placeholder="搜索前端库" v-model="searchKey" @keyup.enter="searchGo")
+        a.go-btn(href="javascript:void(0)" @click="searchGo")
+          icon(name="search")
+    div.use-box
+      h4.title
+        icon(name="niu" width="60px")
+        p 大牛都在用的框架
+      div.container
+        div.row
+          div.mem-item.col-md-3.col-sm-12.col-6(v-for="mem in usingmems")
+            nuxt-link(:to="/mem/ + mem.id" )
+              img.tx(:src="cdn(mem.avatar, 'mem')")
+              p
+                span {{mem.nc}}
+                span(v-if="mem.mem_info.company && mem.mem_info.company.trim() !== ''") @ {{mem.mem_info.company}}
+            div
+              template(v-for="i in 8")
+                nuxt-link(:to="'/repo/' + mem.usings[i].repo.owner + '/' + mem.usings[i].repo.alia"  v-bind:title="mem.usings[i].repo.alia" v-if="mem.usings[i]")
+                  img.cover(:src="cdn(mem.usings[i].repo.cover, 'repo', 'repo_small')")  
+
+    div.sub-box
+      h4.title
+        nuxt-link(to="/subjects")
+          icon(name="iphone" width="25px") 专题推荐
+      div.container
+        div.row
+          div.col-md-6.col-12(v-for="sub in subjects")
             div.inner
-              transition(name="custom-classes-transition" enter-active-class="animated fadeIn")
-                div.tip(v-show="freshok") 刷新成功
-              news(:newss="newss" flag="index-list")  
-          div.more-news
-            nuxt-link(to="/news") 查看更多
-          // topics(:topics="latestTopics")
-          // div.more-topics
-          //   nuxt-link(to="topics") 更多优选
-            
-        div.col-md-5
-          div.card.search
-            input.search-txt(type="text" placeholder="搜索前端库" v-model="searchKey" @keyup.enter="searchGo")
-            span(@click="searchGo")
-              icon(name="search")
-          nuxt-link(to="extension" class="card")
-            icon(name="chrome" class="chrome-logo" width="50px")
-            h2 寻找前端插件，一步到位
-          
-          div.card
-            h5.title
-              nuxt-link(to="/weuse")
-                icon(name="niu" width="25px") 大牛在用
-            div.usingms
-              div.mem-item(v-for="mem in usingmems")
-                nuxt-link(:to="/mem/ + mem.id" )
-                  img.tx(:src="cdn(mem.avatar, 'mem')")
-                div.right-detail
-                  nuxt-link(:to="/mem/ + mem.id" class="mem-nc") {{mem.nc}}
-                  div.info
-                    span 在用 
-                    nuxt-link(:to="'/repo/' + mem.usings[i].repo.owner + '/' + mem.usings[i].repo.alia" v-for="i in 4" v-bind:title="mem.usings[i].repo.alia")
-                      img.cover(:src="cdn(mem.usings[i].repo.cover, 'repo', 'repo_small')")
-                    span 等
-                    span.num {{mem.usings.length}}
-                    span 个前端库
-            nuxt-link(to="/weuse" class="more") 查看更多大牛在用    
-                
-          a.card(href="")
-            img(src="../assets/img/jsonon.png")
-
-          div.card.subs-card
-             h5.title
-              nuxt-link(to="/subjects")
-                icon(name="iphone" width="25px") 专题推荐
-             div.row
-               div.col-md-6.col-12(v-for="sub in subjects")
-                div.inner
-                  nuxt-link(:to="'/subject/' + sub.key" v-bind:style="'background-image:url(' + cdn(sub.cover, 'subject', 'subject') + ')'"  class="sub-item")
-                   div.detail 
-                     h4 {{sub.title}}
-          
-          div.card.trends
-            h5.title
-              nuxt-link(to="/rank")
-                icon(name="trend" width="25px") 前端趋势
-            div.trend-item(v-for="(repo, index) in trends")
-              span.rank-num {{index + 1}}
-              nuxt-link(:to="'/repo/' + repo.owner + '/' + repo.alia")
-                img.cover(:src="cdn(repo.cover, 'repo', 'subject_repo')")
-              div.middle
-                nuxt-link(:to="'/repo/' + repo.owner + '/' + repo.alia")
-                  h5 {{repo.name}}
-                p {{repo.description_cn}}  
-
-            nuxt-link(to="/rank" class="more") 查看完整趋势
-
-          
-                  
+              subitem(:sub="sub")
+    div.top-box
+      h4.title
+        nuxt-link(to="/subjects")
+          icon(name="trend" width="25px") 前端趋势
+      div.inner
+        div.trend-item(v-for="(repo, index) in trends")
+          nuxt-link(:to="'/repo/' + repo.owner + '/' + repo.alia")
+            img.cover(:src="cdn(repo.cover, 'repo', 'subject_repo')")
+          div.val-out
+            div.value(v-bind:style="{width: trendUI(repo.trend) + '%'}" v-bind:class="'trend-' + index")
+            h6 {{repo.name}}
 </template>
-
 
 <script>
   import axios from '~plugins/axios'
   import Topics from '~components/topic/list.vue'
-  import News from '~components/repo/news.vue'
-
-  let fetchNews = async () => {
-    let res = await axios().get('news?limit=10')
-    let newss = res.data.items
-    newss.forEach(item => {
-      item.isShowCom = false
-    })
-    return newss
-  }
+  import Subitem from '~components/subitem.vue'
 
   export default {
     name: 'home',
@@ -110,25 +63,11 @@
         freshok: false
       }
     },
-    async asyncData () {
-      return {
-        newss: await fetchNews()
-      }
-    },
     components: {
       Topics,
-      News
+      Subitem
     },
     methods: {
-      // 刷新趋势
-      refresh: async function () {
-        this.newss = await fetchNews()
-        this.freshok = true
-        let _self = this
-        setTimeout(function () {
-          _self.freshok = false
-        }, 2000)
-      },
       // 搜索
       searchGo: function () {
         if (this.searchKey.trim() === '') {
@@ -146,7 +85,7 @@
 
       // 获取前端趋势
       fetchTrend: async function () {
-        let res = await axios().get(`repo/top100?sort=trend&limit=5`)
+        let res = await axios().get(`repo/top100?sort=trend&limit=10`)
         this.trends = res.data
       },
 
@@ -154,6 +93,13 @@
       recoSubjects: async function () {
         let res = await axios().get('subject?limit=4')
         this.subjects = res.data
+      },
+
+      // 计算趋势值实际的显示
+      trendUI: function (val) {
+        let maxtrend = (this.trends[0] || {}).trend || 1
+        console.log('===', val, maxtrend)
+        return (val / maxtrend) * 100
       }
     },
     created () {
@@ -164,250 +110,128 @@
   }
 </script>
 
-
-<style lang="scss">
- .page-index {
-   background: #f7f8fa;
-
-  .home-index {
-    padding-top: 20px;
-  }
-
-  .card {
-    display: block;
-    background-color: #FFF;
-    padding: 30px;
-    overflow: hidden;
-    margin-bottom: 20px;
-
-    .title {
-      text-align: center;
-      padding: 10px;
-      padding-bottom: 20px;
-      margin-bottom: 20px;
-      border-bottom: #EEE 1px solid;
-    }
-
-    img {
-      width: 100%
-    }
-
-    h2 {
-      padding: 10px 0;
-    }
-  }
-
-  .subs-card {
-    .title {
-      border: 0;
-    }
-    .sub-item {
-      display: block;
-      height: 100px;
-      width: 100%;
-      display: block;
-      border-radius: 2px;
-      position: relative;
-      background-repeat: no-repeat;
-      background-size: cover;
-      overflow: hidden;
-      background-position: center center;
-      position: relative;
-      color: #FFF;
-      text-align: center;
-
-      &:after {
-        display: block;
-        content: '';
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.44);
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        z-index: 1;
-      }
-
-      &:hover {
-        &:after {
-          background-color: rgba(0, 0, 0, 0.6);
-        }
-      }
-
-      .detail {
-        height: 100%;
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        z-index: 10;
-        padding: 20px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
-    }
-
-    .inner {
-      padding: 10px
-    }
-  }
-
-  .more {
-    text-align: center;
-    display: block;
-    padding-top: 20px;
-    color: #97a8be;
-  }
-
-  .trends {
-    .trend-item {
-      display: flex;
-      margin: 20px 0;
-      align-items: center;
-    }
-
-    .rank-num {
-      font-size: 1.4rem;
-    }
-
-    .cover {
-      width: 40px;
-      height: 40px;
-      border-radius: 100%;
-      margin: 0 15px;
-      border: #c2e4fd 1px dashed;
-      padding: 2px;
-
-      &:hover {
-        border: #c2e4fd 1px solid;
-      }
-    }
-
-    .middle {
-      flex-grow: 1;
-      flex-shrink: 1;
-      word-break: keep-all;   
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-    }
-    
+<style lang="scss" scoped>
+  .search-box {
+    background-color: #f7f8fa;
   }
 
   .search {
-    padding: 20px;
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 100px 10px;
     display: flex;
-    flex-direction: row;
-    align-items: center;
-    .search-txt {
-      padding: 10px;
+    input {
       flex-grow: 1;
+      padding: 15px;
+      background-color: #EEE;
       border: 0;
       outline: none;
-      font-size: 1.8rem
     }
-    & > span {
-      cursor: pointer;
+    .go-btn {
+      width: 50px;
+      display: inline-flex;
+      background-color: #1dd09b;
+      color: #FFF;
+      justify-content: center;
     }
   }
 
-  .usingms {
+
+  .use-box {
+    background-color: #FFF;
+    padding: 100px 0;
+
+    .title {
+      text-align: center;
+      color: #919dad;
+      margin-bottom: 80px;
+    }
+
     .mem-item {
-      display: flex;
-      margin-top: 10px;
-      border-bottom: #EEE 1px dashed;
-
-      .right-detail {
-        padding-left: 10px;
-        padding-bottom: 15px;
-        .cover {
-          width: auto;
-          height: 20px;
-          background-color: #f0f5fb;
-          padding: 3px;
-          margin: 0 4px;
-        }
-
-        .info {
-          display: flex;
-          align-items: center;
-          padding-top: 5px;
-        }
-      }
-
-      .num {
-        color: red;
-        color: #8391a5;
-        margin: 0 2px;
-      }
-
-      .mem-nc {
-        font-weight: bold;
-        font-size: 1.1rem
-      }
-
+      text-align: center;
     }
+
     .tx {
+      width: 50px;
+      height: 50px;
+      border-radius: 100%;
+    }
+    .cover {
       width: 40px;
-      border-radius: 100%
+      margin: 5px;
+      background-color: #f0f5fb;
+      padding: 3px;
     }
   }
 
-  @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
+  .sub-box {
+    background-color: #f7f8fa;
+    padding: 100px 10px;
+
+    .title {
+      text-align: center
     }
 
-  .chrome-logo {
-      float: left;
-      animation: spin 2s infinite linear;
-      margin-right: 20px;
-  }
-
-
-  .more-topics {
-    padding: 20px 0;
-    text-align: center
-  }
-
-  .more-news {
-    background-color: #FFF;
-    text-align: center;
-    padding: 20px;
-  }
-
-  .news-wraper {
-    background-color: #FFF;
     .inner {
-      padding:0 30px;
-
-      .tip {
-        display: inline-block;
-        background-color: #FAFAFA;
-        padding: 10px;
-        position: absolute;
-        left: 50%;
-        margin-left: -50px;
-      }
+      max-width: 400px;
+      margin: 0 auto;
     }
-    .banner {
-      border-bottom: #EEE 1px solid;
+    .sub-out {
       display: flex;
-      padding: 20px;
-      align-items: center;
-      
-      a {
-        color: #DDD;
-        padding: 0 5px;
-      }
+      justify-content: center;
+      padding: 30px 0;
+    }
 
-      h4 {
-        flex-grow: 1;
-        color: #333
-      }
+    .cover {
+      width: 100%
     }
   }
- }
- 
+
+  .top-box {
+    padding: 100px 10px;
+    .title {
+      text-align: center
+    }
+
+    .inner {
+      max-width: 600px;
+      margin: 0 auto;
+      margin-top: 50px
+    }
+
+    .trend-item {
+      width: 100%;
+      margin-bottom: 10px;
+      display: flex;
+      
+    }
+
+    .val-out {
+      flex-grow: 1;
+    }
+
+    .value {
+      height: 20px;
+      background-color: #DDD;
+      margin-bottom: 10px;
+
+      &.trend-0 {
+        background-color: #f98a8a
+      }
+
+      &.trend-1 {
+        background-color: #8af99c
+      }
+
+      &.trend-2 {
+        background-color: #8ae1f9
+      }
+    }
+
+    .cover {
+      height: 50px;
+      margin-right: 5px;
+    }
+  }
+
 </style>
