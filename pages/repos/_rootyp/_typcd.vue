@@ -2,11 +2,10 @@
   div.container
     div.list-typs
       nuxt-link(v-for="first in rootyps" v-bind:to="'/repos/' + first.key")
-        icon(:name="first.icon") {{first.sdesc}}
+        icon(:name="first.icon"  width="16px") {{first.sdesc}}
     div.list-typs.bottom
       nuxt-link(v-for="second in typcds" v-bind:to="'/repos/' + rootyp + '/' + second.key" class="submenu")
-        // icon(:name="second.icon")
-        span {{second.sdesc}}
+        icon(:name="second.icon" width="14px") {{second.sdesc}}
 
     div.sorts
       div.inner
@@ -92,15 +91,15 @@
 <style lang="scss" scoped>
   .container {
     max-width: 1000px;
+    padding-top: 10px;
   }
   .list-typs {
     text-align: center;
-    font-size: 14px;
-    padding: 10px 0;
+    padding: 5px 0;
 
     a {
       display: inline-block;
-      margin: 10px;
+      margin: 15px;
 
       &.submenu:link,  &.submenu:visited{
         color: #979797;

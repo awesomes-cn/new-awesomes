@@ -78,6 +78,6 @@
   
 
   .com-wrap {
-    padding: 50px 10px;
+    padding: 50px 0px;
   }
 </style>

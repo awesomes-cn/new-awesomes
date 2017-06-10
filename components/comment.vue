@@ -2,13 +2,7 @@
   div.comment-wraper
     div.editor-go
       button.sub-btn(@click="submit" v-bind:disabled="isSubmiting") {{subMap[editing ? 'edit' : 'new'][isSubmiting ? 'ing' : 'ready']}}
-      editor(:flag="flag"  v-model="comcon" v-bind:setval="setval" placeholder="我有话说")
-      // div.row.align-items-center
-      //   div.col
-      //     span {{editing ? '编辑评论中' : '发布评论'}}
-      //     a.cancel-edit(href="javascript:void(0)" @click="cancelEditing" v-show="editing") 取消编辑
-      //   div.col(style="text-align: right")
-      //     button.sub-btn(@click="submit" v-bind:disabled="isSubmiting") {{subMap[editing ? 'edit' : 'new'][isSubmiting ? 'ing' : 'ready']}}
+      editor(:flag="flag"  v-model="comcon" v-bind:setval="setval" placeholder="我有话说" v-if="showeditor")
 
     div.citem(v-for="(item, index) in coms")
       nuxt-link(:to="'/mem/' + item.mem.id")
@@ -57,7 +51,8 @@
             ready: '更新评论',
             ing: '更新中...'
           }
-        }
+        },
+        showeditor: false
       }
     },
     computed: {
@@ -190,6 +185,7 @@
       this.list()
       const editor = await import('~components/editor.vue')
       Vue.component('editor', editor)
+      this.showeditor = true
     }
   }
 </script>

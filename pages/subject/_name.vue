@@ -13,7 +13,9 @@
         div.first(v-for="root in sub.repos" v-bind:data-link="root.rootyp")
           a(:href="'#' + root.rootyp + '-' + root.typcds[0].typcd") {{root.rootyp}}
           div.second(v-for="child in root.typcds" v-bind:data-link="root.rootyp + '-' + child.typcd")
-            a(:href="'#' + root.rootyp + '-' + child.typcd") {{child.typcd}} 
+            a(:href="'#' + root.rootyp + '-' + child.typcd")
+              span > 
+              span {{child.typcd}} 
             span.count {{child.repos.length}}
       div.sub-repos
         template(v-for="root in sub.repos")
@@ -188,7 +190,7 @@
         color: #333;
         display: none;
         & > a {
-          color: #395274
+          color: #b1b1b1
         }
         &.active  a {
           color: #da552f
@@ -196,7 +198,8 @@
       }
 
       .first {
-        
+        & > a {
+        }
         &.active {
           .second {
             display: block;

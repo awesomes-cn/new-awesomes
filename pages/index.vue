@@ -20,7 +20,7 @@
             div
               template(v-for="i in 8")
                 nuxt-link(:to="'/repo/' + mem.usings[i].repo.owner + '/' + mem.usings[i].repo.alia"  v-bind:title="mem.usings[i].repo.alia" v-if="mem.usings[i]")
-                  img.cover(:src="cdn(mem.usings[i].repo.cover, 'repo', 'repo_small')")  
+                  img.cover(:src="cdn(mem.usings[i].repo.cover, 'repo', 'repo_small')")           
 
     div.sub-box
       h4.title
@@ -161,6 +161,10 @@
       margin: 5px;
       background-color: #f0f5fb;
       padding: 3px;
+
+      &:hover {
+        background-color: #e6eff9
+      }
     }
   }
 
@@ -201,7 +205,7 @@
 
     .trend-item {
       width: 100%;
-      margin-bottom: 10px;
+      margin-bottom: 15px;
       display: flex;
       
     }
@@ -211,7 +215,7 @@
     }
 
     .value {
-      height: 20px;
+      height: 10px;
       background-color: #DDD;
       margin-bottom: 10px;
 
@@ -229,7 +233,7 @@
     }
 
     .cover {
-      height: 50px;
+      height: 35px;
       margin-right: 5px;
     }
   }
