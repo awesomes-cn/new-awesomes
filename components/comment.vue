@@ -35,6 +35,7 @@
 <script>
   import axios from '~plugins/axios'
   import $ from 'jquery'
+  import Vue from 'vue'
   export default {
     props: ['flag', 'typ', 'idcd'],
     data () {
@@ -185,8 +186,10 @@
         this.list()
       }
     },
-    created () {
+    async created () {
       this.list()
+      const editor = await import('~components/editor.vue')
+      Vue.component('editor', editor)
     }
   }
 </script>

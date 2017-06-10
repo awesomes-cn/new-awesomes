@@ -122,13 +122,13 @@
     display: flex;
     input {
       flex-grow: 1;
-      padding: 15px;
+      padding: 12px 15px;
       background-color: #EEE;
       border: 0;
       outline: none;
     }
     .go-btn {
-      width: 50px;
+      width: 40px;
       display: inline-flex;
       background-color: #1dd09b;
       color: #FFF;

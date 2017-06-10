@@ -29,7 +29,6 @@ module.exports = {
   css: [
     'bootstrap/dist/css/bootstrap.css',
     'prismjs/themes/prism.css',
-    'element-ui/lib/theme-default/index.css',
     'animate.css',
     '~assets/css/main.css'
   ],
@@ -57,5 +56,5 @@ module.exports = {
       }
     }
   },
-  plugins: ['~plugins/vue-icon', '~plugins/icon', '~plugins/element-ui', '~plugins/common', { src: '~plugins/pagination.js', ssr: false }, { src: '~plugins/editor.js', ssr: false }, { src: '~plugins/upload', ssr: false }, { src: '~plugins/i18n.js', injectAs: 'i18n' }]
+  plugins: ['~plugins/vue-icon', '~plugins/icon', '~plugins/common', { src: '~plugins/pagination.js', ssr: false }, { src: '~plugins/upload', ssr: false }, { src: '~plugins/i18n.js', injectAs: 'i18n' }]
 }

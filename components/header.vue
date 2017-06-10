@@ -45,29 +45,14 @@
               icon(name="search" width="15px")
     
     // 登录框
-    transition(name="custom-classes-transition" enter-active-class="animated fadeInDown" leave-active-class="animated fadeOutUpBig")  
-      el-card.box-card(v-show="$store.state.isShowLogin")
-        div.box-header(slot="header")
-          span(style="line-height: 36px;") 登录（免注册）
-          a.close-btn(href="javascript:void(0)"  @click="hideLogin()")
-            icon.pull-right(name="close")
-        div.form-area
-          el-form(ref="form")
-            el-form-item
-              el-input(placeholder="邮箱" v-model="uid")
-            el-form-item
-              el-input(placeholder="密码"  v-model="pwd" type="password") 
-            el-form-item
-              el-button(type="primary"  class="login-btn" @click="login") 登录
-          div.github-login
-            a(href="")
-              icon(name="github" width="60px")   
-
+    login
+    
 </template>
 
 <script>
   import axios from '~plugins/axios'
   import Cookie from 'js-cookie'
+  import Login from './login'
   export default {
     data () {
       return {
@@ -82,6 +67,9 @@
       '$route': function () {
         this.searchKey = this.$route.query.q
       }
+    },
+    components: {
+      Login
     },
     computed: {
       session () {
