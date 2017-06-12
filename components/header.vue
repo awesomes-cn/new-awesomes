@@ -5,9 +5,9 @@
         div.left
           nuxt-link(to="/")
             img.logo(src="../assets/img/logo-50.png")
-            span.logo-txt.hide-small wesomes  
+            span.logo-txt.hide-small wesomes
           a(href="javascript:void(0)" @click="isHideMenu = !isHideMenu" class="show-small")
-            icon(name="list")
+            icon(name="list" width="16px")
         div.middle
           div.inner(:style="isHideMenu ? 'height: 60px' : ''")
             nuxt-link(to="/repos/Applications/frameworks") {{$t('home.repos')}}
@@ -158,9 +158,14 @@
   .left, .middle .inner, .right {
     display: flex;
   }
+
+  .left {
+    flex-shrink: 0
+  }
   
   .right {
-    align-items: center
+    align-items: center;
+    flex-shrink: 0
   }
 
   .middle {
@@ -292,7 +297,7 @@
       display: none;
     }
     .show-small {
-      display: block;
+      display: flex;
     }
   }
 </style>

@@ -4,8 +4,8 @@
       div.row.top-bar
         div.col
           span.category
-            a.rootyp(href="") {{repo.rootyp_zh}}
-            a.typcd(href="") {{repo.typcd_zh}}
+            nuxt-link(:to="'/repos/' + repo.rootyp" class="rootyp") {{repo.rootyp_zh}}
+            nuxt-link(:to="'/repos/' + repo.rootyp + '/' + repo.typcd" class="typcd") {{repo.typcd_zh}}
 
         div.col.right
           a(:href="'https://gitter.im/' + repo.full_name" style="color: #EF015B" title="聊天室" target="_blank")
@@ -13,7 +13,7 @@
           a(:href="'http://stackoverflow.com/questions/tagged/' + repo.name" style="color: #F48024" title="上 Stackoverflow 提问"  target="_blank")
             icon(name="stackoverflow"  width="15px")
       div.row
-        div.col-md-4.col-sm-0
+        div.col-md-4.col-sm-0(style="margin-bottom: 20px;")
           nuxt-link(:to="'/repo/' + repo.owner + '/' + repo.alia")
             img.cover(:src="cdn(repo.cover, 'repo', 'repo')")
         div.col-md-8.col-sm-12
@@ -157,6 +157,9 @@
       padding: 20px 0;
       display: flex;
       align-items: center;
+      @media (max-width: 576px) {
+        display: none;
+      }
       .home, .github {
         display: inline-block;
         padding: 5px 20px;

@@ -1,14 +1,38 @@
 <template lang="pug">
   div.home-wraper
     div.search-box
+      div.slogn
+        h3
+          span 「 
+          span 前端资源库
+          span  」
+        p Find JavaScript And CSS Repos
+
       div.search
         input(type="text" placeholder="搜索前端库" v-model="searchKey" @keyup.enter="searchGo")
         a.go-btn(href="javascript:void(0)" @click="searchGo")
           icon(name="search")
+    div.new-box
+      div.container
+        div.row
+          div.col-12.col-sm-6.col-md-3(v-for="repo in latests")
+            div.new-item
+              div.cover-box
+                nuxt-link(:to="'/repo/' + repo.owner + '/' + repo.alia")
+                  img.cover(:src="cdn(repo.cover, 'repo', 'subject_repo')")
+              h4 {{repo.name}}
+              article {{repo.description_cn}}
+    // div.tool-box
+    //   div.container
+    //     div.row
+    //       div.col-6
+    //         icon(name="chrome" width="80px")
+    //         h4 寻找前端插件，一步到位
+
     div.use-box
       h4.title
         icon(name="niu" width="60px")
-        p 大牛都在用的框架
+        p 大牛在用的框架
       div.container
         div.row
           div.mem-item.col-md-3.col-sm-12.col-6(v-for="mem in usingmems")
@@ -60,7 +84,8 @@
         trends: [],
         subjects: [],
         searchKey: '',
-        freshok: false
+        freshok: false,
+        latests: []
       }
     },
     components: {
@@ -74,6 +99,12 @@
           return
         }
         this.$router.push({path: '/search', query: {q: this.searchKey}})
+      },
+
+      // 获取最新库
+      fetchLatestRepos: async function () {
+        let res = await axios().get('/repo/latest')
+        this.latests = res.data
       },
 
       // 获取最知名的几个前端开发者的在用
@@ -106,6 +137,7 @@
       this.hotUsing()
       this.fetchTrend()
       this.recoSubjects()
+      this.fetchLatestRepos()
     }
   }
 </script>
@@ -113,12 +145,26 @@
 <style lang="scss" scoped>
   .search-box {
     background-color: #f7f8fa;
+
+    .slogn {
+      padding: 80px 10px;
+      padding-bottom: 30px;
+      text-align: center;
+      color: #9da5a9;
+
+      p {
+        font-size: 15px;
+        color: #c3c3c3;
+        padding-top: 10px;
+      }
+    }
   }
 
   .search {
     max-width: 400px;
     margin: 0 auto;
     padding: 100px 10px;
+    padding-top: 0;
     display: flex;
     input {
       flex-grow: 1;
@@ -149,6 +195,7 @@
 
     .mem-item {
       text-align: center;
+      margin-bottom: 20px;
     }
 
     .tx {
@@ -235,6 +282,43 @@
     .cover {
       height: 35px;
       margin-right: 5px;
+    }
+  }
+
+  .new-box {
+    background-color: #FFF;
+    background-color: #f7f8fa;
+    padding-bottom: 100px;
+
+    .title {
+      text-align: center;
+      padding-bottom: 50px;
+      color: #b4c1c7;
+    }
+
+    .new-item {
+      text-align: center;
+      margin-bottom: 20px;
+      padding: 20px;
+      background-color: rgba(255, 255, 255, 0.7);
+
+      .cover-box {
+        padding: 30px;
+      }
+      article {
+        height: 50px;
+        overflow: hidden;
+        padding: 10px 0;
+        color: #90949c;
+        border-top: #e2e8f3 1px dashed;
+        margin-top: 10px;
+      }
+    }
+
+    .cover {
+      width: 100%;
+      border-radius: 100%;
+      background-color: #FFF;
     }
   }
 
