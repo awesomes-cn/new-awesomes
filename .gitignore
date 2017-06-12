@@ -5,7 +5,7 @@ node_modules
 npm-debug.log
 
 # Nuxt build
-.nuxt
+# .nuxt
 
 # Nuxt generate
 # dist
@@ -13,3 +13,4 @@ npm-debug.log
 
 config.json
 webon.config.json
+webon.log.json
