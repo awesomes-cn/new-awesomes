@@ -14,7 +14,7 @@ export default (req) => {
     }
   }
   return axios.create({
-    baseURL: Config.API,
+    baseURL: Config[process.env.NODE_ENV].API,
     headers: { atoken: (token || Cookie.get('awlogin') || '') }
   })
 }
