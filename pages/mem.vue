@@ -209,6 +209,7 @@
 
   .mem-area {
     background-color: rgba(247, 248, 250, 0.4);
+    padding-bottom: 100px;
   }
 
   .conarea {

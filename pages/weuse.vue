@@ -23,12 +23,13 @@
               icon(name="twitter")      
         div.repos.row
           div.col-md-2.col-sm-3.col-6(v-for="oper in mem.usings")
-            div.repo-item
-              nuxt-link(:to="'/repo/' + oper.repo.owner + '/' + oper.repo.alia")
-                img.cover(:src="cdn(oper.repo.cover, 'repo', 'subject_repo')")
-                div.alia
-                  strong {{oper.repo.alia}}
-                span.usingmems {{oper.repo.using}} 人在用
+            div.repo-item(:title="oper.repo.using + '人在用'")
+              div.cover-box
+                nuxt-link(:to="'/repo/' + oper.repo.owner + '/' + oper.repo.alia")
+                  img.cover(:src="cdn(oper.repo.cover, 'repo', 'subject_repo')")
+                  span.usingmems {{oper.repo.using}}
+              div.alia
+                strong {{oper.repo.alia}}
       div(style="margin-top: 30px;")        
         pagination(flag="weuse-list" v-bind:total="pagetotal" v-bind:size="pagesize")      
 
@@ -131,12 +132,14 @@
 
   .repo-item {
     text-align: center;
-    border: 1px solid #f1f1f1;
-    margin-bottom: 20px;
-    padding: 30px 0;
+    // border: 1px solid #f1f1f1;
+    padding: 20px 0;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
 
     .cover {
-      border-radius: 100%;
+      // border-radius: 100%;
       width: 50px;
     }
 
@@ -147,17 +150,31 @@
 
   .container {
     max-width: 1000px;
+    padding-bottom: 100px;
   }
 
   .repos {
+    .cover-box {
+      width: 50px;
+      position: relative;
+    }
     .usingmems {
-      color: #a7a7a7;
-      padding-top: 5px;
+      font-size: 12px;
+      color: #ffffff;
+      font-size: 12px;
+      display: inline-block;
+      background-color: #3e9ef1;
+      padding: 2px 7px;
+      border-radius: 100px;
+      position: absolute;
+      top: -10px;
+      right: -10px;
+      border: #FFF 2px solid;
     }
 
     .alia {
       margin-top: 10px;
-      font-size: 1.3rem;
+      font-size: 1.1rem;
       overflow: hidden;
       height: 25px;
     }

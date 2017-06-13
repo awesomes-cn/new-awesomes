@@ -13,7 +13,7 @@
             nuxt-link(to="/repos/Applications/frameworks") {{$t('home.repos')}}
             nuxt-link(to="/weuse" ) 大牛在用
             nuxt-link(to="/subjects" ) 专题  
-            // nuxt-link(to="/topics" ) 优选+  
+            a(href="http://news.awesomes.cn" ) 情报局  
             nuxt-link(to="/rank" ) 前端TOP100
             
 

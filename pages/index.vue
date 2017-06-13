@@ -22,50 +22,6 @@
                   img.cover(:src="cdn(repo.cover, 'repo', 'subject_repo')")
               h4 {{repo.name}}
               article {{repo.description_cn}}
-    // div.tool-box
-    //   div.container
-    //     div.row
-    //       div.col-6
-    //         icon(name="chrome" width="80px")
-    //         h4 寻找前端插件，一步到位
-
-    div.use-box
-      h4.title
-        icon(name="niu" width="60px")
-        p 大牛在用的框架
-      div.container
-        div.row
-          div.mem-item.col-md-3.col-sm-12.col-6(v-for="mem in usingmems")
-            nuxt-link(:to="/mem/ + mem.id" )
-              img.tx(:src="cdn(mem.avatar, 'mem')")
-              p
-                span {{mem.nc}}
-                span(v-if="mem.mem_info.company && mem.mem_info.company.trim() !== ''") @ {{mem.mem_info.company}}
-            div
-              template(v-for="i in 8")
-                nuxt-link(:to="'/repo/' + mem.usings[i].repo.owner + '/' + mem.usings[i].repo.alia"  v-bind:title="mem.usings[i].repo.alia" v-if="mem.usings[i]")
-                  img.cover(:src="cdn(mem.usings[i].repo.cover, 'repo', 'repo_small')")           
-
-    div.sub-box
-      h4.title
-        nuxt-link(to="/subjects")
-          icon(name="iphone" width="25px") 专题推荐
-      div.container
-        div.row
-          div.col-md-6.col-12(v-for="sub in subjects")
-            div.inner
-              subitem(:sub="sub")
-    div.top-box
-      h4.title
-        nuxt-link(to="/subjects")
-          icon(name="trend" width="25px") 前端趋势
-      div.inner
-        div.trend-item(v-for="(repo, index) in trends")
-          nuxt-link(:to="'/repo/' + repo.owner + '/' + repo.alia")
-            img.cover(:src="cdn(repo.cover, 'repo', 'subject_repo')")
-          div.val-out
-            div.value(v-bind:style="{width: trendUI(repo.trend) + '%'}" v-bind:class="'trend-' + index")
-            h6 {{repo.name}}
 </template>
 
 <script>
@@ -134,9 +90,6 @@
       }
     },
     created () {
-      this.hotUsing()
-      this.fetchTrend()
-      this.recoSubjects()
       this.fetchLatestRepos()
     }
   }
@@ -183,108 +136,6 @@
   }
 
 
-  .use-box {
-    background-color: #FFF;
-    padding: 100px 0;
-
-    .title {
-      text-align: center;
-      color: #919dad;
-      margin-bottom: 80px;
-    }
-
-    .mem-item {
-      text-align: center;
-      margin-bottom: 20px;
-    }
-
-    .tx {
-      width: 50px;
-      height: 50px;
-      border-radius: 100%;
-    }
-    .cover {
-      width: 40px;
-      margin: 5px;
-      background-color: #f0f5fb;
-      padding: 3px;
-
-      &:hover {
-        background-color: #e6eff9
-      }
-    }
-  }
-
-  .sub-box {
-    background-color: #f7f8fa;
-    padding: 100px 10px;
-
-    .title {
-      text-align: center
-    }
-
-    .inner {
-      max-width: 400px;
-      margin: 0 auto;
-    }
-    .sub-out {
-      display: flex;
-      justify-content: center;
-      padding: 30px 0;
-    }
-
-    .cover {
-      width: 100%
-    }
-  }
-
-  .top-box {
-    padding: 100px 10px;
-    .title {
-      text-align: center
-    }
-
-    .inner {
-      max-width: 600px;
-      margin: 0 auto;
-      margin-top: 50px
-    }
-
-    .trend-item {
-      width: 100%;
-      margin-bottom: 15px;
-      display: flex;
-      
-    }
-
-    .val-out {
-      flex-grow: 1;
-    }
-
-    .value {
-      height: 10px;
-      background-color: #DDD;
-      margin-bottom: 10px;
-
-      &.trend-0 {
-        background-color: #f98a8a
-      }
-
-      &.trend-1 {
-        background-color: #8af99c
-      }
-
-      &.trend-2 {
-        background-color: #8ae1f9
-      }
-    }
-
-    .cover {
-      height: 35px;
-      margin-right: 5px;
-    }
-  }
-
   .new-box {
     background-color: #FFF;
     background-color: #f7f8fa;
@@ -300,7 +151,8 @@
       text-align: center;
       margin-bottom: 20px;
       padding: 20px;
-      background-color: rgba(255, 255, 255, 0.7);
+      opacity: 0.2;
+      -webkit-transition: all,.5s,ease,0s;
 
       .cover-box {
         padding: 30px;
@@ -310,16 +162,29 @@
         overflow: hidden;
         padding: 10px 0;
         color: #90949c;
-        border-top: #e2e8f3 1px dashed;
         margin-top: 10px;
       }
+
+      .cover {
+        width: 100%;
+        background-color: #FFF;
+        -webkit-filter: grayscale(1);
+        filter: grayscale(1);
+        -webkit-transition: all,.5s,ease,0s;
+        max-width: 100px
+      }
+      
+      &:hover {
+        opacity: 1;
+        .cover {
+          -webkit-filter: grayscale(0);
+          filter: grayscale(0)
+        }
+      }
+
     }
 
-    .cover {
-      width: 100%;
-      border-radius: 100%;
-      background-color: #FFF;
-    }
+    
   }
 
 </style>
