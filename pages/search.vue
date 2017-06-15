@@ -18,7 +18,7 @@
         div.middle
           nuxt-link(:to="'/repo/' + repo.owner + '/' + repo.alia")
             h3 {{repo.name}}
-          p {{repo.description_cn}}
+          p {{repo.description_cn || repo.description}}
           div.opers
             a(href="#"  v-bind:title="repo.using + '人在用'")
               icon(name="hand" class="transform" width="15px") {{repo.using}}

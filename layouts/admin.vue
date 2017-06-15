@@ -1,22 +1,37 @@
 <template lang="pug">
   div(:class="'main-in page-' + mypage")
+    alert(v-show="alertData.show" v-bind:msg="alertData.msg" v-bind:type="alertData.type")
     div.admin-header
       nuxt-link(to="/admin/mem/mems") 会员
       nuxt-link(to="/admin/pub/submits") 发布
       nuxt-link(to="/admin/site") 站点
     div.body
       div.left-menu
-        nuxt-link(to="/admin/mem/mems") 会员
-        nuxt-link(to="/admin/pub/submits") 发布
+        template(v-if="rouname === 'mem'")
+          nuxt-link(to="/admin/mem/mems") 会员
+        template(v-if="rouname === 'pub'")
+          nuxt-link(to="/admin/pub/submits") 前端库提交
       nuxt
 </template>
 
 <script>
-
+import Alert from '~components/alert.vue'
 export default {
   data () {
     return {
       mypage: this.$route.name
+    }
+  },
+  components: {
+    Alert
+  },
+  computed: {
+    rouname: function () {
+      let arr = this.$route.name.split('-')
+      return arr[1]
+    },
+    alertData: function () {
+      return this.$store.state.alert
     }
   },
   watch: {

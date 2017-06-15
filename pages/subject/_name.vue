@@ -33,7 +33,7 @@
                 div.middle
                   nuxt-link(:to="'/repo/' + repo.owner + '/' + repo.alia")
                     h4 {{repo.name}}
-                  span.sdesc {{repo.description_cn}}
+                  span.sdesc {{repo.description_cn || repo.description}}
                 div.stars
                   icon(name="star" width="15px") {{repo.stargazers_count}}  
 </template>

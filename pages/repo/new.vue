@@ -14,10 +14,10 @@
       
       input.sub-txt(type="text" placeholder="https://github.com/jquery/jquery" v-model="html_url") 
     div
-      el-select(placeholder="请选择框架类型" v-model="repotyp")
-        el-option(v-for="item in typs" v-bind:label="item.label" v-bind:value="item.value")
+      select(placeholder="请选择框架类型" v-model="repotyp")
+        option(v-for="item in typs"  v-bind:value="item.value") {{item.label}}
     div
-      el-button(type="danger" @click="submit") 确认提交 
+      button.btn.btn-primary(@click="submit") 确认提交 
 
 
 </template>
@@ -28,7 +28,7 @@
   export default {
     data () {
       return {
-        repotyp: '',
+        repotyp: 'Applications-Frameworks',
         html_url: '',
         typs: []
       }
@@ -55,11 +55,16 @@
     methods: {
       submit: function () {
         let self = this
-        axios.post('submit/new', {
+        if (!/^https:\/\/github.com/.test(self.html_url)) {
+          this.$alert('danger', '请填写有效的 GitHub 仓库地址')
+          return
+        }
+        axios().post('submit/new', {
           html_url: self.html_url,
           rootyp: self.repotyp.split('-')[0],
           typcd: self.repotyp.split('-')[1]
         }).then(res => {
+          this.$alert('success', '提交成功')
         })
       }
     }

@@ -7,7 +7,7 @@
       div.center
         nuxt-link(:to="'/repo/' + mark.repo.owner + '/' + mark.repo.alia")
           h5 {{mark.repo.alia}}
-        div.caption {{mark.repo.description_cn}}
+        div.caption {{mark.repo.description_cn || mark.repo.description }}
         div.more
           span {{mark.repo.rootyp_zh}} > {{mark.repo.typcd_zh}} 
           icon(name="star" width="15px") {{mark.repo.stargazers_count}}

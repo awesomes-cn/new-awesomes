@@ -18,7 +18,7 @@
             img.cover(:src="cdn(repo.cover, 'repo', 'repo')")
         div.col-md-8.col-sm-12
           h1 {{repo.alia}}
-          p {{repo.description_cn}}
+          p {{repo.description_cn || repo.description}}
           div.links
             a.home(:href="repo.homepage"  target="_blank")
               icon(name="home") 官 网

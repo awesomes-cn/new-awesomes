@@ -21,7 +21,7 @@
                 nuxt-link(:to="'/repo/' + repo.owner + '/' + repo.alia")
                   img.cover(:src="cdn(repo.cover, 'repo', 'subject_repo')")
               h4 {{repo.name}}
-              article {{repo.description_cn}}
+              article {{repo.description_cn || repo.description}}
 </template>
 
 <script>

@@ -1,6 +1,6 @@
 <template lang="pug">
   div
-    list(table="submit" v-bind:keys="keys")
+    list(table="submit" v-bind:keys="keys" opers="['fetch']")
 </template>
 <script>
   let List = require('~components/admin/list')
@@ -22,6 +22,8 @@
     },
     components: {
       List
+    },
+    methods: {
     }
   }
 </script>

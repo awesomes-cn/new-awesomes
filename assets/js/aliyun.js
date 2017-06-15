@@ -1,11 +1,10 @@
 import axios from '~plugins/axios'
-// var OSS = require('~assets/js/aliyun-oss-sdk.min').Wrapper
-var OSS = {}
+var OSS = require('~assets/js/aliyun-oss-sdk.min').Wrapper
 var bucket = 'awesomes'
 var region = 'oss-cn-beijing'
 
 var applyTokenDo = function (func, file, prefix) {
-  return axios.get(`upload/token?prefix=${prefix}`).then(function (res) {
+  return axios().get(`upload/token?prefix=${prefix}`).then(function (res) {
     var creds = res.data
     var client = new OSS({
       region: region,

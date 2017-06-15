@@ -1,9 +1,15 @@
 <template lang="pug">
   div
-    button.btn(@click="sub") 显示消息
+    h1 {{mol}}
+    upload(v-model="mol" folder="repo")
 </template>
 <script>
   export default {
+    data () {
+      return {
+        mol: ''
+      }
+    },
     methods: {
       sub: function () {
         this.$alert('danger', 'hellhxho')

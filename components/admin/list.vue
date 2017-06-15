@@ -16,15 +16,17 @@
               a(:href="item[key]" v-if="value.type == 'a'" target="_blank") {{item[key]}}
               span(v-if="!value.type") {{item[key]}}
           td {{item.created_at}}
-          td
+          td.opers
             a(href="javascript:void(0)" @click="destroy(item, index)") 删除
+            a(href="javascript:void(0)" @click="fetch(item)" v-if="hasOper('fetch')") 提取
+            slot
     pagination(flag="repos-list" v-bind:total="pagetotal" v-bind:size="pagesize")          
 </template>
 <script>
   import axios from '~plugins/axios'
   let pagesize = 15
   export default {
-    props: ['table', 'keys'],
+    props: ['table', 'keys', 'opers'],
     data () {
       return {
         items: [],
@@ -50,6 +52,10 @@
       }
     },
     methods: {
+      // 是否包含某个操作
+      hasOper: function (oper) {
+        return this.opers && this.opers.indexOf(oper) > -1
+      },
       // 获取数据列表
       fetchList: async function () {
         let page = this.$route.query.page || 1
@@ -77,6 +83,15 @@
           this.items.splice(index, 1)
           this.$alert('success', '删除数据成功！')
         }
+      },
+      // 提取
+      fetch: async function (item) {
+        await axios().get(`submit/${item.id}/fetch`, {
+          table: this.table,
+          id: item.id
+        })
+        item.status = 'READED'
+        this.$alert('success', '提取成功！')
       }
     },
     created () {
@@ -88,5 +103,10 @@
 <style lang="scss" scoped>
   table {
     width: 100%
+  }
+  .opers {
+    a {
+      margin-right: 10px;
+    }
   }
 </style>

@@ -13,7 +13,7 @@
             span >
             nuxt-link(to="/about" class="repo-name") 加载进度
 
-      div.desc {{repo.description_cn}}
+      div.desc {{repo.description_cn || repo.description}
 </template>
 
 

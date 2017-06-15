@@ -17,7 +17,7 @@
           div.middle
             nuxt-link(:to="'/repo/' + repo.owner + '/' + repo.alia")
               h4 {{repo.name}}
-            span.sdesc {{repo.description_cn}}
+            span.sdesc {{repo.description_cn || repo.description}}
           fresh(:time="repo.pushed_at")
 
 </template>
