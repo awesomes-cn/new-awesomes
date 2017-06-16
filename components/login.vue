@@ -6,10 +6,10 @@
         a.close(href="javascript:void(0)" @click="hideLogin()")
           icon(name="close")
       div.form-group
-        input.form-control(type="text" v-model="uid" placeholder="邮箱")
+        input.form-control(type="text" v-model="uid" placeholder="邮箱" @keyup.enter="submit")
 
       div.form-group
-        input.form-control(type="password" v-model="pwd" placeholder="密码")
+        input.form-control(type="password" v-model="pwd" placeholder="密码" @keyup.enter="submit")
 
       div.form-group
         button.btn.btn-primary.sub-btn(@click="login" type="submit") 登录
@@ -37,6 +37,10 @@
       // 登录
       login: function () {
         let self = this
+        if (this.uid.trim() === '' || this.pwd.trim() === '') {
+          this.$alert('danger', '请正确填写用户名和密码')
+          return
+        }
         axios().post(`session/login`, { uid: this.uid, pwd: this.pwd }).then(res => {
           if (!res.data.status) {
             this.$alert('danger', '登录失败，用户名或密码错误')

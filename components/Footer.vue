@@ -8,13 +8,13 @@
           span 进行许可
 
           div.relations
-            nuxt-link(to="")
+            a(href="http://weibo.com/awesomescn" target="_blank")
               icon(name="weibo")
-            nuxt-link(to="")
+            a(href="https://github.com/awesomes-cn"  target="_blank")
               icon(name="github")
-            nuxt-link(to="")
+            a(href="https://twitter.com/awesomescn"  target="_blank")
               icon(name="twitter")  
-            nuxt-link(to="")
+            a(href="")
               icon(name="rss")  
           
                 

@@ -8,11 +8,14 @@
 <script>
   import axios from '~plugins/axios'
   export default {
-    async asyncData () {
-      let res = await axios().get('develop/icons')
+    data () {
       return {
-        icons: res.data
+        icons: []
       }
+    },
+    async created () {
+      let res = await axios().get('develop/icons')
+      this.icons = res.data
     }
   }
 </script>

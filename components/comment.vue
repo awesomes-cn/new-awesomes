@@ -1,8 +1,10 @@
 <template lang="pug">
   div.comment-wraper
     div.editor-go
-      button.sub-btn(@click="submit" v-bind:disabled="isSubmiting") {{subMap[editing ? 'edit' : 'new'][isSubmiting ? 'ing' : 'ready']}}
-      editor(:flag="flag"  v-model="comcon" v-bind:setval="setval" placeholder="我有话说" v-if="showeditor")
+      button.btn.btn-danger.sub-btn(@click="submit" v-bind:disabled="isSubmiting")
+        icon(name="send" width="20px") {{subMap[editing ? 'edit' : 'new'][isSubmiting ? 'ing' : 'ready']}}
+      div.editor-box
+        editor(:flag="flag"  v-model="comcon" v-bind:setval="setval" placeholder="我有话说" v-if="showeditor")
 
     div.citem(v-for="(item, index) in coms")
       nuxt-link(:to="'/mem/' + item.mem.id")
@@ -85,6 +87,7 @@
         }
 
         if (this.comcon.trim() === '') {
+          this.$alert('danger', '评论内容不能为空')
           return
         }
 
@@ -118,21 +121,16 @@
       },
 
       // 删除评论
-      destroy: function (item, index) {
+      destroy: async function (item, index) {
         let self = this
-        this.$confirm('确认删除该评论？不是手抖吧！', '确认删除', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-          type: 'warning'
-        }).then(() => {
-          axios().delete(`comment/${item.id}`).then(res => {
-            if (res.data.status) {
-              this.$alert('success', '删除评论成功！')
-              self.coms.splice(index, 1)
-            }
-          })
-        }).catch(() => {
-        })
+        if (!confirm('确认删除该评论？不是手抖吧！')) {
+          return
+        }
+        let res = await axios().delete(`comment/${item.id}`)
+        if (res.data.status) {
+          this.$alert('success', '删除评论成功！')
+          self.coms.splice(index, 1)
+        }
       },
 
       // 滚到编辑器
@@ -242,7 +240,14 @@
   .editor-go {
     margin-bottom: 40px;
     position: relative;
-    padding-right: 80px;
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: flex-start
+  }
+
+  .editor-box {
+    flex-grow: 1;
+    padding-right: 10px;
   }
 
   article {
@@ -250,14 +255,7 @@
   }
 
   .sub-btn {
-    border: none;
-    color: #FFF;
-    background-color: #da552f;
-    padding: 10px 20px;
-    cursor: pointer;
-    position: absolute;
-    right: 0;
-    top: 4px;
+    padding: .8rem 1rem
   }
 
   .cancel-edit {

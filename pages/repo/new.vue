@@ -1,5 +1,5 @@
 <template lang="pug">
-  div.sub-new
+  div.sub-new.container
     div
       h1 仅需1秒即可提交你的库
 
@@ -11,13 +11,13 @@
       sapn 以上
 
     div
-      
       input.sub-txt(type="text" placeholder="https://github.com/jquery/jquery" v-model="html_url") 
-    div
-      select(placeholder="请选择框架类型" v-model="repotyp")
-        option(v-for="item in typs"  v-bind:value="item.value") {{item.label}}
-    div
-      button.btn.btn-primary(@click="submit") 确认提交 
+    div.row-box
+      div(style="width: 200px; padding-right: 30px; flex-grow: 1")
+        select.form-control(placeholder="请选择框架类型" v-model="repotyp")
+          option(v-for="item in typs"  v-bind:value="item.value") {{item.label}}
+      div
+        button.btn.btn-primary(@click="submit") 确认提交 
 
 
 </template>
@@ -75,20 +75,25 @@
   .sub-new {
     text-align: center;
     padding-top: 50px;
-
+    max-width: 500px;
     & > div {
       padding: 20px 0;
     }
+    padding-bottom: 100px;
   }
 
   .sub-txt {
-      width: 500px;
-      font-size: 1.2em;
-      font-weight: 400;
-      padding: 10px 16px;
-      border: solid 3px rgba(10, 20, 80, 0.05);
-      outline: none;
-      color: #2d3855;
-      font-family: sans-serif;
+    width: 100%;
+    font-size: 1.2em;
+    font-weight: 400;
+    padding: 10px 16px;
+    border: solid 3px rgba(10, 20, 80, 0.05);
+    outline: none;
+    color: #2d3855;
+    font-family: sans-serif;
+  }
+
+  .row-box {
+    display: flex;
   }
 </style>

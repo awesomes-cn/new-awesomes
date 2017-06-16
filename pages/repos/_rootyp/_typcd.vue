@@ -92,6 +92,7 @@
   .container {
     max-width: 1000px;
     padding-top: 10px;
+    padding-bottom: 100px;
   }
   .list-typs {
     text-align: center;

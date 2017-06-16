@@ -12,9 +12,9 @@
           span {{mark.repo.rootyp_zh}} > {{mark.repo.typcd_zh}} 
           icon(name="star" width="15px") {{mark.repo.stargazers_count}}
           icon(name="heart-o" width="15px") {{mark.repo.mark}}
-          icon(name="hand" width="15px") {{mark.repo.using}}
-      div.right
-        a(href="") 取消收藏
+          icon(name="hand" width="15px" v-bind:scale="[-1,1]") {{mark.repo.using}}
+      // div.right
+      //   a(href="") 取消收藏
     pagination(flag="weuse-list" v-bind:total="pagetotal" v-bind:size="pagesize")
 </template>
 
@@ -74,7 +74,7 @@
 
       .right {
         width: 90px;
-
+        text-align: right;
         * {
           display: none;
         }
