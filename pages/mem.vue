@@ -2,11 +2,6 @@
   div.mem-area
     div.mem-banner
       div.container
-        // div.mem-navs
-        //   nuxt-link(to="/mem" v-if="session") 收藏
-        //   nuxt-link(to="/mem" v-if="session") 文档
-        //   nuxt-link(to="/mem" v-if="session") 代码
-        //   nuxt-link(to="/mem" v-if="session") 评论
 
       nuxt-link(to="/mem" class="tx-link") 
         img.tx(:src="cdn(mem.avatar, 'mem')")
@@ -41,17 +36,18 @@
             div.dropdown
               nuxt-link(:to="'/mem/' + mem.id") {{who}}在用
               nuxt-link(:to="'/mem/' + mem.id + '/marks/repos'") {{who}}收藏的
-              nuxt-link(:to="'/mem/' + mem.id + '/ups'") {{who}}点赞的
+              nuxt-link(:to="'/mem/' + mem.id + '/pubs/comments'") {{who}}发布的
+              // nuxt-link(:to="'/mem/' + mem.id + '/ups'") {{who}}点赞的
           div.seconds
             nuxt-link(:to="'/mem/' + mem.id" v-if="routeKey === ''") 前端库
             nuxt-link(:to="'/mem/' + mem.id + '/marks/repos'" v-if="routeKey === 'marks'") 前端库
             
             template(v-if="routeKey === 'pubs'")
               nuxt-link(:to="'/mem/' + mem.id + '/pubs/comments'") 评论
-              nuxt-link(:to="'/mem/' + mem.id + '/pubs/dianps'") 经验
+              // nuxt-link(:to="'/mem/' + mem.id + '/pubs/dianps'") 经验
         div.right
-
-      nuxt-child  
+      div.mem-body  
+        nuxt-child  
 </template>
 
 <script>
@@ -217,6 +213,11 @@
     background-color: #FFF;
     margin-top: -72px;
     padding: 0;
+    padding-bottom: 50px;
+
+    .mem-body {
+      padding: 20px;
+    }
   }
 
   .mem-navs {

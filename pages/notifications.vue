@@ -33,7 +33,24 @@
       // 处理 @
       processAt: function (con) {
         return con.replace(/@([^:：?\s@]+)/g, '<a href="#" class="ata">@$1</a>')
+      },
+      // 重置状态
+      resetStatus: function () {
+        let unreads = this.notifiys.filter(item => {
+          return item.status === 'UNREAD'
+        }).map(item => {
+          return item.id
+        })
+        if (unreads.length < 1) {
+          return
+        }
+        axios().post('notification/reset', {
+          ids: unreads
+        })
       }
+    },
+    mounted () {
+      setTimeout(this.resetStatus, 1000)
     }
   }
 </script>
@@ -69,6 +86,10 @@
         article {
           flex-grow: 1
         }
+
+        .time {
+          color: #BBB
+        }
         
         .flag {
           display: inline-block;
@@ -76,6 +97,7 @@
           height: 10px;
           background-color: #EEE;
           border-radius: 100%;
+          margin-left: 20px;
 
           &.UNREAD {
             background-color: #22e076
