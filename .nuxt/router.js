@@ -8,19 +8,17 @@ Vue.use(Router)
 
 const _3fcae0ab = () => import('/home/hxh/share/new-awesomes/pages/index.vue' /* webpackChunkName: "pages/index" */)
 
+const _306255fe = () => import('/home/hxh/share/new-awesomes/pages/subjects.vue' /* webpackChunkName: "pages/subjects" */)
+
 const _713a34a8 = () => import('/home/hxh/share/new-awesomes/pages/admin.vue' /* webpackChunkName: "pages/admin" */)
 
 const _13951b3c = () => import('/home/hxh/share/new-awesomes/pages/admin/pub/submits.vue' /* webpackChunkName: "pages/admin-pub-submits" */)
 
 const _c9af1522 = () => import('/home/hxh/share/new-awesomes/pages/admin/mem/mems.vue' /* webpackChunkName: "pages/admin-mem-mems" */)
 
-const _2352fe63 = () => import('/home/hxh/share/new-awesomes/pages/rank.vue' /* webpackChunkName: "pages/rank" */)
-
 const _4ec06852 = () => import('/home/hxh/share/new-awesomes/pages/weuse.vue' /* webpackChunkName: "pages/weuse" */)
 
-const _6095586e = () => import('/home/hxh/share/new-awesomes/pages/test.vue' /* webpackChunkName: "pages/test" */)
-
-const _5efa639b = () => import('/home/hxh/share/new-awesomes/pages/topics.vue' /* webpackChunkName: "pages/topics" */)
+const _696e71df = () => import('/home/hxh/share/new-awesomes/pages/auth.vue' /* webpackChunkName: "pages/auth" */)
 
 const _49a1c06e = () => import('/home/hxh/share/new-awesomes/pages/mem.vue' /* webpackChunkName: "pages/mem" */)
 
@@ -30,11 +28,13 @@ const _91701d52 = () => import('/home/hxh/share/new-awesomes/pages/mem/_id/pubs/
 
 const _32df6cc2 = () => import('/home/hxh/share/new-awesomes/pages/mem/_id/marks/repos.vue' /* webpackChunkName: "pages/mem-id-marks-repos" */)
 
-const _360880c1 = () => import('/home/hxh/share/new-awesomes/pages/notifications.vue' /* webpackChunkName: "pages/notifications" */)
+const _2352fe63 = () => import('/home/hxh/share/new-awesomes/pages/rank.vue' /* webpackChunkName: "pages/rank" */)
 
-const _3001fcfb = () => import('/home/hxh/share/new-awesomes/pages/webker.vue' /* webpackChunkName: "pages/webker" */)
+const _05a04d18 = () => import('/home/hxh/share/new-awesomes/pages/extension.vue' /* webpackChunkName: "pages/extension" */)
 
 const _64006e36 = () => import('/home/hxh/share/new-awesomes/pages/joinuse.vue' /* webpackChunkName: "pages/joinuse" */)
+
+const _65500e1f = () => import('/home/hxh/share/new-awesomes/pages/search.vue' /* webpackChunkName: "pages/search" */)
 
 const _3c4e8bfe = () => import('/home/hxh/share/new-awesomes/pages/site.vue' /* webpackChunkName: "pages/site" */)
 
@@ -48,11 +48,13 @@ const _0778b520 = () => import('/home/hxh/share/new-awesomes/pages/site/capa.vue
 
 const _adcac5fa = () => import('/home/hxh/share/new-awesomes/pages/site/history.vue' /* webpackChunkName: "pages/site-history" */)
 
-const _65500e1f = () => import('/home/hxh/share/new-awesomes/pages/search.vue' /* webpackChunkName: "pages/search" */)
+const _3001fcfb = () => import('/home/hxh/share/new-awesomes/pages/webker.vue' /* webpackChunkName: "pages/webker" */)
 
-const _306255fe = () => import('/home/hxh/share/new-awesomes/pages/subjects.vue' /* webpackChunkName: "pages/subjects" */)
+const _6095586e = () => import('/home/hxh/share/new-awesomes/pages/test.vue' /* webpackChunkName: "pages/test" */)
 
-const _05a04d18 = () => import('/home/hxh/share/new-awesomes/pages/extension.vue' /* webpackChunkName: "pages/extension" */)
+const _360880c1 = () => import('/home/hxh/share/new-awesomes/pages/notifications.vue' /* webpackChunkName: "pages/notifications" */)
+
+const _5efa639b = () => import('/home/hxh/share/new-awesomes/pages/topics.vue' /* webpackChunkName: "pages/topics" */)
 
 const _38cead19 = () => import('/home/hxh/share/new-awesomes/pages/topic/new.vue' /* webpackChunkName: "pages/topic-new" */)
 
@@ -108,6 +110,11 @@ export default new Router({
 			name: "index"
 		},
 		{
+			path: "/subjects",
+			component: _306255fe,
+			name: "subjects"
+		},
+		{
 			path: "/admin",
 			component: _713a34a8,
 			name: "admin",
@@ -125,24 +132,14 @@ export default new Router({
 			]
 		},
 		{
-			path: "/rank",
-			component: _2352fe63,
-			name: "rank"
-		},
-		{
 			path: "/weuse",
 			component: _4ec06852,
 			name: "weuse"
 		},
 		{
-			path: "/test",
-			component: _6095586e,
-			name: "test"
-		},
-		{
-			path: "/topics",
-			component: _5efa639b,
-			name: "topics"
+			path: "/auth",
+			component: _696e71df,
+			name: "auth"
 		},
 		{
 			path: "/mem",
@@ -167,19 +164,24 @@ export default new Router({
 			]
 		},
 		{
-			path: "/notifications",
-			component: _360880c1,
-			name: "notifications"
+			path: "/rank",
+			component: _2352fe63,
+			name: "rank"
 		},
 		{
-			path: "/webker",
-			component: _3001fcfb,
-			name: "webker"
+			path: "/extension",
+			component: _05a04d18,
+			name: "extension"
 		},
 		{
 			path: "/joinuse",
 			component: _64006e36,
 			name: "joinuse"
+		},
+		{
+			path: "/search",
+			component: _65500e1f,
+			name: "search"
 		},
 		{
 			path: "/site",
@@ -214,19 +216,24 @@ export default new Router({
 			]
 		},
 		{
-			path: "/search",
-			component: _65500e1f,
-			name: "search"
+			path: "/webker",
+			component: _3001fcfb,
+			name: "webker"
 		},
 		{
-			path: "/subjects",
-			component: _306255fe,
-			name: "subjects"
+			path: "/test",
+			component: _6095586e,
+			name: "test"
 		},
 		{
-			path: "/extension",
-			component: _05a04d18,
-			name: "extension"
+			path: "/notifications",
+			component: _360880c1,
+			name: "notifications"
+		},
+		{
+			path: "/topics",
+			component: _5efa639b,
+			name: "topics"
 		},
 		{
 			path: "/topic/new",

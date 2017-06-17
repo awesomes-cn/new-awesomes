@@ -30,9 +30,11 @@
   import Subitem from '~components/subitem.vue'
 
   export default {
-    name: 'home',
-    serverCacheKey () {
-      return Math.floor(Date.now() / 10000)
+    async asyncData ({ req, params, query }) {
+      let res = await axios().get('/repo/latest')
+      return {
+        latests: res.data
+      }
     },
     data () {
       return {
@@ -40,8 +42,7 @@
         trends: [],
         subjects: [],
         searchKey: '',
-        freshok: false,
-        latests: []
+        freshok: false
       }
     },
     components: {

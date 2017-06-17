@@ -5,17 +5,21 @@
         h4 登录
         a.close(href="javascript:void(0)" @click="hideLogin()")
           icon(name="close")
-      div.form-group
-        input.form-control(type="text" v-model="uid" placeholder="邮箱" @keyup.enter="submit")
-
-      div.form-group
-        input.form-control(type="password" v-model="pwd" placeholder="密码" @keyup.enter="submit")
-
-      div.form-group
-        button.btn.btn-primary.sub-btn(@click="login" type="submit") 登录
       div.github-login
-        a(href="")
-          icon(name="github" width="60px")  
+        a(href="javascript:void(0)" @click="thirtyLogin('http://192.168.26.128:5010/auth/login')")
+          icon(name="github" width="70px")
+      div
+        button.btn.btn-default.sub-btn(type="submit" @click="showEmailLogin = true" v-show="!showEmailLogin") 切换到邮箱登录
+      template(v-if="showEmailLogin")    
+        div.form-group
+          input.form-control(type="text" v-model="uid" placeholder="邮箱" @keyup.enter="submit")
+
+        div.form-group
+          input.form-control(type="password" v-model="pwd" placeholder="密码" @keyup.enter="submit")
+
+        div.form-group
+          button.btn.btn-primary.sub-btn(@click="login" type="submit") 登录
+      
 </template>
 
 <script>
@@ -25,7 +29,8 @@
     data () {
       return {
         uid: '',
-        pwd: ''
+        pwd: '',
+        showEmailLogin: false
       }
     },
     computed: {
@@ -52,6 +57,9 @@
             this.$store.commit('setUser', res.data.mem)
           }
         })
+      },
+      thirtyLogin: function (url) {
+        window.open(url, 'newwindow', 'width=500,height=500')
       }
     }
   }
@@ -91,6 +99,7 @@
     .github-login {
       text-align: center;
       padding: 20px 0;
+      margin-bottom: 20px;
     }
   }
 </style>

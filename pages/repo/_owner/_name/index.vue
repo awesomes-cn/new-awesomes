@@ -1,5 +1,5 @@
 <template lang="pug">
-  div
+  div.repo-detail
     banner(:repo="repo")
 
     div.container
@@ -44,44 +44,45 @@
   }
 </script>
 
-<style lang="scss" scoped>
-  .container {
-    max-width: 1000px
-  }
-  article {
-    font-size: 15px;
-    border: #DDD 1px solid;
-    border-top: #EEE 1px solid;
-    padding: 20px;
-    margin-top: 20px;
-    line-height: 27px;
-    word-break: break-all;
+<style lang="scss">
+  .repo-detail {
 
-    img {
-      max-width: 100%
+    .container {
+      max-width: 1000px
     }
-  }
+    article {
+      font-size: 15px;
+      border: #DDD 1px solid;
+      border-top: #EEE 1px solid;
+      padding: 20px;
+      margin-top: 20px;
+      line-height: 27px;
+      word-break: break-all;
 
-  .con-headers {
-    margin-top: 10px;
-    border: #EEE 1px solid;
-    border-bottom: 0;
-    border-radius: 4px;
-    padding: 15px 20px;
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
-  }
+      img {
+        max-width: 100%
+      }
+    }
 
-  .bar {
-    height: 10px;
-    background-color: #EEE;
-    float: left;
-    width: 100%;
-  }
+    .con-headers {
+      margin-top: 10px;
+      border: #EEE 1px solid;
+      border-bottom: 0;
+      border-radius: 4px;
+      padding: 15px 20px;
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+    }
 
-  
+    .bar {
+      height: 10px;
+      background-color: #EEE;
+      float: left;
+      width: 100%;
+    }
 
-  .com-wrap {
-    padding: 50px 0px;
+    .com-wrap {
+      padding: 50px 0px;
+    }
   }
 </style>
