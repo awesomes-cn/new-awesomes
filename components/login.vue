@@ -6,7 +6,7 @@
         a.close(href="javascript:void(0)" @click="hideLogin()")
           icon(name="close")
       div.github-login
-        a(href="javascript:void(0)" @click="thirtyLogin('http://192.168.26.128:5010/auth/login')")
+        a(href="javascript:void(0)" @click="thirtyLogin('https://api.awesomes.cn/auth/login')")
           icon(name="github" width="70px")
       div
         button.btn.btn-default.sub-btn(type="submit" @click="showEmailLogin = true" v-show="!showEmailLogin") 切换到邮箱登录
