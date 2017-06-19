@@ -61,6 +61,11 @@
       thirtyLogin: function (url) {
         window.open(url, 'newwindow', 'width=500,height=500')
       }
+    },
+    created () {
+      if (process.BROWSER_BUILD) {
+        window.location.hostname.replace(/^\w+\./, '')
+      }
     }
   }
 </script>
