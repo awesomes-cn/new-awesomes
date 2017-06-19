@@ -12,7 +12,7 @@
     },
     created () {
       axios().post(`auth/session`, {token: this.$route.query.token}).then(res => {
-        Cookie.set('awlogin', res.data.token)
+        Cookie.set('awlogin', res.data.token, {domain: window.location.hostname.replace(/^www/, '')})
         this.$store.commit('setUser', res.data.mem)
         window.opener.location.reload()
         window.close()

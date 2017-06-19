@@ -50,7 +50,6 @@
 </template>
 
 <script>
-  import axios from '~plugins/axios'
   import Cookie from 'js-cookie'
   import Login from './login'
   export default {
@@ -77,24 +76,9 @@
       }
     },
     methods: {
-      // 登录
-      login: function () {
-        let self = this
-        axios().post(`session/login`, { uid: this.uid, pwd: this.pwd }).then(res => {
-          if (!res.data.status) {
-            this.$alert('danger', '登录失败，用户名或密码错误')
-            Cookie.set('awlogin', null)
-          } else {
-            this.$alert('success', '登录成功！')
-            Cookie.set('awlogin', res.data.token)
-            self.hideLogin()
-            this.$store.commit('setUser', res.data.mem)
-          }
-        })
-      },
       // 注销
       logout: function () {
-        Cookie.set('awlogin', null)
+        Cookie.set('awlogin', null, {domain: window.location.hostname.replace(/^www/, '')})
         this.$store.commit('setUser', null)
         this.$alert('success', '注销成功！')
       },
