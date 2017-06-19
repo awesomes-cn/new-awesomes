@@ -11,6 +11,9 @@
       }
     },
     created () {
+      if (process.BROWSER_BUILD) {
+        window.document.domain = window.location.hostname.replace(/^\w+\./, '')
+      }
       axios().post(`auth/session`, {token: this.$route.query.token}).then(res => {
         Cookie.set('awlogin', res.data.token, {domain: window.location.hostname.replace(/^www/, '')})
         this.$store.commit('setUser', res.data.mem)
