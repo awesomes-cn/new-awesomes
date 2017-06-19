@@ -78,7 +78,7 @@
     methods: {
       // 注销
       logout: function () {
-        Cookie.set('awlogin', null, {domain: window.location.hostname.replace(/^www/, '')})
+        Cookie.set('awlogin', null, {domain: window.location.hostname.replace(/^\w+/, '')})
         this.$store.commit('setUser', null)
         this.$alert('success', '注销成功！')
       },
