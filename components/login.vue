@@ -49,10 +49,10 @@
         axios().post(`session/login`, { uid: this.uid, pwd: this.pwd }).then(res => {
           if (!res.data.status) {
             this.$alert('danger', '登录失败，用户名或密码错误')
-            Cookie.set('awlogin', null, {domain: window.location.hostname.replace(/^\w+/, '')})
+            Cookie.set('awlogin', null, {domain: window.location.hostname.replace(/^[A-Za-z]+/, '')})
           } else {
             this.$alert('success', '登录成功！')
-            Cookie.set('awlogin', res.data.token, {domain: window.location.hostname.replace(/^\w+/, '')})
+            Cookie.set('awlogin', res.data.token, {domain: window.location.hostname.replace(/^[A-Za-z]+/, '')})
             self.hideLogin()
             this.$store.commit('setUser', res.data.mem)
           }
@@ -64,7 +64,7 @@
     },
     created () {
       if (process.BROWSER_BUILD) {
-        window.document.domain = window.location.hostname.replace(/^\w+\./, '')
+        window.document.domain = window.location.hostname.replace(/^[A-Za-z]+\./, '')
       }
     }
   }
