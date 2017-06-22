@@ -13,12 +13,13 @@
           td(v-for="(value, key) in keys")
             span(v-if="typeof value != 'object'") {{item[key]}}
             template(v-if="typeof value == 'object'")
-              a(:href="item[key]" v-if="value.type == 'a'" target="_blank") {{item[key]}}
+              a(:href="value.link ? value.link(item[key]) : item[key]" v-if="value.type == 'a'" target="_blank") {{item[key]}}
               span(v-if="!value.type") {{item[key]}}
           td {{item.created_at}}
           td.opers
             a(href="javascript:void(0)" @click="destroy(item, index)") 删除
             a(href="javascript:void(0)" @click="fetch(item)" v-if="hasOper('fetch')") 提取
+            a(href="javascript:void(0)" @click="agreeWebkerApply(item)" v-if="hasOper('agree_webker_apply')") 同意
             slot
     pagination(flag="repos-list" v-bind:total="pagetotal" v-bind:size="pagesize")          
 </template>
@@ -84,7 +85,7 @@
           this.$alert('success', '删除数据成功！')
         }
       },
-      // 提取
+      // 提取 Repo
       fetch: async function (item) {
         await axios().get(`submit/${item.id}/fetch`, {
           table: this.table,
@@ -92,6 +93,11 @@
         })
         item.status = 'READED'
         this.$alert('success', '提取成功！')
+      },
+      // 同意情报员申请
+      agreeWebkerApply: async function (item) {
+        await axios().post(`mem/${item.from}/setwebker`)
+        this.$alert('success', '设置成功！')
       }
     },
     created () {

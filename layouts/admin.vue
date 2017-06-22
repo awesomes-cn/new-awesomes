@@ -4,13 +4,15 @@
     div.admin-header
       nuxt-link(to="/admin/mem/mems") 会员
       nuxt-link(to="/admin/pub/submits") 发布
-      nuxt-link(to="/admin/site") 站点
+      nuxt-link(to="/admin/site/webkerapply") 站点
     div.body
       div.left-menu
         template(v-if="rouname === 'mem'")
           nuxt-link(to="/admin/mem/mems") 会员
         template(v-if="rouname === 'pub'")
           nuxt-link(to="/admin/pub/submits") 前端库提交
+        template(v-if="rouname === 'site'")
+          nuxt-link(to="/admin/site/webkerapply") 情报员申请  
       nuxt
 </template>
 

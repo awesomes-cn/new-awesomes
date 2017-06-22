@@ -12,9 +12,11 @@ const _306255fe = () => import('/home/hxh/share/new-awesomes/pages/subjects.vue'
 
 const _713a34a8 = () => import('/home/hxh/share/new-awesomes/pages/admin.vue' /* webpackChunkName: "pages/admin" */)
 
-const _13951b3c = () => import('/home/hxh/share/new-awesomes/pages/admin/pub/submits.vue' /* webpackChunkName: "pages/admin-pub-submits" */)
+const _70cd60d9 = () => import('/home/hxh/share/new-awesomes/pages/admin/site/webkerapply.vue' /* webpackChunkName: "pages/admin-site-webkerapply" */)
 
 const _c9af1522 = () => import('/home/hxh/share/new-awesomes/pages/admin/mem/mems.vue' /* webpackChunkName: "pages/admin-mem-mems" */)
+
+const _13951b3c = () => import('/home/hxh/share/new-awesomes/pages/admin/pub/submits.vue' /* webpackChunkName: "pages/admin-pub-submits" */)
 
 const _4ec06852 = () => import('/home/hxh/share/new-awesomes/pages/weuse.vue' /* webpackChunkName: "pages/weuse" */)
 
@@ -120,14 +122,19 @@ export default new Router({
 			name: "admin",
 			children: [
 				{
-					path: "pub/submits",
-					component: _13951b3c,
-					name: "admin-pub-submits"
+					path: "site/webkerapply",
+					component: _70cd60d9,
+					name: "admin-site-webkerapply"
 				},
 				{
 					path: "mem/mems",
 					component: _c9af1522,
 					name: "admin-mem-mems"
+				},
+				{
+					path: "pub/submits",
+					component: _13951b3c,
+					name: "admin-pub-submits"
 				}
 			]
 		},
