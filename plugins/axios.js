@@ -7,7 +7,7 @@ const Config = require('../config')
 // 2类是服务端发出的请求：则需要通过 req.headers.cookie 去获取了
 export default (req) => {
   let token = null
-  if (req) {
+  if (req && req.headers.cookie) {
     let _cookie = req.headers.cookie.split(';').find(c => c.trim().startsWith('awlogin='))
     if (_cookie) {
       token = _cookie.split('=')[1]
