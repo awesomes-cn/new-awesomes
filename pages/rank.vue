@@ -99,7 +99,7 @@
             'enable': true,
             'distance': 150,
             'color': '#ffffff',
-            'opacity': 0.4,
+            'opacity': 0.2,
             'width': 1
           },
           'move': {
@@ -156,7 +156,7 @@
     .banner {
       text-align: center;
       height: 400px;
-      background-color: #0099C3;
+      background-image: linear-gradient( 135deg, #79F1A4 0%, #0E5CAD 100%);
       color: #FFF;
       overflow: hidden;
       position: relative;
@@ -175,12 +175,13 @@
         }
 
         .filter {
+          margin-top: 30px;
           a {
             display: inline-block;
             background-color: none;
             border: #FFF 1px solid;
             margin: 0 10px;
-            padding: 5px 15px;
+            padding: 5px 12px;
             text-decoration: none;
             color: #FFF;
 
@@ -195,6 +196,7 @@
 
     .container  {
       max-width: 800px;
+      padding-bottom: 50px
     }
 
     .list-main {
@@ -237,6 +239,10 @@
         a {
           color: #60bed8;
         }
+      }
+
+      &:last-child {
+        border-bottom: none
       }
 
       .scord {
