@@ -126,6 +126,9 @@
       background-color: #EEE;
       border: 0;
       outline: none;
+      &::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+        color: #AAA;
+      }
     }
     .go-btn {
       width: 40px;
@@ -152,8 +155,8 @@
       text-align: center;
       margin-bottom: 20px;
       padding: 20px;
-      opacity: 0.2;
-      -webkit-transition: all,.5s,ease,0s;
+      -webkit-transition: all .2s ease 0s;
+      opacity: 0.7;
 
       .cover-box {
         padding: 30px;
@@ -168,18 +171,17 @@
 
       .cover {
         width: 100%;
-        background-color: #FFF;
-        -webkit-filter: grayscale(1);
-        filter: grayscale(1);
-        -webkit-transition: all,.5s,ease,0s;
-        max-width: 100px
+        background-color: rgba(255, 255, 255, 0.36);
+        transition: all .2s ease 0s;
+        max-width: 120px;
+        border-radius: 100%;
+        padding: 10px;
       }
       
       &:hover {
         opacity: 1;
         .cover {
-          -webkit-filter: grayscale(0);
-          filter: grayscale(0)
+          padding: 0px;
         }
       }
 
