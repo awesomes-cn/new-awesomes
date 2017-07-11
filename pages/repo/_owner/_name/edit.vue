@@ -51,7 +51,7 @@
       .then(res => {
         return {
           repo: res.data,
-          repotyp: `${res.data.rootyp}-${res.data.typcd}`
+          repotyp: `${res.data.rootyp}-${res.data.typcd}-${res.data.rootyp_zh}-${res.data.typcd_zh}`
         }
       })
     },
@@ -63,6 +63,8 @@
     methods: {
       // 提交
       submit: async function () {
+        let _typval = this.repotyp.split('-')
+        ;[this.repo.rootyp, this.repo.typcd, this.repo.rootyp_zh, this.repo.typcd_zh] = _typval
         await axios().put(`repo/${this.repo.id}`, this.repo)
         this.$alert('success', '更新库成功')
       }
@@ -79,7 +81,7 @@
             })
             result.push({
               label: `${typA.sdesc} - ${item.sdesc}`,
-              value: `${typA.key}-${item.key}`
+              value: `${typA.key}-${item.key}-${typA.sdesc}-${item.sdesc}`
             })
           }
         })

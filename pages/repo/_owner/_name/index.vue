@@ -8,7 +8,7 @@
       div.bar
       div.clearfix
       // dianp(:repo="repo")
-      article(v-html="marked(repo.about)")
+      article(v-html="marked(repo.about_zh || repo.about)")
       div.com-wrap
         comment(flag="repo-comment" typ="REPO" v-bind:idcd="repo.id")
 </template>

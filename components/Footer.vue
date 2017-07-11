@@ -37,12 +37,18 @@
 <style lang="scss" scoped>
   footer {
     // margin-top: 50px;
-    background-color: #EEE;
     padding: 30px 0;
-    border-top: 1px solid #e9eaef;
-    background: #ECECEC;
-    color: #999;
     font-size: 12px;
+    background-color: #334259;
+    color: #8f9eb1
+  }
+
+  a:visited, a:link {
+    color: #a6b9d3;
+  }
+
+  a:hover, a:active {
+    color: #8f9eb1;
   }
 
   .txt-right {
@@ -59,7 +65,6 @@
     a {
       display: inline-block;
       margin: 20px;
-      color: #AAA;
       margin-left: 0;
     }
   }

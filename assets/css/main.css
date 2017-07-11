@@ -46,7 +46,7 @@ button, .btn {
 }
 
 a {
-  -webkit-transition: all,.5s,ease,0s;
+  transition: all, .5s;
   text-decoration: none
 }
 a:focus, a:hover {

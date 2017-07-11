@@ -26,9 +26,11 @@ const _49a1c06e = () => import('/home/hxh/share/new-awesomes/pages/mem.vue' /* w
 
 const _20df36dc = () => import('/home/hxh/share/new-awesomes/pages/mem/_id/index.vue' /* webpackChunkName: "pages/mem-id" */)
 
-const _91701d52 = () => import('/home/hxh/share/new-awesomes/pages/mem/_id/pubs/comments.vue' /* webpackChunkName: "pages/mem-id-pubs-comments" */)
+const _1a0f8750 = () => import('/home/hxh/share/new-awesomes/pages/mem/_id/marks.vue' /* webpackChunkName: "pages/mem-id-marks" */)
 
 const _32df6cc2 = () => import('/home/hxh/share/new-awesomes/pages/mem/_id/marks/repos.vue' /* webpackChunkName: "pages/mem-id-marks-repos" */)
+
+const _91701d52 = () => import('/home/hxh/share/new-awesomes/pages/mem/_id/pubs/comments.vue' /* webpackChunkName: "pages/mem-id-pubs-comments" */)
 
 const _2352fe63 = () => import('/home/hxh/share/new-awesomes/pages/rank.vue' /* webpackChunkName: "pages/rank" */)
 
@@ -159,14 +161,21 @@ export default new Router({
 					name: "mem-id"
 				},
 				{
+					path: ":id/marks",
+					component: _1a0f8750,
+					name: "mem-id-marks",
+					children: [
+						{
+							path: "repos",
+							component: _32df6cc2,
+							name: "mem-id-marks-repos"
+						}
+					]
+				},
+				{
 					path: ":id/pubs/comments",
 					component: _91701d52,
 					name: "mem-id-pubs-comments"
-				},
-				{
-					path: ":id/marks/repos",
-					component: _32df6cc2,
-					name: "mem-id-marks-repos"
 				}
 			]
 		},
