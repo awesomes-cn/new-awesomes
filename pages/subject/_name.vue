@@ -12,35 +12,15 @@
         a.sub-link.github(:href="sub.repo.html_url" target="_blank" v-if="sub.repo.id > 0")
           icon(name="github") GitHub
     div.nav-banner
-      // div.first(v-for="root in sub.repos" v-bind:data-link="root.rootyp")
-      //   a(:href="'#' + root.rootyp + '-' + root.typcds[0].typcd") {{root.rootyp}}
-      //   div.second(v-for="child in root.typcds" v-bind:data-link="root.rootyp + '-' + child.typcd")
-      //     a(:href="'#' + root.rootyp + '-' + child.typcd")
-      //       span {{child.typcd}} 
-      //     span.count {{child.repos.length}}
-      div.list-typs(:class="'fixed-' + fixcate")
+
+    div.container.list-body(:class="'fixed-' + fixcate")
+      div.placeholder
+      div.list-typs
         template(v-for="root in rootyps" v-if="root.amount > 0")
           a.root(href="javascript:void(0)"  v-bind:data-link="root.key" @click="switchTyp(root.sdesc)" )
             icon(:name="root.icon"  width="16px") {{root.sdesc}}
-            // span {{root.amount}}
-          a(v-for="second in typcds(root)"   href="javascript:void(0)" v-if="second.repos.length > 0"  @click="switchTyp(root.sdesc + '-' + second.sdesc)" v-bind:class="'active-' + (checkedTyp == root.sdesc + '-' + second.sdesc)")
+          a.second(v-for="second in typcds(root)"   href="javascript:void(0)" v-if="second.repos.length > 0"  @click="switchTyp(root.sdesc + '-' + second.sdesc)" v-bind:class="'active-' + (checkedTyp == root.sdesc + '-' + second.sdesc)")
             icon(:name="second.icon" width="14px" ) {{second.sdesc}}
-            span {{second.repos.length}}
-        // div.list-typs.bottom
-        //   a(v-for="second in typcds"  href="javascript:void(0)" v-if="second.repos.length > 0")
-        //     icon(:name="second.icon" width="14px" ) {{second.sdesc}}
-        //     span {{second.repos.length}}
-
-    div.container
-      // div.sub-nav#subnav
-      //   div.split(style="height: 50px;")
-      //   div.first(v-for="root in sub.repos" v-bind:data-link="root.rootyp")
-      //     a(:href="'#' + root.rootyp + '-' + root.typcds[0].typcd") {{root.rootyp}}
-      //     div.second(v-for="child in root.typcds" v-bind:data-link="root.rootyp + '-' + child.typcd")
-      //       a(:href="'#' + root.rootyp + '-' + child.typcd")
-      //         span > 
-      //         span {{child.typcd}} 
-      //       span.count {{child.repos.length}}
       div.sub-repos
         template(v-for="typ in cates" v-if="typ.repos && typ.repo")
           div.split(:id="typ.repo.rootyp_zh + '-' + typ.repo.typcd_zh" v-bind:data-first="typ.repo.rootyp_zh")
@@ -48,6 +28,7 @@
             span {{typ.repo.rootyp_zh}} 
             span » 
             span {{typ.repo.typcd_zh}}
+            span.amount （{{typ.repos.length}}）
           template(v-for="repo in typ.repos")  
             div.repo-card
               fresh(:time="repo.pushed_at")
@@ -126,7 +107,7 @@
     methods: {
       switchTyp: function (desc) {
         this.checkedTyp = desc
-        $('html,body').animate({scrollTop: $(`#${desc}`).offset().top - 100})
+        $('html,body').animate({scrollTop: $(`#${desc}`).offset().top})
       },
       typcds: function (root) {
         return this.cates.filter(item => {
@@ -137,11 +118,9 @@
     watch: {
       checkedTyp: function (val) {
         window.location.href = `#${val}`
-        // $('html,body').animate({scrollTop: $(`#${val}`).offset().top - 100})
       }
     },
     mounted () {
-      // var Ps = require('perfect-scrollbar')
       var positions = $('.split').map(function () {
         return {
           first: $(this).attr('data-first'),
@@ -152,7 +131,7 @@
       let _self = this
       $(document).scroll(function () {
         var doctop = $(document).scrollTop()
-        _self.fixcate = (doctop >= $('.nav-banner').offset().top)
+        _self.fixcate = (doctop >= $('.list-body').offset().top - 50)
         var activeEl = _.filter(positions, function (item) { return doctop >= item.top - 170 }).pop() || positions[0]
         _self.checkedTyp = activeEl.second
       }).scroll()
@@ -163,7 +142,7 @@
 <style lang="scss">
   .page-subject-name {
     background-color: #f7f8fa;
-
+   
     .split {
       height: 70px;
     }
@@ -213,97 +192,72 @@
       }
     }
     
-    .nav-banner {
+    @media (max-width: 576px) {
+      .list-body {
+        display: block!important;
+      }
+      .list-typs, .placeholder {
+        display: none!important;
+      }
 
+      .middle {
+        white-space: nowrap!important
+      }
     }
 
     .list-typs {
       // text-align: center;
       padding: 10px;
-
-      &.fixed-true {
-        position: fixed;
-        z-index: 100000;
-        background-color: #FFF;
-        width: 100%;
-        top: 0;
-      }
+      // margin: 10px auto;
+      width: 150px;
+      // position: absolute;
+      line-height: 26px;
+      flex-shrink: 0;
+      
       a {
-        display: inline-block;
-        margin: 15px 5px;
-        padding: 2px 0px;
-        padding: 2px 10px;
-
-        &.active-true {
-          background-color: #da552f;
-          color: #FFF;
-          
-        }
-
-       
+        display: block;
+        padding: 2px 5px;
+        color: #DDDD;
+        
         &.root {
-          background-color: rgba(150, 120, 68, 0.58);
-          color: #ffffff;
-          padding: 2px 10px;
+          font-weight: bold;
         }
-      }
 
-      svg {
-        width: 17px;
-        height: 17px;
-        margin-right: 5px;
-        float: left
-      }
+        &.second {
+          color: #89898a;
 
-      &.bottom {
-        border-bottom: #EEE 1px solid;
-        padding-bottom: 30px;
+          &.active-true {
+            color: #da552f;
+          }
+        }
       }
     }
 
-    // .sub-nav {
-    //   font-weight: bold;
-    //   color: #DDD;
-    //   line-height: 26px;
-    //   height: 100%;
-    //   position: absolute;
-    //   width: 150px;
-    //   padding-bottom: 20px;
-
-    //   &.fixed {
-    //     position: fixed;
-    //     top: 10px;
-    //   }
-
-    //   .second {
-    //     color: #333;
-    //     display: none;
-    //     & > a {
-    //       color: #b1b1b1
-    //     }
-    //     &.active  a {
-    //       color: #da552f
-    //     }
-    //   }
-
-    //   .first {
-    //     & > a {
-    //     }
-    //     &.active {
-    //       .second {
-    //         display: block;
-    //       }
-    //     }
-    //   }
-
-    //   .count {
-    //     color: #8391a5;
-    //   }
-    // }
+    .list-body {
+      display: flex;
+      .placeholder {
+        display: none;
+      }
+      &.fixed-true {
+        .placeholder {
+          display: block;
+          width: 150px;
+          flex-shrink: 0;
+        }
+        .list-typs {
+          position: fixed;
+          top: 50px;
+          height: 100%;
+          padding-bottom: 80px;
+          overflow-y: scroll;
+        }  
+      }
+      
+    }
 
     .sub-repos {
-      max-width: 800px;
-      margin: 0 auto;
+      // max-width: 800px;
+      // margin: 0 auto;
       margin-bottom: 50px;
 
       h3 {
@@ -332,8 +286,8 @@
       background-color: #FFF;
       padding: 20px;
       border-radius: 2px;
-      text-overflow: ellipsis;
-      overflow: hidden;
+      // text-overflow: ellipsis;
+      // overflow: hidden;
       margin-bottom: 10px;
       border: #FFF 1px solid;
       flex-direction: row;
@@ -362,7 +316,7 @@
         word-break: keep-all;   
         overflow: hidden;
         text-overflow: ellipsis;
-        white-space: nowrap;
+        // white-space: nowrap;
       }
 
       .stars {
@@ -374,7 +328,8 @@
 
     .sub-link {
       font-size: 14px;
-      padding: 10px 30px;
+      padding: 10px 20px;
+      margin-right: 20px;
       margin-top: 40px;
       display: inline-block;
       background-color: #da552f;
@@ -383,6 +338,15 @@
       &.github {
         background-color: #0275d8
       }
+    }
+
+    footer {
+      display: none;
+    }
+
+    .amount {
+      margin-left: 3px;
+      font-size: 13px;
     }
   }
 </style>
