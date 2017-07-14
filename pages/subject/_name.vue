@@ -48,6 +48,7 @@
   import _ from 'underscore'
   require('perfect-scrollbar/dist/css/perfect-scrollbar.css')
   import $ from 'jquery'
+  let activeTimer
   export default {
     async asyncData ({ req, params, query }) {
       let [res, cateRes] = await Promise.all([
@@ -130,10 +131,13 @@
       })
       let _self = this
       $(document).scroll(function () {
-        var doctop = $(document).scrollTop()
-        _self.fixcate = (doctop >= $('.list-body').offset().top - 50)
-        var activeEl = _.filter(positions, function (item) { return doctop >= item.top - 170 }).pop() || positions[0]
-        _self.checkedTyp = activeEl.second
+        clearTimeout(activeTimer)
+        activeTimer = setTimeout(function () {
+          var doctop = $(document).scrollTop()
+          _self.fixcate = (doctop >= $('.list-body').offset().top - 50)
+          var activeEl = _.filter(positions, function (item) { return doctop >= item.top - 170 }).pop() || positions[0]
+          _self.checkedTyp = activeEl.second
+        }, 300)
       }).scroll()
     }
   }
