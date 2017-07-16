@@ -131,10 +131,10 @@
       })
       let _self = this
       $(document).scroll(function () {
+        var doctop = $(document).scrollTop()
+        _self.fixcate = (doctop >= $('.list-body').offset().top - 50)
         clearTimeout(activeTimer)
         activeTimer = setTimeout(function () {
-          var doctop = $(document).scrollTop()
-          _self.fixcate = (doctop >= $('.list-body').offset().top - 50)
           var activeEl = _.filter(positions, function (item) { return doctop >= item.top - 170 }).pop() || positions[0]
           _self.checkedTyp = activeEl.second
         }, 300)
