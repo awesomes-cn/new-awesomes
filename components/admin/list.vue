@@ -13,7 +13,7 @@
           td(v-for="(value, key) in keys")
             span(v-if="typeof value != 'object'") {{item[key]}}
             template(v-if="typeof value == 'object'")
-              a(:href="value.link ? value.link(item[key]) : item[key]" v-if="value.type == 'a'" target="_blank") {{item[key]}}
+              a(:href="value.link ? value.link(item) : item[key]" v-if="value.type == 'a'" target="_blank") {{item[key]}}
               span(v-if="!value.type") {{item[key]}}
           td {{item.created_at}}
           td.opers

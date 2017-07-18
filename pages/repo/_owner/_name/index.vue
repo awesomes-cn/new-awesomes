@@ -8,7 +8,7 @@
       div.bar
       div.clearfix
       // dianp(:repo="repo")
-      article(v-html="marked(repo.about_zh || repo.about)")
+      article.repo-con(v-html="marked(repo.about_zh || repo.about)")
       div.com-wrap
         comment(flag="repo-comment" typ="REPO" v-bind:idcd="repo.id")
 </template>
@@ -44,13 +44,12 @@
   }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
   .repo-detail {
-
     .container {
       max-width: 1000px
     }
-    article {
+    article.repo-con {
       font-size: 15px;
       border: #DDD 1px solid;
       border-top: #EEE 1px solid;

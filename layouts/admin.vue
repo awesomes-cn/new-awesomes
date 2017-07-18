@@ -11,6 +11,7 @@
           nuxt-link(to="/admin/mem/mems") 会员
         template(v-if="rouname === 'pub'")
           nuxt-link(to="/admin/pub/submits") 前端库提交
+          nuxt-link(to="/admin/pub/comments") 评论
         template(v-if="rouname === 'site'")
           nuxt-link(to="/admin/site/webkerapply") 情报员申请  
       nuxt

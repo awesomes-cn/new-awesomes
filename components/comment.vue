@@ -206,6 +206,8 @@
     }
 
     .opers {
+      display: flex;
+      align-items: center;
       a {
         color: #DDD;
         display: inline-block;

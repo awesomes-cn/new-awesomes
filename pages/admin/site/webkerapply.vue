@@ -11,8 +11,8 @@
           from: {
             alia: '会员',
             type: 'a',
-            link: (val) => {
-              return `/mem/${val}`
+            link: (item) => {
+              return `/mem/${item.from}`
             }
           },
           con: '理由'

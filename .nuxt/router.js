@@ -14,6 +14,8 @@ const _713a34a8 = () => import('/home/hxh/share/new-awesomes/pages/admin.vue' /*
 
 const _70cd60d9 = () => import('/home/hxh/share/new-awesomes/pages/admin/site/webkerapply.vue' /* webpackChunkName: "pages/admin-site-webkerapply" */)
 
+const _7fa0927d = () => import('/home/hxh/share/new-awesomes/pages/admin/pub/comments.vue' /* webpackChunkName: "pages/admin-pub-comments" */)
+
 const _c9af1522 = () => import('/home/hxh/share/new-awesomes/pages/admin/mem/mems.vue' /* webpackChunkName: "pages/admin-mem-mems" */)
 
 const _13951b3c = () => import('/home/hxh/share/new-awesomes/pages/admin/pub/submits.vue' /* webpackChunkName: "pages/admin-pub-submits" */)
@@ -127,6 +129,11 @@ export default new Router({
 					path: "site/webkerapply",
 					component: _70cd60d9,
 					name: "admin-site-webkerapply"
+				},
+				{
+					path: "pub/comments",
+					component: _7fa0927d,
+					name: "admin-pub-comments"
 				},
 				{
 					path: "mem/mems",
