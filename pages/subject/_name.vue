@@ -16,11 +16,12 @@
     div.container.list-body(:class="'fixed-' + fixcate")
       div.placeholder
       div.list-typs
-        template(v-for="root in rootyps" v-if="root.amount > 0")
-          a.root(href="javascript:void(0)"  v-bind:data-link="root.key" @click="switchTyp(root.sdesc)" )
-            icon(:name="root.icon"  width="16px") {{root.sdesc}}
-          a.second(v-for="second in typcds(root)"   href="javascript:void(0)" v-if="second.repos.length > 0"  @click="switchTyp(root.sdesc + '-' + second.sdesc)" v-bind:class="'active-' + (checkedTyp == root.sdesc + '-' + second.sdesc)")
-            icon(:name="second.icon" width="14px" ) {{second.sdesc}}
+        div.inner
+          template(v-for="root in rootyps" v-if="root.amount > 0")
+            a.root(href="javascript:void(0)"  v-bind:data-link="root.key" @click="switchTyp(root.sdesc)" )
+              icon(:name="root.icon"  width="16px") {{root.sdesc}}
+            a.second(v-for="second in typcds(root)"   href="javascript:void(0)" v-if="second.repos.length > 0"  @click="switchTyp(root.sdesc + '-' + second.sdesc)" v-bind:class="'active-' + (checkedTyp == root.sdesc + '-' + second.sdesc)")
+              icon(:name="second.icon" width="14px" ) {{second.sdesc}}
       div.sub-repos
         template(v-for="typ in cates" v-if="typ.repos && typ.repo")
           div.split(:id="typ.repo.rootyp_zh + '-' + typ.repo.typcd_zh" v-bind:data-first="typ.repo.rootyp_zh")
@@ -217,7 +218,6 @@
       // position: absolute;
       line-height: 26px;
       flex-shrink: 0;
-      
       a {
         display: block;
         padding: 2px 5px;
@@ -239,6 +239,7 @@
 
     .list-body {
       display: flex;
+      position: relative;
       .placeholder {
         display: none;
       }
@@ -249,11 +250,16 @@
           flex-shrink: 0;
         }
         .list-typs {
-          position: fixed;
-          top: 50px;
-          height: 100%;
-          padding-bottom: 80px;
-          overflow-y: scroll;
+          position: absolute;
+          left: 15px;
+          top: 0;
+          .inner {
+            top: 60px;
+            position: fixed;
+            overflow-y: auto;
+            padding-bottom: 80px;
+            height: 100%;
+          }
         }  
       }
       
