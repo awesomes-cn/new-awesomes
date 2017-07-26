@@ -142,8 +142,9 @@
 
   .new-box {
     background-color: #FFF;
-    background-color: #f7f8fa;
-    padding-bottom: 100px;
+    // background-color: #f7f8fa;
+    padding: 100px 0;
+    padding-top: 50px;
 
     .title {
       text-align: center;
@@ -156,7 +157,7 @@
       margin-bottom: 20px;
       padding: 20px;
       -webkit-transition: all .2s ease 0s;
-      opacity: 0.7;
+      opacity: 0.9;
 
       .cover-box {
         padding: 30px;
@@ -165,14 +166,13 @@
         height: 50px;
         overflow: hidden;
         padding: 10px 0;
-        color: #90949c;
         margin-top: 10px;
       }
 
       .cover {
         width: 100%;
         background-color: rgba(255, 255, 255, 0.36);
-        transition: all .2s ease 0s;
+        transition: all .3s ease 0s;
         max-width: 120px;
         border-radius: 100%;
         padding: 10px;
