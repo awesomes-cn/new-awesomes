@@ -44,7 +44,7 @@
   }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
   .repo-detail {
     .container {
       max-width: 1000px
