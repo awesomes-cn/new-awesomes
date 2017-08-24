@@ -10,20 +10,25 @@
             icon(name="trend") 趋势
     div.container       
       div.list-group.list-main
-        div.list-item(v-for="(repo, index) in repos")
-          h3.scord {{index + 1}}
-          nuxt-link(:to="'/repo/' + repo.owner + '/' + repo.alia")
-            img.cover(:src="cdn(repo.cover, 'repo', 'subject_repo')") 
-          div.middle
+        template(v-for="(repo, index) in repos")
+          div.list-item
+            h3.scord {{index + 1}}
             nuxt-link(:to="'/repo/' + repo.owner + '/' + repo.alia")
-              h4 {{repo.name}}
-            span.sdesc {{repo.description_cn || repo.description}}
-          fresh(:time="repo.pushed_at")
+              img.cover(:src="cdn(repo.cover, 'repo', 'subject_repo')") 
+            div.middle
+              nuxt-link(:to="'/repo/' + repo.owner + '/' + repo.alia")
+                h4 {{repo.name}}
+              span.sdesc {{repo.description_cn || repo.description}}
+            fresh(:time="repo.pushed_at")
+        
+          div.list-item(v-if="index === 10")
+            adsense  
 
 </template>
 <script>
   import axios from '~plugins/axios'
   import Fresh from '~components/repo/fresh.vue'
+  import Adsense from '~components/adsense.vue'
   export default {
     layout: 'blank',
     asyncData ({query}) {
@@ -44,7 +49,8 @@
       }
     },
     components: {
-      Fresh
+      Fresh,
+      Adsense
     },
     mounted () {
       require('particles.js')

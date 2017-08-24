@@ -1,5 +1,5 @@
 <template lang="pug">
-  div
+  div.ad-box
     ins(class="adsbygoogle"
       style="display:block"
       data-ad-format="fluid"
@@ -41,3 +41,6 @@
     }
   }
 </script>
+
+<style lang="scss" scoped>
+</style>

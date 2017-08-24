@@ -14,7 +14,7 @@
         nuxt-link(to="?sort=trend" v-bind:class="sortby == 'trend' ? 'active' : ''") 趋势 
 
     div.list-con
-      div(v-for = "(repo, index) in repos")
+      template(v-for = "(repo, index) in repos")
         div.list-item
           nuxt-link(:to="'/repo/' + repo.owner + '/' + repo.alia")
             img.cover(:src="cdn(repo.cover, 'repo', 'subject_repo')")
@@ -30,15 +30,12 @@
                 icon(name="heart-o"  width="15px") {{repo.mark}}
           div
             fresh(:time="repo.pushed_at")
-        div(v-if="index === 7")
-          adsense
       pagination(flag="repos-list" v-bind:total="pagetotal" v-bind:size="pagesize")
 </template>
 
 <script>
   import axios from '~plugins/axios'
   import Fresh from '~components/repo/fresh.vue'
-  import Adsense from '~components/adsense.vue'
   let initData = {}
   let pagesize = 15
   
@@ -87,8 +84,7 @@
       }
     },
     components: {
-      Fresh,
-      Adsense
+      Fresh
     },
     watch: {
       '$route': function () {
