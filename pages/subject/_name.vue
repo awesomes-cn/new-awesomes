@@ -23,14 +23,14 @@
             a.second(v-for="second in typcds(root)"   href="javascript:void(0)" v-if="second.repos.length > 0"  @click="switchTyp(root.sdesc + '-' + second.sdesc)" v-bind:class="'active-' + (checkedTyp == root.sdesc + '-' + second.sdesc)")
               icon(:name="second.icon" width="14px" ) {{second.sdesc}}
       div.sub-repos
-        template(v-for="typ in cates" v-if="typ.repos && typ.repo")
+        template(v-for="(typ, index1) in cates" v-if="typ.repos && typ.repo")
           div.split(:id="typ.repo.rootyp_zh + '-' + typ.repo.typcd_zh" v-bind:data-first="typ.repo.rootyp_zh")
           h3
             span {{typ.repo.rootyp_zh}} 
             span » 
             span {{typ.repo.typcd_zh}}
             span.amount （{{typ.repos.length}}）
-          template(v-for="repo in typ.repos")  
+          template(v-for="(repo, index2) in typ.repos")  
             div.repo-card
               fresh(:time="repo.pushed_at")
               nuxt-link(:to="'/repo/' + repo.owner + '/' + repo.alia")
@@ -41,6 +41,11 @@
                 span.sdesc {{repo.description_cn || repo.description}}
               div.stars
                 icon(name="star" width="15px") {{repo.stargazers_count}}  
+            div.ad-wraper(v-if="repo.hasad")
+              div.repo-card
+                adsense
+              div.repo-card
+                adsense
 </template>
 
 <script>
@@ -49,6 +54,7 @@
   import _ from 'underscore'
   require('perfect-scrollbar/dist/css/perfect-scrollbar.css')
   import $ from 'jquery'
+  import Adsense from '~components/adsense.vue'
   let activeTimer
   export default {
     async asyncData ({ req, params, query }) {
@@ -57,13 +63,22 @@
         axios().get(`category/all`)
       ])
 
+      let index = 0
       let cates = _.sortBy(cateRes.data, item => {
         return item.typcd === 'A' ? item.key : item.parent
       })
       .map(item => {
         if (item.typcd === 'B') {
           item.repos = res.data.repos.filter(repo => {
-            return repo.rootyp === item.parent && repo.typcd === item.key
+            if (repo.rootyp === item.parent && repo.typcd === item.key) {
+              index++
+              repo.hasad = false
+              if (index === 10) {
+                repo.hasad = true
+              }
+              return true
+            }
+            return false
           })
           item.repo = item.repos[0]
         }
@@ -97,7 +112,8 @@
       }
     },
     components: {
-      Fresh
+      Fresh,
+      Adsense
     },
     computed: {
       rootyps: function () {
@@ -357,6 +373,12 @@
     .amount {
       margin-left: 3px;
       font-size: 13px;
+    }
+    .ad-wraper {
+      display: flex;
+      .repo-card {
+        width: 50%
+      }
     }
   }
 </style>
