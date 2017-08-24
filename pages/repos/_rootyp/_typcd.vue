@@ -14,27 +14,31 @@
         nuxt-link(to="?sort=trend" v-bind:class="sortby == 'trend' ? 'active' : ''") 趋势 
 
     div.list-con
-      div.list-item(v-for = "repo in repos")
-        nuxt-link(:to="'/repo/' + repo.owner + '/' + repo.alia")
-          img.cover(:src="cdn(repo.cover, 'repo', 'subject_repo')")
-        div.middle
+      div(v-for = "(repo, index) in repos")
+        div.list-item
           nuxt-link(:to="'/repo/' + repo.owner + '/' + repo.alia")
-            h3 {{repo.name}}
-          p {{repo.description_cn || repo.description}}
-          div.opers
-            a(href="#"  v-bind:title="repo.using + '人在用'")
-              icon(name="hand"  width="15px" v-bind:scale="[-1,1]") {{repo.using}}
+            img.cover(:src="cdn(repo.cover, 'repo', 'subject_repo')")
+          div.middle
+            nuxt-link(:to="'/repo/' + repo.owner + '/' + repo.alia")
+              h3 {{repo.name}}
+            p {{repo.description_cn || repo.description}}
+            div.opers
+              a(href="#"  v-bind:title="repo.using + '人在用'")
+                icon(name="hand"  width="15px" v-bind:scale="[-1,1]") {{repo.using}}
 
-            a(href="#" v-bind:title="repo.mark + '人喜欢'")
-              icon(name="heart-o"  width="15px") {{repo.mark}}
-        div
-          fresh(:time="repo.pushed_at")    
+              a(href="#" v-bind:title="repo.mark + '人喜欢'")
+                icon(name="heart-o"  width="15px") {{repo.mark}}
+          div
+            fresh(:time="repo.pushed_at")
+        div(v-if="index === 7")
+          adsense
       pagination(flag="repos-list" v-bind:total="pagetotal" v-bind:size="pagesize")
 </template>
 
 <script>
   import axios from '~plugins/axios'
   import Fresh from '~components/repo/fresh.vue'
+  import Adsense from '~components/adsense.vue'
   let initData = {}
   let pagesize = 15
   
@@ -83,9 +87,15 @@
       }
     },
     components: {
-      Fresh
+      Fresh,
+      Adsense
+    },
+    watch: {
+      '$route': function () {
+      }
     }
   }
+
 </script>
 
 <style lang="scss" scoped>
