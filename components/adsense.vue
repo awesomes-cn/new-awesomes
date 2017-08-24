@@ -43,4 +43,7 @@
 </script>
 
 <style lang="scss" scoped>
+  .ad-box {
+    width: 100%;
+  }
 </style>
