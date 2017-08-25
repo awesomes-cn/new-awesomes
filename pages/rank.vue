@@ -23,10 +23,10 @@
         
           div.list-item(v-if="index === 10")
             adsense 
-          div.two-ads(v-if="index === 80")
-            div.list-item
+          div.list-item.two-ads(v-if="index === 80")
+            div.inner
               adsense
-            div.list-item
+            div.inner
               adsense
 
 </template>
@@ -164,13 +164,7 @@
       padding: 0;
     }
 
-    .two-ads {
-      display: flex;
-      flex-direction: row;
-      @media (max-width: 576px) {
-        flex-direction: column;
-      }
-    }
+    
 
     .banner {
       text-align: center;
@@ -232,6 +226,18 @@
       background-color: #FFF;
       color: #4e4f54;
       width: 100%;
+
+      &.two-ads {
+        flex-direction: row;
+        padding: 0px;
+        @media (max-width: 576px) {
+          flex-direction: column;
+        }
+        .inner {
+          width: 100%;
+          padding: 20px;
+        }
+      }
       
       &:first-child {
         display: block;
