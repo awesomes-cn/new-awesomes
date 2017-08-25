@@ -22,7 +22,12 @@
             fresh(:time="repo.pushed_at")
         
           div.list-item(v-if="index === 10")
-            adsense  
+            adsense 
+          div.two-ads(v-if="index === 80")
+            div.list-item
+              adsense
+            div.list-item
+              adsense
 
 </template>
 <script>
@@ -159,6 +164,14 @@
       padding: 0;
     }
 
+    .two-ads {
+      display: flex;
+      flex-direction: row;
+      @media (max-width: 576px) {
+        flex-direction: column;
+      }
+    }
+
     .banner {
       text-align: center;
       height: 400px;
@@ -218,6 +231,7 @@
       align-items: center;
       background-color: #FFF;
       color: #4e4f54;
+      width: 100%;
       
       &:first-child {
         display: block;

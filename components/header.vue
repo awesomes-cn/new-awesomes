@@ -23,8 +23,8 @@
             icon(name="more" width="20px")
 
           div.memeus(v-show="showmemeus" @mouseover="showmemeus = true" @mouseleave="showmemeus = false")
-            nuxt-link(to="/about") 我的收藏
-            nuxt-link(to="/about") 个人资料
+            nuxt-link(:to="'/mem/' + (session || {}).id + '/marks/repos'") 我的收藏
+            nuxt-link(:to=`'/mem/' + (session || {}).id`) 个人资料
             a(href="javascript:void(0)" @click="logout()") 注 销
 
           a(href="javascript:void(0)" @click="showLogin()" v-show="!session") 登录
