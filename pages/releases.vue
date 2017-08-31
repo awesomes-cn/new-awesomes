@@ -19,7 +19,7 @@
               span.time
                 icon(name="clock-o") {{timeago(item.published_at)}}
             a.download(:href="'https://github.com/' + item.repo.full_name + '/archive/' + item.tag_name + '.zip'") 下载 zip  
-          article.repo-con(v-html="marked(item.body)") 
+          article.repo-con(v-html="marked(item.body || '')") 
 </template>
 <script>
   import axios from '~plugins/axios'
