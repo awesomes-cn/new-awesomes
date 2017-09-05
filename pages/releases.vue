@@ -4,21 +4,27 @@
       h2 新版本发布
       p 一网打尽最近 5 天发布的关注量 > 1000 的前端库版本更新
     div.container.releases-area
-      div(v-for="item in releases")
+      div.options
+        button.btn.btn-default(@click="expandAll") 全部展开
+        button.btn.btn-danger(@click="foldAll") 全部折叠
+        
+      div.r-item(v-for="item in releases")
         div.rbanner
-          div.rcon
+          div.rb-left
             nuxt-link(:to="'/repo/' + item.repo.owner + '/' + item.repo.alia")
               img.cover(:src="cdn(item.repo.cover, 'repo', 'subject_repo')")
-          div.bg-cover(:style="'background-image:url(' + cdn(item.repo.cover, 'repo', 'subject_repo') + ')'")
-        div.rdetail
-          div.inner
-            h3
-              span {{item.repo.name}}
-              a.version(:href="'https://github.com/' + item.repo.full_name + '/releases/tag/' + item.tag_name" target="_blank")
-                icon(name="tag") {{item.tag_name}}
-              span.time
-                icon(name="clock-o") {{timeago(item.published_at)}}
+          div.rb-middle
+            h3.title {{item.repo.name}}
+            a.version(:href="'https://github.com/' + item.repo.full_name + '/releases/tag/' + item.tag_name" target="_blank")
+              icon(name="tag") {{item.tag_name}} 
+            div
+              span.time 发布于{{timeago(item.published_at)}}
+          div.rb-right
             a.download(:href="'https://github.com/' + item.repo.full_name + '/archive/' + item.tag_name + '.zip'") 下载 zip  
+            a.fold-expand(href="javascript:void(0)" @click="item.showDetail = !item.showDetail")
+              icon(name="fold" v-if="item.showDetail" title="折叠")
+              icon(name="expand" v-else  title="展开")
+        div.rdetail(v-show="item.showDetail")
           article.repo-con(v-html="marked(item.body || '')") 
 </template>
 <script>
@@ -26,8 +32,24 @@
   export default {
     async asyncData ({ req, params, query }) {
       let res = await axios().get('/repo/releases')
+      let items = res.data.map(item => {
+        item.showDetail = true
+        return item
+      })
       return {
-        releases: res.data
+        releases: items
+      }
+    },
+    methods: {
+      foldAll: function () {
+        this.releases.forEach(item => {
+          item.showDetail = false
+        })
+      },
+      expandAll: function () {
+        this.releases.forEach(item => {
+          item.showDetail = true
+        })
       }
     }
   }
@@ -46,78 +68,82 @@
       }
     }
     .releases-area {
-      background-color: #FFF;
-      margin: 50px auto;
+      // margin: 50px auto;
+      margin-bottom: 50px;
       // padding: 50px;
       padding: 0;
       max-width: 900px;
 
+      .options {
+        padding: 10px;
+        text-align: right
+      }
+      .r-item {
+        margin-bottom: 40px;
+        background-color: #FFF;
+        box-shadow: 1px 1px 5px #EEE;
+
+        &:hover {
+          .fold-expand {
+            display: block!important;
+          }
+        }
+      }
+
       .rbanner {
-        text-align: center;
+        // text-align: center;
         padding: 20px 0;
         position: relative;
         overflow: hidden;
         height: 150px;
+        display: flex;
 
-        & > div {
-          position: absolute;
-          top: 0;
-          left: 0;
-          bottom: 0;
-          right: 0;
-        }
-
-        .rcon {
-          z-index: 1;
+        .rb-left {
           display: flex;
-          justify-content: center;
+          width: 120px;
           align-items: center;
+          justify-content: center;
         }
 
-        .bg-cover {
-          background-position: 50%;
-          background-repeat: no-repeat;
-          background-size: cover;
-          z-index: 0;
-          filter: blur(70px);
+        .rb-middle {
+          flex-grow: 1;
+          .version {
+            display: inline-block;
+            color: #0275d8;
+            letter-spacing: 4px;
+            font-size: 2rem;
+            font-weight: bolder;
+            padding: 5px 0;
+          }
+          .title {
+            margin: 0;
+          }
+        }
+
+        .rb-right {
+          display: flex;
+          width: 120px;
+          align-items: center;
+          justify-content: center;
+          position: relative;
+
+          .fold-expand {
+            position: absolute;
+            bottom: 0;
+            color: #1572a0;
+            display: none;
+            width: 100%;
+            text-align: center;
+          }
         }
 
         .cover {
           border-radius: 100%;
           background-color: #FFF;
-          padding: 10px;
-          width: 100px;
-        }
-      }
-
-      .rdetail {
-        padding: 20px;
-
-        .inner {
-          display: flex;
-          align-items: center;
-        }
-        h3 {
-          display: flex;
-          align-items: flex-end;
-          flex-grow: 1
-        }
-        a.version {
-          display: inline-block;
-          background-color: #ec971f;
-          padding: 10px;
-          /* border-radius: 10px; */
-          margin: 0 10px;
-          box-shadow: 1px 1px 1px #DDD;
-          color: #FFF;
-          letter-spacing: 2px;
+          width: 80px;
         }
 
-        .time {
-          font-size: 60%;
-          color: #989898;
-          font-weight: normal;
-        }
+        
 
         .download {
           display: inline-block;
@@ -130,9 +156,19 @@
             border: #f14a1e 1px solid;
           }
         }
+
+        .time {
+          color: #989898;
+          font-weight: normal;
+          background-color: #eeeeee;
+          padding: 5px 10px;
+        }
       }
 
-      
+      .rdetail {
+        padding: 20px;
+        border-top: #f47107 1px solid;
+      }
 
       article.repo-con {
         font-size: 15px;
