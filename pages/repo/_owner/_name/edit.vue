@@ -43,7 +43,7 @@
       button.btn.btn-danger(@click="submit") 提交更新         
 </template>
 <script>
-  import axios from '~plugins/axios'
+  import axios from '~/plugins/axios'
   import _ from 'underscore'
   export default {
     asyncData ({ req, params, query }) {

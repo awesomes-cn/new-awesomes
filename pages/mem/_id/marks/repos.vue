@@ -19,7 +19,7 @@
 </template>
 
 <script>
-  import axios from '~plugins/axios'
+  import axios from '~/plugins/axios'
   let pagesize = 20
   export default {
     data () {

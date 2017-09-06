@@ -2,7 +2,7 @@
   div
 </template>
 <script>
-  import axios from '~plugins/axios'
+  import axios from '~/plugins/axios'
   import Cookie from 'js-cookie'
   export default {
     data () {

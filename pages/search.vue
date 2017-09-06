@@ -31,8 +31,8 @@
 </template>
 
 <script>
-  import axios from '~plugins/axios'
-  import Fresh from '~components/repo/fresh.vue'
+  import axios from '~/plugins/axios'
+  import Fresh from '~/components/repo/fresh.vue'
   let initData = {}
   let pagesize = 15
   

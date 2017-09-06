@@ -1,11 +1,30 @@
 <template>
-  <div class="error-page">
-    <div>
-      <h1 class="error-code">{{ error.statusCode }}</h1>
-      <div class="error-wrapper-message">
-        <h2 class="error-message">{{ error.message }}</h2>
-      </div>
-      <p v-if="error.statusCode === 404"><nuxt-link class="error-link" to="/">Back to the home page</nuxt-link></p>
+  <div class="__nuxt-error-page">
+    <div class="container">
+
+        <div class="row">
+          <div class="column">
+            <h1>{{ statusCode }} </h1>
+            <h3> {{ message }} </h3>
+            <p v-if="statusCode === 404">
+              <nuxt-link class="error-link" to="/">Back to the home page</nuxt-link>
+            </p>
+            
+            <small v-else>
+              Open developer tools to view stack trace
+            </small>
+            
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="column">
+            <div class="poweredby">
+              <small> Powered by <a href="https://nuxtjs.org" target="_blank" rel="noopener">Nuxt.js</a> </small>
+            </div>
+          </div>
+        </div>
+
     </div>
   </div>
 </template>
@@ -16,51 +35,59 @@ export default {
   props: ['error'],
   head () {
     return {
-      title: this.error.message || 'An error occured'
+      title: this.statusCode + ' - ' + this.message,
+      link: [
+        { rel: 'stylesheet', href: 'https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css', type: 'text/css', media: 'all' },
+        { rel: 'stylesheet', href: 'https://cdnjs.cloudflare.com/ajax/libs/milligram/1.3.0/milligram.min.css', type: 'text/css', media: 'all' }
+      ]
+    }
+  },
+  
+  data () {
+    return {
+      mounted: false
+    }
+  },
+  mounted () {
+    this.mounted = true
+  },
+  
+  computed: {
+    statusCode () {
+      return (this.error && this.error.statusCode) || 500
+    },
+    message () {
+      return this.error.message || 'Nuxt Server Error'
     }
   }
 }
 </script>
 
-<style scoped>
-.error-page {
-  color: #000;
-  background: #fff;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  position: absolute;
-  font-family: "SF UI Text", "Helvetica Neue", "Lucida Grande";
+<style>
+.__nuxt-error-page {
+  background: #F5F7FA;
+  font-size: 14px;
+  word-spacing: 1px;
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
   text-align: center;
-  padding-top: 20%;
 }
-.error-code {
-  display: inline-block;
-  font-size: 24px;
-  font-weight: 500;
-  vertical-align: top;
-  border-right: 1px solid rgba(0, 0, 0, 0.298039);
-  margin: 0px 20px 0px 0px;
-  padding: 10px 23px;
+.__nuxt-error-page .container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100vh;
+  margin: 0 auto;
+  max-width: 70%;
 }
-.error-wrapper-message {
-  display: inline-block;
-  text-align: left;
-  line-height: 49px;
-  height: 49px;
-  vertical-align: middle;
+.__nuxt-error-page .poweredby {
+  text-align: center;
+  margin-top: 10%;
 }
-.error-message {
-  font-size: 14px;
-  font-weight: normal;
-  margin: 0px;
-  padding: 0px;
-}
-.error-link {
-  color: #00BCD4;
-  font-weight: normal;
-  text-decoration: none;
-  font-size: 14px;
+.__nuxt-error-page a {
+  color: #42b983 !important;
 }
 </style>

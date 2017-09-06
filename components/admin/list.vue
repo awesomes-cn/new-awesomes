@@ -24,7 +24,7 @@
     pagination(flag="repos-list" v-bind:total="pagetotal" v-bind:size="pagesize")          
 </template>
 <script>
-  import axios from '~plugins/axios'
+  import axios from '~/plugins/axios'
   let pagesize = 15
   export default {
     props: ['table', 'keys', 'opers'],

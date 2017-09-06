@@ -3,7 +3,7 @@
     list(table="comment" v-bind:keys="keys")
 </template>
 <script>
-  let List = require('~components/admin/list')
+  let List = require('~/components/admin/list')
   const Config = require('../../../config')
   export default {
     data () {

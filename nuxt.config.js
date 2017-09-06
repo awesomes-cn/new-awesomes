@@ -30,7 +30,7 @@ module.exports = {
     'bootstrap/dist/css/bootstrap.css',
     'prismjs/themes/prism.css',
     'animate.css',
-    '~assets/css/main.css'
+    '~/assets/css/main.css'
   ],
   /*
   ** Customize the progress-bar color
@@ -40,7 +40,7 @@ module.exports = {
   ** Build configuration
   */
   build: {
-    vendor: ['vue-i18n'],
+    vendor: ['vue-i18n', 'babel-polyfill'],
     publicPath: `${Config.CDN}.nuxt/dist/`,
     /*
     ** Run ESLINT on save
@@ -56,5 +56,5 @@ module.exports = {
       }
     }
   },
-  plugins: ['~plugins/vue-icon', '~plugins/icon', '~plugins/common', { src: '~plugins/ba.js', ssr: false }, { src: '~plugins/pagination.js', ssr: false }, { src: '~plugins/upload', ssr: false }, { src: '~plugins/i18n.js', injectAs: 'i18n' }]
+  plugins: ['~/plugins/vue-icon', '~/plugins/icon', '~/plugins/common', { src: '~/plugins/ba.js', ssr: false }, { src: '~/plugins/pagination.js', ssr: false }, { src: '~/plugins/upload', ssr: false }, { src: '~/plugins/i18n.js', injectAs: 'i18n' }]
 }

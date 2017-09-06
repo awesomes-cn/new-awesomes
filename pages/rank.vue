@@ -31,9 +31,9 @@
 
 </template>
 <script>
-  import axios from '~plugins/axios'
-  import Fresh from '~components/repo/fresh.vue'
-  import Adsense from '~components/adsense.vue'
+  import axios from '~/plugins/axios'
+  import Fresh from '~/components/repo/fresh.vue'
+  import Adsense from '~/components/adsense.vue'
   export default {
     layout: 'blank',
     asyncData ({query}) {

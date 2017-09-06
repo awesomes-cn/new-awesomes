@@ -6,6 +6,6 @@ export default function ({ req, i18n, store, route, params, error, redirect, isS
       locale = 'zh-cn'
     }
     store.commit('SET_LANG', locale)
-    i18n.locale = store.state.locale
+    // i18n.locale = store.state.locale
   }
 }

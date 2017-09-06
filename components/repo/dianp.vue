@@ -49,9 +49,9 @@
 
 
 <script>
-  import axios from '~plugins/axios'
+  import axios from '~/plugins/axios'
   import $ from 'jquery'
-  import Comment from '~components/comment.vue'
+  import Comment from '~/components/comment.vue'
   import Vue from 'vue'
   export default {
     props: ['repo'],
@@ -235,7 +235,7 @@
     },
     async created () {
       this.initList()
-      const editor = await import('~components/editor.vue')
+      const editor = await import('~/components/editor.vue')
       Vue.component('editor', editor)
     }
   }

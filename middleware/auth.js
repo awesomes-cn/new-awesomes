@@ -1,4 +1,4 @@
-import axios from '~plugins/axios'
+import axios from '~/plugins/axios'
 import Cookie from 'js-cookie'
 
 export default function ({ store, redirect, isServer, req }) {

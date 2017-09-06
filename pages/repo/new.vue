@@ -23,7 +23,7 @@
 </template>
 
 <script>
-  import axios from '~plugins/axios'
+  import axios from '~/plugins/axios'
   import _ from 'underscore'
   export default {
     data () {

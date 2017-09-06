@@ -12,6 +12,17 @@ const mutations = {
     if (state.locales.indexOf(locale) !== -1) {
       state.locale = locale
     }
+  },
+  notifiy (state, unreadNotifiy) {
+    state.unreadNotifiy = unreadNotifiy
+  },
+  showAlert (state, {type, msg}) {
+    state.alert.type = type
+    state.alert.msg = msg
+    state.alert.show = true
+  },
+  hideAlert (state) {
+    state.alert.show = false
   }
 }
 

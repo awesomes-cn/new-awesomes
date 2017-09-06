@@ -1,5 +1,4 @@
 /* eslint-disable */
-import router from '~router'
 
 let addScript = (src) => {
   var hm = document.createElement("script");
@@ -8,6 +7,7 @@ let addScript = (src) => {
   s.parentNode.insertBefore(hm, s);
 }
 
+export default ({ app }) => {
 /*
 ** Only run on client-side and only in production mode
 */
@@ -17,9 +17,9 @@ let addScript = (src) => {
     addScript("https://hm.baidu.com/hm.js?4eb521ea7e1a8b34ca104f2703625e64")
   })()
 
-  router.afterEach((to, from) => {
+  app.router.afterEach((to, from) => {
     /*
     ** We tell Google Analytic to add a page view
     */
   })
-// }
+}

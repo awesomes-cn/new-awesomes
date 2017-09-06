@@ -35,7 +35,7 @@
 
 </template>
 <script>
-  import axios from '~plugins/axios'
+  import axios from '~/plugins/axios'
   let pagesize = 5
   export default {
     asyncData ({ req, params, query }) {

@@ -10,7 +10,7 @@
       a(:href="link.url" v-for="link in friends" target="_blank")  {{link.name}}
 </template>
 <script>
-  import axios from '~plugins/axios'
+  import axios from '~/plugins/axios'
   export default {
     data () {
       return {

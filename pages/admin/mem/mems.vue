@@ -3,7 +3,7 @@
     list(table="mem" v-bind:keys="keys")
 </template>
 <script>
-  let List = require('~components/admin/list')
+  let List = require('~/components/admin/list')
   export default {
     data () {
       return {

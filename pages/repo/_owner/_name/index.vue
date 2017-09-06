@@ -14,10 +14,9 @@
 </template>
 
 <script>
-  import axios from '~plugins/axios'
-  import Banner from '~components/repo/banner'
-  import Comment from '~components/comment.vue'
-  // import Dianp from '~components/repo/dianp.vue'
+  import axios from '~/plugins/axios'
+  import Banner from '~/components/repo/banner'
+  import Comment from '~/components/comment.vue'
   export default {
     asyncData ({ req, params, query }) {
       return axios().get(`repo/${params.owner}/${params.name}`)

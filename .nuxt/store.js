@@ -1,15 +1,68 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+
 Vue.use(Vuex)
 
-let files = require.context('~/store', true, /^\.\/.*\.js$/)
-let filenames = files.keys()
+// Recursive find files in {srcDir}/store
+const files = require.context('@/store', true, /^\.\/.*\.(js|ts)$/)
+const filenames = files.keys()
 
+// Store
+let storeData = {}
+
+// Check if store/index.js exists
+let indexFilename
+filenames.forEach((filename) => {
+  if (filename.indexOf('./index.') !== -1) {
+    indexFilename = filename
+  }
+})
+if (indexFilename) {
+  storeData = getModule(indexFilename)
+}
+
+// If store is not an exported method = modules store
+if (typeof storeData !== 'function') {
+
+  // Store modules
+  if (!storeData.modules) {
+    storeData.modules = {}
+  }
+
+  for (let filename of filenames) {
+    let name = filename.replace(/^\.\//, '').replace(/\.(js|ts)$/, '')
+    if (name === 'index') continue
+
+    let namePath = name.split(/\//)
+    let module = getModuleNamespace(storeData, namePath)
+
+    name = namePath.pop()
+    module[name] = getModule(filename)
+    module[name].namespaced = true
+  }
+
+}
+
+// createStore
+export const createStore = storeData instanceof Function ? storeData : () => {
+  return new Vuex.Store(Object.assign({
+    strict: (process.env.NODE_ENV !== 'production'),
+  }, storeData, {
+    state: storeData.state instanceof Function ? storeData.state() : {}
+  }))
+}
+
+// Dynamically require module
 function getModule (filename) {
-  let file = files(filename)
-  return file.default
-    ? file.default
-    : file
+  const file = files(filename)
+  const module = file.default || file
+  if (module.commit) {
+    throw new Error('[nuxt] store/' + filename.replace('./', '') + ' should export a method which returns a Vuex instance.')
+  }
+  if (module.state && typeof module.state !== 'function') {
+    throw new Error('[nuxt] state should be a function in store/' + filename.replace('./', ''))
+  }
+  return module
 }
 
 function getModuleNamespace (storeData, namePath) {
@@ -22,35 +75,3 @@ function getModuleNamespace (storeData, namePath) {
   storeData.modules[namespace].modules = storeData.modules[namespace].modules || {}
   return getModuleNamespace(storeData.modules[namespace], namePath)
 }
-
-let store
-let storeData = {}
-
-// Check if store/index.js returns a vuex store
-if (filenames.indexOf('./index.js') !== -1) {
-  let mainModule = getModule('./index.js')
-  if (mainModule.commit) {
-    store = mainModule
-  } else {
-    storeData = mainModule
-  }
-}
-
-// Generate the store if there is no store yet
-if (store == null) {
-  storeData.modules = storeData.modules || {}
-  for (let filename of filenames) {
-    let name = filename.replace(/^\.\//, '').replace(/\.js$/, '')
-    if (name === 'index') continue
-
-    let namePath = name.split(/\//)
-    let module = getModuleNamespace(storeData, namePath)
-
-    name = namePath.pop()
-    module[name] = getModule(filename)
-    module[name].namespaced = true
-  }
-  store = new Vuex.Store(storeData)
-}
-
-export default store

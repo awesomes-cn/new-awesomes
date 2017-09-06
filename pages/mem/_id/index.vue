@@ -8,7 +8,7 @@
 </template>
 
 <script>
-  import axios from '~plugins/axios'
+  import axios from '~/plugins/axios'
   export default {
     asyncData ({ req, params, query, route }) {
       return axios().get(`mem/${route.params.id}/opers?opertyp=USING&limit=1000`).then(res => {

@@ -29,7 +29,7 @@
 
 </template>
 <script>
-  import axios from '~plugins/axios'
+  import axios from '~/plugins/axios'
   import $ from 'jquery'
   import Vue from 'vue'
   export default {
@@ -181,7 +181,7 @@
     },
     async created () {
       this.list()
-      const editor = await import('~components/editor.vue')
+      const editor = await import('~/components/editor.vue')
       Vue.component('editor', editor)
       this.showeditor = true
     }

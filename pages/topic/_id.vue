@@ -20,7 +20,7 @@
       
 </template>
 <script>
-  import axios from '~plugins/axios'
+  import axios from '~/plugins/axios'
   export default {
     asyncData ({req, params, query}) {
       return axios().get(`topic/${params.id}`).then(res => {

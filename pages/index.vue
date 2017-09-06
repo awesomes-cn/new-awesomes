@@ -25,9 +25,9 @@
 </template>
 
 <script>
-  import axios from '~plugins/axios'
-  import Topics from '~components/topic/list.vue'
-  import Subitem from '~components/subitem.vue'
+  import axios from '~/plugins/axios'
+  import Topics from '~/components/topic/list.vue'
+  import Subitem from '~/components/subitem.vue'
 
   export default {
     async asyncData ({ req, params, query }) {

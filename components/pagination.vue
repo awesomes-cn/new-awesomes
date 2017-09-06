@@ -4,7 +4,7 @@
 
 
 <script>
-  import $ from '~assets/js/jquery-vendor'
+  import $ from '~/assets/js/jquery-vendor'
   require('simple-pagination.js')
   export default {
     props: ['flag', 'size', 'total', 'callback'],

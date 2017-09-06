@@ -28,7 +28,7 @@
           article.repo-con(v-html="marked(item.body || '')") 
 </template>
 <script>
-  import axios from '~plugins/axios'
+  import axios from '~/plugins/axios'
   export default {
     async asyncData ({ req, params, query }) {
       let res = await axios().get('/repo/releases')

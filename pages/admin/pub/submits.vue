@@ -3,7 +3,7 @@
     list(table="submit" v-bind:keys="keys" opers="['fetch']")
 </template>
 <script>
-  let List = require('~components/admin/list')
+  let List = require('~/components/admin/list')
   export default {
     data () {
       return {

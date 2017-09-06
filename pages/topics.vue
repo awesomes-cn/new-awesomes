@@ -13,8 +13,8 @@
 
 
 <script>
-  import axios from '~plugins/axios'
-  import Topics from '~components/topic/list.vue'
+  import axios from '~/plugins/axios'
+  import Topics from '~/components/topic/list.vue'
   export default {
     name: 'home',
     serverCacheKey () {

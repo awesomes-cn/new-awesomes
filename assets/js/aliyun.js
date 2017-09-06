@@ -1,5 +1,5 @@
-import axios from '~plugins/axios'
-var OSS = require('~assets/js/aliyun-oss-sdk.min').Wrapper
+import axios from '~/plugins/axios'
+var OSS = require('~/assets/js/aliyun-oss-sdk.min').Wrapper
 var bucket = 'awesomes'
 var region = 'oss-cn-beijing'
 

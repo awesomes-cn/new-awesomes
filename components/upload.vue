@@ -7,8 +7,8 @@
 </template>
 
 <script>
-  import $ from '~assets/js/jquery-vendor'
-  import axios from '~plugins/axios'
+  import $ from '~/assets/js/jquery-vendor'
+  import axios from '~/plugins/axios'
   let uploadImg, outer, can
   export default {
     props: ['value', 'folder', 'txt'],

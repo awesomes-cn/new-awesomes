@@ -15,11 +15,11 @@
     //     span.info Markdown 编辑器
 </template>
 <script>
-  import $ from '~assets/js/jquery-vendor'
+  import $ from '~/assets/js/jquery-vendor'
   import CodeMirror from 'codemirror'
   require('codemirror/lib/codemirror.css')
   require('codemirror/mode/markdown/markdown.js')
-  import placeholder from '~assets/js/placeholder.js'
+  import placeholder from '~/assets/js/placeholder.js'
   let markdown_editor
   export default {
     props: ['flag', 'value', 'setval', 'hideTool', 'hideFooter', 'hideBorder', 'placeholder'],

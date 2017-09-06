@@ -49,12 +49,12 @@
 </template>
 
 <script>
-  import axios from '~plugins/axios'
-  import Fresh from '~components/repo/fresh.vue'
+  import axios from '~/plugins/axios'
+  import Fresh from '~/components/repo/fresh.vue'
   import _ from 'underscore'
   require('perfect-scrollbar/dist/css/perfect-scrollbar.css')
   import $ from 'jquery'
-  import Adsense from '~components/adsense.vue'
+  import Adsense from '~/components/adsense.vue'
   let activeTimer
   export default {
     async asyncData ({ req, params, query }) {
