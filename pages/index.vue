@@ -1,33 +1,57 @@
 <template lang="pug">
   div.home-wraper
-    div.search-box
-      div.slogn
-        h3
-          span 「 
-          span 前端资源库
-          span  」
-        p Find JavaScript And CSS Repos
-
-      div.search
-        input(type="text" placeholder="搜索前端库" v-model="searchKey" @keyup.enter="searchGo")
-        a.go-btn(href="javascript:void(0)" @click="searchGo")
-          icon(name="search")
     div.new-box
-      div.container
+      div.container(style="max-width: 1000px")
         div.row
-          div.col-12.col-sm-6.col-md-3(v-for="repo in latests")
-            div.new-item
-              div.cover-box
+          div.col-md-8.col-12
+            div.search-box
+              div.search
+                input(type="text" placeholder="搜索前端库" v-model="searchKey" @keyup.enter="searchGo")
+                a.go-btn(href="javascript:void(0)" @click="searchGo")
+                  icon(name="search")
+            div.left-box
+              div.new-item(v-for="repo in latests")
                 nuxt-link(:to="'/repo/' + repo.owner + '/' + repo.alia")
                   img.cover(:src="cdn(repo.cover, 'repo', 'subject_repo')")
-              h4 {{repo.name}}
-              article {{repo.description_cn || repo.description}}
+                div.repo-data
+                  nuxt-link(:to="'/repo/' + repo.owner + '/' + repo.alia")
+                    h4.desc {{repo.description_cn || repo.description}}
+                  h4.title {{repo.name}}
+                  div
+                    nuxt-link(:to="'/repos/' + repo.rootyp" class="rootyp") {{repo.rootyp_zh}}
+                    span  > 
+                    nuxt-link(:to="'/repos/' + repo.rootyp + '/' + repo.typcd" class="typcd") {{repo.typcd_zh}}
+          div.col-md-4.col-12
+            div.right-box
+              div.item-box
+                h5 大牛在用
+                div.item-inner
+              div.item-box
+                h5 专题推荐
+                div.item-inner
+                  home-sub
+              div.item-box
+                h5 新版发布
+                div.item-inner
+                  home-release
+              a.item-box.link-news(href="https://news.awesomes.cn")
+                h5 前端情报局
+                div 每天刷一刷，跟上前端快步伐 
+               
+              a.item-box.link-news(href="http://json.awesomes.cn" style="background-color: #007bff")
+                div 也许是最好用的
+                h5 在线 JSON 格式化工具
+
+               
+
 </template>
 
 <script>
   import axios from '~/plugins/axios'
   import Topics from '~/components/topic/list.vue'
   import Subitem from '~/components/subitem.vue'
+  import HomeRelease from '~/components/home/release.vue'
+  import HomeSub from '~/components/home/sub.vue'
 
   export default {
     async asyncData ({ req, params, query }) {
@@ -47,9 +71,14 @@
     },
     components: {
       Topics,
-      Subitem
+      Subitem,
+      HomeRelease,
+      HomeSub
     },
     methods: {
+      uperCaseTitle: function (title) {
+        return title[0].toUpperCase() + title.slice(1)
+      },
       // 搜索
       searchGo: function () {
         if (this.searchKey.trim() === '') {
@@ -98,27 +127,18 @@
 
 <style lang="scss" scoped>
   .search-box {
-    background-color: #f7f8fa;
-
-    .slogn {
-      padding: 80px 10px;
-      padding-bottom: 30px;
-      text-align: center;
-      color: #9da5a9;
-
-      p {
-        font-size: 15px;
-        color: #c3c3c3;
-        padding-top: 10px;
-      }
-    }
+    // background-color: #f48c38;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100px;
+    background-color: #FFF;
+    margin-bottom: 10px;
   }
 
   .search {
     max-width: 400px;
-    margin: 0 auto;
-    padding: 100px 10px;
-    padding-top: 0;
+    width: 90%;
     display: flex;
     input {
       flex-grow: 1;
@@ -139,28 +159,44 @@
     }
   }
 
-
+  .home-wraper {
+    background-color: #f7f8fa;
+    
+  }
   .new-box {
-    background-color: #FFF;
-    // background-color: #f7f8fa;
     padding: 100px 0;
     padding-top: 50px;
 
-    .title {
-      text-align: center;
-      padding-bottom: 50px;
-      color: #b4c1c7;
+    .left-box {
+      background-color: #FFF;
     }
 
     .new-item {
-      text-align: center;
-      margin-bottom: 20px;
-      padding: 20px;
+      // text-align: center;p.
+      padding: 30px 20px;
       -webkit-transition: all .2s ease 0s;
       opacity: 0.9;
+      display: flex;
+      border-bottom: 1px solid #f4f4f4;
+      .repo-data {
+        flex-grow: 1;
+        padding-left: 10px;
+        word-break: keep-all;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        width: 100%;
+        display: block;
 
-      .cover-box {
-        padding: 30px;
+        .desc {
+          font-size: 1.3rem
+        }
+
+        .title {
+          color: #007bff;
+          font-size: 1.2rem;
+          margin: 10px 0
+        }
       }
       article {
         height: 50px;
@@ -170,24 +206,33 @@
       }
 
       .cover {
-        width: 100%;
         background-color: rgba(255, 255, 255, 0.36);
         transition: all .3s ease 0s;
-        max-width: 120px;
-        border-radius: 100%;
-        padding: 10px;
+        max-width: 70px;
       }
-      
-      &:hover {
-        opacity: 1;
-        .cover {
-          padding: 0px;
-        }
-      }
-
     }
 
-    
-  }
+    .right-box {
+      .item-box {
+        margin-bottom: 20px;
+        background-color: #FFF;
+        h5 {
+          padding: 15px 20px;
+          margin: 0
+        }
+        .item-inner {
+          padding: 20px;
+          border-top: 1px solid #f4f4f4;
+        }
 
+        &.link-news{
+          display: block;
+          padding: 20px;
+          text-align: center;
+          background-color: #ee6c46;
+          color: #FFF
+        }
+      }
+    }
+  }
 </style>

@@ -10,6 +10,10 @@
               <nuxt-link class="error-link" to="/">Back to the home page</nuxt-link>
             </p>
             
+            <small v-else>
+              Open developer tools to view stack trace
+            </small>
+            
           </div>
         </div>
 
@@ -37,6 +41,15 @@ export default {
         { rel: 'stylesheet', href: 'https://cdnjs.cloudflare.com/ajax/libs/milligram/1.3.0/milligram.min.css', type: 'text/css', media: 'all' }
       ]
     }
+  },
+  
+  data () {
+    return {
+      mounted: false
+    }
+  },
+  mounted () {
+    this.mounted = true
   },
   
   computed: {
