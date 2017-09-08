@@ -72,7 +72,7 @@
       margin-bottom: 50px;
       // padding: 50px;
       padding: 0;
-      max-width: 900px;
+      max-width: 700px;
 
       .options {
         padding: 10px;

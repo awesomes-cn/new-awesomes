@@ -1,27 +1,43 @@
 <template lang="pug">
   div
-    div.sub-banner
-      div.bglayer(v-bind:style="'background-image:url(' + cdn(sub.cover, 'subject') + ')'")
-      div.bgcover
+    // div.sub-banner
+    //   div.bglayer(v-bind:style="'background-image:url(' + cdn(sub.cover, 'subject') + ')'")
+    //   div.bgcover
 
-      div.container
-        h1 {{sub.title}} 专题
-        article {{sub.sdesc}}
-        a.sub-link.website(:href="sub.website" target="_blank")
-          icon(name="home") 官  网
-        a.sub-link.github(:href="sub.repo.html_url" target="_blank" v-if="sub.repo.id > 0")
-          icon(name="github") GitHub
-    div.nav-banner
-
-    div.container.list-body(:class="'fixed-' + fixcate")
-      div.placeholder
-      div.list-typs
-        div.inner
-          template(v-for="root in rootyps" v-if="root.amount > 0")
+    //   div.container
+    //     h1 {{sub.title}} 专题
+    //     article {{sub.sdesc}}
+    //     a.sub-link.website(:href="sub.website" target="_blank")
+    //       icon(name="home") 官  网
+    //     a.sub-link.github(:href="sub.repo.html_url" target="_blank" v-if="sub.repo.id > 0")
+    //       icon(name="github") GitHub
+    
+    div.container.list-body
+      div.nav-banner
+        div.sub-info
+          h1 {{uperCaseTitle(sub.title)}} 专题
+          article {{sub.sdesc}}
+          a.sub-link.website(:href="sub.website" target="_blank")
+            icon(name="home") 官  网
+          a.sub-link.github(:href="sub.repo.html_url" target="_blank" v-if="sub.repo.id > 0")
+            icon(name="github") GitHub
+        div.nav-box
+          div.nav-level(v-for="root in rootyps" v-if="root.amount > 0")
             a.root(href="javascript:void(0)"  v-bind:data-link="root.key" @click="switchTyp(root.sdesc)" )
-              icon(:name="root.icon"  width="16px") {{root.sdesc}}
+              // icon(:name="root.icon"  width="16px") {{root.sdesc}}
+              span {{root.sdesc}}
             a.second(v-for="second in typcds(root)"   href="javascript:void(0)" v-if="second.repos.length > 0"  @click="switchTyp(root.sdesc + '-' + second.sdesc)" v-bind:class="'active-' + (checkedTyp == root.sdesc + '-' + second.sdesc)")
-              icon(:name="second.icon" width="14px" ) {{second.sdesc}}
+              // icon(:name="second.icon" width="14px" ) {{second.sdesc}}
+              span {{second.sdesc}}
+              span.num （{{second.repos.length}}）
+      //div.placeholder
+      // div.list-typs
+      //   div.inner
+      //     template(v-for="root in rootyps" v-if="root.amount > 0")
+      //       a.root(href="javascript:void(0)"  v-bind:data-link="root.key" @click="switchTyp(root.sdesc)" )
+      //         icon(:name="root.icon"  width="16px") {{root.sdesc}}
+      //       a.second(v-for="second in typcds(root)"   href="javascript:void(0)" v-if="second.repos.length > 0"  @click="switchTyp(root.sdesc + '-' + second.sdesc)" v-bind:class="'active-' + (checkedTyp == root.sdesc + '-' + second.sdesc)")
+      //         icon(:name="second.icon" width="14px" ) {{second.sdesc}}
       div.sub-repos
         template(v-for="(typ, index1) in cates" v-if="typ.repos && typ.repo")
           div.split(:id="typ.repo.rootyp_zh + '-' + typ.repo.typcd_zh" v-bind:data-first="typ.repo.rootyp_zh")
@@ -123,6 +139,9 @@
       }
     },
     methods: {
+      uperCaseTitle: function (title) {
+        return title[0].toUpperCase() + title.slice(1)
+      },
       switchTyp: function (desc) {
         this.checkedTyp = desc
         $('html,body').animate({scrollTop: $(`#${desc}`).offset().top})
@@ -163,13 +182,48 @@
 <style lang="scss">
   .page-subject-name {
     background-color: #f7f8fa;
-   
+    .list-body {
+      max-width: 800px;
+    }
     .split {
       height: 70px;
     }
     
     header {
       box-shadow: none!important
+    }
+
+    .nav-banner {
+      background-color: #FFF;
+      margin-top: 30px;
+      font-size: 1.1rem;
+      .sub-info {
+        background-color: #437c85;
+        color: #FFF;
+        padding: 20px;
+
+        article {
+          color: #d3e3e6;
+          margin-top: 10px;
+        }
+      }
+      .nav-box {
+        padding: 20px;
+      }
+      .nav-level {
+        margin-top: 15px;
+        & > a {
+          display: inline-block;
+          margin-right: 15px
+        }
+        .root {
+          font-size: 1.2rem;
+          font-weight: bold;
+        }
+        .num {
+          color: #99a7b4
+        }
+      }
     }
   
     .sub-banner {
@@ -226,60 +280,6 @@
       }
     }
 
-    .list-typs {
-      // text-align: center;
-      padding: 10px;
-      // margin: 10px auto;
-      width: 150px;
-      // position: absolute;
-      line-height: 26px;
-      flex-shrink: 0;
-      a {
-        display: block;
-        padding: 2px 5px;
-        color: #DDDD;
-        
-        &.root {
-          font-weight: bold;
-        }
-
-        &.second {
-          color: #89898a;
-
-          &.active-true {
-            color: #da552f;
-          }
-        }
-      }
-    }
-
-    .list-body {
-      display: flex;
-      position: relative;
-      .placeholder {
-        display: none;
-      }
-      &.fixed-true {
-        .placeholder {
-          display: block;
-          width: 150px;
-          flex-shrink: 0;
-        }
-        .list-typs {
-          position: absolute;
-          left: 15px;
-          top: 0;
-          .inner {
-            top: 60px;
-            position: fixed;
-            overflow-y: auto;
-            padding-bottom: 80px;
-            height: 100%;
-          }
-        }  
-      }
-      
-    }
 
     .sub-repos {
       // max-width: 800px;
@@ -334,7 +334,6 @@
 
       .sdesc {
         padding: 10px 0;
-        color: rgba(0, 0, 0, 0.54118);
       }
 
       .middle {
@@ -348,7 +347,7 @@
       .stars {
         width: 140px;
         text-align: right;
-        color: #DDD
+        color: #9da09e
       }
     }
 
@@ -360,14 +359,11 @@
       display: inline-block;
       background-color: #da552f;
       color: #FFF;
+      border: #FAFAFA 1px solid;
 
       &.github {
         background-color: #0275d8
       }
-    }
-
-    footer {
-      display: none;
     }
 
     .amount {

@@ -26,14 +26,15 @@
               div.item-box
                 h5 大牛在用
                 div.item-inner
+                  home-weuse(:datalist="homeData.weuses")
               div.item-box
                 h5 专题推荐
                 div.item-inner
-                  home-sub
+                  home-sub(:datalist="homeData.subs")
               div.item-box
                 h5 新版发布
                 div.item-inner
-                  home-release
+                  home-release(:datalist="homeData.releases")
               a.item-box.link-news(href="https://news.awesomes.cn")
                 h5 前端情报局
                 div 每天刷一刷，跟上前端快步伐 
@@ -52,6 +53,7 @@
   import Subitem from '~/components/subitem.vue'
   import HomeRelease from '~/components/home/release.vue'
   import HomeSub from '~/components/home/sub.vue'
+  import HomeWeuse from '~/components/home/weuse.vue'
 
   export default {
     async asyncData ({ req, params, query }) {
@@ -66,14 +68,19 @@
         trends: [],
         subjects: [],
         searchKey: '',
-        freshok: false
+        freshok: false,
+        homeData: {
+          releases: [],
+          subs: []
+        }
       }
     },
     components: {
       Topics,
       Subitem,
       HomeRelease,
-      HomeSub
+      HomeSub,
+      HomeWeuse
     },
     methods: {
       uperCaseTitle: function (title) {
@@ -87,12 +94,6 @@
         this.$router.push({path: '/search', query: {q: this.searchKey}})
       },
 
-      // 获取最新库
-      fetchLatestRepos: async function () {
-        let res = await axios().get('/repo/latest')
-        this.latests = res.data
-      },
-
       // 获取最知名的几个前端开发者的在用
       hotUsing: function () {
         axios().get('/weuse?limit=4').then(res => {
@@ -100,27 +101,15 @@
         })
       },
 
-      // 获取前端趋势
-      fetchTrend: async function () {
-        let res = await axios().get(`repo/top100?sort=trend&limit=10`)
-        this.trends = res.data
-      },
-
-      // 专题推荐
-      recoSubjects: async function () {
-        let res = await axios().get('subject?limit=4')
-        this.subjects = res.data
-      },
-
       // 计算趋势值实际的显示
       trendUI: function (val) {
         let maxtrend = (this.trends[0] || {}).trend || 1
-        console.log('===', val, maxtrend)
         return (val / maxtrend) * 100
       }
     },
-    created () {
-      this.fetchLatestRepos()
+    async created () {
+      let res = await axios().get('/site/home')
+      this.homeData = res.data
     }
   }
 </script>

@@ -1,27 +1,15 @@
 <template lang="pug">
   div
-    div.sub-item(v-for="sub in subjects")
+    div.sub-item(v-for="sub in datalist")
       nuxt-link(:to="'/subject/' + sub.key" v-bind:style="'background-image:url(' + cdn(sub.cover, 'subject', 'subject') + ')'")
         div.detail 
           h4 {{sub.title}}
-          // div.total
-          //   // span 共 {{sub.amount}} 个库
-          //   span 共 43 个库
 
 </template>
 
 <script>
-  import axios from '~/plugins/axios'
   export default {
-    data () {
-      return {
-        subjects: []
-      }
-    },
-    async created () {
-      let res = await axios().get('subject?limit=4')
-      this.subjects = res.data
-    }
+    props: ['datalist']
   }
 </script>
 
@@ -30,7 +18,7 @@
     padding: 10px;
     a {
       display: block;
-      height: 80px;
+      height: 75px;
       border-radius: 2px;
       position: relative;
       background-repeat: no-repeat;
@@ -65,9 +53,9 @@
         left: 0;
         width: 100%;
         z-index: 10;
-        padding: 20px;
-        padding-top: 40px;
-
+        display: flex;
+        align-items: center;
+        justify-content: center;
         h4 {
           text-align: center;
         }

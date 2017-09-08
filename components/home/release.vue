@@ -1,8 +1,8 @@
 <template lang="pug">
   div
-    div.releases(v-for="item in releases")
+    div.releases(v-for="item in datalist")
       nuxt-link(:to="'/repo/' + item.repo.owner + '/' + item.repo.alia")
-        img.cover(:src="cdn(item.repo.cover, 'repo', 'subject_repo')")
+        img.cover(:src="cdn(item.repo.cover, 'repo', 'repo-50')")
       div.inner
         div {{item.repo.name}}
         a.version(:href="'https://github.com/' + item.repo.full_name + '/releases/tag/' + item.tag_name" target="_blank")
@@ -11,17 +11,8 @@
 </template>
 
 <script>
-  import axios from '~/plugins/axios'
   export default {
-    data () {
-      return {
-        releases: []
-      }
-    },
-    async created () {
-      let res = await axios().get('/repo/latest_releases')
-      this.releases = res.data
-    }
+    props: ['datalist']
   }
 </script>
 
@@ -29,6 +20,7 @@
   .releases {
     margin-bottom: 10px;
     display: flex;
+    align-items: center;
     .inner {
       flex-grow: 1;
       padding-left: 10px;
