@@ -137,6 +137,15 @@ async function createApp (ssrContext) {
   }
 
   
+  if (process.browser) {
+    // Replace store state before plugins execution
+    if (window.__NUXT__ && window.__NUXT__.state) {
+      store.replaceState(window.__NUXT__.state)
+    }
+  }
+  
+
+  
   if (typeof plugin0 === 'function') await plugin0(ctx, inject)
   if (typeof plugin1 === 'function') await plugin1(ctx, inject)
   if (typeof plugin2 === 'function') await plugin2(ctx, inject)
@@ -147,15 +156,6 @@ async function createApp (ssrContext) {
     if (typeof plugin4 === 'function') await plugin4(ctx, inject)
     if (typeof plugin5 === 'function') await plugin5(ctx, inject)
   }
-
-  
-  if (process.browser) {
-    // Replace store state before calling plugins
-    if (window.__NUXT__ && window.__NUXT__.state) {
-      store.replaceState(window.__NUXT__.state)
-    }
-  }
-  
 
   if (process.server && ssrContext && ssrContext.url) {
     await new Promise((resolve, reject) => {

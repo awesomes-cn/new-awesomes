@@ -40,7 +40,10 @@ module.exports = {
   ** Build configuration
   */
   build: {
-    vendor: ['vue-i18n', 'babel-polyfill'],
+    vendor: [
+      'vue-i18n',
+      'babel-polyfill'
+    ],
     publicPath: `${Config.CDN}.nuxt/dist/`,
     /*
     ** Run ESLINT on save

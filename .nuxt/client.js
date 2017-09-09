@@ -26,8 +26,31 @@ let store
 
 // Try to rehydrate SSR data from window
 const NUXT = window.__NUXT__ || {}
-NUXT.components = window.__COMPONENTS__ || null
 
+
+// Setup global Vue error handler
+const defaultErrorHandler = Vue.config.errorHandler
+Vue.config.errorHandler = function (err, vm, info) {
+  err.statusCode = err.statusCode || err.name || 'Whoops!'
+  err.message = err.message || err.toString()
+
+  // Show Nuxt Error Page
+  if(vm && vm.$root && vm.$root.$nuxt && vm.$root.$nuxt.error && info !== 'render function') {
+    vm.$root.$nuxt.error(err)
+  }
+
+  // Call other handler if exist
+  if (typeof defaultErrorHandler === 'function') {
+    return defaultErrorHandler(...arguments)
+  }
+
+  // Log to console
+  if (process.env.NODE_ENV !== 'production') {
+    console.error(err)
+  } else {
+    console.error(err.message)
+  }
+}
 
 
 // Create and mount App
@@ -108,6 +131,14 @@ async function loadAsyncComponents (to, from, next) {
   }
 }
 
+function applySSRData(Component, ssrData) {
+  if (NUXT.serverRendered && ssrData) {
+    applyAsyncData(Component, ssrData)
+  }
+  Component._Ctor = Component
+  return Component
+}
+
 // Get matched components
 function resolveComponents(router) {
   const path = getLocation(router.options.base, router.options.mode)
@@ -115,23 +146,16 @@ function resolveComponents(router) {
   return flatMapComponents(router.match(path), (Component, _, match, key, index) => {
     // If component already resolved
     if (typeof Component !== 'function' || Component.options) {
-      const _Component = sanitizeComponent(Component)
+      const _Component = applySSRData(sanitizeComponent(Component), NUXT.data ? NUXT.data[index] : null)
       match.components[key] = _Component
       return _Component
     }
 
     // Resolve component
     return Component().then(Component => {
-        const _Component = sanitizeComponent(Component)
-        if (NUXT.serverRendered) {
-          applyAsyncData(_Component, NUXT.data[index])
-          if (NUXT.components) {
-            Component.options.components = Object.assign(_Component.options.components, NUXT.components[index])
-          }
-          _Component._Ctor = _Component
-        }
-        match.components[key] = _Component
-        return _Component
+      const _Component = applySSRData(sanitizeComponent(Component), NUXT.data ? NUXT.data[index] : null)
+      match.components[key] = _Component
+      return _Component
     })
   })
 }
@@ -204,7 +228,7 @@ async function render (to, from, next) {
     await callMiddleware.call(this, Components, context, layout)
     if (context._redirected) return
 
-    this.error({ statusCode: 404, message: 'This page could not be found.' })
+    this.error({ statusCode: 404, message: 'This page could not be found' })
     return next()
   }
 
@@ -248,7 +272,7 @@ async function render (to, from, next) {
     })
     // ...If .validate() returned false
     if (!isValid) {
-      this.error({ statusCode: 404, message: 'This page could not be found.' })
+      this.error({ statusCode: 404, message: 'This page could not be found' })
       return next()
     }
 
@@ -362,6 +386,9 @@ function fixPrepatch (to, ___) {
     this.setLayout(layout)
 
     
+    // Hot reloading
+    setTimeout(() => hotReloadAPI(this), 100)
+    
   })
 }
 
@@ -381,6 +408,99 @@ function nuxtReady (app) {
   })
 }
 
+
+// Special hot reload with asyncData(context)
+function hotReloadAPI (_app) {
+  if (!module.hot) return
+
+  let $components = []
+  let $nuxt = _app.$nuxt
+
+  while ($nuxt && $nuxt.$children && $nuxt.$children.length) {
+    $nuxt.$children.forEach((child, i) => {
+      if (child.$vnode.data.nuxtChild) {
+        let hasAlready = false
+        $components.forEach(component => {
+          if (component.$options.__file === child.$options.__file) {
+            hasAlready = true
+          }
+        })
+        if (!hasAlready) {
+          $components.push(child)
+        }
+      }
+      $nuxt = child
+    })
+  }
+
+  $components.forEach(addHotReload.bind(_app))
+}
+
+function addHotReload ($component, depth) {
+  if ($component.$vnode.data._hasHotReload) return
+  $component.$vnode.data._hasHotReload = true
+
+  var _forceUpdate = $component.$forceUpdate.bind($component.$parent)
+
+  $component.$vnode.context.$forceUpdate = () => {
+    let Components = getMatchedComponents(router.currentRoute)
+    let Component = Components[depth]
+    if (!Component) return _forceUpdate()
+    if (typeof Component === 'object' && !Component.options) {
+      // Updated via vue-router resolveAsyncComponents()
+      Component = Vue.extend(Component)
+      Component._Ctor = Component
+    }
+    this.error()
+    let promises = []
+    const next = function (path) {
+      this.$loading.finish && this.$loading.finish()
+      router.push(path)
+    }
+    let context = getContext({ route: router.currentRoute, store, isClient: true, isHMR: true, next: next.bind(this), error: this.error }, app)
+    this.$loading.start && this.$loading.start()
+    callMiddleware.call(this, Components, context)
+    .then(() => {
+      // If layout changed
+      if (depth !== 0) return Promise.resolve()
+      let layout = Component.options.layout || 'default'
+      if (typeof layout === 'function') {
+        layout = layout(context)
+      }
+      if (this.layoutName === layout) return Promise.resolve()
+      let promise = this.loadLayout(layout)
+      promise.then(() => {
+        this.setLayout(layout)
+        Vue.nextTick(() => hotReloadAPI(this))
+      })
+      return promise
+    })
+    .then(() => {
+      return callMiddleware.call(this, Components, context, this.layout)
+    })
+    .then(() => {
+      // Call asyncData(context)
+      let pAsyncData = promisify(Component.options.asyncData || noopData, context)
+      pAsyncData.then((asyncDataResult) => {
+        applyAsyncData(Component, asyncDataResult)
+        this.$loading.increase && this.$loading.increase(30)
+      })
+      promises.push(pAsyncData)
+      // Call fetch()
+      Component.options.fetch = Component.options.fetch || noopFetch
+      let pFetch = Component.options.fetch(context)
+      if (!pFetch || (!(pFetch instanceof Promise) && (typeof pFetch.then !== 'function'))) { pFetch = Promise.resolve(pFetch) }
+      pFetch.then(() => this.$loading.increase && this.$loading.increase(30))
+      promises.push(pFetch)
+      return Promise.all(promises)
+    })
+    .then(() => {
+      this.$loading.finish && this.$loading.finish()
+      _forceUpdate()
+      setTimeout(() => hotReloadAPI(this), 100)
+    })
+  }
+}
 
 
 async function mountApp(__app) {
@@ -408,6 +528,9 @@ async function mountApp(__app) {
     Vue.nextTick(() => {
       // Call window.onNuxtReady callbacks
       nuxtReady(_app)
+      
+      // Enable hot reloading
+      hotReloadAPI(_app)
       
     })
   }

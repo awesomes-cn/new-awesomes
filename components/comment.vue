@@ -31,7 +31,8 @@
 <script>
   import axios from '~/plugins/axios'
   import $ from 'jquery'
-  import Vue from 'vue'
+  // import Vue from 'vue'
+  // import Editor from './editor'
   export default {
     props: ['flag', 'typ', 'idcd'],
     data () {
@@ -181,8 +182,11 @@
     },
     async created () {
       this.list()
-      const editor = await import('~/components/editor.vue')
-      Vue.component('editor', editor)
+    },
+    components: {
+      editor: () => import('~/components/editor.vue')
+    },
+    mounted () {
       this.showeditor = true
     }
   }
