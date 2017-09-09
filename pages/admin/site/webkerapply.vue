@@ -3,7 +3,6 @@
     list(table="webkerapply" v-bind:keys="keys" opers="['agree_webker_apply']")
 </template>
 <script>
-  let List = require('~/components/admin/list')
   export default {
     data () {
       return {
@@ -20,7 +19,7 @@
       }
     },
     components: {
-      List
+      List: () => import('~/components/admin/list.vue')
     }
   }
 </script>

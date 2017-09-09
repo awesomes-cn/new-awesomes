@@ -96,7 +96,7 @@
 
 <style lang="scss" scoped>
   .container {
-    max-width: 1000px;
+    max-width: 900px;
     padding-top: 10px;
     padding-bottom: 100px;
   }
@@ -162,7 +162,7 @@
     }
 
     .cover {
-      height: 90px;
+      height: 80px;
       border-radius: 3px;
       margin-right: 15px;
       left: 20px;
@@ -176,7 +176,8 @@
     }
 
     .middle {
-      flex-grow: 1
+      flex-grow: 1;
+      padding-right: 20px;
     }
   }
 

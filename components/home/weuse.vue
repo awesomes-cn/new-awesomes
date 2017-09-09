@@ -10,7 +10,7 @@
           small.num 在用 {{mem.using}} 个前端库
         div.repos
           div.repo-item(v-for="repo in mem.usings")
-            nuxt-link(:to="'/repo/' + repo.owner + '/' + repo.alia" )
+            nuxt-link(:to="'/repo/' + repo.owner + '/' + repo.alia" :title="repo.alia" )
               img.cover(:src="cdn(repo.cover, 'repo', 'repo-50')")
             // span.usingmems {{repo.using}}
 </template>

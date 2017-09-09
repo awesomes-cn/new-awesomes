@@ -27,6 +27,11 @@
                 h5 大牛在用
                 div.item-inner
                   home-weuse(:datalist="homeData.weuses")
+              a.item-box.link-qqs(href="//shang.qq.com/wpa/qunwpa?idkey=699c9d6d8abb0351671211a011da67b6a2f54097097482794aff64b68e046914" target="_blank")
+                icon(name="qq")
+                div
+                  span 官方 QQ 群
+                  strong 「669525022」
               div.item-box
                 h5 专题推荐
                 div.item-inner
@@ -120,14 +125,13 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 100px;
     background-color: #FFF;
     margin-bottom: 10px;
+    padding: 30px 50px;
   }
 
   .search {
-    max-width: 400px;
-    width: 90%;
+    width: 100%;
     display: flex;
     input {
       flex-grow: 1;
@@ -220,6 +224,15 @@
           text-align: center;
           background-color: #ee6c46;
           color: #FFF
+        }
+
+        &.link-qqs {
+          display: flex;
+          padding: 20px;
+          * {
+            padding: 0;
+            margin: 5px;
+          }
         }
       }
     }

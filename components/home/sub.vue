@@ -1,6 +1,6 @@
 <template lang="pug">
   div
-    div.sub-item(v-for="sub in datalist")
+    div.sub-item(v-for="sub in sliceThree(datalist)")
       nuxt-link(:to="'/subject/' + sub.key" v-bind:style="'background-image:url(' + cdn(sub.cover, 'subject', 'subject') + ')'")
         div.detail 
           h4 {{sub.title}}
@@ -9,7 +9,12 @@
 
 <script>
   export default {
-    props: ['datalist']
+    props: ['datalist'],
+    methods: {
+      sliceThree: (arr) => {
+        return arr.slice(0, 3)
+      }
+    }
   }
 </script>
 
