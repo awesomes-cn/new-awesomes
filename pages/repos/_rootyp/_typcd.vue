@@ -31,8 +31,8 @@
                 icon(name="heart-o"  width="15px") {{repo.mark}}
           div
             // fresh(:time="repo.pushed_at")
-            a(href="" :title="'综合得分 ' + repo.score * 100" v-if="repo.score > 0")
-              chart(:val="repo.score * 100" size="30" :flag="repo.id")
+            a(href="" :title="'综合得分 ' + repo.score" v-if="repo.score > 0")
+              chart(:val="repo.score" size="30" :flag="repo.id")
       pagination(flag="repos-list" v-bind:total="pagetotal" v-bind:size="pagesize")
 </template>
 
