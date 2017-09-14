@@ -6,10 +6,11 @@
     div.list-typs.bottom
       nuxt-link(v-for="second in typcds" v-bind:to="'/repos/' + rootyp + '/' + second.key" class="submenu")
         icon(:name="second.icon" width="14px") {{second.sdesc}}
-
+      
     div.sorts
       div.inner
         nuxt-link(to="?sort=hot" v-bind:class="sortby == 'hot' ? 'active' : ''") 热门
+        nuxt-link(to="?sort=score" v-bind:class="sortby == 'score' ? 'active' : ''") 评分
         nuxt-link(to="?sort=new" v-bind:class="sortby == 'new' ? 'active' : ''") 最新
         nuxt-link(to="?sort=trend" v-bind:class="sortby == 'trend' ? 'active' : ''") 趋势 
 
@@ -29,13 +30,16 @@
               a(href="#" v-bind:title="repo.mark + '人喜欢'")
                 icon(name="heart-o"  width="15px") {{repo.mark}}
           div
-            fresh(:time="repo.pushed_at")
+            // fresh(:time="repo.pushed_at")
+            a(href="" :title="'综合得分 ' + repo.score * 100" v-if="repo.score > 0")
+              chart(:val="repo.score * 100" size="30" :flag="repo.id")
       pagination(flag="repos-list" v-bind:total="pagetotal" v-bind:size="pagesize")
 </template>
 
 <script>
   import axios from '~/plugins/axios'
   import Fresh from '~/components/repo/fresh.vue'
+  import Chart from '~/components/chart'
   let initData = {}
   let pagesize = 15
   
@@ -84,7 +88,8 @@
       }
     },
     components: {
-      Fresh
+      Fresh,
+      Chart
     },
     watch: {
       '$route': function () {

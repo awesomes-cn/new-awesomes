@@ -154,7 +154,6 @@
 
   .home-wraper {
     background-color: #f7f8fa;
-    
   }
   .new-box {
     padding: 100px 0;

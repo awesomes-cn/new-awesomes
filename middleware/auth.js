@@ -2,6 +2,9 @@ import axios from '~/plugins/axios'
 import Cookie from 'js-cookie'
 
 export default function ({ store, redirect, isServer, req }) {
+  if (!isServer) {
+    window.document.domain = window.location.hostname.replace(/^[A-Za-z]+\./, '')
+  }
   if (isServer && !store.state.session) {
     let domain = req.headers.host.split(':')[0].replace(/^www/, '')
     if (!req.headers.cookie) {
