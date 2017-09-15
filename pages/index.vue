@@ -32,6 +32,13 @@
                 div
                   span 官方 QQ 群
                   strong 「669525022」
+              div.item-box.item-box-rss
+                div.item-inner
+                  template(v-if="substatus === 'normal'")
+                    icon(name="rss")
+                    input.txt(type="text" placeholder="输入邮箱，回车订阅" v-on:keyup.enter="subscribe" v-model="email")
+                  template(v-else)
+                    div.message 订阅成功！
               div.item-box
                 h5 专题推荐
                 div.item-inner
@@ -74,6 +81,8 @@
         subjects: [],
         searchKey: '',
         freshok: false,
+        email: '',
+        substatus: 'normal',
         homeData: {
           releases: [],
           subs: []
@@ -110,6 +119,19 @@
       trendUI: function (val) {
         let maxtrend = (this.trends[0] || {}).trend || 1
         return (val / maxtrend) * 100
+      },
+
+      // 订阅
+      subscribe: async function () {
+        if (!/^(\w)+(\.\w+)*@(\w)+((\.\w+)+)$/.test(this.email)) {
+          this.$alert('danger', '请填写正确的邮箱')
+          return false
+        }
+        await axios().post('rss', {
+          email: this.email
+        })
+        this.$alert('success', '订阅成功')
+        this.substatus = 'ok'
       }
     },
     async created () {
@@ -231,6 +253,24 @@
           * {
             padding: 0;
             margin: 5px;
+          }
+        }
+
+        &.item-box-rss {
+          .item-inner {
+            display: flex
+          }
+          .txt {
+            width: 100%;
+            padding: 5px 10px;
+            outline: none;
+            border: none;
+          }
+          .message {
+            text-align: center;
+            width: 100%;
+            color: #34a138;
+            font-size: 1.2rem;
           }
         }
       }
