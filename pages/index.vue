@@ -47,15 +47,21 @@
                 h5 新版发布
                 div.item-inner
                   home-release(:datalist="homeData.releases")
-              a.item-box.link-news(href="https://news.awesomes.cn")
-                h5 前端情报局
-                div 每天刷一刷，跟上前端快步伐 
-               
-              a.item-box.link-news(href="http://json.awesomes.cn" style="background-color: #007bff")
-                div 也许是最好用的
-                h5 在线 JSON 格式化工具
-
-               
+              div.item-box.item-box-child
+                h5 旗下网站
+                div.item-inner
+                  a(href="https://news.awesomes.cn/" target="_blank" title="前端情报局")
+                    img(src="../assets/img/logo-news.png")
+                    div News
+                  a(href="http://loading.awesomes.cn/" target="_blank" title="可定制的 CSS Loading 动画")
+                    img(src="../assets/img/logo-loading.png")
+                    div Loading
+                  a(href="http://json.awesomes.cn/" target="_blank" title="在线JSON格式化验证工具")
+                    img(src="../assets/img/logo-json.png")
+                    div JSON
+                  a(href="http://filter.awesomes.cn/" target="_blank" title="在线图片滤镜效果可视化工具")
+                    img(src="../assets/img/logo-filter.png")
+                    div Filter
 
 </template>
 
@@ -271,6 +277,24 @@
             width: 100%;
             color: #34a138;
             font-size: 1.2rem;
+          }
+        }
+
+        &.item-box-child {
+          img {
+            width: 40px;
+            margin-bottom: 10px;
+          }
+          .item-inner {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+
+            a {
+              display: inline-block;
+              width: 50px;
+              text-align: center;
+            }
           }
         }
       }
