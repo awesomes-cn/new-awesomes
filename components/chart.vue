@@ -45,9 +45,12 @@
   }
 
   export default {
-    props: ['val', 'size', 'flag'],
+    props: ['val', 'size', 'flag', 'bgColor'],
+    created () {
+      this.bgColor = this.bgColor || '#FAFAFA'
+    },
     mounted () {
-      addCircle(`${this.flag}-chart-back`, this.size, 100, 2, '#FAFAFA')
+      addCircle(`${this.flag}-chart-back`, this.size, 100, 2, this.bgColor)
       let color = '#35bd3a'
       if (this.val < 60) {
         color = '#b4b2b9'
@@ -55,7 +58,7 @@
       if (this.val < 30) {
         color = '#ff2e2e'
       }
-      addCircle(`${this.flag}-chart-front`, this.size, this.val, 2, color, true, true)
+      addCircle(`${this.flag}-chart-front`, this.size, this.val, 2, color, true, false)
     }
   }
 </script>

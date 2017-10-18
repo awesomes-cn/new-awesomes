@@ -35,7 +35,7 @@
   }
   export default {
     created () {
-      if (process.BROWSER_BUILD) {
+      if (process.browser) {
         loadAdsense()
       }
     }
