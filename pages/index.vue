@@ -40,6 +40,8 @@
                   template(v-else)
                     div.message 订阅成功！
               div.item-box
+                adsense(key="alone")  
+              div.item-box
                 h5 专题推荐
                 div.item-inner
                   home-sub(:datalist="homeData.subs")
@@ -72,6 +74,7 @@
   import HomeRelease from '~/components/home/release.vue'
   import HomeSub from '~/components/home/sub.vue'
   import HomeWeuse from '~/components/home/weuse.vue'
+  import Adsense from '~/components/adsense.vue'
 
   export default {
     async asyncData ({ req, params, query }) {
@@ -100,7 +103,8 @@
       Subitem,
       HomeRelease,
       HomeSub,
-      HomeWeuse
+      HomeWeuse,
+      Adsense
     },
     methods: {
       uperCaseTitle: function (title) {

@@ -1,12 +1,19 @@
 <template lang="pug">
-  div.ad-box
-    ins(class="adsbygoogle"
-      style="display:block"
-      data-ad-format="fluid"
-      data-ad-layout="image-side"
-      data-ad-layout-key="-fd+6a+11-fw+q1"
-      data-ad-client="ca-pub-9906622596531689"
-      data-ad-slot="1784178322") 
+  div
+    div.ad-box(v-if="pkey === 'default'")
+      ins(class="adsbygoogle"
+        style="display:block"
+        data-ad-format="fluid"
+        data-ad-layout="image-side"
+        data-ad-layout-key="-fd+6a+11-fw+q1"
+        data-ad-client="ca-pub-9906622596531689"
+        data-ad-slot="1784178322") 
+    div.ad-box(v-if="pkey === 'alone'")
+      ins(class="adsbygoogle"
+        style="display:block"
+        data-ad-format="auto"
+        data-ad-client="ca-pub-9906622596531689"
+        data-ad-slot="8838418057") 
 </template>
 
 <script>
@@ -34,6 +41,12 @@
     }, 500)
   }
   export default {
+    props: ['key'],
+    data() {
+      return {
+        pkey: this.key || 'default'
+      }
+    },
     created () {
       if (process.browser) {
         loadAdsense()
