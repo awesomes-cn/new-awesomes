@@ -159,10 +159,7 @@
       }
     },
     mounted () {
-      let _self = this
-      setTimeout(function () {
-        _self.showad = true
-      }, 2000)
+      this.showad = true
       var positions = $('.split').map(function () {
         return {
           first: $(this).attr('data-first'),
@@ -170,6 +167,7 @@
           top: $(this).offset().top
         }
       })
+      let _self = this
       $(document).scroll(function () {
         var doctop = $(document).scrollTop()
         _self.fixcate = (doctop >= $('.list-body').offset().top - 50)
