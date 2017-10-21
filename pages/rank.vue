@@ -22,7 +22,7 @@
             fresh(:time="repo.pushed_at")
 
           div.list-item(v-if="index === 10")
-            adsense
+            adsense(v-if="showad")
           div.list-item.two-ads(v-if="index === 80")
             div.inner
               adsense(v-if="showad")
