@@ -47,11 +47,9 @@
         pkey: this.ikey || 'default'
       }
     },
-    mounted () {
+    created () {
       if (process.browser) {
-        setTimeout(function () {
-          loadAdsense()
-        }, 500)
+        loadAdsense()
       }
     }
   }

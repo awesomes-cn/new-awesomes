@@ -20,20 +20,20 @@
                 h4 {{repo.name}}
               span.sdesc {{repo.description_cn || repo.description}}
             fresh(:time="repo.pushed_at")
-        
-          div.list-item(v-if="index === 10")
-            adsense 
-          div.list-item.two-ads(v-if="index === 80")
-            div.inner
+
+          template(v-if="showad")
+            div.list-item(v-if="index === 10")
               adsense
-            div.inner
-              adsense
+            div.list-item.two-ads(v-if="index === 80")
+              div.inner
+                adsense
+              div.inner
+                adsense
 
 </template>
 <script>
   import axios from '~/plugins/axios'
   import Fresh from '~/components/repo/fresh.vue'
-  import Adsense from '~/components/adsense.vue'
   export default {
     layout: 'blank',
     asyncData ({query}) {
@@ -55,9 +55,10 @@
     },
     components: {
       Fresh,
-      Adsense
+      Adsense: () => import('~/components/adsense.vue')
     },
     mounted () {
+      this.showad = true
       require('particles.js')
       window.particlesJS('rank-banner', {
         'particles': {

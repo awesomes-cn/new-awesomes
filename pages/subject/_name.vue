@@ -57,11 +57,12 @@
                 span.sdesc {{repo.description_cn || repo.description}}
               div.stars
                 icon(name="star" width="15px") {{repo.stargazers_count}}  
-            div.ad-wraper(v-if="repo.hasad")
-              div.repo-card
-                adsense
-              div.repo-card
-                adsense
+            template(v-if="showad")
+              div.ad-wraper(v-if="repo.hasad")
+                div.repo-card
+                  adsense
+                div.repo-card
+                  adsense
 </template>
 
 <script>
@@ -70,7 +71,6 @@
   import _ from 'underscore'
   require('perfect-scrollbar/dist/css/perfect-scrollbar.css')
   import $ from 'jquery'
-  import Adsense from '~/components/adsense.vue'
   let activeTimer
   export default {
     async asyncData ({ req, params, query }) {
@@ -124,12 +124,13 @@
     data () {
       return {
         fixcate: false,
-        checkedTyp: ''
+        checkedTyp: '',
+        showad: false
       }
     },
     components: {
       Fresh,
-      Adsense
+      Adsense: () => import('~/components/adsense.vue')
     },
     computed: {
       rootyps: function () {
@@ -158,6 +159,7 @@
       }
     },
     mounted () {
+      this.showad = true
       var positions = $('.split').map(function () {
         return {
           first: $(this).attr('data-first'),
