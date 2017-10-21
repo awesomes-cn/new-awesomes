@@ -41,10 +41,10 @@
     }, 500)
   }
   export default {
-    props: ['key'],
-    data() {
+    props: ['ikey'],
+    data () {
       return {
-        pkey: this.key || 'default'
+        pkey: this.ikey || 'default'
       }
     },
     created () {

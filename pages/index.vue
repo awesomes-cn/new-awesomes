@@ -40,7 +40,7 @@
                   template(v-else)
                     div.message 订阅成功！
               div.item-box
-                adsense(key="alone")  
+                adsense(ikey="alone")  
               div.item-box
                 h5 专题推荐
                 div.item-inner
