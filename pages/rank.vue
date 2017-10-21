@@ -21,14 +21,13 @@
               span.sdesc {{repo.description_cn || repo.description}}
             fresh(:time="repo.pushed_at")
 
-          template(v-if="showad")
-            div.list-item(v-if="index === 10")
-              adsense
-            div.list-item.two-ads(v-if="index === 80")
-              div.inner
-                adsense
-              div.inner
-                adsense
+          div.list-item(v-if="index === 10")
+            adsense
+          div.list-item.two-ads(v-if="index === 80")
+            div.inner
+              adsense(v-if="showad")
+            div.inner
+              adsense(v-if="showad")
 
 </template>
 <script>
@@ -51,6 +50,11 @@
           { hid: 'description', name: 'description', content: 'TOP100的前端框架排名' },
           { hid: 'keywords', name: 'keywords', content: '前端TOP,前端趋势,热门框架' }
         ]
+      }
+    },
+    data () {
+      return {
+        showad: false
       }
     },
     components: {

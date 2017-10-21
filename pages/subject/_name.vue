@@ -57,12 +57,12 @@
                 span.sdesc {{repo.description_cn || repo.description}}
               div.stars
                 icon(name="star" width="15px") {{repo.stargazers_count}}  
-            template(v-if="showad")
-              div.ad-wraper(v-if="repo.hasad")
-                div.repo-card
-                  adsense
-                div.repo-card
-                  adsense
+            
+            div.ad-wraper(v-if="repo.hasad")
+              div.repo-card
+                  adsense(v-if="showad")
+              div.repo-card
+                adsense(v-if="showad")
 </template>
 
 <script>
