@@ -4,41 +4,47 @@
     div.container
       div.row
         div.col-9
-          // div.con-headers
-          //   span 暂无中文翻译，我来翻译
-          // div.bar
-          // dianp(:repo="repo")
           div.item-box
             article.repo-con(v-html="marked(repo.about_zh || repo.about)")
-          div.com-wrap
-            comment(flag="repo-comment" typ="REPO" v-bind:idcd="repo.id")
-        div.col-3.right-col
           div.item-box
-            // nuxt-link(:to="'/repo/' + repo.owner + '/' + repo.alia")
-            //   img.cover(:src="cdn(repo.cover, 'repo', 'repo')" width="100%")
-            div.fresh-box
+            comment(flag="repo-comment" typ="REPO" v-bind:idcd="repo.id" placeholder="我们会认真对待你的想法、建议和反馈")
+        div.col-3.right-col
+          div.item-box.without-padding
+            div.fresh-box.inner
               span(:title="timeago(repo.pushed_at)" :class="'fresh-tag ' + freshFrmat(repo.pushed_at).key")
-              span {{freshFrmat(repo.pushed_at).alia}}（{{timeago(repo.pushed_at)}}）
-            
-            div.links-box
+              span {{freshFrmat(repo.pushed_at).alia}}
+
+            div.inner.border-top.times
+              p
+                span 创建于 
+                strong {{timeago(repo.github_created_at)}}
+              div
+                span 最近更新于 
+                strong {{timeago(repo.pushed_at)}}
+
+            div.links-box.inner.border-top
               a(:href="'https://gitter.im/' + repo.full_name" style="color: #EF015B" title="聊天室" target="_blank")
                 icon(name="gitter"  width="15px")
               a(:href="'http://stackoverflow.com/questions/tagged/' + repo.name" style="color: #F48024" title="上 Stackoverflow 提问"  target="_blank")
                 icon(name="stackoverflow"  width="15px")
-          // div.item-box.oper-box
-          //   a(href="javascript:void(0)")
-          //     icon(name="heart" width="40px")
-          //   div {{repo.mark}}
+          div.item-box.cate-box
+            span(style="color: #929ca1;")
+              icon(name="template" width="16px")
+            nuxt-link(:to="'/repos/' + repo.rootyp" class="rootyp") {{repo.rootyp_zh}}
+            div(style="width: 20px")
+            nuxt-link(:to="'/repos/' + repo.rootyp + '/' + repo.typcd" class="typcd") {{repo.typcd_zh}}
+
           div.item-box
-            button.btn.btn-success(style="width: 100%; text-align: center; margin-bottom: 10px;")
-              icon(name="heart") 喜欢
-            button.btn.btn-info(style="width: 100%; text-align: center") 我在用
-            div.iuse
-              nuxt-link(:to="'/mem/' + using.mem.id" v-for="using in repo.usings" v-bind:title="using.mem.nc")
-                img.mem-tx(:src="cdn(using.mem.avatar, 'mem')")
-            div(style="text-align: center")
-              span(v-show="repo.using > 5") 等
-              span {{repo.using}} 人在用
+            button(@click="switchUsing" :class="'btn using-btn mark-' + isUsing + (isUsing ? ' btn-warning' : ' btn-secondary')")
+              icon(name="tip" width="15px" v-if="isUsing") 我已在用
+              span(v-else) 我在用
+            template(v-if="repo.using > 0")
+              div.iuse
+                nuxt-link(:to="'/mem/' + using.mem.id" v-for="using in repo.usings" v-bind:title="using.mem.nc")
+                  img.mem-tx(:src="cdn(using.mem.avatar, 'mem')")
+              div(style="text-align: center")
+                span(v-show="repo.using > 5") 等 
+                span {{repo.using}} 人在用
             
 </template>
 
@@ -51,7 +57,8 @@
       return axios().get(`repo/${params.owner}/${params.name}`)
       .then(res => {
         return {
-          repo: res.data
+          repo: res.data,
+          isUsing: false
         }
       })
     },
@@ -90,7 +97,30 @@
           key: 'outdated',
           alia: '很久没更新了'
         }
+      },
+      // 是否在用
+      hasUsing: function () {
+        if (!this.$store.state.session) { return }
+        axios().get('oper/is', {
+          params: {opertyp: 'USING', idcd: this.repo.id, typ: 'REPO'}
+        }).then(res => {
+          this.isUsing = res.data
+        })
+      },
+      switchUsing: function () {
+        if (this.showLogin()) { return }
+        axios().post('oper', {
+          opertyp: 'USING',
+          typ: 'REPO',
+          idcd: this.repo.id
+        }).then(res => {
+          this.repo.using = res.data.amount
+          this.isUsing = res.data.has
+        })
       }
+    },
+    created () {
+      this.hasUsing()
     }
   }
 </script>
@@ -99,6 +129,7 @@
   .page-repo-owner-name {
     background: #f7f8fa;
     .repo-detail {
+      padding-bottom: 50px;
       .container {
         max-width: 1000px
       }
@@ -109,6 +140,24 @@
         margin-top: 20px;
         box-shadow: 0 1px 2px 0 rgba(0,0,0,.05);
         border-radius: 3px;
+
+        &.without-padding {
+          padding: 0!important;
+        }
+
+        .inner {
+          padding: 20px;
+
+          &.border-top {
+            border-top: 1px solid rgba(230, 234, 237, 0.55);
+          }
+
+          &.times {
+            strong {
+              color: #3d8ece
+            }
+          }
+        }
       }
 
       .right-col {
@@ -158,7 +207,8 @@
           margin: 0 -3px;
           padding: 1px;
           display: inline-block;
-          background-color: #FFF
+          background-color: #FFF;
+          box-shadow: 0px 0px 5px #e5e5e5;
         }
       }
 
@@ -188,17 +238,36 @@
         }
       }
       .links-box {
-        border-top: 1px solid #e6eaed;
         padding: 10px;
         padding-bottom: 0;
-        margin-top: 20px;
-
         a {
           margin-right: 10px;
         }
       }
 
       .oper-box {
+      }
+
+      .using-btn {
+        width: 100%;
+        text-align: center;
+        color: #FFF!important;
+        &.mark-true {
+          background-color: #f3960c;
+          border-color: #df9512
+        }
+      }
+
+      .cate-box {
+        background-image: linear-gradient(120deg,rgba(255, 255, 242, 0.63) 50%,#f8ffe5 0);
+        display: flex;
+        a {
+          display: block;
+          flex-grow: 1;
+          text-align: center;
+          flex-basis: 100px;
+          color: #c0c077;
+        }
       }
     }
   }

@@ -19,11 +19,11 @@
 
         a.btn.btn-light(:href="repo.homepage"  target="_blank")
           icon(name="fork" width="15px") {{repo.forks_count}}
-        
-        a.btn.btn-light(:href="repo.homepage"  target="_blank")
-          icon(name="clock" width="15px") {{timeago(repo.pushed_at)}}
 
-        a.btn.btn-secondary.pr(:href="`https://api.github.com/repos/${repo.full_name}/zipball`" target="_blank")
+        a(href="javascript:void(0)" title="收藏" :class="'btn pr mark-' + isMark + (isMark ? ' btn-warning' : ' btn-secondary') + (marking ? ' disabled' : '')" @click="switchMark")
+          icon(:name="isMark ? 'collect_fill' : 'collect'" width="16px") {{repo.mark}}
+
+        a.btn.btn-info.pr(:href="`https://api.github.com/repos/${repo.full_name}/zipball`" target="_blank")
           icon(name="download" width="20px") 下载
 </template>
 
@@ -35,7 +35,7 @@
     data () {
       return {
         isMark: false,
-        isUsing: false
+        marking: false
       }
     },
     components: {
@@ -53,18 +53,9 @@
         })
       },
 
-      // 是否在用
-      hasUsing: function () {
-        if (!this.$store.state.session) { return }
-        axios().get('oper/is', {
-          params: {opertyp: 'USING', idcd: this.repo.id, typ: 'REPO'}
-        }).then(res => {
-          this.isUsing = res.data
-        })
-      },
-
       switchMark: function () {
         if (this.showLogin()) { return }
+        this.marking = true
         axios().post('oper', {
           opertyp: 'MARK',
           typ: 'REPO',
@@ -72,33 +63,8 @@
         }).then(res => {
           this.repo.mark = res.data.amount
           this.isMark = res.data.has
+          this.marking = false
         })
-      },
-
-      switchUsing: function () {
-        if (this.showLogin()) { return }
-        axios().post('oper', {
-          opertyp: 'USING',
-          typ: 'REPO',
-          idcd: this.repo.id
-        }).then(res => {
-          this.repo.using = res.data.amount
-          this.isUsing = res.data.has
-        })
-      },
-      // 20天内算频繁
-      // 7个月内算普通
-      // 大于7个月算过期
-      freshFrmat: function (time) {
-        let days = (Date.parse(new Date()) - Date.parse(new Date(time))) / 1000 / 60 / 60 / 24
-        if (days <= 20) {
-          return 'often'
-        }
-        if (days <= 7 * 30) {
-          return ''
-        }
-
-        return 'outdated'
       },
 
       formatScore: function (score) {
@@ -113,7 +79,6 @@
     },
     created () {
       this.hasMarked()
-      this.hasUsing()
     }
   }
 </script>
@@ -122,9 +87,8 @@
 .banner {
   background-color: #FFF;
   padding: 30px;
-  margin-top: 30px;
-  box-shadow: 0px 0px 5px #f1f0f0;
-  border: #f1f1f1 1px solid;
+  margin-top: 20px;
+  box-shadow: 0 1px 2px 0 rgba(0,0,0,.05);
   border-radius: 3px;
   max-width: 1000px;
   .cover {
@@ -153,6 +117,12 @@
       &.pr {
         float: right;
         margin-right: 0;
+        margin-left: 20px;
+      }
+
+      &.mark-true {
+        background-color: #f3960c;
+        border-color: #df9512
       }
     }
 

@@ -4,7 +4,7 @@
       button.btn.btn-danger.sub-btn(@click="submit" v-bind:disabled="isSubmiting")
         icon(name="send" width="20px") {{subMap[editing ? 'edit' : 'new'][isSubmiting ? 'ing' : 'ready']}}
       div.editor-box
-        editor(:flag="flag"  v-model="comcon" v-bind:setval="setval" placeholder="我有话说" v-if="showeditor")
+        editor(:flag="flag"  v-model="comcon" v-bind:setval="setval" :placeholder="placeholder || '我有话说'" v-if="showeditor")
 
     div.citem(v-for="(item, index) in coms")
       nuxt-link(:to="'/mem/' + item.mem.id")
@@ -34,7 +34,7 @@
   // import Vue from 'vue'
   // import Editor from './editor'
   export default {
-    props: ['flag', 'typ', 'idcd'],
+    props: ['flag', 'typ', 'idcd', 'placeholder'],
     data () {
       return {
         coms: [],
