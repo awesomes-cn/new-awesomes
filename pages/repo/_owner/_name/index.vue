@@ -3,12 +3,12 @@
     banner(:repo="repo")
     div.container
       div.row
-        div.col-9
+        div.col-md-9.col-12
           div.item-box
             article.repo-con(v-html="marked(repo.about_zh || repo.about)")
           div.item-box
             comment(flag="repo-comment" typ="REPO" v-bind:idcd="repo.id" placeholder="我们会认真对待你的想法、建议和反馈")
-        div.col-3.right-col
+        div.col-md-3.right-col.col-12
           div.item-box.without-padding
             div.fresh-box.inner
               span(:title="timeago(repo.pushed_at)" :class="'fresh-tag ' + freshFrmat(repo.pushed_at).key")
@@ -198,7 +198,7 @@
       }
 
       .iuse {
-        margin: 10px 0;
+        margin: 15px 0;
         text-align: center;
         .mem-tx {
           width: 24px;

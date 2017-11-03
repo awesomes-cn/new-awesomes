@@ -1,12 +1,16 @@
 <template lang="pug">
   div.container
     div.banner
-      div.title 
-        h1 {{repo.name}}
-        a(href="/score" :title="'综合得分 ' + repo.score" v-if="repo.score > 0" :class="'score-tag ' + formatScore(repo.score)")  
-          icon(name="certificate" width="40px")
-          div.score {{repo.score}}
-      article.desc {{repo.description_cn || repo.description}}
+      div.top-box
+        div.right
+          div.title 
+            h1 {{repo.name}}
+            a(href="/score" :title="'综合得分 ' + repo.score" v-if="repo.score > 0" :class="'score-tag ' + formatScore(repo.score)")  
+              icon(name="certificate" width="40px")
+              div.score {{repo.score}}
+          article.desc
+            img.cover(:src="cdn(repo.cover, 'repo', 'subject_repo')")
+            span {{repo.description_cn || repo.description}}
 
       div.links
         a.btn.btn-primary(:href="repo.html_url" target="_blank")
@@ -91,16 +95,13 @@
   box-shadow: 0 1px 2px 0 rgba(0,0,0,.05);
   border-radius: 3px;
   max-width: 1000px;
-  .cover {
-    width: 200px;
-  }
 
   .title {
     display: flex;
   }
 
   article {
-    margin-top: 20px;
+    margin-top: 10px;
   }
 
   .links {
@@ -168,6 +169,18 @@
 
     span {
 
+    }
+  }
+
+  .top-box {
+    display: flex;
+    padding-bottom: 10px;
+
+    .cover {
+      height: 23px;
+      margin-right: 5px;
+      background-color: #FFF;
+      // box-shadow: 0px 0px 10px #ddd6d6;
     }
   }
 }  

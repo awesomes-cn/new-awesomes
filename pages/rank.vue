@@ -219,18 +219,23 @@
 
     .list-main {
       margin-top: -200px;
+      box-shadow: 0 1px 2px 0 rgba(0,0,0,.05);
     }
 
     .list-item {
-      padding: 20px;
+      padding: 22px;
       padding-left: 0;
-      border-bottom: #DDD 1px dashed;
+      border-bottom: 1px solid #f5f5f5;
       position: relative;
       display: flex;
       align-items: center;
       background-color: #FFF;
       color: #4e4f54;
       width: 100%;
+
+      &:hover {
+        background-color: #f6fcff
+      }
 
       &.two-ads {
         flex-direction: row;
@@ -256,6 +261,7 @@
         color: #60bed8;
         padding-top: 5px;
         border: 0;
+        border-radius: 3px;
 
         .scord, .fresh {
           display: none;

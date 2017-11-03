@@ -160,6 +160,7 @@
     background-color: #FFF;
     margin-bottom: 10px;
     padding: 30px 50px;
+    box-shadow: 0 1px 1px 0 rgba(0,0,0,.05);      
   }
 
   .search {
@@ -193,6 +194,7 @@
 
     .left-box {
       background-color: #FFF;
+      box-shadow: 0 1px 1px 0 rgba(0,0,0,.05);
     }
 
     .new-item {
@@ -240,6 +242,7 @@
       .item-box {
         margin-bottom: 20px;
         background-color: #FFF;
+        box-shadow: 0 1px 1px 0 rgba(0,0,0,.05);
         h5 {
           padding: 15px 20px;
           margin: 0
