@@ -1,7 +1,7 @@
 <template lang="pug">
   div.container.sub-wraper
     div.row
-      div.col-md-6.col-sm-12(v-for="sub in subjects")
+      div.col-md-4.col-sm-6.col-12(v-for="sub in subjects")
         div.sub-item
           nuxt-link(:to="'/subject/' + sub.key" v-bind:style="'background-image:url(' + cdn(sub.cover, 'subject', 'subject') + ')'")
             div.detail 
@@ -99,7 +99,7 @@
           padding-top: 40px;
           span {
             display: inline-block;
-            border: #FFF 1px dashed;
+            border: #FFF 1px solid;
             padding: 10px 20px;
           }
         }

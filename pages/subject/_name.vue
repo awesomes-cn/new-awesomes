@@ -1,68 +1,52 @@
 <template lang="pug">
   div
-    // div.sub-banner
-    //   div.bglayer(v-bind:style="'background-image:url(' + cdn(sub.cover, 'subject') + ')'")
-    //   div.bgcover
-
-    //   div.container
-    //     h1 {{sub.title}} 专题
-    //     article {{sub.sdesc}}
-    //     a.sub-link.website(:href="sub.website" target="_blank")
-    //       icon(name="home") 官  网
-    //     a.sub-link.github(:href="sub.repo.html_url" target="_blank" v-if="sub.repo.id > 0")
-    //       icon(name="github") GitHub
-    
     div.container.list-body
-      div.nav-banner
-        div.sub-info
-          h1 {{uperCaseTitle(sub.title)}} 专题
-          article {{sub.sdesc}}
-          a.sub-link.website(:href="sub.website" target="_blank")
-            icon(name="home") 官  网
-          a.sub-link.github(:href="sub.repo.html_url" target="_blank" v-if="sub.repo.id > 0")
-            icon(name="github") GitHub
+      div.row
+        div.col
+          div.nav-banner
+            h1 {{uperCaseTitle(sub.title)}} 专题
+            article {{sub.sdesc}}
+            a.sub-link.website(:href="sub.website" target="_blank")
+              icon(name="home" width="18px") 官  网
+            a.sub-link.github(:href="sub.repo.html_url" target="_blank" v-if="sub.repo.id > 0")
+              icon(name="github" width="18px") GitHub
+        
+      div.area-box
         div.nav-box
-          div.nav-level(v-for="root in rootyps" v-if="root.amount > 0")
-            a.root(href="javascript:void(0)"  v-bind:data-link="root.key" @click="switchTyp(root.sdesc)" )
-              // icon(:name="root.icon"  width="16px") {{root.sdesc}}
-              span {{root.sdesc}}
-            a.second(v-for="second in typcds(root)"   href="javascript:void(0)" v-if="second.repos.length > 0"  @click="switchTyp(root.sdesc + '-' + second.sdesc)" v-bind:class="'active-' + (checkedTyp == root.sdesc + '-' + second.sdesc)")
-              // icon(:name="second.icon" width="14px" ) {{second.sdesc}}
-              span {{second.sdesc}}
-              span.num （{{second.repos.length}}）
-      //div.placeholder
-      // div.list-typs
-      //   div.inner
-      //     template(v-for="root in rootyps" v-if="root.amount > 0")
-      //       a.root(href="javascript:void(0)"  v-bind:data-link="root.key" @click="switchTyp(root.sdesc)" )
-      //         icon(:name="root.icon"  width="16px") {{root.sdesc}}
-      //       a.second(v-for="second in typcds(root)"   href="javascript:void(0)" v-if="second.repos.length > 0"  @click="switchTyp(root.sdesc + '-' + second.sdesc)" v-bind:class="'active-' + (checkedTyp == root.sdesc + '-' + second.sdesc)")
-      //         icon(:name="second.icon" width="14px" ) {{second.sdesc}}
-      div.sub-repos
-        template(v-for="(typ, index1) in cates" v-if="typ.repos && typ.repo")
-          div.split(:id="typ.repo.rootyp_zh + '-' + typ.repo.typcd_zh" v-bind:data-first="typ.repo.rootyp_zh")
-          h3
-            span {{typ.repo.rootyp_zh}} 
-            span » 
-            span {{typ.repo.typcd_zh}}
-            span.amount （{{typ.repos.length}}）
-          template(v-for="(repo, index2) in typ.repos")  
-            div.repo-card
-              fresh(:time="repo.pushed_at")
-              nuxt-link(:to="'/repo/' + repo.owner + '/' + repo.alia")
-                img.cover(:src="cdn(repo.cover, 'repo', 'subject_repo')") 
-              div.middle
+          div(:class="'inner ' + (fixcate ? 'fixed' : '')")
+            div.nav-level(v-for="root in rootyps" v-if="root.amount > 0")
+              a.root(href="javascript:void(0)"  v-bind:data-link="root.key" @click="switchTyp(root.sdesc)" )
+                // icon(:name="root.icon"  width="16px") {{root.sdesc}}
+                span {{root.sdesc}}
+              a.second(v-for="second in typcds(root)"   href="javascript:void(0)" v-if="second.repos.length > 0"  @click="switchTyp(root.sdesc + '-' + second.sdesc)" v-bind:class="'active-' + (checkedTyp == root.sdesc + '-' + second.sdesc)")
+                // icon(:name="second.icon" width="14px" ) {{second.sdesc}}
+                span {{second.sdesc}}
+                // span.num （{{second.repos.length}}）
+        div.sub-repos
+          template(v-for="(typ, index1) in cates" v-if="typ.repos && typ.repo")
+            div.split(:id="typ.repo.rootyp_zh + '-' + typ.repo.typcd_zh" v-bind:data-first="typ.repo.rootyp_zh")
+            h3
+              span {{typ.repo.rootyp_zh}} 
+              span » 
+              span {{typ.repo.typcd_zh}}
+              span.amount （{{typ.repos.length}}）
+            template(v-for="(repo, index2) in typ.repos")  
+              div.repo-card
+                fresh(:time="repo.pushed_at")
                 nuxt-link(:to="'/repo/' + repo.owner + '/' + repo.alia")
-                  h4 {{repo.name}}
-                span.sdesc {{repo.description_cn || repo.description}}
-              div.stars
-                icon(name="star" width="15px") {{repo.stargazers_count}}  
-            
-            div.ad-wraper(v-if="repo.hasad")
-              div.repo-card
+                  img.cover(:src="cdn(repo.cover, 'repo', 'subject_repo')") 
+                div.middle
+                  nuxt-link(:to="'/repo/' + repo.owner + '/' + repo.alia")
+                    h4 {{repo.name}}
+                  span.sdesc {{repo.description_cn || repo.description}}
+                div.stars
+                  icon(name="star" width="15px") {{repo.stargazers_count}}  
+              
+              div.ad-wraper(v-if="repo.hasad")
+                div.repo-card
+                    adsense(v-if="showad")
+                div.repo-card
                   adsense(v-if="showad")
-              div.repo-card
-                adsense(v-if="showad")
 </template>
 
 <script>
@@ -170,7 +154,7 @@
       let _self = this
       $(document).scroll(function () {
         var doctop = $(document).scrollTop()
-        _self.fixcate = (doctop >= $('.list-body').offset().top - 50)
+        _self.fixcate = (doctop >= $('.area-box').offset().top - 60)
         clearTimeout(activeTimer)
         activeTimer = setTimeout(function () {
           var activeEl = _.filter(positions, function (item) { return doctop >= item.top - 170 }).pop() || positions[0]
@@ -185,7 +169,7 @@
   .page-subject-name {
     background-color: #f7f8fa;
     .list-body {
-      max-width: 800px;
+      max-width: 1000px;
     }
     .split {
       height: 70px;
@@ -196,35 +180,16 @@
     }
 
     .nav-banner {
-      background-color: #FFF;
+      background-image: linear-gradient(36deg, #17522E 0%, #12496a 60%, #9f240e 100%);
+      box-shadow: 0 1px 1px 0 rgba(0,0,0,.05);
       margin-top: 30px;
+      margin-bottom: 20px;
       font-size: 1.1rem;
-      .sub-info {
-        background-color: #437c85;
-        color: #FFF;
-        padding: 20px;
-
-        article {
-          color: #d3e3e6;
-          margin-top: 10px;
-        }
-      }
-      .nav-box {
-        padding: 20px;
-      }
-      .nav-level {
-        margin-top: 15px;
-        & > a {
-          display: inline-block;
-          margin-right: 15px
-        }
-        .root {
-          font-size: 1.2rem;
-          font-weight: bold;
-        }
-        .num {
-          color: #99a7b4
-        }
+      color: #FFF;
+      padding: 20px;
+      article {
+        color: #d3e3e6;
+        margin-top: 10px;
       }
     }
   
@@ -284,9 +249,9 @@
 
 
     .sub-repos {
-      // max-width: 800px;
-      // margin: 0 auto;
       margin-bottom: 50px;
+      background-color: #FFF;
+      box-shadow: 0 1px 1px 0 rgba(0,0,0,.05);
 
       h3 {
         border-left: 0;
@@ -309,17 +274,14 @@
     }
 
     .repo-card {
-      margin: 0 10px;
       display: flex;
-      background-color: #FFF;
       padding: 20px;
       border-radius: 2px;
-      // text-overflow: ellipsis;
-      // overflow: hidden;
-      margin-bottom: 10px;
+      margin-bottom: 1px;
       border: #FFF 1px solid;
       flex-direction: row;
       align-items: center;
+      border-top: #f7f8fa 1px solid;
 
       .cover {
         height: 60px;
@@ -355,13 +317,13 @@
 
     .sub-link {
       font-size: 14px;
-      padding: 10px 20px;
+      padding: 8px 12px;
       margin-right: 20px;
       margin-top: 40px;
       display: inline-block;
       background-color: #da552f;
       color: #FFF;
-      border: #FAFAFA 1px solid;
+      // border: #FAFAFA 1px solid;
 
       &.github {
         background-color: #0275d8
@@ -376,6 +338,58 @@
       display: flex;
       .repo-card {
         width: 50%
+      }
+    }
+
+    .area-box {
+      display: flex;
+    }
+
+    .nav-box {
+      font-size: 12px;
+      width: 300px;
+      flex-shrink: 0;
+      margin-right: 20px;
+      @media (max-width: 800px) {
+        display: none;
+      } 
+      .inner {
+        padding: 20px;
+        padding-top: 10px;
+        box-shadow: 0 1px 1px 0 rgba(0,0,0,.05);
+        background-color: #FFF;
+        width: 300px;
+        &.fixed {
+          position: fixed;
+          top: 60px;
+        }
+      }
+      .nav-level {
+        margin-top: 10px;
+        & > a {
+          display: inline-block;
+          margin-right: 15px
+        }
+        .root {
+          font-size: 1.1rem;
+          font-weight: bold;
+        }
+        .num {
+          color: #99a7b4
+        }
+      }
+
+      .second {
+        padding: 3px 5px;
+        margin-top: 8px;
+        box-shadow: 0 1px 1px 0 rgba(0,0,0,.05);
+        font-size: 12px;
+        border: #e9e9e9 1px solid;
+
+        &.active-true {
+          border: #ed4612 1px solid;
+          color: #ed4612;
+        }
       }
     }
   }
