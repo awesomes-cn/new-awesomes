@@ -40,7 +40,11 @@
                   template(v-else)
                     div.message 订阅成功！
               div.item-box
-                adsense(ikey="alone")  
+                h5 大家在关注
+                div.item-inner
+                  home-actions
+              // div.item-box
+              //   adsense(ikey="alone")
               div.item-box
                 h5 专题推荐
                 div.item-inner
@@ -61,6 +65,9 @@
                   a(href="http://json.awesomes.cn/" target="_blank" title="在线JSON格式化验证工具")
                     img(src="../assets/img/logo-json.png")
                     div JSON
+                  a(href="http://gradient.awesomes.cn/" target="_blank" title="CSS 渐变背景设计")
+                    img(src="../assets/img/logo-gradient.png")
+                    div Gradient
                   a(href="http://filter.awesomes.cn/" target="_blank" title="在线图片滤镜效果可视化工具")
                     img(src="../assets/img/logo-filter.png")
                     div Filter
@@ -72,6 +79,7 @@
   import Topics from '~/components/topic/list.vue'
   import Subitem from '~/components/subitem.vue'
   import HomeRelease from '~/components/home/release.vue'
+  import HomeActions from '~/components/home/actions.vue'
   import HomeSub from '~/components/home/sub.vue'
   import HomeWeuse from '~/components/home/weuse.vue'
   import Adsense from '~/components/adsense.vue'
@@ -104,7 +112,8 @@
       HomeRelease,
       HomeSub,
       HomeWeuse,
-      Adsense
+      Adsense,
+      HomeActions
     },
     methods: {
       uperCaseTitle: function (title) {
@@ -207,21 +216,23 @@
       .repo-data {
         flex-grow: 1;
         padding-left: 10px;
-        word-break: keep-all;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
+        // word-break: keep-all;
+        // overflow: hidden;
+        // text-overflow: ellipsis;
+        // white-space: nowrap;
         width: 100%;
         display: block;
 
         .desc {
-          font-size: 1.3rem
+          font-size: 1.3rem;
+          line-height: 30px;
+          margin-bottom: 4px;
         }
 
         .title {
           color: #007bff;
           font-size: 1.2rem;
-          margin: 10px 0
+          margin-bottom: 10px;
         }
       }
       article {

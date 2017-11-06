@@ -4,7 +4,6 @@
       nuxt-link(:to="'/subject/' + sub.key" v-bind:style="'background-image:url(' + cdn(sub.cover, 'subject', 'subject') + ')'")
         div.detail 
           h4 {{sub.title}}
-
 </template>
 
 <script>
@@ -23,7 +22,7 @@
     padding: 10px;
     a {
       display: block;
-      height: 75px;
+      height: 90px;
       border-radius: 2px;
       position: relative;
       background-repeat: no-repeat;
