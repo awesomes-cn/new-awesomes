@@ -9,22 +9,22 @@
 import Vue from 'vue'
 import NuxtLoading from './components/nuxt-loading.vue'
 
-import 'C:\\Users\\HXH\\Desktop\\new-awesomes\\node_modules\\.4.0.0-beta.2@bootstrap\\dist\\css\\bootstrap.css'
+import '/home/hxh/share/new-awesomes/node_modules/_bootstrap@4.0.0-beta.2@bootstrap/dist/css/bootstrap.css'
 
-import 'C:\\Users\\HXH\\Desktop\\new-awesomes\\node_modules\\.1.8.3@prismjs\\themes\\prism.css'
+import '/home/hxh/share/new-awesomes/node_modules/_prismjs@1.8.3@prismjs/themes/prism.css'
 
-import 'C:\\Users\\HXH\\Desktop\\new-awesomes\\node_modules\\.3.5.2@animate.css\\animate.css'
+import '/home/hxh/share/new-awesomes/node_modules/_animate.css@3.5.2@animate.css/animate.css'
 
-import '..\\assets\\css\\main.css'
+import '../assets/css/main.css'
 
 
 let layouts = {
 
-  "_admin": () => import('..\\layouts\\admin.vue'  /* webpackChunkName: "layouts\\admin" */).then(m => m.default || m),
+  "_admin": () => import('../layouts/admin.vue'  /* webpackChunkName: "layouts/admin" */).then(m => m.default || m),
 
-  "_blank": () => import('..\\layouts\\blank.vue'  /* webpackChunkName: "layouts\\blank" */).then(m => m.default || m),
+  "_blank": () => import('../layouts/blank.vue'  /* webpackChunkName: "layouts/blank" */).then(m => m.default || m),
 
-  "_default": () => import('..\\layouts\\default.vue'  /* webpackChunkName: "layouts\\default" */).then(m => m.default || m)
+  "_default": () => import('../layouts/default.vue'  /* webpackChunkName: "layouts/default" */).then(m => m.default || m)
 
 }
 
