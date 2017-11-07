@@ -15,10 +15,10 @@
       //     strong {{mem.nc}}
       //   small.num 在用 {{mem.using}} 个前端库
       div.repos
-        div.repo-item(v-for="repo in mem.usings")
-          nuxt-link(:to="'/repo/' + repo.owner + '/' + repo.alia" :title="repo.alia" )
-            img.cover(:src="cdn(repo.cover, 'repo', 'repo-50')")
-            // span.usingmems {{repo.using}}
+        div.repo-item(v-for="oper in mem.opers")
+          nuxt-link(:to="'/repo/' + oper.repo.owner + '/' + oper.repo.alia" :title="oper.repo.alia" )
+            img.cover(:src="cdn(oper.repo.cover, 'repo', 'repo-50')")
+            // span.usingmems {{oper.repo.using}}
       // div 在用 {{mem.using}} 个前端库
 </template>
 
@@ -27,7 +27,17 @@
     props: ['datalist'],
     computed: {
       mem: function () {
-        return this.datalist ? this.datalist[parseInt(Math.random() * 4)] : null
+        if (this.datalist) {
+          let _mem = this.datalist[parseInt(Math.random() * 4)]
+          let _opers = []
+          for (let i = 0; i < 5; i++) {
+            let _index = parseInt(Math.random() * _mem.opers.length)
+            _opers.push(_mem.opers.splice(_index, 1)[0])
+          }
+          _mem.opers = _opers
+          return _mem
+        }
+        return null
       }
     }
   }
@@ -89,6 +99,11 @@
         border-radius: 100%;
         box-shadow: 0px 0px 5px #f1f1f1;
         border: #e7e5e5 1px solid;
+        transition: all, .2s;
+        &:hover {
+          padding: 0;
+          border: none;
+        }
       }
 
       .usingmems {
