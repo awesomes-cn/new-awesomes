@@ -1,11 +1,14 @@
 <template lang="pug">
   div.main-area
-    div.toitem(v-for="item in notifiys")
-      article(v-html="processAt(marked(item.con))")
-      span.time {{timeago(item.created_at)}}
-      span.flag(:class="item.status")
-      
-    pagination(flag="notifiy-list" v-bind:total="pagetotal" v-bind:size="pagesize")
+    template(v-if="notifiys.length > 0")
+      div.toitem(v-for="item in notifiys")
+        article(v-html="processAt(marked(item.con))")
+        span.time {{timeago(item.created_at)}}
+        span.flag(:class="item.status")
+        
+      pagination(flag="notifiy-list" v-bind:total="pagetotal" v-bind:size="pagesize")
+    template(v-else)
+      h2.noitem 消息列表为空
 </template>
 <script>
   import axios from '~/plugins/axios'
@@ -61,6 +64,7 @@
     
     .main-area {
       background-color: #FFF;
+      box-shadow: 0 1px 1px 0 rgba(0,0,0,.05);
       max-width: 800px;
       margin: 50px auto;
       padding: 40px;
@@ -104,6 +108,12 @@
           }
         }
       }
+    }
+
+    .noitem {
+      padding: 80px 0;
+      text-align: center;
+      color: #DDD;
     }
   }
 </style>

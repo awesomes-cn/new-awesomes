@@ -12,9 +12,8 @@ const _225bd32a = () => import('../pages/score.vue' /* webpackChunkName: "pages/
 const _65500e1f = () => import('../pages/search.vue' /* webpackChunkName: "pages/search" */).then(m => m.default || m)
 const _49a1c06e = () => import('../pages/mem.vue' /* webpackChunkName: "pages/mem" */).then(m => m.default || m)
 const _20df36dc = () => import('../pages/mem/_id/index.vue' /* webpackChunkName: "pages/mem/_id/index" */).then(m => m.default || m)
-const _1a0f8750 = () => import('../pages/mem/_id/marks.vue' /* webpackChunkName: "pages/mem/_id/marks" */).then(m => m.default || m)
-const _32df6cc2 = () => import('../pages/mem/_id/marks/repos.vue' /* webpackChunkName: "pages/mem/_id/marks/repos" */).then(m => m.default || m)
 const _91701d52 = () => import('../pages/mem/_id/pubs/comments.vue' /* webpackChunkName: "pages/mem/_id/pubs/comments" */).then(m => m.default || m)
+const _32df6cc2 = () => import('../pages/mem/_id/marks/repos.vue' /* webpackChunkName: "pages/mem/_id/marks/repos" */).then(m => m.default || m)
 const _696e71df = () => import('../pages/auth.vue' /* webpackChunkName: "pages/auth" */).then(m => m.default || m)
 const _3c4e8bfe = () => import('../pages/site.vue' /* webpackChunkName: "pages/site" */).then(m => m.default || m)
 const _47834d1b = () => import('../pages/site/link.vue' /* webpackChunkName: "pages/site/link" */).then(m => m.default || m)
@@ -122,21 +121,14 @@ export function createRouter () {
 					name: "mem-id"
 				},
 				{
-					path: ":id/marks",
-					component: _1a0f8750,
-					name: "mem-id-marks",
-					children: [
-						{
-							path: "repos",
-							component: _32df6cc2,
-							name: "mem-id-marks-repos"
-						}
-					]
-				},
-				{
 					path: ":id/pubs/comments",
 					component: _91701d52,
 					name: "mem-id-pubs-comments"
+				},
+				{
+					path: ":id/marks/repos",
+					component: _32df6cc2,
+					name: "mem-id-marks-repos"
 				}
 			]
 		},
