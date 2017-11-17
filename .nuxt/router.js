@@ -12,6 +12,7 @@ const _225bd32a = () => import('../pages/score.vue' /* webpackChunkName: "pages/
 const _65500e1f = () => import('../pages/search.vue' /* webpackChunkName: "pages/search" */).then(m => m.default || m)
 const _49a1c06e = () => import('../pages/mem.vue' /* webpackChunkName: "pages/mem" */).then(m => m.default || m)
 const _20df36dc = () => import('../pages/mem/_id/index.vue' /* webpackChunkName: "pages/mem/_id/index" */).then(m => m.default || m)
+const _5f64ffb3 = () => import('../pages/mem/_id/profile.vue' /* webpackChunkName: "pages/mem/_id/profile" */).then(m => m.default || m)
 const _91701d52 = () => import('../pages/mem/_id/pubs/comments.vue' /* webpackChunkName: "pages/mem/_id/pubs/comments" */).then(m => m.default || m)
 const _32df6cc2 = () => import('../pages/mem/_id/marks/repos.vue' /* webpackChunkName: "pages/mem/_id/marks/repos" */).then(m => m.default || m)
 const _696e71df = () => import('../pages/auth.vue' /* webpackChunkName: "pages/auth" */).then(m => m.default || m)
@@ -119,6 +120,11 @@ export function createRouter () {
 					path: ":id",
 					component: _20df36dc,
 					name: "mem-id"
+				},
+				{
+					path: ":id/profile",
+					component: _5f64ffb3,
+					name: "mem-id-profile"
 				},
 				{
 					path: ":id/pubs/comments",

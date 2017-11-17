@@ -8,7 +8,7 @@
       div.share-item(v-for="mem in mems")
         div.mem-info
           nuxt-link(:to="'mem/' + mem.id")
-            img.tx(:src="cdn(mem.avatar, 'mem')")
+            img.tx(:src="cdn(mem.avatar, 'mem', 'repo-50')")
           h5
             span {{mem.nc}} 
             span(v-if="isExsit(mem.mem_info.company)") @ {{mem.mem_info.company}}

@@ -1,13 +1,16 @@
 <template lang="pug">
   div
-    div.comments
-      div.com-item(v-for="item in comments")
-        div.up 
-          icon(name="arrow-up") {{item.favor}}
-        div.right
-          article(v-html="processAt(marked(item.con))")
-          span.time {{timeago(item.created_at)}}
-    pagination(flag="comments-list" v-bind:total="pagetotal" v-bind:size="pagesize")
+    template(v-if="comments.length > 0")
+      div.comments
+        div.com-item(v-for="item in comments")
+          div.up 
+            icon(name="arrow-up") {{item.favor}}
+          div.right
+            article(v-html="processAt(marked(item.con))")
+            span.time {{timeago(item.created_at)}}
+      pagination(flag="comments-list" v-bind:total="pagetotal" v-bind:size="pagesize")
+    template(v-else)
+      h2.noitem 尚未发布评论
 </template>
 
 <script>
@@ -73,5 +76,11 @@
     padding-right: .5rem;
     border-radius: 2px;
     height: 30px;
+  }
+
+  .noitem {
+    padding: 80px 0;
+    text-align: center;
+    color: #DDD;
   }
 </style>

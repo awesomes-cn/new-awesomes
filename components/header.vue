@@ -24,13 +24,13 @@
 
           div.memeus(v-show="showmemeus" @mouseover="showmemeus = true" @mouseleave="showmemeus = false")
             nuxt-link(:to="'/mem/' + (session || {}).id + '/marks/repos'") 我的收藏
-            nuxt-link(:to=`'/mem/' + (session || {}).id`) 个人资料
+            nuxt-link(:to=`'/mem/' + (session || {}).id + '/profile'`) 个人资料
             a(href="javascript:void(0)" @click="logout()") 注 销
 
           a(href="javascript:void(0)" @click="showLogin()" v-show="!session") 登录
 
           nuxt-link(:to="'/mem/' + (session || {}).id" v-show="session") 
-            img.tx(:src="cdn((session || {}).avatar, 'mem')")
+            img.tx(:src="cdn((session || {}).avatar, 'mem', 'repo-50')")
             
 
           nuxt-link.hide-small.notifiys(to="/notifications" v-show="session" v-bind:class="$store.state.unreadNotifiy > 0 ? 'active' : ''")

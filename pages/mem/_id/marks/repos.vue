@@ -8,7 +8,7 @@
               nuxt-link(:to="'/repo/' + mark.repo.owner + '/' + mark.repo.alia")
                 // img.cover(:src="cdn(mark.repo.cover, 'repo', 'subject_repo')")
                 h5.reponame {{mark.repo.alia}}
-            li.list-group-item(:class="'list-group-item list-group-item-' + getColor(mark.repo.alia)")
+            li.list-group-item.color-item
               nuxt-link(:to="'/repo/' + mark.repo.owner + '/' + mark.repo.alia")
                 img.cover(:src="cdn(mark.repo.cover, 'repo', 'subject_repo')")
               div {{mark.repo.typcd_zh}} 
@@ -17,9 +17,9 @@
               div.caption {{mark.repo.description_cn || mark.repo.description }}
             li.list-group-item
               div.time-box
-                icon(name="clock-o") {{timeago(mark.created_at)}}
-                a.remove-btn(href="javascript:void(0)" title="取消收藏")
-                  icon(name="cancel" width="14px")
+                icon(name="clock-o" width="17px" :title="'收藏于' + timeago(mark.created_at)") {{timeago(mark.created_at)}}
+                a.remove-btn(href="javascript:void(0)" title="取消收藏" @click="cancel(mark)" v-if="session.id === mark.mem_id")
+                  icon(name="cancel" width="12px")
       pagination(flag="weuse-list" v-bind:total="pagetotal" v-bind:size="pagesize")
     template(v-else)
       h2.noitem 尚未收藏前端库
@@ -36,7 +36,7 @@
     },
     asyncData ({ req, params, query, route }) {
       let page = query.page || 1
-      return axios().get(`mem/${route.params.id}/opers`, {
+      return axios().get(`mem/${params.id}/opers`, {
         params: {
           opertyp: 'MARK',
           typ: 'REPO',
@@ -56,10 +56,15 @@
       }
     },
     methods: {
-      getColor: function (name) {
-        let colors = ['primary', 'success', 'danger', 'warning', 'info', 'secondary']
-        let _index = Math.abs(parseInt((name.length + '').split('').pop()) - 5)
-        return colors[_index]
+      cancel: async function (mark) {
+        let res = await axios().post('oper', {
+          opertyp: 'MARK',
+          typ: 'REPO',
+          idcd: mark.repo.id
+        })
+        if (!res.data.has) {
+          this.marks.splice(this.marks.indexOf(mark), 1)
+        }
       }
     }
   }
@@ -99,6 +104,10 @@
         display: none;
       }
 
+      .list-group-item {
+        border: 1px solid rgba(104, 129, 134, 0.125);
+      }
+
       &:hover {
         .remove-btn {
           display: inline-block;
@@ -110,6 +119,10 @@
       padding: 80px 0;
       text-align: center;
       color: #DDD;
+    }
+
+    .color-item {
+      background-color: rgba(198, 186, 143, 0.08)
     }
   }
 </style>

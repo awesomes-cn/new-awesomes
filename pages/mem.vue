@@ -7,21 +7,23 @@
             div.basic
               div.bgcover(:style="{backgroundImage: 'url(' + cdn(mem.avatar, 'mem') + ')'}")
               div.conbox
-                nuxt-link(to="/mem" class="tx-link") 
-                  img.tx(:src="cdn(mem.avatar, 'mem')")
+                nuxt-link(:to="'/mem/' + mem.id + '/profile'" class="edit-link" title="更新资料" v-if="session.id === mem.id")
+                  icon(name="edit")
+                nuxt-link(:to="'/mem/' + mem.id" class="tx-link") 
+                  img.tx(:src="cdn(mem.avatar, 'mem', 'subject_repo')")
                 h4.nc {{mem.nc}}
 
                 div.loacom
                   icon(name="location" v-if="mem.mem_info.location" width="18px") {{mem.mem_info.location || '坐标'}}
                   icon(name="company" v-if="mem.mem_info.company"  width="18px") {{mem.mem_info.company || '公司'}}
-
+            div.actions
+              div
+                nuxt-link(:to="'/mem/' + mem.id") {{mem.using}}
+                div 在用
+              div
+                nuxt-link(:to="'/mem/' + mem.id + '/marks/repos'") {{mem.marks}}
+                div 收藏
             div.info
-              // span(title="坐标")
-              //   icon(name="location") {{mem.mem_info.location || '坐标'}}
-
-              // span(title="公司")
-              //   icon(name="company") {{mem.mem_info.company || '公司'}}
-
               a(:href="mem.mem_info.blog" target="_blank" v-if="isExsit(mem.mem_info.blog)" )
                 icon(name="home" style="color: #009688")
                 span.desc 主页
@@ -43,23 +45,7 @@
             div.mem-menus
               nuxt-link(:to="'/mem/' + mem.id") {{who}}在用
               nuxt-link(:to="'/mem/' + mem.id + '/marks/repos'") {{who}}收藏的
-              // div.left
-              //   div.dropdown-outer
-              //     span.title {{getPageName()}}
-              //     icon(name="arrow-up" rotate="90")
-              //     div.dropdown
-              //       nuxt-link(:to="'/mem/' + mem.id") {{who}}在用
-              //       nuxt-link(:to="'/mem/' + mem.id + '/marks/repos'") {{who}}收藏的
-              //       nuxt-link(:to="'/mem/' + mem.id + '/pubs/comments'") {{who}}发布的
-              //       // nuxt-link(:to="'/mem/' + mem.id + '/ups'") {{who}}点赞的
-              //   div.seconds
-              //     nuxt-link(:to="'/mem/' + mem.id" v-if="routeKey === ''") 前端库
-              //     nuxt-link(:to="'/mem/' + mem.id + '/marks/repos'" v-if="routeKey === 'marks'") 前端库
-                  
-              //     template(v-if="routeKey === 'pubs'")
-              //       nuxt-link(:to="'/mem/' + mem.id + '/pubs/comments'") 评论
-              //       // nuxt-link(:to="'/mem/' + mem.id + '/pubs/dianps'") 经验
-              // div.right
+              nuxt-link(:to="'/mem/' + mem.id + '/pubs/comments'") {{who}}的评论
             div.mem-body  
               nuxt-child  
 </template>
@@ -74,10 +60,8 @@
       }
     },
     watch: {
-      '$router.params.id': function (val) {
-        axios().get(`mem/${val}`).then(res => {
-          this.mem = res.data
-        })
+      '$route.params.id': function (val) {
+        window.location.reload()
       }
     },
     computed: {
@@ -120,7 +104,7 @@
     padding: 0 15px;
 
     a {
-      padding: 15px 10px;
+      padding: 15px;
       display: inline-block;
 
       &.nuxt-link-exact-active {
@@ -165,9 +149,23 @@
         justify-content: center;
         background-color: rgba(0, 0, 0, 0.25);
 
+        &:hover {
+          .edit-link {
+            display: inline-block
+          }
+        }
+
         .nc {
           font-weight: normal;
           margin-top: 20px;
+        }
+
+        .edit-link {
+          position: absolute;
+          right: 10px;
+          top: 10px;
+          color: #FFF;
+          display: none;
         }
 
         .loacom {
@@ -199,12 +197,12 @@
 
     .info {
       line-height: 20px;
-      margin-top: 20px;
+      background-color: #fdfeff;
       a {
         display: block;
         padding: 10px 15px;
         color: #9e9e9e;
-        border-bottom: #f8f8fa 1px solid;
+        border-top: #f8f8fa 1px solid;
         .desc {
           display: inline-block;
           float: right
@@ -219,7 +217,8 @@
 
   .mem-area {
     padding: 50px 0;
-    background: #f7f8fa
+    background: #f7f8fa;
+    min-height: 500px;
   }
 
   .conarea {
@@ -244,6 +243,20 @@
     a {
       padding: 0 20px;
       font-weight: bold
+    }
+  }
+
+  .actions {
+    display: flex;
+    text-align: center;
+    & > div {
+      flex-grow: 1;
+      padding:20px 10px;
+    }
+
+    a {
+      color: #FF9800;
+      font-size: 1.5rem;
     }
   }
 </style>

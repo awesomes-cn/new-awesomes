@@ -2,9 +2,11 @@
   div.container
     template(v-if="usings.length > 0")
       div.row
-        div.col-md-3.col-sm-3.col-4.repo-item(v-for="oper in usings")
-          nuxt-link(:to="'/repo/' + oper.repo.owner + '/' + oper.repo.alia")
-            img.cover(:src="cdn(oper.repo.cover, 'repo', 'repo')")
+        div.col-md-3.col-sm-3.col-4(v-for="oper in usings")
+          nuxt-link(:to="'/repo/' + oper.repo.owner + '/' + oper.repo.alia" class="repo-item")
+            div.cover-box
+              img.cover(:src="cdn(oper.repo.cover, 'repo', 'subject_repo')")
+              span.usingmems {{oper.repo.using}}
             h5 {{oper.repo.alia}}
     template(v-else)
       h2.noitem 没有在用前端库
@@ -32,12 +34,33 @@
 
 <style lang="scss" scoped>
   .repo-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 25px;
     text-align: center;
-    margin-top: 20px;
+    .cover-box {
+      max-width: 50px;
+      width: 100%;
+      margin-bottom: 10px;
+      position: relative;
+    }
     .cover {
       width: 100%;
-      max-width: 100px;
-      margin-bottom: 10px;
+      border-radius: 2px;
+    }
+
+    .usingmems {
+      color: #fff;
+      font-size: 12px;
+      display: inline-block;
+      background-color: #3e9ef1;
+      padding: 2px 7px;
+      border-radius: 100px;
+      position: absolute;
+      top: -10px;
+      right: -10px;
+      border: 2px solid #fff;
     }
   }
 

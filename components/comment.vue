@@ -8,7 +8,7 @@
 
     div.citem(v-for="(item, index) in coms")
       nuxt-link(:to="'/mem/' + item.mem.id")
-        img.mem-tx(:src="cdn(item.mem.avatar, 'mem')")
+        img.mem-tx(:src="cdn(item.mem.avatar, 'mem', 'repo-50')")
         strong {{item.mem.nc}}
       span.time {{timeago(item.created_at)}}
       article(v-html="processAt(marked(item.con))")

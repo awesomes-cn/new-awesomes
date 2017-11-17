@@ -41,7 +41,7 @@
             template(v-if="repo.using > 0")
               div.iuse
                 nuxt-link(:to="'/mem/' + using.mem.id" v-for="using in repo.usings" v-bind:title="using.mem.nc")
-                  img.mem-tx(:src="cdn(using.mem.avatar, 'mem')")
+                  img.mem-tx(:src="cdn(using.mem.avatar, 'mem', 'repo-50')")
               div(style="text-align: center")
                 span(v-show="repo.using > 5") 等 
                 span {{repo.using}} 人在用
