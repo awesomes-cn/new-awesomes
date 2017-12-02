@@ -9,16 +9,16 @@
                 input(type="text" placeholder="搜索前端库" v-model="searchKey" @keyup.enter="searchGo")
                 a.go-btn(href="javascript:void(0)" @click="searchGo")
                   icon(name="search")
-            div.statics-box
+            div.statics-box(v-if="homeData.statistic.repos")
               span(style="color: #ff6e40")
                 icon(name="hot" width="17px")
               span 共收录
-              span.impo 34
+              span.impo {{homeData.statistic.repos}}
               span 个前端库
-              span     被
-              span.impo 180
+              span.mar 被
+              span.impo {{homeData.statistic.mems}}
               span 名开发者收藏
-              span.impo 51234
+              span.impo {{homeData.statistic.marks}}
               span 次
             div.left-box
               div.new-item(v-for="repo in latests")
@@ -113,7 +113,10 @@
         substatus: 'normal',
         homeData: {
           releases: [],
-          subs: []
+          subs: [],
+          statistic: {
+            repos: 0
+          }
         }
       }
     },
@@ -177,8 +180,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #FFF;
-    padding: 30px;
+    background-color: #fdfdfd;
     box-shadow: 0 1px 1px 0 rgba(0,0,0,.05);    
     border: rgba(149, 149, 149, 0.11) 1px solid;  
   }
@@ -189,6 +191,10 @@
     display: flex;
     align-items: center;
     justify-content: center;
+
+    .mar {
+      margin-left: 10px;
+    }
 
     .impo {
       color: #0db6a6;
@@ -205,8 +211,13 @@
       font-size: 17px;
       border: 0;
       outline: none;
+      padding: 30px;
+      background-color: #fdfdfd;
       &::-webkit-input-placeholder { /* WebKit, Blink, Edge */
         color: #AAA;
+      }
+      &:focus {
+        background-color: #FFF
       }
     }
     .go-btn {
@@ -239,7 +250,7 @@
       border-bottom: 1px solid #f4f4f4;
 
       &:hover {
-        background-color: #f7faf9;
+        background-color: rgba(246, 252, 255, 0.3);
       }
       .repo-data {
         flex-grow: 1;

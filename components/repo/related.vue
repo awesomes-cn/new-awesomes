@@ -12,20 +12,15 @@
 <script>
   import axios from '~/plugins/axios'
   export default {
-    props: ['rid'],
+    props: ['repo'],
     data () {
       return {
         repos: []
       }
     },
     async created () {
-      let res = await axios().get(`repo`, {
-        params: {
-          limit: 4,
-          skip: 20
-        }
-      })
-      this.repos = res.data.items
+      let res = await axios().get(`repo/${this.repo.owner}/${this.repo.alia}/related`)
+      this.repos = res.data
     }
   }
 </script>

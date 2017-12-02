@@ -11,7 +11,7 @@
                 icon(name="template" width="14px") 阅读全部
           div.item-box
             h5.title 也许你还需要它们
-            related(:rid="repo.id")
+            related(:repo="repo")
           div.item-box
             h5.title 评论区
             comment(flag="repo-comment" typ="REPO" v-bind:idcd="repo.id" placeholder="我们会认真对待你的想法、建议和反馈")
