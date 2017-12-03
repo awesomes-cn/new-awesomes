@@ -9,6 +9,17 @@
                 input(type="text" placeholder="搜索前端库" v-model="searchKey" @keyup.enter="searchGo")
                 a.go-btn(href="javascript:void(0)" @click="searchGo")
                   icon(name="search")
+            div.statics-box
+              span(style="color: #ff6e40")
+                icon(name="hot" width="17px")
+              span 共收录
+              span.impo 34
+              span 个前端库
+              span     被
+              span.impo 180
+              span 名开发者收藏
+              span.impo 51234
+              span 次
             div.left-box
               div.new-item(v-for="repo in latests")
                 nuxt-link(:to="'/repo/' + repo.owner + '/' + repo.alia")
@@ -167,9 +178,22 @@
     align-items: center;
     justify-content: center;
     background-color: #FFF;
-    margin-bottom: 10px;
-    padding: 30px 50px;
-    box-shadow: 0 1px 1px 0 rgba(0,0,0,.05);      
+    padding: 30px;
+    box-shadow: 0 1px 1px 0 rgba(0,0,0,.05);    
+    border: rgba(149, 149, 149, 0.11) 1px solid;  
+  }
+
+  .statics-box {
+    padding: 10px;
+    color: #8d938d;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .impo {
+      color: #0db6a6;
+      margin: 0 4px;
+    }
   }
 
   .search {
@@ -177,8 +201,8 @@
     display: flex;
     input {
       flex-grow: 1;
-      padding: 12px 15px;
-      background-color: #EEE;
+      // background-color: #EEE;
+      font-size: 17px;
       border: 0;
       outline: none;
       &::-webkit-input-placeholder { /* WebKit, Blink, Edge */
@@ -188,8 +212,8 @@
     .go-btn {
       width: 40px;
       display: inline-flex;
-      background-color: #1dd09b;
-      color: #FFF;
+      // background-color: #1dd09b;
+      color: #987a62;
       justify-content: center;
     }
   }
@@ -213,6 +237,10 @@
       opacity: 0.9;
       display: flex;
       border-bottom: 1px solid #f4f4f4;
+
+      &:hover {
+        background-color: #f7faf9;
+      }
       .repo-data {
         flex-grow: 1;
         padding-left: 10px;

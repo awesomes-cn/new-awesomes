@@ -7,7 +7,8 @@
           div.item-box
             article(v-html="marked(repo.about_zh || repo.about)" :class="'repo-con showAll-' + isAllShow")
             div.more-box(v-show="isAllShow == false")
-              button(type="button" class="btn btn-outline-primary" @click="isAllShow = true") 阅读全部
+              button(type="button" class="btn btn-outline-primary" @click="isAllShow = true")
+                icon(name="template" width="14px") 阅读全部
           div.item-box
             h5.title 也许你还需要它们
             related(:rid="repo.id")
@@ -202,11 +203,11 @@
         font-size: 15px;
         line-height: 27px;
         word-break: break-all;
-        height: 700px;
+        max-height: 700px;
         overflow: hidden;
 
         &.showAll-true {
-          height: auto;
+          max-height: max-content;
         }
 
         img {
