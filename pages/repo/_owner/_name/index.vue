@@ -9,7 +9,12 @@
             div.more-box(v-show="isAllShow == false")
               button(type="button" class="btn btn-outline-primary" @click="isAllShow = true") 阅读全部
           div.item-box
+            h5.title 也许你还需要它们
+            related(:rid="repo.id")
+          div.item-box
+            h5.title 评论区
             comment(flag="repo-comment" typ="REPO" v-bind:idcd="repo.id" placeholder="我们会认真对待你的想法、建议和反馈")
+        
         div.col-md-3.right-col.col-12
           div.item-box.without-padding
             div.fresh-box.inner
@@ -53,6 +58,7 @@
 <script>
   import axios from '~/plugins/axios'
   import Banner from '~/components/repo/banner'
+  import Related from '~/components/repo/related'
   import Comment from '~/components/comment.vue'
   export default {
     asyncData ({ req, params, query }) {
@@ -80,7 +86,8 @@
     },
     components: {
       Banner,
-      Comment
+      Comment,
+      Related
     },
     methods: {
       // 20天内算频繁
@@ -161,6 +168,10 @@
         box-shadow: 0 1px 2px 0 rgba(0,0,0,.05);
         border-radius: 3px;
         position: relative;
+
+        .title {
+          margin-bottom: 20px;
+        }
 
         &.without-padding {
           padding: 0!important;
