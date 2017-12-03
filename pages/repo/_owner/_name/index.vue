@@ -5,7 +5,9 @@
       div.row
         div.col-md-9.col-12
           div.item-box
-            article.repo-con(v-html="marked(repo.about_zh || repo.about)")
+            article(v-html="marked(repo.about_zh || repo.about)" :class="'repo-con showAll-' + isAllShow")
+            div.more-box(v-show="isAllShow == false")
+              button(type="button" class="btn btn-outline-primary" @click="isAllShow = true") 阅读全部
           div.item-box
             comment(flag="repo-comment" typ="REPO" v-bind:idcd="repo.id" placeholder="我们会认真对待你的想法、建议和反馈")
         div.col-md-3.right-col.col-12
@@ -71,6 +73,11 @@
         ]
       }
     },
+    data () {
+      return {
+        isAllShow: false
+      }
+    },
     components: {
       Banner,
       Comment
@@ -131,7 +138,20 @@
     .repo-detail {
       padding-bottom: 50px;
       .container {
-        max-width: 1000px
+        max-width: 1000px;
+      }
+
+      .more-box {
+        position: absolute;
+        width: 100%;
+        z-index: 10;
+        left: 0;
+        height: 120px;
+        background-image: linear-gradient(transparent,#fff 30%);
+        bottom: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
       }
 
       .item-box {
@@ -140,6 +160,7 @@
         margin-top: 20px;
         box-shadow: 0 1px 2px 0 rgba(0,0,0,.05);
         border-radius: 3px;
+        position: relative;
 
         &.without-padding {
           padding: 0!important;
@@ -170,6 +191,12 @@
         font-size: 15px;
         line-height: 27px;
         word-break: break-all;
+        height: 700px;
+        overflow: hidden;
+
+        &.showAll-true {
+          height: auto;
+        }
 
         img {
           max-width: 100%
