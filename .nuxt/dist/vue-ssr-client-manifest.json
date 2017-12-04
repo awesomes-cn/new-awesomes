@@ -49,11 +49,11 @@
     "pages/score.5062854dac9d844ae3d6.js",
     "pages/auth.6f0f91d6f24f245371e7.js",
     "common.87ba720c0b68284b09ac.js",
-    "app.da89ce38f07e83466d03.js",
+    "app.eb25ae2325179c418c84.js",
     "43.fe41e47cf32e328c929a.js",
     "44.ab76507ca9c8577da2e9.js",
     "img/logo-filter.402cc9b.png",
-    "manifest.98aac454e34a1f1e1a2e.js",
+    "manifest.3f01e4817a9bdac13600.js",
     "LICENSES",
     "pages/index.680b219f5d6d6c4902b5.js.map",
     "pages/repo/_owner/_name/index.0faaa60ccbbde5d132be.js.map",
@@ -97,18 +97,18 @@
     "pages/score.5062854dac9d844ae3d6.js.map",
     "pages/auth.6f0f91d6f24f245371e7.js.map",
     "common.87ba720c0b68284b09ac.js.map",
-    "app.da89ce38f07e83466d03.js.map",
+    "app.eb25ae2325179c418c84.js.map",
     "43.fe41e47cf32e328c929a.js.map",
     "44.ab76507ca9c8577da2e9.js.map",
     "45.b4e02a6cac79b273be97.js.map",
-    "manifest.98aac454e34a1f1e1a2e.js.map",
+    "manifest.3f01e4817a9bdac13600.js.map",
     "index.spa.html",
     "index.ssr.html"
   ],
   "initial": [
-    "manifest.98aac454e34a1f1e1a2e.js",
+    "manifest.3f01e4817a9bdac13600.js",
     "common.87ba720c0b68284b09ac.js",
-    "app.da89ce38f07e83466d03.js"
+    "app.eb25ae2325179c418c84.js"
   ],
   "async": [
     "45.b4e02a6cac79b273be97.js",
