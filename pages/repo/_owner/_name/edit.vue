@@ -34,7 +34,7 @@
       div
         div(style="margin-bottom: 20px;")
           img.cover(:src="cdn(repo.cover, 'repo', 'repo')")
-        upload(v-model="repo.cover" folder="repo")
+        upload(v-model="repo.cover" folder="repo" v-if="showUpload")
     div.form-group
       label 推荐
       input.form-control(v-model="repo.recommend") 
@@ -59,6 +59,9 @@
       return {
         typs: []
       }
+    },
+    components: {
+      upload: () => import('~/components/upload.vue')
     },
     methods: {
       // 提交
@@ -87,6 +90,9 @@
         })
         self.typs = _.sortBy(result, 'label')
       })
+    },
+    mounted () {
+      this.showUpload = true
     }
   }
 </script>

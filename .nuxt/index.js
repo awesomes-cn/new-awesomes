@@ -16,7 +16,6 @@ import plugin2 from 'plugin2'
 import plugin3 from 'plugin3'
 import plugin4 from 'plugin4'
 import plugin5 from 'plugin5'
-import plugin6 from 'plugin6'
 
 
 // Component: <no-ssr>
@@ -149,12 +148,11 @@ async function createApp (ssrContext) {
   if (typeof plugin0 === 'function') await plugin0(ctx, inject)
   if (typeof plugin1 === 'function') await plugin1(ctx, inject)
   if (typeof plugin2 === 'function') await plugin2(ctx, inject)
-  if (typeof plugin6 === 'function') await plugin6(ctx, inject)
+  if (typeof plugin5 === 'function') await plugin5(ctx, inject)
   
   if (process.browser) { 
     if (typeof plugin3 === 'function') await plugin3(ctx, inject)
     if (typeof plugin4 === 'function') await plugin4(ctx, inject)
-    if (typeof plugin5 === 'function') await plugin5(ctx, inject)
   }
 
   if (process.server && ssrContext && ssrContext.url) {

@@ -4,7 +4,7 @@
       label 头像
       div.upload-avatar
         img(:src="cdn(mem.avatar, 'mem', 'subject_repo')")
-        upload(v-model="mem.avatar" folder="mem" txt="更新头像")
+        upload(v-model="mem.avatar" folder="mem" txt="更新头像" v-if="showUpload")
 
     div.form-group
       label 性别
@@ -58,6 +58,7 @@
   export default {
     data () {
       return {
+        showUpload: false
       }
     },
     async asyncData ({ req, params, query }) {
@@ -71,6 +72,9 @@
         return this.$store.state.session || {}
       }
     },
+    components: {
+      upload: () => import('~/components/upload.vue')
+    },
     methods: {
       submit: async function () {
         let res = await axios().put('mem', {mem: this.mem})
@@ -82,7 +86,8 @@
       }
     },
 
-    created () {
+    mounted () {
+      this.showUpload = true
     }
   }
 </script>
