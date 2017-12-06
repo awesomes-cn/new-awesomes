@@ -19,7 +19,7 @@
             
 
         div.right
-          a.hide-small(href="" v-show="session" @mouseover="showmemeus = true" @mouseleave="showmemeus = false")
+          a.hide-small(href="javascript:void(0)" v-show="session" @mouseover="showmemeus = true" @mouseleave="showmemeus = false")
             icon(name="more" width="20px")
 
           div.memeus(v-show="showmemeus" @mouseover="showmemeus = true" @mouseleave="showmemeus = false")

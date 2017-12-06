@@ -3,7 +3,7 @@
     div.form-group
       label 头像
       div.upload-avatar
-        img(:src="cdn(mem.avatar, 'mem')")
+        img(:src="cdn(mem.avatar, 'mem', 'subject_repo')")
         upload(v-model="mem.avatar" folder="mem" txt="更新头像")
 
     div.form-group
@@ -107,12 +107,11 @@
 
   .upload-avatar {
     width: 150px;
-    height: 150px;
     display: flex;
     align-items: flex-end;
     img {
-      width: 100%;
       margin-right: 20px;
+      max-height: 200px
     }
   }
 }

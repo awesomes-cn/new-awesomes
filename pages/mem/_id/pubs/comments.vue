@@ -25,10 +25,12 @@
     },
     asyncData ({ req, params, query, route }) {
       let page = query.page || 1
-      return axios(req).get(`comment?mem_id=${route.params.id}`, {
+      return axios(req).get(`comment`, {
         params: {
+          mem_id: route.params.id,
           limit: pagesize,
-          skip: pagesize * (page - 1)
+          skip: pagesize * (page - 1),
+          order: 'id desc'
         }
       }).then(res => {
         return {

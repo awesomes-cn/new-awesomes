@@ -81,7 +81,7 @@
 </script>
 
 
-<style lang="scss" scoped>
+<style lang="scss">
   .upload-box {
     cursor: pointer;
     position: relative;
