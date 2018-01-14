@@ -38,11 +38,18 @@
                 h5 大牛在用
                 div.item-inner
                   home-weuse(:datalist="homeData.weuses")
+              
               a.item-box.link-qqs(href="//shang.qq.com/wpa/qunwpa?idkey=699c9d6d8abb0351671211a011da67b6a2f54097097482794aff64b68e046914" target="_blank")
                 icon(name="qq")
                 div
                   span 官方 QQ 群
                   strong 「669525022」
+              a.item-box.link-fercard(href="/fercard")
+                img(src="../assets/img/fercard-logo.png")
+                div
+                  div.name Front End Repo Card
+                  div(style="color: #979797") 随机推荐优秀前端框架卡片
+              
               div.item-box.item-box-rss
                 div.item-inner
                   template(v-if="substatus === 'normal'")
@@ -316,6 +323,21 @@
           * {
             padding: 0;
             margin: 5px;
+          }
+        }
+
+        &.link-fercard {
+          display: flex;
+          padding: 20px;
+          align-items: center;
+
+          img {
+            margin-right: 10px;
+          }
+
+          .name {
+            font-weight: bold;
+            font-size: 15px;
           }
         }
 
