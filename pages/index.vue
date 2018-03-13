@@ -9,17 +9,8 @@
                 input(type="text" placeholder="搜索前端库" v-model="searchKey" @keyup.enter="searchGo")
                 a.go-btn(href="javascript:void(0)" @click="searchGo")
                   icon(name="search")
-            div.statics-box(v-if="homeData.statistic.repos")
-              span(style="color: #ff6e40")
-                icon(name="hot" width="17px")
-              span 共收录
-              span.impo {{homeData.statistic.repos}}
-              span 个前端库
-              span.mar 被
-              span.impo {{homeData.statistic.mems}}
-              span 名开发者收藏
-              span.impo {{homeData.statistic.marks}}
-              span 次
+            div
+              home-swiper
             div.left-box
               div.new-item(v-for="repo in latests")
                 nuxt-link(:to="'/repo/' + repo.owner + '/' + repo.alia")
@@ -100,6 +91,7 @@
   import HomeActions from '~/components/home/actions.vue'
   import HomeSub from '~/components/home/sub.vue'
   import HomeWeuse from '~/components/home/weuse.vue'
+  import HomeSwiper from '~/components/home/swiper.vue'
   import Adsense from '~/components/adsense.vue'
 
   export default {
@@ -134,7 +126,8 @@
       HomeSub,
       HomeWeuse,
       Adsense,
-      HomeActions
+      HomeActions,
+      HomeSwiper
     },
     methods: {
       uperCaseTitle: function (title) {
