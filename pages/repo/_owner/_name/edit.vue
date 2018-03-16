@@ -39,6 +39,12 @@
       label 推荐
       input.form-control(v-model="repo.recommend") 
     div.form-group
+      label 推荐大图
+      div
+        div(style="margin-bottom: 20px;")
+          img.cover(:src="cdn(repo.banner_cover, 'repo')")
+        upload(v-model="repo.banner_cover" folder="repo" v-if="showUpload")
+    div.form-group
       label
       button.btn.btn-danger(@click="submit") 提交更新         
 </template>
@@ -115,6 +121,7 @@
 
       .cover {
         border: #DDD 5px solid;
+        max-width: 600px;
       }
     }
   }

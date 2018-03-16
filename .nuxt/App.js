@@ -1,19 +1,11 @@
-<template>
-  <div id="__nuxt">
-    <nuxt-loading ref="loading"></nuxt-loading>
-    <component v-if="layout" :is="nuxt.err ? 'nuxt' : layout"></component>
-  </div>
-</template>
-
-<script>
 import Vue from 'vue'
 import NuxtLoading from './components/nuxt-loading.vue'
 
-import '/home/hxh/share/new-awesomes/node_modules/_bootstrap@4.0.0-beta.2@bootstrap/dist/css/bootstrap.css'
+import '../node_modules/_bootstrap@4.0.0@bootstrap/dist/css/bootstrap.css'
 
-import '/home/hxh/share/new-awesomes/node_modules/_prismjs@1.8.3@prismjs/themes/prism.css'
+import '../node_modules/_prismjs@1.12.2@prismjs/themes/prism.css'
 
-import '/home/hxh/share/new-awesomes/node_modules/_animate.css@3.5.2@animate.css/animate.css'
+import '../node_modules/_animate.css@3.6.1@animate.css/animate.css'
 
 import '../assets/css/main.css'
 
@@ -31,13 +23,39 @@ let layouts = {
 let resolvedLayouts = {}
 
 export default {
-  head: {"title":"Awesomes-Web前端开发资源库","meta":[{"charset":"utf-8"},{"name":"viewport","content":"width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"},{"hid":"description","name":"description","content":"Web前端开发工程师需要的免费开源的高质量前端库、框架和插件"},{"hid":"keywords","name":"keywords","content":"html5,h5,css3,jquery,web框架,js框架,jquery插件,免费开源,中文文档"}],"link":[{"rel":"icon","type":"image/x-icon","href":"/favicon.ico"}],"style":[],"script":[]},
+  head: {"title":"Awesomes-Web前端开发资源库","meta":[{"charset":"utf-8"},{"name":"viewport","content":"width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"},{"hid":"description","name":"description","content":"Web前端开发工程师需要的免费开源的高质量前端库、框架和插件"},{"hid":"keywords","name":"keywords","content":"html5,h5,css3,jquery,web框架,js框架,jquery插件,免费开源,中文文档"}],"link":[{"rel":"icon","type":"image\u002Fx-icon","href":"\u002Ffavicon.ico"}],"style":[],"script":[]},
+  render(h, props) {
+    const loadingEl = h('nuxt-loading', { ref: 'loading' })
+    const layoutEl = h(this.layout || 'nuxt')
+    const templateEl = h('div', {
+      domProps: {
+        id: '__layout'
+      },
+      key: this.layoutName
+    }, [ layoutEl ])
+
+    const transitionEl = h('transition', {
+      props: {
+        name: 'layout',
+        mode: 'out-in'
+      }
+    }, [ templateEl ])
+
+    return h('div',{
+      domProps: {
+        id: '__nuxt'
+      }
+    }, [
+      loadingEl,
+      transitionEl
+    ])
+  },
   data: () => ({
     layout: null,
     layoutName: ''
   }),
   beforeCreate () {
-    Vue.util.defineReactive(this, 'nuxt', this.$options._nuxt)
+    Vue.util.defineReactive(this, 'nuxt', this.$options.nuxt)
   },
   created () {
     // Add this.$nuxt in child instances
@@ -96,5 +114,4 @@ export default {
     NuxtLoading
   }
 }
-</script>
 

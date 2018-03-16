@@ -1,5 +1,5 @@
 
-let files = require.context('@/middleware', false, /^\.\/.*\.(js|ts)$/)
+let files = require.context('@/middleware', false, /^\.\/(?!-)[^.]+\.(js)$/)
 let filenames = files.keys()
 
 function getModule (filename) {
@@ -12,7 +12,7 @@ let middleware = {}
 
 // Generate the middleware
 for (let filename of filenames) {
-  let name = filename.replace(/^\.\//, '').replace(/\.(js|ts)$/, '')
+  let name = filename.replace(/^\.\//, '').replace(/\.(js)$/, '')
   middleware[name] = getModule(filename)
 }
 

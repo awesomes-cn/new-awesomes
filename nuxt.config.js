@@ -59,5 +59,5 @@ module.exports = {
       }
     }
   },
-  plugins: ['~/plugins/vue-icon', '~/plugins/icon', '~/plugins/common', { src: '~/plugins/ba.js', ssr: false }, { src: '~/plugins/swiper.js', ssr: false }, { src: '~/plugins/pagination.js', ssr: false }, { src: '~/plugins/i18n.js', injectAs: 'i18n' }]
+  plugins: ['~/plugins/vue-icon', '~/plugins/icon', '~/plugins/common', { src: '~/plugins/ba.js', ssr: false }, { src: '~/plugins/pagination.js', ssr: false }, { src: '~/plugins/i18n.js', injectAs: 'i18n' }]
 }

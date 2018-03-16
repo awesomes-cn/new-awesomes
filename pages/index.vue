@@ -9,8 +9,8 @@
                 input(type="text" placeholder="搜索前端库" v-model="searchKey" @keyup.enter="searchGo")
                 a.go-btn(href="javascript:void(0)" @click="searchGo")
                   icon(name="search")
-            div
-              home-swiper
+            div(style="margin: 10px 0" v-if="recorepos.length > 0")
+              home-swiper(flag="home" :items="recorepos")
             div.left-box
               div.new-item(v-for="repo in latests")
                 nuxt-link(:to="'/repo/' + repo.owner + '/' + repo.alia")
@@ -91,14 +91,26 @@
   import HomeActions from '~/components/home/actions.vue'
   import HomeSub from '~/components/home/sub.vue'
   import HomeWeuse from '~/components/home/weuse.vue'
-  import HomeSwiper from '~/components/home/swiper.vue'
+  import HomeSwiper from '~/components/swiper.vue'
   import Adsense from '~/components/adsense.vue'
 
   export default {
     async asyncData ({ req, params, query }) {
-      let res = await axios().get('/repo/latest')
+      let [res1, res2] = await Promise.all([
+        axios().get('/repo/latest'),
+        axios().get('/site/home')
+      ])
+      let _recorepos = res2.data.recorepos.map(item => {
+        return {
+          link: `/repo/${item.owner}/${item.alia}`,
+          img: item.banner_cover || item.cover,
+          title: `${item.alia}：${item.description_cn || item.description}`
+        }
+      })
       return {
-        latests: res.data
+        latests: res1.data,
+        homeData: res2.data,
+        recorepos: _recorepos
       }
     },
     data () {
@@ -109,14 +121,7 @@
         searchKey: '',
         freshok: false,
         email: '',
-        substatus: 'normal',
-        homeData: {
-          releases: [],
-          subs: [],
-          statistic: {
-            repos: 0
-          }
-        }
+        substatus: 'normal'
       }
     },
     components: {
@@ -166,10 +171,6 @@
         this.$alert('success', '订阅成功')
         this.substatus = 'ok'
       }
-    },
-    async created () {
-      let res = await axios().get('/site/home')
-      this.homeData = res.data
     }
   }
 </script>
