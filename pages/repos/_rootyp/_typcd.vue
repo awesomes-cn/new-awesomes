@@ -45,6 +45,7 @@
   
   export default {
     name: 'repo-list',
+    watchQuery: ['page'],
     data () {
       return {
         pagesize: pagesize,

@@ -38,6 +38,7 @@
   import axios from '~/plugins/axios'
   let pagesize = 5
   export default {
+    watchQuery: ['page'],
     asyncData ({ req, params, query }) {
       let page = query.page || 1
       return axios().get('weuse', {

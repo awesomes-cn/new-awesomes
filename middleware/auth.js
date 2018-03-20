@@ -1,11 +1,11 @@
 import axios from '~/plugins/axios'
 import Cookie from 'js-cookie'
 
-export default function ({ store, redirect, isServer, req }) {
-  if (!isServer) {
+export default function ({ store, redirect, req }) {
+  if (!process.server) {
     window.document.domain = window.location.hostname.replace(/^[A-Za-z]+\./, '')
   }
-  if (isServer && !store.state.session) {
+  if (process.server && !store.state.session) {
     let domain = req.headers.host.split(':')[0].replace(/^www/, '')
     if (!req.headers.cookie) {
       store.commit('setUser', null)

@@ -29,6 +29,7 @@
   import axios from '~/plugins/axios'
   let pagesize = 20
   export default {
+    watchQuery: ['page'],
     data () {
       return {
         pagesize: pagesize
