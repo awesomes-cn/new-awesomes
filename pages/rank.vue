@@ -34,6 +34,7 @@
   import axios from '~/plugins/axios'
   import Fresh from '~/components/repo/fresh.vue'
   export default {
+    watchQuery: ['sort'],
     layout: 'blank',
     asyncData ({query}) {
       return axios().get(`repo/top100?sort=${query.sort}`).then(res => {
