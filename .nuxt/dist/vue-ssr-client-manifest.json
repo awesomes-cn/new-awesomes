@@ -13,11 +13,11 @@
     "pages/repo/_owner/_name/index.f3507ef2bb68fa0e079e.js",
     "layouts/default.6a7655b1db84e47a01e1.js",
     "pages/subject/_name.d056f34de1f9c8d00e11.js",
-    "pages/repos/_rootyp/_typcd.da1228142e5ec8f50e96.js",
+    "pages/repos/_rootyp/_typcd.8dc14545961b1dae6528.js",
     "pages/rank.719dd6cd7b01dd61c19e.js",
     "pages/repo/_owner/_name/edit.2aa18ef86d711c231616.js",
     "pages/topics.9de9a87a77ac2307c914.js",
-    "pages/search.a947f51e3b1521d93ea6.js",
+    "pages/search.69b372af10cdaf1ebccb.js",
     "layouts/admin.69d6b753cd87b94a0afa.js",
     "pages/fercard.81096fe8eb72a46aeb7c.js",
     "pages/topic/new.a10a748352f4badd6629.js",
@@ -57,13 +57,13 @@
     "45.c54819ace5f0c4e9344d.js",
     "46.f725b6b7ca794843ff1c.js",
     "47.20c22c8eb477b430e9c3.js",
-    "manifest.7c62c18edb7e965af7d3.js",
+    "manifest.300b83fa398ceba119d1.js",
     "LICENSES",
     "index.spa.html",
     "index.ssr.html"
   ],
   "initial": [
-    "manifest.7c62c18edb7e965af7d3.js",
+    "manifest.300b83fa398ceba119d1.js",
     "vendor.d59159d16fc937090b0f.js",
     "app.6410c82c49514d5ad728.js"
   ],
@@ -73,11 +73,11 @@
     "pages/repo/_owner/_name/index.f3507ef2bb68fa0e079e.js",
     "layouts/default.6a7655b1db84e47a01e1.js",
     "pages/subject/_name.d056f34de1f9c8d00e11.js",
-    "pages/repos/_rootyp/_typcd.da1228142e5ec8f50e96.js",
+    "pages/repos/_rootyp/_typcd.8dc14545961b1dae6528.js",
     "pages/rank.719dd6cd7b01dd61c19e.js",
     "pages/repo/_owner/_name/edit.2aa18ef86d711c231616.js",
     "pages/topics.9de9a87a77ac2307c914.js",
-    "pages/search.a947f51e3b1521d93ea6.js",
+    "pages/search.69b372af10cdaf1ebccb.js",
     "layouts/admin.69d6b753cd87b94a0afa.js",
     "pages/fercard.81096fe8eb72a46aeb7c.js",
     "pages/topic/new.a10a748352f4badd6629.js",
@@ -275,6 +275,9 @@
     "9bcd99f4": [
       50
     ],
+    "398e3b06": [
+      16
+    ],
     "13bfb1b6": [
       8,
       1,
@@ -449,6 +452,9 @@
     ],
     "43847b70": [
       51
+    ],
+    "662789c8": [
+      16
     ],
     "35e4da46": [
       51
@@ -672,9 +678,6 @@
     ],
     "c227aeb8": [
       50
-    ],
-    "54d63984": [
-      12
     ],
     "c0a48dc0": [
       50
@@ -1659,9 +1662,6 @@
     "752daeee": [
       51
     ],
-    "0f71f154": [
-      16
-    ],
     "3625b91a": [
       8,
       1,
@@ -1728,9 +1728,6 @@
     ],
     "0edecb24": [
       50
-    ],
-    "6c08f614": [
-      16
     ],
     "1c615d84": [
       50
@@ -1871,9 +1868,6 @@
     ],
     "2004eee8": [
       50
-    ],
-    "6f9637e2": [
-      12
     ],
     "5e32fce9": [
       8,
@@ -2151,6 +2145,9 @@
     ],
     "177c629d": [
       50
+    ],
+    "7cca0c6c": [
+      12
     ],
     "63768f37": [
       50
@@ -2613,9 +2610,6 @@
     "1f57ef8c": [
       51
     ],
-    "709d39c2": [
-      12
-    ],
     "47da75c4": [
       8,
       1,
@@ -2810,6 +2804,9 @@
     ],
     "58187c88": [
       50
+    ],
+    "d0ebea6c": [
+      12
     ],
     "1d0c3a18": [
       50
@@ -3098,11 +3095,17 @@
     "170f4b57": [
       51
     ],
+    "78f236b4": [
+      16
+    ],
     "35e03102": [
       50
     ],
     "0e93e1a4": [
       50
+    ],
+    "6c7172aa": [
+      12
     ],
     "b7da956e": [
       8,
@@ -3220,9 +3223,6 @@
     ],
     "b4cebde4": [
       9
-    ],
-    "6c9c2a18": [
-      16
     ],
     "51d7bc12": [
       23
