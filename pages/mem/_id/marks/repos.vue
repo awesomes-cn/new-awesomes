@@ -2,7 +2,7 @@
   div.repos.container
     template(v-if="marks.length > 0")
       div.row
-        div.col-md-3.col-sm-3.col-4(v-for="mark in marks")
+        div.col-md-4.col-sm-4.col-4(v-for="mark in marks")
           ul.list-group.repo-item(style="margin-bottom: 20px")
             li.list-group-item
               nuxt-link(:to="'/repo/' + mark.repo.owner + '/' + mark.repo.alia")
@@ -11,8 +11,8 @@
             li.list-group-item.color-item
               nuxt-link(:to="'/repo/' + mark.repo.owner + '/' + mark.repo.alia")
                 img.cover(:src="cdn(mark.repo.cover, 'repo', 'subject_repo')")
-              div {{mark.repo.typcd_zh}} 
-              icon(name="collect" width="18px") {{mark.repo.mark}}
+              // div {{mark.repo.typcd_zh}} 
+              // icon(name="collect" width="18px") {{mark.repo.mark}}
             li.list-group-item
               div.caption {{mark.repo.description_cn || mark.repo.description }}
             li.list-group-item
@@ -20,7 +20,7 @@
                 icon(name="clock-o" width="17px" :title="'收藏于' + timeago(mark.created_at)") {{timeago(mark.created_at)}}
                 a.remove-btn(href="javascript:void(0)" title="取消收藏" @click="cancel(mark)" v-if="session.id === mark.mem_id")
                   icon(name="cancel" width="12px")
-      pagination(flag="weuse-list" v-bind:total="pagetotal" v-bind:size="pagesize")
+      pagination(flag="weuse-list" v-bind:total="pagetotal" v-bind:size="pagesize" style="margin-top: 30px;")
     template(v-else)
       h2.noitem 尚未收藏前端库
 </template>
@@ -29,6 +29,7 @@
   import axios from '~/plugins/axios'
   let pagesize = 20
   export default {
+    scrollToTop: true,
     watchQuery: ['page'],
     data () {
       return {
@@ -75,20 +76,21 @@
 <style lang="scss" scoped>
   .repos {
     .cover {
-      width: 40px;
-      float: left;
       margin-right: 10px;
-      border-radius: 100%;
+      // border-radius: 100%;
       padding: 5px;
       background-color: rgba(255, 255, 255, 0.4);
+      width: 100px;
     }
+    
     .reponame {
       word-break: keep-all;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
       margin: 0;
-      padding: 0;
+      padding: 0.6rem 0;
+      font-size: 1.3rem;
     }
     .caption {
       line-height: 25px;
@@ -99,6 +101,10 @@
     }
 
     .repo-item {
+      box-shadow: 0px 0px 10px #ededed;
+      max-width: 200px;
+      margin-bottom: 3rem;
+      border: #e9e9e9 1px solid;
       .remove-btn {
         float: right;
         color: red;
@@ -106,13 +112,18 @@
       }
 
       .list-group-item {
-        border: 1px solid rgba(104, 129, 134, 0.125);
+        // border: 1px solid rgba(104, 129, 134, 0.125);
+        border: none;
       }
 
       &:hover {
         .remove-btn {
           display: inline-block;
         }
+      }
+
+      .time-box {
+        color: #9b9b9b
       }
     }
 
@@ -123,7 +134,9 @@
     }
 
     .color-item {
-      background-color: rgba(198, 186, 143, 0.08)
+      background-color: rgba(198, 186, 143, 0.08);
+      background-color: #f7f8fa;
+      text-align: center
     }
   }
 </style>

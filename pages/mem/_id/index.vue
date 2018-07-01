@@ -40,14 +40,18 @@
     margin-top: 25px;
     text-align: center;
     .cover-box {
-      max-width: 50px;
+      max-width: 70px;
       width: 100%;
       margin-bottom: 10px;
       position: relative;
     }
     .cover {
       width: 100%;
-      border-radius: 2px;
+      border-radius: 100%;
+      background-color: #FFF;
+      display: block;
+      padding: 5px;
+      box-shadow: 0px 0px 10px #DDD;
     }
 
     .usingmems {
@@ -61,6 +65,7 @@
       top: -10px;
       right: -10px;
       border: 2px solid #fff;
+      box-shadow: 0px 0px 10px #bcbcbc;
     }
   }
 

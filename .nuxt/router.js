@@ -3,45 +3,45 @@ import Router from 'vue-router'
 
 Vue.use(Router)
 
-const _218aa03c = () => import('../pages/fercard.vue' /* webpackChunkName: "pages/fercard" */).then(m => m.default || m)
-const _4ec06852 = () => import('../pages/weuse.vue' /* webpackChunkName: "pages/weuse" */).then(m => m.default || m)
-const _6095586e = () => import('../pages/test.vue' /* webpackChunkName: "pages/test" */).then(m => m.default || m)
-const _3c4e8bfe = () => import('../pages/site.vue' /* webpackChunkName: "pages/site" */).then(m => m.default || m)
-const _47834d1b = () => import('../pages/site/link.vue' /* webpackChunkName: "pages/site/link" */).then(m => m.default || m)
-const _d2e192e2 = () => import('../pages/site/contact.vue' /* webpackChunkName: "pages/site/contact" */).then(m => m.default || m)
-const _87047d88 = () => import('../pages/site/about.vue' /* webpackChunkName: "pages/site/about" */).then(m => m.default || m)
-const _0778b520 = () => import('../pages/site/capa.vue' /* webpackChunkName: "pages/site/capa" */).then(m => m.default || m)
-const _adcac5fa = () => import('../pages/site/history.vue' /* webpackChunkName: "pages/site/history" */).then(m => m.default || m)
-const _306255fe = () => import('../pages/subjects.vue' /* webpackChunkName: "pages/subjects" */).then(m => m.default || m)
-const _64006e36 = () => import('../pages/joinuse.vue' /* webpackChunkName: "pages/joinuse" */).then(m => m.default || m)
-const _15341403 = () => import('../pages/releases.vue' /* webpackChunkName: "pages/releases" */).then(m => m.default || m)
-const _225bd32a = () => import('../pages/score.vue' /* webpackChunkName: "pages/score" */).then(m => m.default || m)
-const _49a1c06e = () => import('../pages/mem.vue' /* webpackChunkName: "pages/mem" */).then(m => m.default || m)
-const _20df36dc = () => import('../pages/mem/_id/index.vue' /* webpackChunkName: "pages/mem/_id/index" */).then(m => m.default || m)
-const _5f64ffb3 = () => import('../pages/mem/_id/profile.vue' /* webpackChunkName: "pages/mem/_id/profile" */).then(m => m.default || m)
-const _91701d52 = () => import('../pages/mem/_id/pubs/comments.vue' /* webpackChunkName: "pages/mem/_id/pubs/comments" */).then(m => m.default || m)
-const _32df6cc2 = () => import('../pages/mem/_id/marks/repos.vue' /* webpackChunkName: "pages/mem/_id/marks/repos" */).then(m => m.default || m)
-const _360880c1 = () => import('../pages/notifications.vue' /* webpackChunkName: "pages/notifications" */).then(m => m.default || m)
-const _696e71df = () => import('../pages/auth.vue' /* webpackChunkName: "pages/auth" */).then(m => m.default || m)
-const _05a04d18 = () => import('../pages/extension.vue' /* webpackChunkName: "pages/extension" */).then(m => m.default || m)
-const _3001fcfb = () => import('../pages/webker.vue' /* webpackChunkName: "pages/webker" */).then(m => m.default || m)
-const _5efa639b = () => import('../pages/topics.vue' /* webpackChunkName: "pages/topics" */).then(m => m.default || m)
-const _713a34a8 = () => import('../pages/admin.vue' /* webpackChunkName: "pages/admin" */).then(m => m.default || m)
-const _70cd60d9 = () => import('../pages/admin/site/webkerapply.vue' /* webpackChunkName: "pages/admin/site/webkerapply" */).then(m => m.default || m)
-const _7fa0927d = () => import('../pages/admin/pub/comments.vue' /* webpackChunkName: "pages/admin/pub/comments" */).then(m => m.default || m)
-const _c9af1522 = () => import('../pages/admin/mem/mems.vue' /* webpackChunkName: "pages/admin/mem/mems" */).then(m => m.default || m)
-const _13951b3c = () => import('../pages/admin/pub/submits.vue' /* webpackChunkName: "pages/admin/pub/submits" */).then(m => m.default || m)
-const _2352fe63 = () => import('../pages/rank.vue' /* webpackChunkName: "pages/rank" */).then(m => m.default || m)
-const _65500e1f = () => import('../pages/search.vue' /* webpackChunkName: "pages/search" */).then(m => m.default || m)
-const _38cead19 = () => import('../pages/topic/new.vue' /* webpackChunkName: "pages/topic/new" */).then(m => m.default || m)
-const _3c3c08c1 = () => import('../pages/develop/icons.vue' /* webpackChunkName: "pages/develop/icons" */).then(m => m.default || m)
-const _5ec4a0ba = () => import('../pages/repo/new.vue' /* webpackChunkName: "pages/repo/new" */).then(m => m.default || m)
-const _2518d833 = () => import('../pages/topic/_id.vue' /* webpackChunkName: "pages/topic/_id" */).then(m => m.default || m)
-const _abd0bdc0 = () => import('../pages/subject/_name.vue' /* webpackChunkName: "pages/subject/_name" */).then(m => m.default || m)
-const _959cc230 = () => import('../pages/repo/_owner/_name/index.vue' /* webpackChunkName: "pages/repo/_owner/_name/index" */).then(m => m.default || m)
-const _4b69fa49 = () => import('../pages/repos/_rootyp/_typcd.vue' /* webpackChunkName: "pages/repos/_rootyp/_typcd" */).then(m => m.default || m)
-const _8d31f138 = () => import('../pages/repo/_owner/_name/edit.vue' /* webpackChunkName: "pages/repo/_owner/_name/edit" */).then(m => m.default || m)
-const _3fcae0ab = () => import('../pages/index.vue' /* webpackChunkName: "pages/index" */).then(m => m.default || m)
+const _666ed117 = () => import('../pages/fercard.vue' /* webpackChunkName: "pages/fercard" */).then(m => m.default || m)
+const _adbdd826 = () => import('../pages/weuse.vue' /* webpackChunkName: "pages/weuse" */).then(m => m.default || m)
+const _bdd96e64 = () => import('../pages/test.vue' /* webpackChunkName: "pages/test" */).then(m => m.default || m)
+const _0dac8103 = () => import('../pages/site.vue' /* webpackChunkName: "pages/site" */).then(m => m.default || m)
+const _37c29994 = () => import('../pages/site/link.vue' /* webpackChunkName: "pages/site/link" */).then(m => m.default || m)
+const _1e7e5694 = () => import('../pages/site/contact.vue' /* webpackChunkName: "pages/site/contact" */).then(m => m.default || m)
+const _9961c2fe = () => import('../pages/site/about.vue' /* webpackChunkName: "pages/site/about" */).then(m => m.default || m)
+const _ce41e8ea = () => import('../pages/site/capa.vue' /* webpackChunkName: "pages/site/capa" */).then(m => m.default || m)
+const _3109bd08 = () => import('../pages/site/history.vue' /* webpackChunkName: "pages/site/history" */).then(m => m.default || m)
+const _eff77efa = () => import('../pages/subjects.vue' /* webpackChunkName: "pages/subjects" */).then(m => m.default || m)
+const _ae36c1de = () => import('../pages/joinuse.vue' /* webpackChunkName: "pages/joinuse" */).then(m => m.default || m)
+const _6cd5fe88 = () => import('../pages/releases.vue' /* webpackChunkName: "pages/releases" */).then(m => m.default || m)
+const _4932c206 = () => import('../pages/score.vue' /* webpackChunkName: "pages/score" */).then(m => m.default || m)
+const _3fde96c9 = () => import('../pages/mem.vue' /* webpackChunkName: "pages/mem" */).then(m => m.default || m)
+const _d257d112 = () => import('../pages/mem/_id/index.vue' /* webpackChunkName: "pages/mem/_id/index" */).then(m => m.default || m)
+const _2ba4258e = () => import('../pages/mem/_id/profile.vue' /* webpackChunkName: "pages/mem/_id/profile" */).then(m => m.default || m)
+const _c067f21c = () => import('../pages/mem/_id/pubs/comments.vue' /* webpackChunkName: "pages/mem/_id/pubs/comments" */).then(m => m.default || m)
+const _45dba5c6 = () => import('../pages/mem/_id/marks/repos.vue' /* webpackChunkName: "pages/mem/_id/marks/repos" */).then(m => m.default || m)
+const _a8053d48 = () => import('../pages/notifications.vue' /* webpackChunkName: "pages/notifications" */).then(m => m.default || m)
+const _3acc66e4 = () => import('../pages/auth.vue' /* webpackChunkName: "pages/auth" */).then(m => m.default || m)
+const _bb88999a = () => import('../pages/extension.vue' /* webpackChunkName: "pages/extension" */).then(m => m.default || m)
+const _21b6c4c0 = () => import('../pages/webker.vue' /* webpackChunkName: "pages/webker" */).then(m => m.default || m)
+const _50af2b60 = () => import('../pages/topics.vue' /* webpackChunkName: "pages/topics" */).then(m => m.default || m)
+const _68ca3f7a = () => import('../pages/admin.vue' /* webpackChunkName: "pages/admin" */).then(m => m.default || m)
+const _ce6802c4 = () => import('../pages/admin/site/webkerapply.vue' /* webpackChunkName: "pages/admin/site/webkerapply" */).then(m => m.default || m)
+const _2f924a7c = () => import('../pages/admin/pub/comments.vue' /* webpackChunkName: "pages/admin/pub/comments" */).then(m => m.default || m)
+const _3860af98 = () => import('../pages/admin/mem/mems.vue' /* webpackChunkName: "pages/admin/mem/mems" */).then(m => m.default || m)
+const _a17ae506 = () => import('../pages/admin/pub/submits.vue' /* webpackChunkName: "pages/admin/pub/submits" */).then(m => m.default || m)
+const _169e1930 = () => import('../pages/rank.vue' /* webpackChunkName: "pages/rank" */).then(m => m.default || m)
+const _5704d5e4 = () => import('../pages/search.vue' /* webpackChunkName: "pages/search" */).then(m => m.default || m)
+const _552bd998 = () => import('../pages/topic/new.vue' /* webpackChunkName: "pages/topic/new" */).then(m => m.default || m)
+const _9b9e2d48 = () => import('../pages/develop/icons.vue' /* webpackChunkName: "pages/develop/icons" */).then(m => m.default || m)
+const _9332e982 = () => import('../pages/repo/new.vue' /* webpackChunkName: "pages/repo/new" */).then(m => m.default || m)
+const _7c978364 = () => import('../pages/topic/_id.vue' /* webpackChunkName: "pages/topic/_id" */).then(m => m.default || m)
+const _200c81bb = () => import('../pages/subject/_name.vue' /* webpackChunkName: "pages/subject/_name" */).then(m => m.default || m)
+const _e5f28c7a = () => import('../pages/repo/_owner/_name/index.vue' /* webpackChunkName: "pages/repo/_owner/_name/index" */).then(m => m.default || m)
+const _30e17564 = () => import('../pages/repos/_rootyp/_typcd.vue' /* webpackChunkName: "pages/repos/_rootyp/_typcd" */).then(m => m.default || m)
+const _3d34b5ae = () => import('../pages/repo/_owner/_name/edit.vue' /* webpackChunkName: "pages/repo/_owner/_name/edit" */).then(m => m.default || m)
+const _cba8e774 = () => import('../pages/index.vue' /* webpackChunkName: "pages/index" */).then(m => m.default || m)
 
 
 
@@ -103,203 +103,203 @@ export function createRouter () {
     routes: [
 		{
 			path: "/fercard",
-			component: _218aa03c,
+			component: _666ed117,
 			name: "fercard"
 		},
 		{
 			path: "/weuse",
-			component: _4ec06852,
+			component: _adbdd826,
 			name: "weuse"
 		},
 		{
 			path: "/test",
-			component: _6095586e,
+			component: _bdd96e64,
 			name: "test"
 		},
 		{
 			path: "/site",
-			component: _3c4e8bfe,
+			component: _0dac8103,
 			name: "site",
 			children: [
 				{
 					path: "link",
-					component: _47834d1b,
+					component: _37c29994,
 					name: "site-link"
 				},
 				{
 					path: "contact",
-					component: _d2e192e2,
+					component: _1e7e5694,
 					name: "site-contact"
 				},
 				{
 					path: "about",
-					component: _87047d88,
+					component: _9961c2fe,
 					name: "site-about"
 				},
 				{
 					path: "capa",
-					component: _0778b520,
+					component: _ce41e8ea,
 					name: "site-capa"
 				},
 				{
 					path: "history",
-					component: _adcac5fa,
+					component: _3109bd08,
 					name: "site-history"
 				}
 			]
 		},
 		{
 			path: "/subjects",
-			component: _306255fe,
+			component: _eff77efa,
 			name: "subjects"
 		},
 		{
 			path: "/joinuse",
-			component: _64006e36,
+			component: _ae36c1de,
 			name: "joinuse"
 		},
 		{
 			path: "/releases",
-			component: _15341403,
+			component: _6cd5fe88,
 			name: "releases"
 		},
 		{
 			path: "/score",
-			component: _225bd32a,
+			component: _4932c206,
 			name: "score"
 		},
 		{
 			path: "/mem",
-			component: _49a1c06e,
+			component: _3fde96c9,
 			name: "mem",
 			children: [
 				{
 					path: ":id",
-					component: _20df36dc,
+					component: _d257d112,
 					name: "mem-id"
 				},
 				{
 					path: ":id/profile",
-					component: _5f64ffb3,
+					component: _2ba4258e,
 					name: "mem-id-profile"
 				},
 				{
 					path: ":id/pubs/comments",
-					component: _91701d52,
+					component: _c067f21c,
 					name: "mem-id-pubs-comments"
 				},
 				{
 					path: ":id/marks/repos",
-					component: _32df6cc2,
+					component: _45dba5c6,
 					name: "mem-id-marks-repos"
 				}
 			]
 		},
 		{
 			path: "/notifications",
-			component: _360880c1,
+			component: _a8053d48,
 			name: "notifications"
 		},
 		{
 			path: "/auth",
-			component: _696e71df,
+			component: _3acc66e4,
 			name: "auth"
 		},
 		{
 			path: "/extension",
-			component: _05a04d18,
+			component: _bb88999a,
 			name: "extension"
 		},
 		{
 			path: "/webker",
-			component: _3001fcfb,
+			component: _21b6c4c0,
 			name: "webker"
 		},
 		{
 			path: "/topics",
-			component: _5efa639b,
+			component: _50af2b60,
 			name: "topics"
 		},
 		{
 			path: "/admin",
-			component: _713a34a8,
+			component: _68ca3f7a,
 			name: "admin",
 			children: [
 				{
 					path: "site/webkerapply",
-					component: _70cd60d9,
+					component: _ce6802c4,
 					name: "admin-site-webkerapply"
 				},
 				{
 					path: "pub/comments",
-					component: _7fa0927d,
+					component: _2f924a7c,
 					name: "admin-pub-comments"
 				},
 				{
 					path: "mem/mems",
-					component: _c9af1522,
+					component: _3860af98,
 					name: "admin-mem-mems"
 				},
 				{
 					path: "pub/submits",
-					component: _13951b3c,
+					component: _a17ae506,
 					name: "admin-pub-submits"
 				}
 			]
 		},
 		{
 			path: "/rank",
-			component: _2352fe63,
+			component: _169e1930,
 			name: "rank"
 		},
 		{
 			path: "/search",
-			component: _65500e1f,
+			component: _5704d5e4,
 			name: "search"
 		},
 		{
 			path: "/topic/new",
-			component: _38cead19,
+			component: _552bd998,
 			name: "topic-new"
 		},
 		{
 			path: "/develop/icons",
-			component: _3c3c08c1,
+			component: _9b9e2d48,
 			name: "develop-icons"
 		},
 		{
 			path: "/repo/new",
-			component: _5ec4a0ba,
+			component: _9332e982,
 			name: "repo-new"
 		},
 		{
 			path: "/topic/:id?",
-			component: _2518d833,
+			component: _7c978364,
 			name: "topic-id"
 		},
 		{
 			path: "/subject/:name?",
-			component: _abd0bdc0,
+			component: _200c81bb,
 			name: "subject-name"
 		},
 		{
 			path: "/repo/:owner?/:name?",
-			component: _959cc230,
+			component: _e5f28c7a,
 			name: "repo-owner-name"
 		},
 		{
 			path: "/repos/:rootyp?/:typcd?",
-			component: _4b69fa49,
+			component: _30e17564,
 			name: "repos-rootyp-typcd"
 		},
 		{
 			path: "/repo/:owner?/:name?/edit",
-			component: _8d31f138,
+			component: _3d34b5ae,
 			name: "repo-owner-name-edit"
 		},
 		{
 			path: "/",
-			component: _3fcae0ab,
+			component: _cba8e774,
 			name: "index"
 		}
     ],

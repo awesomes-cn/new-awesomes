@@ -1,11 +1,11 @@
 import Vue from 'vue'
 import NuxtLoading from './components/nuxt-loading.vue'
 
-import '../node_modules/_bootstrap@4.0.0@bootstrap/dist/css/bootstrap.css'
+import '../node_modules/.4.1.1@bootstrap/dist/css/bootstrap.css'
 
-import '../node_modules/_prismjs@1.12.2@prismjs/themes/prism.css'
+import '../node_modules/.1.14.0@prismjs/themes/prism.css'
 
-import '../node_modules/_animate.css@3.6.1@animate.css/animate.css'
+import '../node_modules/.3.6.1@animate.css/animate.css'
 
 import '../assets/css/main.css'
 

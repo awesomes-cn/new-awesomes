@@ -99,12 +99,13 @@
     font-weight: bold;
     display: flex;
     margin-bottom: 10px;
-    background-color: #e8ece629;
+    // background-color: #e8ece629;
     border-bottom: #eef1f1 1px solid;
     padding: 0 15px;
-
+    border: #f3f4f5 1px solid;
+    box-shadow: 0px 0px 100px #f1f1f1;
     a {
-      padding: 15px;
+      padding: 20px;
       display: inline-block;
 
       &.nuxt-link-exact-active {
@@ -223,12 +224,14 @@
 
   .conarea {
     background-color: #FFF;
+    // background-color: #fbfcfb;
     padding: 0;
     padding-bottom: 50px;
     flex-grow: 1;
     box-shadow: 0 1px 1px 0 rgba(0,0,0,.05);
+    padding: 30px;
     .mem-body {
-      padding: 20px;
+      padding: 20px 0;
     }
   }
 
