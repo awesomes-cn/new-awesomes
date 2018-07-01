@@ -40,7 +40,12 @@
                 div
                   div.name Front End Repo Card
                   div(style="color: #979797") 随机推荐优秀前端框架卡片
-              
+              div.item-box
+                h5 大家在关注
+                div.item-inner
+                  home-actions
+              // div.item-box
+              //   adsense(ikey="alone")
               div.item-box.item-box-rss
                 div.item-inner
                   template(v-if="substatus === 'normal'")
@@ -48,12 +53,7 @@
                     input.txt(type="text" placeholder="输入邮箱，回车订阅" v-on:keyup.enter="subscribe" v-model="email")
                   template(v-else)
                     div.message 订阅成功！
-              div.item-box
-                h5 大家在关注
-                div.item-inner
-                  home-actions
-              // div.item-box
-              //   adsense(ikey="alone")
+             
               div.item-box
                 h5 专题推荐
                 div.item-inner
@@ -65,9 +65,9 @@
               div.item-box.item-box-child
                 h5 旗下网站
                 div.item-inner
-                  a(href="https://news.awesomes.cn/" target="_blank" title="前端情报局")
-                    img(src="../assets/img/logo-news.png")
-                    div News
+                  // a(href="https://news.awesomes.cn/" target="_blank" title="前端情报局")
+                  //   img(src="../assets/img/logo-news.png")
+                  //   div News
                   a(href="http://loading.awesomes.cn/" target="_blank" title="可定制的 CSS Loading 动画")
                     img(src="../assets/img/logo-loading.png")
                     div Loading

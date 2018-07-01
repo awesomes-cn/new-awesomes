@@ -1,6 +1,6 @@
 <template lang="pug">
-  div
-    div.sub-item(v-for="sub in sliceThree(datalist)")
+  div.row
+    div.sub-item.col-md-6(v-for="sub in sliceThree(datalist)")
       nuxt-link(:to="'/subject/' + sub.key" v-bind:style="'background-image:url(' + cdn(sub.cover, 'subject', 'subject') + ')'")
         div.detail 
           h4 {{sub.title}}
@@ -11,7 +11,7 @@
     props: ['datalist'],
     methods: {
       sliceThree: (arr) => {
-        return arr.slice(0, 3)
+        return arr.slice(0, 4)
       }
     }
   }
@@ -20,6 +20,7 @@
 <style lang="scss" scoped>
   .sub-item {
     padding: 10px;
+    position: relative;
     a {
       display: block;
       height: 90px;
@@ -31,6 +32,19 @@
       background-position: center center;
       position: relative;
       color: #FFF;
+
+      &:before {
+        content: '';
+        display: block;
+        width: 20px;
+        height: 20px;
+        background-color: #FFF;
+        position: absolute;
+        top: 35px;
+        left: -10px;
+        z-index: 100;
+        border-radius: 100%;
+      }
 
       &:after {
         display: block;
@@ -75,5 +89,6 @@
         }
       }
     }
+    
   }
 </style>

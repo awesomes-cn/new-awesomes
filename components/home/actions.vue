@@ -3,7 +3,6 @@
     div.action-item(v-for="item in actions")
       nuxt-link(:to="'mem/' + item.mem.id")
         img.avatar(:src="cdn(item.mem.avatar, 'mem', 'repo-50')")
-        // span.mnc {{item.mem.nc}}
       span.time
         icon(name="clock-o" width="17px") {{timeago(item.created_at)}}
       span.actyp {{item.opertyp === 'MARK' ? '收藏了' : '标识在用'}}
