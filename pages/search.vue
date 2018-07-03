@@ -11,34 +11,20 @@
       span 的搜索结果 by
       a(href="https://www.algolia.com/" target="_blank")
         strong Algolia
-    div.list-con
-      div.list-item(v-for = "repo in repos")
-        nuxt-link(:to="'/repo/' + repo.owner + '/' + repo.alia")
-          img.cover(:src="cdn(repo.cover, 'repo', 'subject_repo')")
-        div.middle
-          nuxt-link(:to="'/repo/' + repo.owner + '/' + repo.alia")
-            h3 {{repo.name}}
-          p {{repo.description_cn || repo.description}}
-          div.opers
-            a(href="#"  v-bind:title="repo.using + '人在用'")
-              icon(name="hand" class="transform" width="15px") {{repo.using}}
-
-            a(href="#" v-bind:title="repo.mark + '人喜欢'")
-              icon(name="heart-o"  width="15px") {{repo.mark}}
-        div
-          fresh(:time="repo.pushed_at")    
-      pagination(flag="repos-list" v-bind:total="pagetotal" v-bind:size="pagesize")
+    line-repo(:repos="repos")
+    pagination(flag="repos-list" v-bind:total="pagetotal" v-bind:size="pagesize")
 </template>
 
 <script>
   import axios from '~/plugins/axios'
   import Fresh from '~/components/repo/fresh.vue'
+  import LineRepo from '~/components/repo/line-item.vue'
   let initData = {}
   let pagesize = 15
   
   export default {
     name: 'repo-list',
-    watchQuery: ['q'],
+    watchQuery: ['q', 'page'],
     data () {
       return {
         pagesize: pagesize
@@ -65,14 +51,17 @@
       })
     },
     components: {
-      Fresh
+      Fresh,
+      LineRepo
     }
   }
 </script>
 
 <style lang="scss" scoped>
   .container {
-    max-width: 1000px;
+    max-width: 900px;
+    padding-top: 10px;
+    padding-bottom: 100px;
   }
   .list-typs {
     text-align: center;

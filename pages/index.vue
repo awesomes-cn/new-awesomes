@@ -18,11 +18,11 @@
                 div.repo-data
                   nuxt-link(:to="'/repo/' + repo.owner + '/' + repo.alia")
                     h4.desc {{repo.description_cn || repo.description}}
-                  h4.title {{repo.name}}
-                  div
-                    nuxt-link(:to="'/repos/' + repo.rootyp" class="rootyp") {{repo.rootyp_zh}}
-                    span  > 
-                    nuxt-link(:to="'/repos/' + repo.rootyp + '/' + repo.typcd" class="typcd") {{repo.typcd_zh}}
+                  div.repo-extra
+                    h4.title {{repo.name}}
+                    div.type-box
+                      nuxt-link(:to="'/repos/' + repo.rootyp + '/' + repo.typcd" class="typcd") {{repo.typcd_zh}}
+                      nuxt-link(:to="'/repos/' + repo.rootyp" class="rootyp" :style="{backgroundColor: typcolors[repo.rootyp]}") {{repo.rootyp_zh}}
           div.col-md-4.col-12
             div.right-box
               div.item-box
@@ -121,7 +121,16 @@
         searchKey: '',
         freshok: false,
         email: '',
-        substatus: 'normal'
+        substatus: 'normal',
+        typcolors: {
+          Applications: '#def5e7',
+          Mobile: '#eaf5de',
+          Media: '#f5dcdc',
+          Dom: 'rgb(241, 237, 224)',
+          Images: '#e0f1ef',
+          NodeJS: '#def6ff',
+          Form: '#eaecfa'
+        }
       }
     },
     components: {
@@ -272,7 +281,10 @@
         .title {
           color: #007bff;
           font-size: 1.2rem;
-          margin-bottom: 10px;
+        }
+        .repo-extra {
+          display: flex;
+          justify-content: space-between
         }
       }
       article {
@@ -285,7 +297,7 @@
       .cover {
         background-color: rgba(255, 255, 255, 0.36);
         transition: all .3s ease 0s;
-        max-width: 70px;
+        max-width: 60px;
       }
     }
 
@@ -369,6 +381,28 @@
               text-align: center;
             }
           }
+        }
+      }
+    }
+
+    .type-box {
+      font-size: 0.8rem;
+      display: inline-block;
+     
+      a {
+        display: inline-block;
+        padding: 3px 8px;
+        height: 100%;
+        color: #6e7687;
+        &:nth-child(1) {
+          border-top-left-radius: 3px;
+          border-bottom-left-radius: 3px;
+          background-color: #f0f5fe;
+        }
+        &:nth-child(2) {
+          border-top-right-radius: 3px;
+          border-bottom-right-radius: 3px;
+          background-color: #def6ff
         }
       }
     }
