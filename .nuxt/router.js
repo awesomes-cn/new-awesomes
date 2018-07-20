@@ -3,36 +3,37 @@ import Router from 'vue-router'
 
 Vue.use(Router)
 
-const _666ed117 = () => import('../pages/fercard.vue' /* webpackChunkName: "pages/fercard" */).then(m => m.default || m)
+const _68ca3f7a = () => import('../pages/admin.vue' /* webpackChunkName: "pages/admin" */).then(m => m.default || m)
+const _ce6802c4 = () => import('../pages/admin/site/webkerapply.vue' /* webpackChunkName: "pages/admin/site/webkerapply" */).then(m => m.default || m)
+const _2f924a7c = () => import('../pages/admin/pub/comments.vue' /* webpackChunkName: "pages/admin/pub/comments" */).then(m => m.default || m)
+const _3860af98 = () => import('../pages/admin/mem/mems.vue' /* webpackChunkName: "pages/admin/mem/mems" */).then(m => m.default || m)
+const _a17ae506 = () => import('../pages/admin/pub/submits.vue' /* webpackChunkName: "pages/admin/pub/submits" */).then(m => m.default || m)
 const _adbdd826 = () => import('../pages/weuse.vue' /* webpackChunkName: "pages/weuse" */).then(m => m.default || m)
-const _bdd96e64 = () => import('../pages/test.vue' /* webpackChunkName: "pages/test" */).then(m => m.default || m)
+const _eff77efa = () => import('../pages/subjects.vue' /* webpackChunkName: "pages/subjects" */).then(m => m.default || m)
+const _5704d5e4 = () => import('../pages/search.vue' /* webpackChunkName: "pages/search" */).then(m => m.default || m)
+const _bb88999a = () => import('../pages/extension.vue' /* webpackChunkName: "pages/extension" */).then(m => m.default || m)
+const _3acc66e4 = () => import('../pages/auth.vue' /* webpackChunkName: "pages/auth" */).then(m => m.default || m)
+const _3fde96c9 = () => import('../pages/mem.vue' /* webpackChunkName: "pages/mem" */).then(m => m.default || m)
+const _d257d112 = () => import('../pages/mem/_id/index.vue' /* webpackChunkName: "pages/mem/_id/index" */).then(m => m.default || m)
+const _2ba4258e = () => import('../pages/mem/_id/profile.vue' /* webpackChunkName: "pages/mem/_id/profile" */).then(m => m.default || m)
+const _c067f21c = () => import('../pages/mem/_id/pubs/comments.vue' /* webpackChunkName: "pages/mem/_id/pubs/comments" */).then(m => m.default || m)
+const _45dba5c6 = () => import('../pages/mem/_id/marks/repos.vue' /* webpackChunkName: "pages/mem/_id/marks/repos" */).then(m => m.default || m)
+const _4932c206 = () => import('../pages/score.vue' /* webpackChunkName: "pages/score" */).then(m => m.default || m)
 const _0dac8103 = () => import('../pages/site.vue' /* webpackChunkName: "pages/site" */).then(m => m.default || m)
 const _37c29994 = () => import('../pages/site/link.vue' /* webpackChunkName: "pages/site/link" */).then(m => m.default || m)
 const _1e7e5694 = () => import('../pages/site/contact.vue' /* webpackChunkName: "pages/site/contact" */).then(m => m.default || m)
 const _9961c2fe = () => import('../pages/site/about.vue' /* webpackChunkName: "pages/site/about" */).then(m => m.default || m)
 const _ce41e8ea = () => import('../pages/site/capa.vue' /* webpackChunkName: "pages/site/capa" */).then(m => m.default || m)
 const _3109bd08 = () => import('../pages/site/history.vue' /* webpackChunkName: "pages/site/history" */).then(m => m.default || m)
-const _eff77efa = () => import('../pages/subjects.vue' /* webpackChunkName: "pages/subjects" */).then(m => m.default || m)
-const _ae36c1de = () => import('../pages/joinuse.vue' /* webpackChunkName: "pages/joinuse" */).then(m => m.default || m)
-const _6cd5fe88 = () => import('../pages/releases.vue' /* webpackChunkName: "pages/releases" */).then(m => m.default || m)
-const _4932c206 = () => import('../pages/score.vue' /* webpackChunkName: "pages/score" */).then(m => m.default || m)
-const _3fde96c9 = () => import('../pages/mem.vue' /* webpackChunkName: "pages/mem" */).then(m => m.default || m)
-const _d257d112 = () => import('../pages/mem/_id/index.vue' /* webpackChunkName: "pages/mem/_id/index" */).then(m => m.default || m)
-const _2ba4258e = () => import('../pages/mem/_id/profile.vue' /* webpackChunkName: "pages/mem/_id/profile" */).then(m => m.default || m)
-const _c067f21c = () => import('../pages/mem/_id/pubs/comments.vue' /* webpackChunkName: "pages/mem/_id/pubs/comments" */).then(m => m.default || m)
-const _45dba5c6 = () => import('../pages/mem/_id/marks/repos.vue' /* webpackChunkName: "pages/mem/_id/marks/repos" */).then(m => m.default || m)
+const _666ed117 = () => import('../pages/fercard.vue' /* webpackChunkName: "pages/fercard" */).then(m => m.default || m)
+const _bdd96e64 = () => import('../pages/test.vue' /* webpackChunkName: "pages/test" */).then(m => m.default || m)
 const _a8053d48 = () => import('../pages/notifications.vue' /* webpackChunkName: "pages/notifications" */).then(m => m.default || m)
-const _3acc66e4 = () => import('../pages/auth.vue' /* webpackChunkName: "pages/auth" */).then(m => m.default || m)
-const _bb88999a = () => import('../pages/extension.vue' /* webpackChunkName: "pages/extension" */).then(m => m.default || m)
+const _6cd5fe88 = () => import('../pages/releases.vue' /* webpackChunkName: "pages/releases" */).then(m => m.default || m)
+const _169e1930 = () => import('../pages/rank.vue' /* webpackChunkName: "pages/rank" */).then(m => m.default || m)
+const _ae36c1de = () => import('../pages/joinuse.vue' /* webpackChunkName: "pages/joinuse" */).then(m => m.default || m)
 const _21b6c4c0 = () => import('../pages/webker.vue' /* webpackChunkName: "pages/webker" */).then(m => m.default || m)
 const _50af2b60 = () => import('../pages/topics.vue' /* webpackChunkName: "pages/topics" */).then(m => m.default || m)
-const _68ca3f7a = () => import('../pages/admin.vue' /* webpackChunkName: "pages/admin" */).then(m => m.default || m)
-const _ce6802c4 = () => import('../pages/admin/site/webkerapply.vue' /* webpackChunkName: "pages/admin/site/webkerapply" */).then(m => m.default || m)
-const _2f924a7c = () => import('../pages/admin/pub/comments.vue' /* webpackChunkName: "pages/admin/pub/comments" */).then(m => m.default || m)
-const _3860af98 = () => import('../pages/admin/mem/mems.vue' /* webpackChunkName: "pages/admin/mem/mems" */).then(m => m.default || m)
-const _a17ae506 = () => import('../pages/admin/pub/submits.vue' /* webpackChunkName: "pages/admin/pub/submits" */).then(m => m.default || m)
-const _169e1930 = () => import('../pages/rank.vue' /* webpackChunkName: "pages/rank" */).then(m => m.default || m)
-const _5704d5e4 = () => import('../pages/search.vue' /* webpackChunkName: "pages/search" */).then(m => m.default || m)
+const _695fce6e = () => import('../pages/dayfront.vue' /* webpackChunkName: "pages/dayfront" */).then(m => m.default || m)
 const _552bd998 = () => import('../pages/topic/new.vue' /* webpackChunkName: "pages/topic/new" */).then(m => m.default || m)
 const _9b9e2d48 = () => import('../pages/develop/icons.vue' /* webpackChunkName: "pages/develop/icons" */).then(m => m.default || m)
 const _9332e982 = () => import('../pages/repo/new.vue' /* webpackChunkName: "pages/repo/new" */).then(m => m.default || m)
@@ -102,9 +103,31 @@ export function createRouter () {
     scrollBehavior,
     routes: [
 		{
-			path: "/fercard",
-			component: _666ed117,
-			name: "fercard"
+			path: "/admin",
+			component: _68ca3f7a,
+			name: "admin",
+			children: [
+				{
+					path: "site/webkerapply",
+					component: _ce6802c4,
+					name: "admin-site-webkerapply"
+				},
+				{
+					path: "pub/comments",
+					component: _2f924a7c,
+					name: "admin-pub-comments"
+				},
+				{
+					path: "mem/mems",
+					component: _3860af98,
+					name: "admin-mem-mems"
+				},
+				{
+					path: "pub/submits",
+					component: _a17ae506,
+					name: "admin-pub-submits"
+				}
+			]
 		},
 		{
 			path: "/weuse",
@@ -112,9 +135,56 @@ export function createRouter () {
 			name: "weuse"
 		},
 		{
-			path: "/test",
-			component: _bdd96e64,
-			name: "test"
+			path: "/subjects",
+			component: _eff77efa,
+			name: "subjects"
+		},
+		{
+			path: "/search",
+			component: _5704d5e4,
+			name: "search"
+		},
+		{
+			path: "/extension",
+			component: _bb88999a,
+			name: "extension"
+		},
+		{
+			path: "/auth",
+			component: _3acc66e4,
+			name: "auth"
+		},
+		{
+			path: "/mem",
+			component: _3fde96c9,
+			name: "mem",
+			children: [
+				{
+					path: ":id",
+					component: _d257d112,
+					name: "mem-id"
+				},
+				{
+					path: ":id/profile",
+					component: _2ba4258e,
+					name: "mem-id-profile"
+				},
+				{
+					path: ":id/pubs/comments",
+					component: _c067f21c,
+					name: "mem-id-pubs-comments"
+				},
+				{
+					path: ":id/marks/repos",
+					component: _45dba5c6,
+					name: "mem-id-marks-repos"
+				}
+			]
+		},
+		{
+			path: "/score",
+			component: _4932c206,
+			name: "score"
 		},
 		{
 			path: "/site",
@@ -149,51 +219,14 @@ export function createRouter () {
 			]
 		},
 		{
-			path: "/subjects",
-			component: _eff77efa,
-			name: "subjects"
+			path: "/fercard",
+			component: _666ed117,
+			name: "fercard"
 		},
 		{
-			path: "/joinuse",
-			component: _ae36c1de,
-			name: "joinuse"
-		},
-		{
-			path: "/releases",
-			component: _6cd5fe88,
-			name: "releases"
-		},
-		{
-			path: "/score",
-			component: _4932c206,
-			name: "score"
-		},
-		{
-			path: "/mem",
-			component: _3fde96c9,
-			name: "mem",
-			children: [
-				{
-					path: ":id",
-					component: _d257d112,
-					name: "mem-id"
-				},
-				{
-					path: ":id/profile",
-					component: _2ba4258e,
-					name: "mem-id-profile"
-				},
-				{
-					path: ":id/pubs/comments",
-					component: _c067f21c,
-					name: "mem-id-pubs-comments"
-				},
-				{
-					path: ":id/marks/repos",
-					component: _45dba5c6,
-					name: "mem-id-marks-repos"
-				}
-			]
+			path: "/test",
+			component: _bdd96e64,
+			name: "test"
 		},
 		{
 			path: "/notifications",
@@ -201,14 +234,19 @@ export function createRouter () {
 			name: "notifications"
 		},
 		{
-			path: "/auth",
-			component: _3acc66e4,
-			name: "auth"
+			path: "/releases",
+			component: _6cd5fe88,
+			name: "releases"
 		},
 		{
-			path: "/extension",
-			component: _bb88999a,
-			name: "extension"
+			path: "/rank",
+			component: _169e1930,
+			name: "rank"
+		},
+		{
+			path: "/joinuse",
+			component: _ae36c1de,
+			name: "joinuse"
 		},
 		{
 			path: "/webker",
@@ -221,41 +259,9 @@ export function createRouter () {
 			name: "topics"
 		},
 		{
-			path: "/admin",
-			component: _68ca3f7a,
-			name: "admin",
-			children: [
-				{
-					path: "site/webkerapply",
-					component: _ce6802c4,
-					name: "admin-site-webkerapply"
-				},
-				{
-					path: "pub/comments",
-					component: _2f924a7c,
-					name: "admin-pub-comments"
-				},
-				{
-					path: "mem/mems",
-					component: _3860af98,
-					name: "admin-mem-mems"
-				},
-				{
-					path: "pub/submits",
-					component: _a17ae506,
-					name: "admin-pub-submits"
-				}
-			]
-		},
-		{
-			path: "/rank",
-			component: _169e1930,
-			name: "rank"
-		},
-		{
-			path: "/search",
-			component: _5704d5e4,
-			name: "search"
+			path: "/dayfront",
+			component: _695fce6e,
+			name: "dayfront"
 		},
 		{
 			path: "/topic/new",
