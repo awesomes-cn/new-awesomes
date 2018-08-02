@@ -1,8 +1,10 @@
 <template>
   <div class="dayfront-container">
     <div class="top-box">
-      <h1>前端<span>8</span>点半</h1>
+      <h1>前端早<span>8</span>点</h1>
       <h3 class="slogan">每天<span class="color-1">3分钟</span> = 打牢<span class="color-2">基础</span> + 扩展<span class="color-3">视野</span></h3>
+    
+      <img src="../assets/img/dpr.png" style="width: 450px" />
     </div>
 
     <div class="body-box box-1">
@@ -12,7 +14,7 @@
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-bookmark"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path></svg>
         <span>每天忙着敲代码，基础知识永远不想花时间去看</span>
       </div>
-      <p>我们每天上午 8 点半准时为你推送前端基础知识点，只需 3 分钟就能在地铁上学习到，而且能帮你养成一个持续学习的好习惯</p>
+      <p>我们每天上午 8 点准时为你推送前端基础知识点，只需 3 分钟就能在地铁上学习到，而且能帮你养成一个持续学习的好习惯</p>
       
       <div  class="alert alert-warning">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-bookmark"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path></svg>
