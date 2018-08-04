@@ -35,17 +35,25 @@
                 div
                   span 官方 QQ 群
                   strong 「669525022」
-              a.item-box.link-fercard(href="/fercard")
-                img(src="../assets/img/fercard-logo.png")
+              
+              a.item-box.link-dayfront(href="/dayfront")
+                img(src="../assets/img/weixin-applet.jpg")
                 div
-                  div.name Front End Repo Card
-                  div(style="color: #979797") 随机推荐优秀前端框架卡片
+                  h5.name 前端早8点
+                  div(style="color: #979797") 每天上午8点准时推送一则小知识点
+                  div(style="color: #979797") 夯实基础 + 开拓视野
+              
               div.item-box
                 h5 大家在关注
                 div.item-inner
                   home-actions
               // div.item-box
               //   adsense(ikey="alone")
+              a.item-box.link-fercard(href="/fercard")
+                img(src="../assets/img/fercard-logo.png")
+                div
+                  div.name Front End Repo Card
+                  div(style="color: #979797") 随机推荐优秀前端框架卡片
               div.item-box.item-box-rss
                 div.item-inner
                   template(v-if="substatus === 'normal'")
@@ -344,6 +352,17 @@
           .name {
             font-weight: bold;
             font-size: 15px;
+          }
+        }
+        &.link-dayfront {
+          display: flex;
+          padding: 20px;
+          flex-direction: column;
+          align-items: center;
+          text-align: center;
+          img {
+            width: 100%;
+            max-width: 160px;
           }
         }
 

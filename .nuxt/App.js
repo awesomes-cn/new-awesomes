@@ -5,7 +5,7 @@ import '../node_modules/_bootstrap@4.1.1@bootstrap/dist/css/bootstrap.css'
 
 import '../node_modules/_prismjs@1.15.0@prismjs/themes/prism.css'
 
-import '../node_modules/_animate.css@3.6.1@animate.css/animate.css'
+import '../node_modules/_animate.css@3.7.0@animate.css/animate.css'
 
 import '../assets/css/main.css'
 
