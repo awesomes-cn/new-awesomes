@@ -15,7 +15,9 @@
             nuxt-link(to="/subjects") 专题  
             // a(href="http://news.awesomes.cn") 情报局
             nuxt-link(to="/releases" ) 新版发布
-            nuxt-link(to="/rank" ) 前端TOP100
+            nuxt-link(to="/rank" ) TOP100
+            a(href="http://zao.awesomes.cn" class="zao-link" title="前端早8点") 
+              span 早
             
 
         div.right
@@ -275,6 +277,20 @@
 
   .show-small {
     display: none;
+  }
+
+  .zao-link {
+    span {
+      border-radius: 100%;
+      width: 28px;
+      height: 28px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #2196F3;
+      color: #FFF;
+      box-shadow: 0px 0px 10px #dfe5e8;
+    }
   }
 
   @media (max-width: 1000px) {
