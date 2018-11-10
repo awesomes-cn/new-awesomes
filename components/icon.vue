@@ -24,6 +24,7 @@
     vertical-align: middle;
     span {
       display: inline-block;
+      line-height: 0;
     }
 
     svg {

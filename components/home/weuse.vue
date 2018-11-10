@@ -25,20 +25,26 @@
 <script>
   export default {
     props: ['datalist'],
-    computed: {
-      mem: function () {
-        if (this.datalist) {
-          let _mem = this.datalist[parseInt(Math.random() * 4)]
-          let _opers = []
-          for (let i = 0; i < 5; i++) {
-            let _index = parseInt(Math.random() * _mem.opers.length)
-            _opers.push(_mem.opers.splice(_index, 1)[0])
-          }
-          _mem.opers = _opers
-          return _mem
-        }
-        return null
+    data () {
+      return {
+        mem: null
       }
+    },
+    methods: {
+      changeMem: function () {
+        let memIndex = parseInt(Math.random() * 4)
+        let _mem = this.datalist[memIndex]
+        let _opers = []
+        for (let i = 0; i < 5; i++) {
+          let _index = parseInt(Math.random() * _mem.opers.length)
+          _opers.push(_mem.opers.splice(_index, 1)[0])
+        }
+        _mem.opers = _opers
+        this.mem = _mem
+      }
+    },
+    mounted () {
+      this.changeMem()
     }
   }
 </script>

@@ -30,11 +30,16 @@
                 div.item-inner
                   home-weuse(:datalist="homeData.weuses")
               
-              a.item-box.link-qqs(href="//shang.qq.com/wpa/qunwpa?idkey=699c9d6d8abb0351671211a011da67b6a2f54097097482794aff64b68e046914" target="_blank")
-                icon(name="qq")
-                div
-                  span 官方 QQ 群
-                  strong 「669525022」
+              div.item-box
+                div.item-inner(style="display: flex; justify-content: space-around;")
+                  a(href="//shang.qq.com/wpa/qunwpa?idkey=3a856e2b35a9ba765fb11eced2a8818ee501dc2aa142e70eecbbc3745a48d06b" target="_blank")
+                    icon(name="qq" width="15px")
+                      strong 前端光明顶
+                  a(href="//shang.qq.com/wpa/qunwpa?idkey=699c9d6d8abb0351671211a011da67b6a2f54097097482794aff64b68e046914" target="_blank")
+                    icon(name="qq" width="15px")
+                      strong 前端思过崖
+                div.text-center(style="padding-bottom: 10px; color: #AAA") 
+                  div 官方QQ群，任选其一，请勿重复加群
               
               a.item-box.link-dayfront(href="/dayfront")
                 img(src="../assets/img/weixin-applet.jpg")
