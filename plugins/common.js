@@ -3,6 +3,7 @@ import timeago from 'timeago.js'
 var marked = require('marked')
 var Prism = require('prismjs')
 var renderer = new marked.Renderer()
+const config = require('../config')
 
 renderer.code = (code, language) => {
   return '<pre class="language-' + language + '"><code class="hljs language-' + language + '">' +
@@ -20,7 +21,7 @@ Vue.use({
       if (/^http(s)?:\/\//.test(name)) {
         return name
       }
-      let url = `https://awesomes.oss-cn-beijing.aliyuncs.com/${folder}/${name}`
+      let url = `${config.CDN}/${folder}/${name}`
       if (process) {
         url += `?x-oss-process=style/${process}`
       }
