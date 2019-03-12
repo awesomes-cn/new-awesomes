@@ -5,20 +5,23 @@
         h4 登录
         a.close(href="javascript:void(0)" @click="hideLogin()")
           icon(name="close")
-      div.github-login
-        a(href="javascript:void(0)" @click="thirtyLogin('https://api.awesomes.cn/auth/login')")
-          icon(name="github" width="70px")
-      div
-        button.btn.btn-default.sub-btn(type="submit" @click="showEmailLogin = true" v-show="!showEmailLogin") 切换到邮箱登录
-      template(v-if="showEmailLogin")    
-        div.form-group
-          input.form-control(type="text" v-model="uid" placeholder="邮箱" @keyup.enter="submit")
+        div.tips
+          p 用户系统维护中
+          p 预计3月20号恢复
+      // div.github-login
+      //   a(href="javascript:void(0)" @click="thirtyLogin('https://api.awesomes.cn/auth/login')")
+      //     icon(name="github" width="70px")
+      // div
+      //   button.btn.btn-default.sub-btn(type="submit" @click="showEmailLogin = true" v-show="!showEmailLogin") 切换到邮箱登录
+      // template(v-if="showEmailLogin")    
+      //   div.form-group
+      //     input.form-control(type="text" v-model="uid" placeholder="邮箱" @keyup.enter="submit")
 
-        div.form-group
-          input.form-control(type="password" v-model="pwd" placeholder="密码" @keyup.enter="submit")
+      //   div.form-group
+      //     input.form-control(type="password" v-model="pwd" placeholder="密码" @keyup.enter="submit")
 
-        div.form-group
-          button.btn.btn-primary.sub-btn(@click="login" type="submit") 登录
+      //   div.form-group
+      //     button.btn.btn-primary.sub-btn(@click="login" type="submit") 登录
       
 </template>
 
@@ -105,6 +108,11 @@
       text-align: center;
       padding: 20px 0;
       margin-bottom: 20px;
+    }
+
+    .tips {
+      padding: 50px 10px;
+      font-size: 20px;
     }
   }
 </style>

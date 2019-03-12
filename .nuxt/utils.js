@@ -113,7 +113,7 @@ export async function setContext(app, context) {
         return process.client
       },
       isStatic: process.static,
-      isDev: false,
+      isDev: true,
       isHMR: false,
       app,
       store: app.store,
@@ -393,7 +393,7 @@ function tokensToFunction(tokens) {
         continue
       }
 
-      var value = data[token.name]
+      var value = data[token.name || 'pathMatch']
       var segment
 
       if (value == null) {
